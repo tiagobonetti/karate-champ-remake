@@ -3,17 +3,18 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
-namespace Karate_Prototype_Attacking {
+namespace KarateChamp {
     public class MainGame : Game {
 
-        public static IList<BaseCharacter> characterList;
+        public static IList<GameObject> gameObjectList;
         public static KeyboardState previousKeyboardState;
+
+        public static Texture2D[] whiteAnim_Punch = new Texture2D[7];
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         
         Texture2D sprite_WhiteCharacter;
-        Texture2D[] whiteAnim_Punch;
         PlayerCharacter whiteCharacter;
         CpuCharacter redCharacter;
         DEBUG_Collision debugCollision;
@@ -21,16 +22,10 @@ namespace Karate_Prototype_Attacking {
         public MainGame() {
 
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 480;
-            System.Diagnostics.Debug.WriteLine(graphics.PreferredBackBufferWidth + " " + graphics.PreferredBackBufferHeight);
-            System.Diagnostics.Debug.WriteLine(Window.ClientBounds.Width + " " + Window.ClientBounds.Height);
-    //        System.Diagnostics.Debug.WriteLine(GraphicsDevice.Viewport.Width + " " + GraphicsDevice.Viewport.Height);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             debugCollision = new DEBUG_Collision();
-            characterList = new List<BaseCharacter>();
-            
+            gameObjectList = new List<GameObject>();
         }
 
         protected override void Initialize() {
@@ -41,12 +36,11 @@ namespace Karate_Prototype_Attacking {
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            sprite_WhiteCharacter = Content.Load<Texture2D>("Sprites/Main Character/slice14_14");/*
+            sprite_WhiteCharacter = Content.Load<Texture2D>("Sprites/Main Character/White_Idle");
             for(int i = 0; i < whiteAnim_Punch.Length; i++)
-                whiteAnim_Punch[0] = Content.Load<Texture2D>("Sprites/Main Character/slice14_14");*/
-
-            whiteCharacter = new PlayerCharacter(sprite_WhiteCharacter, new Vector2(380, 300), BaseCharacter.Orientation.Right);
-            redCharacter = new CpuCharacter(sprite_WhiteCharacter, new Vector2(420, 300), BaseCharacter.Orientation.Left);
+                whiteAnim_Punch[i] = Content.Load<Texture2D>("Sprites/Main Character/White_PunchShort_" + i);
+            whiteCharacter = new PlayerCharacter(sprite_WhiteCharacter, MainGame.Tag.Player, new Vector2(300, 100), BaseCharacter.Orientation.Right);
+            redCharacter = new CpuCharacter(sprite_WhiteCharacter, MainGame.Tag.Computer, new Vector2(400, 200), BaseCharacter.Orientation.Left);
         }
 
         protected override void UnloadContent() {
@@ -72,9 +66,13 @@ namespace Karate_Prototype_Attacking {
             base.Draw(gameTime);
         }
 
+        public enum Tag {
+            Player,
+            Computer
+        }
+
         void Background() {
 
-            Texture2D sprite = Content.Load<Texture2D>("Sprites/Main Character/slice14_14");
             Texture2D bg = Content.Load<Texture2D>("Sprites/Background/Bg");
             Vector2 bgPos = new Vector2(graphics.PreferredBackBufferWidth * 0.5f, graphics.PreferredBackBufferWidth * 0.5f - 150);
 

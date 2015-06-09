@@ -9,9 +9,6 @@ using System.Text;
 namespace Karate_Prototype_Attacking {
     public class BaseCharacter {
 
-        public float speed_Walk = 150f;
-        public float speed_Jump = 350f;
-        public float gravityPull = 12f;
         public Vector2 position;
         public CollisionBox attackCollision;
         public CollisionBox bodyCollision;
@@ -19,7 +16,6 @@ namespace Karate_Prototype_Attacking {
         public Orientation orientation;
 
         protected Texture2D sprite;
-        protected Vector2 velocity = Vector2.Zero;
 
         public enum Type {
             White,
@@ -31,16 +27,9 @@ namespace Karate_Prototype_Attacking {
             Right
         }
 
-        protected SpriteEffects FlipWithOrientation() {
-            
-            if (orientation == Orientation.Left)
-                return SpriteEffects.FlipHorizontally;
-            else
-                return SpriteEffects.None;
-        }
-
-        protected void BaseUpdate() {
+        protected void BaseUpdate(GameTime gameTime) {
             UpdateCollision();
+            CheckIfAttackHit();
         }
 
         void UpdateCollision() {
@@ -58,7 +47,11 @@ namespace Karate_Prototype_Attacking {
         public void Attack() {
 
             attackCollision = new CollisionBox(this, new Vector2(position.X + 20, position.Y - 30), new Vector2(30, 15));
+            System.Diagnostics.Debug.WriteLine("Attack");
             DEBUG_Collision.p1AttackCollision = attackCollision;
+        }
+
+        void CheckIfAttackHit() {
 
             BaseCharacter characterHit;
             if (attackCollision != null) {
@@ -70,34 +63,45 @@ namespace Karate_Prototype_Attacking {
 
         void Hit(BaseCharacter character) {
             System.Diagnostics.Debug.WriteLine("Hit");
+            attackCollision = null;
         }
-
 
         public void TakeDamage() {
 
         }
 
-        protected bool IsGrounded() {
+        float elapsedTime = 0;
+        float interval = 0.3f;
+        int i = 1;
 
-            float floor = 330;
-            float characterFeet = position.Y + sprite.Height;
+        void Animate(GameTime gameTime) {
 
-            if (characterFeet >= floor)
-                return true;
-            else
-                return false;
-        }
-
-        protected void ApplyGravity() {
-
-            float floor = 330;
-
-            if (IsGrounded()) {
-                velocity.Y = 0f;
-                position.Y = floor - sprite.Height;
+            if (elapsedTime < interval) {
+                elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-            else
-                velocity.Y += gravityPull;
+            else {
+                if (i < 4)
+                    i++;
+                else
+                    i = 1;
+           //     sprite = content.Load<Texture2D>("Sprite/balloon-" + i);
+                elapsedTime = 0;
+            }
+
+            /*
+            protected Point frameSize = new Point(50, 54);
+            protected Point currentFrame = new Point(0, 0);
+            protected Point sheetSize = new Point(12, 22);
+
+            protected Rectangle GetSpriteRect() {
+
+                return new Rectangle(frameSize.X * currentFrame.X, frameSize.Y * currentFrame.Y, frameSize.X, frameSize.Y);
+            }
+
+            protected Vector2 GetPosition() {
+
+                return new Vector2(150, 150);
+            }*/
         }
     }
 }

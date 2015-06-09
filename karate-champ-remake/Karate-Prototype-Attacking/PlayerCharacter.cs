@@ -21,8 +21,7 @@ namespace Karate_Prototype_Attacking {
 
         public void Update(GameTime gameTime) {
             Control(gameTime);
-            ApplyGravity();
-            BaseUpdate();
+            BaseUpdate(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch) {
@@ -30,40 +29,17 @@ namespace Karate_Prototype_Attacking {
             Vector2 origin = new Vector2(sprite.Width * 0.5f, sprite.Height * 0.5f);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
-            spriteBatch.Draw(sprite, position, null, null, origin, 0f, Vector2.One * 1.5f, Color.White, FlipWithOrientation(), 0f);
+      //      spriteBatch.Draw(sprite, GetPosition(), GetSpriteRect(), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(sprite, position, null, null, origin, 0f, Vector2.One * 1.5f, Color.White, SpriteEffects.None, 0f);
             spriteBatch.End();
         }
 
         void Control(GameTime gameTime) {
 
-            if (IsGrounded()) {
-                if (Keyboard.GetState().IsKeyDown(Keys.Right)) {
-                    Attack();
-                }
+            if (MainGame.previousKeyboardState.IsKeyDown(Keys.Right) != Keyboard.GetState().IsKeyDown(Keys.Right) && 
+                Keyboard.GetState().IsKeyDown(Keys.Right)) {
+                Attack();
             }
-
-            if (IsGrounded()) {
-                if (Keyboard.GetState().IsKeyDown(Keys.A)) {
-                    orientation = Orientation.Left;
-                    velocity.X = -speed_Walk;
-                }
-                else if (Keyboard.GetState().IsKeyDown(Keys.D)) {
-                    orientation = Orientation.Right;
-                    velocity.X = speed_Walk;
-                }
-                else {
-                    velocity.X = 0f;
-                }
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.W)) {
-                if (IsGrounded()) {
-                    position.Y -= 2f;
-                    velocity.Y = -speed_Jump;
-                }
-            }
-
-            position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
     }
 }

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karate-Prototype-Movement",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karate-Prototype-Attacking", "Karate-Prototype-Attacking\Karate-Prototype-Attacking.csproj", "{8C1DF3AB-F336-48BA-85C7-17DB4BAA6769}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KarateChamp", "KarateChamp\KarateChamp.csproj", "{70026E16-7551-453A-9FD2-9CC349E436F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -21,6 +23,10 @@ Global
 		{8C1DF3AB-F336-48BA-85C7-17DB4BAA6769}.Debug|x86.Build.0 = Debug|x86
 		{8C1DF3AB-F336-48BA-85C7-17DB4BAA6769}.Release|x86.ActiveCfg = Release|x86
 		{8C1DF3AB-F336-48BA-85C7-17DB4BAA6769}.Release|x86.Build.0 = Release|x86
+		{70026E16-7551-453A-9FD2-9CC349E436F4}.Debug|x86.ActiveCfg = Debug|x86
+		{70026E16-7551-453A-9FD2-9CC349E436F4}.Debug|x86.Build.0 = Debug|x86
+		{70026E16-7551-453A-9FD2-9CC349E436F4}.Release|x86.ActiveCfg = Release|x86
+		{70026E16-7551-453A-9FD2-9CC349E436F4}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
