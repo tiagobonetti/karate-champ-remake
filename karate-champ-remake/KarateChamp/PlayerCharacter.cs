@@ -9,8 +9,6 @@ using System.Text;
 namespace KarateChamp {
     class PlayerCharacter : BaseCharacter {
 
-        Animator animator = new Animator();
-
         public PlayerCharacter(Texture2D[] spriteList, MainGame.Tag tag, Vector2 position, Orientation orientation) {
 
             this.spriteList = spriteList;
@@ -29,7 +27,6 @@ namespace KarateChamp {
             Control(gameTime);
             ApplyGravity();
             BaseUpdate(gameTime);
-            animator.Animate(this, spriteList, 0.15f, gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch) {
@@ -44,10 +41,11 @@ namespace KarateChamp {
         void Control(GameTime gameTime) {
 
             if (IsGrounded()) {
-                if (MainGame.previousKeyboardState.IsKeyDown(Keys.Right) != Keyboard.GetState().IsKeyDown(Keys.Right)&& 
-                    Keyboard.GetState().IsKeyDown(Keys.Right)) {
-                    
-                    Attack(gameTime);
+                if (Keyboard.GetState().IsKeyDown(Keys.Right)) {
+                    HoldAttack(gameTime);
+                    if (MainGame.previousKeyboardState.IsKeyDown(Keys.Right) != Keyboard.GetState().IsKeyDown(Keys.Right)) {
+                        Attack(gameTime);
+                    }
                 }
             }
 
@@ -69,6 +67,12 @@ namespace KarateChamp {
                 if (IsGrounded()) {
                     position.Y -= 2f;
                     velocity.Y = -speed_Jump;
+                    JumpForward();
+                }
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Up)) {
+                if (IsGrounded()) {
+                    JumpForward();
                 }
             }
 
