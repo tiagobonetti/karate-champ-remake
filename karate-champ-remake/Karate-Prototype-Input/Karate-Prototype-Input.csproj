@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>773d8dcf-6a25-407d-9ce5-4c309dcf663e</ProjectGuid>
+    <ProjectGuid>{E3A58142-2D26-44E4-9EFE-87FBF35DFED2}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Karate_Prototype_Input</RootNamespace>
-    <AssemblyName>Karate_Prototype_Input</AssemblyName>
+    <AssemblyName>Karate-Prototype-Input</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
     <MonoGameContentBuilderExe>
@@ -38,7 +38,8 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Game1.cs" />
+    <Compile Include="Input.cs" />
+    <Compile Include="MainGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -54,6 +55,9 @@
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\Arial20.xnb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karate-Prototype-Movement", "Karate-Prototype-Movement\Karate-Prototype-Movement.csproj", "{A3E53531-7221-4E14-8C92-C54AF28B0253}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karate-Prototype-Attacking", "Karate-Prototype-Attacking\Karate-Prototype-Attacking.csproj", "{8C1DF3AB-F336-48BA-85C7-17DB4BAA6769}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KarateChamp", "KarateChamp\KarateChamp.csproj", "{70026E16-7551-453A-9FD2-9CC349E436F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karate-Prototype-Input", "Karate-Prototype-Input\Karate-Prototype-Input.csproj", "{E3A58142-2D26-44E4-9EFE-87FBF35DFED2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{70026E16-7551-453A-9FD2-9CC349E436F4}.Debug|x86.Build.0 = Debug|x86
 		{70026E16-7551-453A-9FD2-9CC349E436F4}.Release|x86.ActiveCfg = Release|x86
 		{70026E16-7551-453A-9FD2-9CC349E436F4}.Release|x86.Build.0 = Release|x86
+		{E3A58142-2D26-44E4-9EFE-87FBF35DFED2}.Debug|x86.ActiveCfg = Debug|x86
+		{E3A58142-2D26-44E4-9EFE-87FBF35DFED2}.Debug|x86.Build.0 = Debug|x86
+		{E3A58142-2D26-44E4-9EFE-87FBF35DFED2}.Release|x86.ActiveCfg = Release|x86
+		{E3A58142-2D26-44E4-9EFE-87FBF35DFED2}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
