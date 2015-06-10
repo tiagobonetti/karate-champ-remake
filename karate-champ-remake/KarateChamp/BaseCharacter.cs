@@ -12,41 +12,50 @@ namespace KarateChamp {
         public float speed_Walk = 150f;
         public float speed_Jump = 350f;
         public float gravityPull = 12f;
-        
+        public State state;
         public CollisionBox attackCollision;
-        public Type type;
 
         protected Vector2 velocity = Vector2.Zero;
+        
 
         float elapsedTime = 0;
         float interval = 0.125f;
         int i = 0;
 
-        public enum Type {
-            White,
-            Red
+        public enum State{
+
+            Idle,
+            Walking,
+            PunchShort,
+            JumpForward,
+        }
+
+        void StateMachine() {
+
+            switch (state) {
+                case State.Idle:
+                    break;
+                case State.Walking:
+                    break;
+                case State.PunchShort:
+                    spriteList = MainGame.whiteAnim_PunchShort;
+                    break;
+                case State.JumpForward:
+                    break;
+            }
         }
 
         protected void BaseUpdate(GameTime gameTime) {
-            UpdateCollision();
+
+            StateMachine();
+            UpdateCollisionPosition();
             CheckIfAttackHit(gameTime);
-        }
-
-        void UpdateCollision() {
-
-            if (orientation == Orientation.Right) {
-                collision.rect.X = (int)position.X - 17;
-                collision.rect.Y = (int)position.Y - 36;
-            }
-            else {
-                collision.rect.X = (int)position.X;
-                collision.rect.Y = (int)position.Y - 36;
-            }
         }
 
         public void Attack(GameTime gameTime) {
 
             attackCollision = new CollisionBox(this, new Vector2(position.X + 20, position.Y - 30), new Vector2(30, 15));
+            state = State.PunchShort;
 
             System.Diagnostics.Debug.WriteLine("Attack");
             DEBUG_Collision.p1AttackCollision = attackCollision;
@@ -66,7 +75,6 @@ namespace KarateChamp {
         void Hit(GameObject obj) {
             System.Diagnostics.Debug.WriteLine("Hit");
         }
-
 
         public void TakeDamage() {
 

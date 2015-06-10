@@ -9,7 +9,9 @@ namespace KarateChamp {
         public static IList<GameObject> gameObjectList;
         public static KeyboardState previousKeyboardState;
 
-        public static Texture2D[] whiteAnim_Punch = new Texture2D[7];
+        public static Texture2D[] whiteAnim_Idle = new Texture2D[1];
+        public static Texture2D[] whiteAnim_PunchShort = new Texture2D[7];
+        public static Texture2D[] whiteAnim_JumpForward = new Texture2D[10];
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -36,11 +38,15 @@ namespace KarateChamp {
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            sprite_WhiteCharacter = Content.Load<Texture2D>("Sprites/Main Character/White_Idle");
-            for(int i = 0; i < whiteAnim_Punch.Length; i++)
-                whiteAnim_Punch[i] = Content.Load<Texture2D>("Sprites/Main Character/White_PunchShort_" + i);
-            whiteCharacter = new PlayerCharacter(sprite_WhiteCharacter, MainGame.Tag.Player, new Vector2(300, 100), BaseCharacter.Orientation.Right);
-            redCharacter = new CpuCharacter(sprite_WhiteCharacter, MainGame.Tag.Computer, new Vector2(400, 200), BaseCharacter.Orientation.Left);
+            for (int i = 0; i < whiteAnim_Idle.Length; i++)
+                whiteAnim_Idle[i] = Content.Load<Texture2D>("Sprites/Main Character/White_Idle");
+            for (int i = 0; i < whiteAnim_PunchShort.Length; i++)
+                whiteAnim_PunchShort[i] = Content.Load<Texture2D>("Sprites/Main Character/White_PunchShort_" + i);
+            for (int i = 0; i < whiteAnim_JumpForward.Length; i++)
+                whiteAnim_JumpForward[i] = Content.Load<Texture2D>("Sprites/Main Character/White_JumpForward_" + i);
+
+            whiteCharacter = new PlayerCharacter(whiteAnim_Idle, MainGame.Tag.Player, new Vector2(300, 100), BaseCharacter.Orientation.Right);
+            redCharacter = new CpuCharacter(whiteAnim_Idle, MainGame.Tag.Computer, new Vector2(400, 200), BaseCharacter.Orientation.Left);
         }
 
         protected override void UnloadContent() {

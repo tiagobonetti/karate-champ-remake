@@ -8,27 +8,27 @@ using System.Text;
 namespace KarateChamp {
     class Animator {
 
+        bool play = true;
         float elapsedTime = 0;
-        float interval = 0.125f;
-        int i = 0;
+        float length = 0.125f;
+        int i = -1;
 
-        public Animator(float length) {
-            interval = length;
-        }
+        public void Animate (GameObject gameObject, Texture2D[] spriteList, float length, GameTime gameTime) {
 
-        Texture2D Animate (GameObject gameObject, Texture2D[] spriteList, GameTime gameTime) {
+            if (play) {
+                this.length = length;
 
-            if (elapsedTime < interval) {
-                elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (elapsedTime < length) {
+                    elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                }
+                else {
+                    i++;
+                    if (i >= spriteList.Length)
+                        i = 0;
+                    elapsedTime = 0;
+                    gameObject.sprite = spriteList[i];
+                }
             }
-            else {
-                i++;
-                if (i >= spriteList.Length)
-                    i = 1;
-                elapsedTime = 0;
-                return spriteList[i];
-            }
-            return null;
         }
     }
 }

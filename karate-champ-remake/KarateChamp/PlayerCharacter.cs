@@ -9,13 +9,15 @@ using System.Text;
 namespace KarateChamp {
     class PlayerCharacter : BaseCharacter {
 
-        public PlayerCharacter(Texture2D sprite, MainGame.Tag tag, Vector2 position, Orientation orientation) {
+        Animator animator = new Animator();
 
-            this.sprite = sprite;
+        public PlayerCharacter(Texture2D[] spriteList, MainGame.Tag tag, Vector2 position, Orientation orientation) {
+
+            this.spriteList = spriteList;
+            this.sprite = spriteList[0];
             this.tag = tag;
             this.position = position;
             this.orientation = orientation;
-            this.type = BaseCharacter.Type.White;
             collision = new CollisionBox(this, position, new Vector2(sprite.Width - 15, sprite.Height + 25));
             
             DEBUG_Collision.bodyCollisionList.Add(collision);
@@ -23,9 +25,11 @@ namespace KarateChamp {
         }
 
         public void Update(GameTime gameTime) {
+
             Control(gameTime);
             ApplyGravity();
             BaseUpdate(gameTime);
+            animator.Animate(this, spriteList, 0.15f, gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch) {

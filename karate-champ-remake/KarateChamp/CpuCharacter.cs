@@ -9,13 +9,13 @@ using System.Text;
 namespace KarateChamp {
     class CpuCharacter : BaseCharacter {
 
-        public CpuCharacter(Texture2D sprite, MainGame.Tag tag, Vector2 position, Orientation orientation) {
+        public CpuCharacter(Texture2D[] spriteList, MainGame.Tag tag, Vector2 position, Orientation orientation) {
 
-            this.sprite = sprite;
+            this.spriteList = spriteList;
+            this.sprite = spriteList[0];
             this.tag = tag;
             this.position = position;
             this.orientation = orientation;
-            type = BaseCharacter.Type.Red;
             collision = new CollisionBox(this, position, new Vector2(sprite.Width - 15, sprite.Height + 25));
 
             MainGame.gameObjectList.Add(this);

@@ -255,34 +255,34 @@
     <Content Include="Content\Sprites\Main Character\White_JumpBack_128.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\Main Character\White_JumpForward_108.png">
+    <Content Include="Content\Sprites\Main Character\White_JumpForward_0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\Main Character\White_JumpForward_109.png">
+    <Content Include="Content\Sprites\Main Character\White_JumpForward_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\Main Character\White_JumpForward_110.png">
+    <Content Include="Content\Sprites\Main Character\White_JumpForward_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\Main Character\White_JumpForward_111.png">
+    <Content Include="Content\Sprites\Main Character\White_JumpForward_3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\Main Character\White_JumpForward_112.png">
+    <Content Include="Content\Sprites\Main Character\White_JumpForward_4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\Main Character\White_JumpForward_113.png">
+    <Content Include="Content\Sprites\Main Character\White_JumpForward_5.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\Main Character\White_JumpForward_114.png">
+    <Content Include="Content\Sprites\Main Character\White_JumpForward_6.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\Main Character\White_JumpForward_115.png">
+    <Content Include="Content\Sprites\Main Character\White_JumpForward_7.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\Main Character\White_JumpForward_116.png">
+    <Content Include="Content\Sprites\Main Character\White_JumpForward_8.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\Main Character\White_JumpForward_117.png">
+    <Content Include="Content\Sprites\Main Character\White_JumpForward_9.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\Main Character\White_KickBack_54.png">
