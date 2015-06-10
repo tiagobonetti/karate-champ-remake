@@ -52,26 +52,33 @@ namespace Karate_Prototype_Movement {
                 }
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.W)) {
-                if (isGrounded) {
+            if (isGrounded) {
+                if (Keyboard.GetState().IsKeyDown(Keys.W) && Keyboard.GetState().IsKeyDown(Keys.Down)) {
                     position.Y -= 2f;
                     velocity.Y = -speed_Jump;
+                    velocity.X = speed_Walk;
+                    isGrounded = false;
                 }
+                else
+                    if (Keyboard.GetState().IsKeyDown(Keys.W) && Keyboard.GetState().IsKeyDown(Keys.Up)) {
+                        position.Y -= 2f;
+                        velocity.Y = -speed_Jump;
+                        velocity.X = -speed_Walk;
+                        isGrounded = false;
+                    }
             }
-
-            if (characterFeet >= floor)
-                isGrounded = true;
-            else
-                isGrounded = false;
-
+            else {
+                if (characterFeet >= floor)
+                    isGrounded = true;
+            }
             if (isGrounded) {
                 velocity.Y = 0f;
             }
-
-            if (!isGrounded)
+            else {
                 velocity.Y += gravityPull;
+            }
 
-            position += velocity *(float)gameTime.ElapsedGameTime.TotalSeconds;
+            position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
     }
 }
