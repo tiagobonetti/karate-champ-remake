@@ -17,7 +17,7 @@ namespace KarateChamp {
             this.position = position;
             this.orientation = orientation;
             collision = new CollisionBox(this, position, new Vector2(sprite.Width - 15, sprite.Height + 25));
-            
+
             DEBUG_Collision.bodyCollisionList.Add(collision);
             MainGame.gameObjectList.Add(this);
         }
@@ -42,9 +42,14 @@ namespace KarateChamp {
 
             if (IsGrounded()) {
                 if (Keyboard.GetState().IsKeyDown(Keys.Right)) {
-                    HoldAttack(gameTime);
                     if (MainGame.previousKeyboardState.IsKeyDown(Keys.Right) != Keyboard.GetState().IsKeyDown(Keys.Right)) {
-                        Attack(gameTime);
+                        Attack_PunchShort(gameTime);
+                    }
+                }
+
+                if (Keyboard.GetState().IsKeyDown(Keys.Left)) {
+                    if (MainGame.previousKeyboardState.IsKeyDown(Keys.Left) != Keyboard.GetState().IsKeyDown(Keys.Left)) {
+                        Attack_KickRound(gameTime);
                     }
                 }
             }
@@ -65,14 +70,11 @@ namespace KarateChamp {
 
             if (Keyboard.GetState().IsKeyDown(Keys.W)) {
                 if (IsGrounded()) {
-                    position.Y -= 2f;
-                    velocity.Y = -speed_Jump;
                     JumpForward();
-                }
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.Up)) {
-                if (IsGrounded()) {
-                    JumpForward();
+                    if (sprite == MainGame.white_JumpForward.Sprites[2]) {
+                        position.Y -= 2f;
+                        velocity.Y = -speed_Jump;
+                    }
                 }
             }
 

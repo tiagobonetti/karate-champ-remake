@@ -9,14 +9,14 @@ namespace KarateChamp {
         public static IList<GameObject> gameObjectList;
         public static KeyboardState previousKeyboardState;
 
-        public static Texture2D[] whiteAnim_Idle = new Texture2D[1];
-        public static Texture2D[] whiteAnim_PunchShort = new Texture2D[7];
-        public static Texture2D[] whiteAnim_JumpForward = new Texture2D[10];
+        public static Animation white_Idle;
+        public static Animation white_PunchShort;
+        public static Animation white_JumpForward;
+        public static Animation white_KickRound;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         
-        Texture2D sprite_WhiteCharacter;
         PlayerCharacter whiteCharacter;
         CpuCharacter redCharacter;
         DEBUG_Collision debugCollision;
@@ -38,15 +38,32 @@ namespace KarateChamp {
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            for (int i = 0; i < whiteAnim_Idle.Length; i++)
-                whiteAnim_Idle[i] = Content.Load<Texture2D>("Sprites/Main Character/White_Idle");
-            for (int i = 0; i < whiteAnim_PunchShort.Length; i++)
-                whiteAnim_PunchShort[i] = Content.Load<Texture2D>("Sprites/Main Character/White_PunchShort_" + i);
-            for (int i = 0; i < whiteAnim_JumpForward.Length; i++)
-                whiteAnim_JumpForward[i] = Content.Load<Texture2D>("Sprites/Main Character/White_JumpForward_" + i);
+            Texture2D[] Sprites_White_Idle = new Texture2D[2];
+            for (int i = 0; i < Sprites_White_Idle.Length; i++)
+                Sprites_White_Idle[i] = Content.Load<Texture2D>("Sprites/Main Character/White_Idle");
 
-            whiteCharacter = new PlayerCharacter(whiteAnim_Idle, MainGame.Tag.Player, new Vector2(300, 100), BaseCharacter.Orientation.Right);
-            redCharacter = new CpuCharacter(whiteAnim_Idle, MainGame.Tag.Computer, new Vector2(400, 200), BaseCharacter.Orientation.Left);
+            Texture2D[] Sprites_White_PunchShort = new Texture2D[7];
+            for (int i = 0; i < Sprites_White_PunchShort.Length; i++)
+                Sprites_White_PunchShort[i] = Content.Load<Texture2D>("Sprites/Main Character/White_PunchShort_" + i);
+            
+            Texture2D[] Sprites_White_JumpForward = new Texture2D[10];
+            for (int i = 0; i < Sprites_White_JumpForward.Length; i++)
+                Sprites_White_JumpForward[i] = Content.Load<Texture2D>("Sprites/Main Character/White_JumpForward_" + i);
+            
+            Texture2D[] Sprites_White_KickRound = new Texture2D[10];
+            for (int i = 0; i < Sprites_White_KickRound.Length; i++)
+                Sprites_White_KickRound[i] = Content.Load<Texture2D>("Sprites/Main Character/White_KickRound_" + i);
+
+            Rectangle rect_PunchShort = new Rectangle(25, 25, 30, 15);
+            Rectangle rect_KickRound = new Rectangle(25, 25, 30, 15);
+
+            white_PunchShort = new Animation(Sprites_White_PunchShort, 0.10f, 3, rect_PunchShort);
+            white_KickRound = new Animation(Sprites_White_KickRound, 0.10f, 6, rect_KickRound);
+            white_Idle = new Animation(Sprites_White_Idle, 0.1f);
+            white_JumpForward = new Animation(Sprites_White_JumpForward, 0.13f);
+
+            whiteCharacter = new PlayerCharacter(Sprites_White_Idle, MainGame.Tag.Player, new Vector2(300, 100), BaseCharacter.Orientation.Right);
+            redCharacter = new CpuCharacter(Sprites_White_Idle, MainGame.Tag.Computer, new Vector2(400, 200), BaseCharacter.Orientation.Left);
         }
 
         protected override void UnloadContent() {
@@ -57,7 +74,7 @@ namespace KarateChamp {
                 Exit();
 
             whiteCharacter.Update(gameTime);
-      //      redCharacter.Update(gameTime);
+        //    redCharacter.Update(gameTime);
             base.Update(gameTime);
             previousKeyboardState = Keyboard.GetState();
         }
@@ -67,7 +84,7 @@ namespace KarateChamp {
 
             Background();
             whiteCharacter.Draw(spriteBatch);
-      //      redCharacter.Draw(spriteBatch);
+       //     redCharacter.Draw(spriteBatch);
             debugCollision.Draw(spriteBatch);
             base.Draw(gameTime);
         }

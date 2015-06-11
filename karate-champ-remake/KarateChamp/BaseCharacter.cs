@@ -14,28 +14,28 @@ namespace KarateChamp {
         public float gravityPull = 12f;
         public State state;
         public CollisionBox attackCollision;
-
+        public int testVal = 0;
         protected Vector2 velocity = Vector2.Zero;
 
         Animator animator = new Animator();
 
-        public enum State{
+        public enum State {
 
             Idle,
             Walking,
             PunchShort,
+            KickRound,
             JumpForward,
         }
 
         void AnimatorStateMachine(GameTime gameTime) {
+            System.Diagnostics.Debug.WriteLine(state);
+            animator.Update();
 
-            
-        //    animator.Animate(this, 0.15f, gameTime);
             switch (state) {
                 case State.Idle:
 
-             //       animator.Run(this, MainGame.whiteAnim_Idle, 0.1f, gameTime, 0);
-             //       animator.Play();
+                    animator.PlayLoop(MainGame.white_Idle, this, gameTime);
                     break;
 
                 case State.Walking:
@@ -43,23 +43,34 @@ namespace KarateChamp {
 
                 case State.PunchShort:
 
-                    animator.Run(this, MainGame.whiteAnim_PunchShort, 0.10f, gameTime, 3);
-             //      if (animator.state != Animator.State.Hold)
-                   if (Keyboard.GetState().IsKeyDown(Keys.Right))
-                        animator.Play();
-                   else
-                       animator.RollBack();
-                    if (animator.Finished)
+                    if (Keyboard.GetState().IsKeyDown(Keys.Right))
+                        animator.PlayTo(MainGame.white_PunchShort, this, gameTime);
+                    else if (animator.Stopped())
                         state = State.Idle;
+                    else if (animator.PlayedToFrame)
+                        animator.PlayAfter(MainGame.white_PunchShort, this, gameTime);
+                    else 
+                        animator.RollBack();
+                    break;
+
+                case State.KickRound:
+
+                    if (Keyboard.GetState().IsKeyDown(Keys.Left))
+                        animator.PlayTo(MainGame.white_KickRound, this, gameTime);
+                    else if (animator.Stopped())
+                        state = State.Idle;
+                    else if (animator.PlayedToFrame)
+                        animator.PlayAfter(MainGame.white_KickRound, this, gameTime);
+                    else
+                        animator.RollBack();
                     break;
 
                 case State.JumpForward:
 
-                    animator.Run(this, MainGame.whiteAnim_JumpForward, 0.085f, gameTime, MainGame.whiteAnim_JumpForward.Length - 1);
-                    if (animator.state != Animator.State.Hold)
-                        animator.Play();
-                    if (animator.Finished)
+                    if (animator.Stopped())
                         state = State.Idle;
+                    animator.Play(MainGame.white_JumpForward, this, gameTime);
+                   
                     break;
             }
         }
@@ -71,25 +82,33 @@ namespace KarateChamp {
             CheckIfAttackHit(gameTime);
         }
 
-        public void Attack(GameTime gameTime) {
+        public void Attack_PunchShort(GameTime gameTime) {
 
             attackCollision = new CollisionBox(this, new Vector2(position.X + 20, position.Y - 30), new Vector2(30, 15));
             state = State.PunchShort;
 
-            System.Diagnostics.Debug.WriteLine("Attack");
+            System.Diagnostics.Debug.WriteLine("Punch");
+            DEBUG_Collision.p1AttackCollision = attackCollision;
+        }
+
+        public void Attack_KickRound(GameTime gameTime) {
+
+            attackCollision = new CollisionBox(this, new Vector2(position.X + 20, position.Y - 30), new Vector2(30, 15));
+            state = State.KickRound;
+
+            System.Diagnostics.Debug.WriteLine("Kick");
             DEBUG_Collision.p1AttackCollision = attackCollision;
         }
 
         public void HoldAttack(GameTime gameTime) {
 
-         //   animator.Hold();
-         //   System.Diagnostics.Debug.WriteLine("HOOOOOOOOOOOOOOOOOOOOOOOOOOOLD");
+            //   animator.Hold();
+            //   System.Diagnostics.Debug.WriteLine("HOOOOOOOOOOOOOOOOOOOOOOOOOOOLD");
         }
 
         public void JumpForward() {
 
             state = State.JumpForward;
-            System.Diagnostics.Debug.WriteLine("JUMP FORWARD");
         }
 
         void CheckIfAttackHit(GameTime gameTime) {
@@ -134,7 +153,7 @@ namespace KarateChamp {
                 velocity.Y += gravityPull;
         }
 
-        
+
         protected Point frameSize = new Point(50, 54);
         protected Point currentFrame = new Point(0, 0);
         protected Point sheetSize = new Point(12, 22);

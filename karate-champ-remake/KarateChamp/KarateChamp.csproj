@@ -38,6 +38,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Animation.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Animator.cs" />
     <Compile Include="BaseCharacter.cs" />
@@ -468,34 +469,34 @@
     <Content Include="Content\Sprites\Main Character\White_KickLow_43.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\Main Character\White_KickRound_44.png">
+    <Content Include="Content\Sprites\Main Character\White_KickRound_0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\Main Character\White_KickRound_45.png">
+    <Content Include="Content\Sprites\Main Character\White_KickRound_1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\Main Character\White_KickRound_46.png">
+    <Content Include="Content\Sprites\Main Character\White_KickRound_2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\Main Character\White_KickRound_47.png">
+    <Content Include="Content\Sprites\Main Character\White_KickRound_3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\Main Character\White_KickRound_48.png">
+    <Content Include="Content\Sprites\Main Character\White_KickRound_4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\Main Character\White_KickRound_49.png">
+    <Content Include="Content\Sprites\Main Character\White_KickRound_5.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\Main Character\White_KickRound_50.png">
+    <Content Include="Content\Sprites\Main Character\White_KickRound_6.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\Main Character\White_KickRound_51.png">
+    <Content Include="Content\Sprites\Main Character\White_KickRound_7.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\Main Character\White_KickRound_52.png">
+    <Content Include="Content\Sprites\Main Character\White_KickRound_8.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\Main Character\White_KickRound_53.png">
+    <Content Include="Content\Sprites\Main Character\White_KickRound_9.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Sprites\Main Character\White_LeaveStage_212.png">
