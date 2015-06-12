@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Karate_Prototype_Input {
     public enum Move {
-        WalkRigth,           // LJ: Right          RJ: None
+        WalkRight,           // LJ: Right          RJ: None
         WalkLeft,            // LJ: Left           RJ: None
         FrontKick,           // LJ: None           RJ: Right
         //ReversePunch,      // LJ: None           RJ: Right
@@ -29,7 +29,7 @@ namespace Karate_Prototype_Input {
 
     class Input {
         SpriteFont arial20;
-        Move lastMove;
+        public Move lastMove;
         KeyboardState lastState;
         Tuple<Keys, Keys> lastInputState;
         Dictionary<Tuple<Keys, Keys>, Move> moveDictionary;
@@ -40,7 +40,7 @@ namespace Karate_Prototype_Input {
             lastInputState = new Tuple<Keys, Keys>(Keys.None, Keys.None);
             moveDictionary = new Dictionary<Tuple<Keys, Keys>, Move>()
             {
-                { new Tuple<Keys,Keys>(Keys.D,    Keys.None ), Move.WalkRigth          },
+                { new Tuple<Keys,Keys>(Keys.D,    Keys.None ), Move.WalkRight          },
                 { new Tuple<Keys,Keys>(Keys.A,    Keys.None ), Move.WalkLeft           },
                 { new Tuple<Keys,Keys>(Keys.None, Keys.Right), Move.FrontKick          },
                 { new Tuple<Keys,Keys>(Keys.W,    Keys.Down ), Move.ForwardsJump       },
