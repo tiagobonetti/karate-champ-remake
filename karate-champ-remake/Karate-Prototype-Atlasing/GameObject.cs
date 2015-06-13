@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace KarateChamp {
+namespace Karate_Prototype_Atlasing {
     public class GameObject {
 
         public Texture2D sprite;

@@ -8,7 +8,7 @@
     <ProjectGuid>{6D89B02F-AD78-4734-BAB0-AC36EC9DE9AA}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KarateChamp</RootNamespace>
+    <RootNamespace>Karate_Prototype_Atlasing</RootNamespace>
     <AssemblyName>KarateChamp</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>

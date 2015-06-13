@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace KarateChamp {
+namespace Karate_Prototype_Atlasing {
     public class CollisionBox {
 
         public GameObject owner;
@@ -17,7 +17,7 @@ namespace KarateChamp {
             rect = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
         }
 
-        public bool OnCollision(out GameObject objHit) { // Change BaseCharacter to CollisionBox.
+        public bool OnCollision(out GameObject objHit) {
 
             foreach (GameObject obj in MainGame.gameObjectList) {
                 if (rect.Intersects(obj.collision.rect)) {

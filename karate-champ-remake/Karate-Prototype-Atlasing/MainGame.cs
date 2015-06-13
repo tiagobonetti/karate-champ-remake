@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
-namespace KarateChamp {
+namespace Karate_Prototype_Atlasing {
     public class MainGame : Game {
 
         public static IList<GameObject> gameObjectList;

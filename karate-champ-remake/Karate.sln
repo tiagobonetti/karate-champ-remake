@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karate-Prototype-Movement", "Karate-Prototype-Movement\Karate-Prototype-Movement.csproj", "{A3E53531-7221-4E14-8C92-C54AF28B0253}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karate-Prototype-Input", "Karate-Prototype-Input\Karate-Prototype-Input.csproj", "{E3A58142-2D26-44E4-9EFE-87FBF35DFED2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karate-Prototype-Atlasing", "Karate-Prototype-Atlasing\Karate-Prototype-Atlasing.csproj", "{6D89B02F-AD78-4734-BAB0-AC36EC9DE9AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karate-Prototype-Collision", "Karate-Prototype-Collision\Karate-Prototype-Collision.csproj", "{D7FC1D38-90FC-4940-8627-C6A9B0BC9261}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{6D89B02F-AD78-4734-BAB0-AC36EC9DE9AA}.Debug|x86.Build.0 = Debug|x86
 		{6D89B02F-AD78-4734-BAB0-AC36EC9DE9AA}.Release|x86.ActiveCfg = Release|x86
 		{6D89B02F-AD78-4734-BAB0-AC36EC9DE9AA}.Release|x86.Build.0 = Release|x86
+		{D7FC1D38-90FC-4940-8627-C6A9B0BC9261}.Debug|x86.ActiveCfg = Debug|x86
+		{D7FC1D38-90FC-4940-8627-C6A9B0BC9261}.Debug|x86.Build.0 = Debug|x86
+		{D7FC1D38-90FC-4940-8627-C6A9B0BC9261}.Release|x86.ActiveCfg = Release|x86
+		{D7FC1D38-90FC-4940-8627-C6A9B0BC9261}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

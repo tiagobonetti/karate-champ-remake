@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace KarateChamp {
+namespace Karate_Prototype_Atlasing {
     class Animatorator {
 
         //      public int HitFrame { get; private set; }

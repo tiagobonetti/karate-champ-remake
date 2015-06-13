@@ -14,8 +14,6 @@ namespace Karate_Prototype_Movement {
         Texture2D sprite_WhiteCharacter;
         Character whiteCharacter;
 
-        Texture2D sprite_WhiteCharacter2;
-
         public MainGame() {
 
             graphics = new GraphicsDeviceManager(this);
@@ -33,8 +31,6 @@ namespace Karate_Prototype_Movement {
 
             sprite_WhiteCharacter = Content.Load<Texture2D>("Sprites/Main Character/slice14_14");
             whiteCharacter = new Character(sprite_WhiteCharacter, new Vector2(300, 100));
-
-            sprite_WhiteCharacter2 = Content.Load<Texture2D>("KarateChampAligned");
         }
 
         protected override void UnloadContent() {
@@ -51,24 +47,8 @@ namespace Karate_Prototype_Movement {
         protected override void Draw(GameTime gameTime) {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-     //       Background();
-   //         whiteCharacter.Draw(spriteBatch);
-
-            Vector2 origin = new Vector2(sprite_WhiteCharacter2.Width * 0.5f, sprite_WhiteCharacter2.Height * 0.5f);
-            Vector2 offset = new Vector2(96, 96);
-            Vector2 position = new Vector2(350, 200);
-            Rectangle rect = new Rectangle(0, 0, 84, 53);
-            //15 x 22
-            //1248 x 2069
-            //83.2 x 94,04545454545455
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
-            spriteBatch.Draw(sprite_WhiteCharacter2, position, null, rect, Vector2.One, 0f, Vector2.One, Color.White, SpriteEffects.None, 0f);
-            spriteBatch.End();
-
-            Rectangle rectDebug = new Rectangle((int)position.X + rect.X, (int)position.Y + rect.Y, rect.Width, rect.Height);
-            DEBUG_Collision.rectDraw = rectDebug;
-            DEBUG_Collision.Draw(spriteBatch);
-
+            Background();
+            whiteCharacter.Draw(spriteBatch);
 
             base.Draw(gameTime);
         }

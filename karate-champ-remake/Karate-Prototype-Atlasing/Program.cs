@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace KarateChamp {
+namespace Karate_Prototype_Atlasing {
 #if WINDOWS || LINUX
     /// <summary>
     /// The main class.
