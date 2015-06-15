@@ -17,7 +17,7 @@ namespace Karate_Prototype_Atlasing {
         GameObject currentGameObject;
         Animation currentAnimation;
         GameTime gameTime;
-        float elapsedTime = 9999999;
+        float elapsedTime = float.MaxValue;
 
         public Animatorator() {
             FrameIndex = 0;
@@ -42,11 +42,11 @@ namespace Karate_Prototype_Atlasing {
                 switch (state) {
                     case State.Play:
                         FrameIndex = 0;
-                        elapsedTime = 9999999;
+                        elapsedTime = float.MaxValue;
                         break;
                     case State.PlayTo:
                         FrameIndex = 0;
-                        elapsedTime = 9999999;
+                        elapsedTime = float.MaxValue;
                         break;
                     case State.PlayAfter:
                         FrameIndex = 0;
@@ -54,19 +54,19 @@ namespace Karate_Prototype_Atlasing {
                         break;
                     case State.PlayLoop:
                         FrameIndex = 0;
-                        elapsedTime = 9999999;
+                        elapsedTime = float.MaxValue;
                         break;
                     case State.Stop:
                         FrameIndex = 0;
-                        elapsedTime = 9999999;
+                        elapsedTime = float.MaxValue;
                         PlayedToFrame = false;
                         break;
                     case State.Hold:
                         FrameIndex = 0;
-                        elapsedTime = 9999999;
+                        elapsedTime = float.MaxValue;
                         break;
                     case State.RollBack:
-                        elapsedTime = 9999999;
+                        elapsedTime = float.MaxValue;
                         break;
                 }
             }
@@ -218,7 +218,7 @@ namespace Karate_Prototype_Atlasing {
             }
             if (FrameIndex >= currentAnimation.HitFrame) {
                 FrameIndex = currentAnimation.HitFrame;
-                elapsedTime = 9999999;
+                elapsedTime = float.MaxValue;
                 PlayedToFrame = true;
             }
             System.Diagnostics.Debug.WriteLine("PlayUntilHitFrame Index " + FrameIndex);

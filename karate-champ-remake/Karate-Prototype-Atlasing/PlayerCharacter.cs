@@ -58,11 +58,11 @@ namespace Karate_Prototype_Atlasing {
             if (IsGrounded()) {
                 if (Keyboard.GetState().IsKeyDown(Keys.A)) {
                     orientation = Orientation.Left;
-                    velocity.X = -speed_Walk;
+                    velocity.X = -speedWalk;
                 }
                 else if (Keyboard.GetState().IsKeyDown(Keys.D)) {
                     orientation = Orientation.Right;
-                    velocity.X = speed_Walk;
+                    velocity.X = speedWalk;
                 }
                 else {
                     velocity.X = 0f;
@@ -73,7 +73,7 @@ namespace Karate_Prototype_Atlasing {
                 if (IsGrounded()) {
                     JumpForward();
                     position.Y -= 2f;
-                    velocity.Y = -speed_Jump;
+                    velocity.Y = -speedJump;
                 }
             }
 

@@ -9,8 +9,8 @@ using System.Text;
 namespace Karate_Prototype_Atlasing {
     public class BaseCharacter : GameObject {
 
-        public float speed_Walk = 50f;
-        public float speed_Jump = 350f;
+        public float speedWalk = 50f;
+        public float speedJump = 350f;
         public float gravityPull = 12f;
         public State state;
         public CollisionBox attackCollision;

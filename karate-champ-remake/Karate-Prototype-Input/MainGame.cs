@@ -6,13 +6,13 @@ namespace Karate_Prototype_Input {
     public class MainGame : Game {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Input input;
+        BaseInput input;
 
         public MainGame()
             : base() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            input = new Input();
+            input = new BaseInput();
         }
 
         protected override void Initialize() {
