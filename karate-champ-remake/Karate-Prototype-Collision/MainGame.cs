@@ -84,7 +84,7 @@ namespace Karate_Prototype_Collision {
             //  spriteBatch.Draw(sprite, position, null, null, origin, 0f, Vector2.One * 1.5f, Color.White, FlipWithOrientation(), 0f);
             spriteBatch.End();
 
-       //     debugCollision.Draw(spriteBatch);
+            debugCollision.Draw(spriteBatch);
             base.Draw(gameTime);
         }
 

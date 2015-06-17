@@ -17,8 +17,10 @@ namespace Karate_Prototype_Collision {
         public int testVal = 0;
         protected Vector2 velocity = Vector2.Zero;
 
-   //     Animator animator = new Animator();
         Animatorator animatorator = new Animatorator();
+        Animation idle = new Animation(new Point(84, 53 * 0), 0, 0, 0.10f);
+        Attack punchShort;
+        Attack KickRound;
 
         public enum State {
 
@@ -29,42 +31,30 @@ namespace Karate_Prototype_Collision {
             JumpForward,
         }
 
-        void AnimatorStateMachine(GameTime gameTime) {
+        void StateMachine(GameTime gameTime) {
             System.Diagnostics.Debug.WriteLine(state);
-            animatorator.Update();
-
             switch (state) {
                 case State.Idle:
-
-               //     animatorator.PlayLoop(MainGame.white_Idle, this, gameTime);
+                    animatorator.PlayLoop(idle, this, gameTime);
+                    animatorator.Update();
                     break;
 
                 case State.Walking:
                     break;
 
                 case State.PunchShort:
-
-                    CollisionBox collision = new CollisionBox(this, new Vector2(position.X + 20, position.Y - 30), new Vector2(30, 15));
-                    Animation animation = new Animation(new Point(84, 53 * 2), 0, 9, 0.10f);
-                    Attack punchShort = new Attack(collision, animation, 5);
-
                     punchShort.Execute(Keys.Right, gameTime);
+                    if (punchShort.finished)
+                        state = State.Idle;
                     break;
 
                 case State.KickRound:
-
-                    if (Keyboard.GetState().IsKeyDown(Keys.Left))
-                        animatorator.PlayTo(6, MainGame.white_KickRound, this, gameTime);
-                    else if (animatorator.Stopped())
+                    KickRound.Execute(Keys.Left, gameTime);
+                    if (KickRound.finished)
                         state = State.Idle;
-                    else if (animatorator.PlayedToFrame)
-                        animatorator.PlayAfter(6, MainGame.white_KickRound, this, gameTime);
-                    else
-                        animatorator.RollBack();
                     break;
 
                 case State.JumpForward:
-
                     if (animatorator.Stopped())
                         state = State.Idle;
                     animatorator.Play(MainGame.white_JumpForward, this, gameTime);
@@ -75,14 +65,16 @@ namespace Karate_Prototype_Collision {
 
         protected void BaseUpdate(GameTime gameTime) {
 
-            AnimatorStateMachine(gameTime);
+            StateMachine(gameTime);
             UpdateCollisionPosition();
             CheckIfAttackHit(gameTime);
         }
 
         public void Attack_PunchShort(GameTime gameTime) {
 
-            attackCollision = new CollisionBox(this, new Vector2(position.X + 20, position.Y - 30), new Vector2(30, 15));
+            CollisionBox collision = new CollisionBox(this, new Vector2(position.X + 20, position.Y - 30), new Vector2(30, 15));
+            Animation animation = new Animation(new Point(84, 53 * 14), 0, 7, 0.10f);
+            punchShort = new Attack(collision, animation, 3);
             state = State.PunchShort;
 
             System.Diagnostics.Debug.WriteLine("Punch");
@@ -91,7 +83,10 @@ namespace Karate_Prototype_Collision {
 
         public void Attack_KickRound(GameTime gameTime) {
 
-            attackCollision = new CollisionBox(this, new Vector2(position.X + 20, position.Y - 30), new Vector2(30, 15));
+            CollisionBox collision = new CollisionBox(this, new Vector2(position.X + 20, position.Y - 30), new Vector2(30, 15));
+            Animation animation = new Animation(new Point(84, 53 * 4), 0, 10, 0.10f);
+            KickRound = new Attack(collision, animation, 5);
+
             state = State.KickRound;
 
             System.Diagnostics.Debug.WriteLine("Kick");

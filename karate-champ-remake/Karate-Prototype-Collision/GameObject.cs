@@ -18,7 +18,6 @@ namespace Karate_Prototype_Collision {
 
         public GameObject() {
             MainGame.gameObjectList.Add(this);
-            DEBUG_Collision.bodyCollisionList.Add(collision);
         }
 
         public enum Orientation {

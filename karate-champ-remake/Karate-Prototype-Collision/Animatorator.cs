@@ -99,8 +99,8 @@ namespace Karate_Prototype_Collision {
                 case State.RollBack:
                     RollBackAnimation();
                     break;
-                
             }
+            System.Diagnostics.Debug.WriteLine("Animator State " + state);
         }
 
         public void Update() {

@@ -15,7 +15,6 @@ namespace Karate_Prototype_Collision {
         public bool finished { get; private set; }
 
         Animatorator animator = new Animatorator();
-        
 
         public Attack(CollisionBox collision, Animation animation, int hitFrame) {
 
@@ -26,7 +25,7 @@ namespace Karate_Prototype_Collision {
 
         public void Execute(Keys key, GameTime gameTime){
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            if (Keyboard.GetState().IsKeyDown(key))
                 animator.PlayTo(HitFrame, Animation, Collision.owner, gameTime);
             else if (animator.Stopped())
                 finished = true;
@@ -34,6 +33,8 @@ namespace Karate_Prototype_Collision {
                 animator.PlayAfter(HitFrame, Animation, Collision.owner, gameTime);
             else
                 animator.RollBack();
+
+            animator.Update();
         }
     }
 }

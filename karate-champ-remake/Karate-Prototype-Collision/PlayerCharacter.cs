@@ -17,6 +17,7 @@ namespace Karate_Prototype_Collision {
             this.orientation = orientation;
             collision = new CollisionBox(this, position, new Vector2(sprite.Width - 15, sprite.Height + 25));
             animationRect = new Rectangle(0, 0, 84, 53);
+            DEBUG_Collision.bodyCollisionList.Add(collision);
         }
 
         public void Update(GameTime gameTime) {
