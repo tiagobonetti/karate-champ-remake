@@ -20,13 +20,32 @@ namespace KarateChamp {
         Animator animator = new Animator();
 
         public enum State {
-
             Idle,
-            Walking,
-            PunchShort,
-            KickRound,
-            JumpForward,
+            Forward,             // LJ: Front  RJ: None
+            UpperLungePunch,     // LJ: Front  RJ: Up
+            MiddleLungePunch,    // LJ: Front  RJ: Rigth
+            ChangeDirection,     // LJ: Front  RJ: Left
+            Withdraw,            // LJ: Back   RJ: None
+            UpperBlock,          // LJ: Back   RJ: None           Mod: Incoming Upper Attack
+            MiddleBlock,         // LJ: Back   RJ: None           Mod: Incoming Middle Attack
+            UpperPunch,          // LJ: Back   RJ: Up    
+            BackRoundKick,       // LJ: Back   RJ: Right 
+            Jump,                // LJ: Up     RJ: None
+            ForwardSomersault,   // LJ: Up     RJ: Down
+            BackwardSomersault,  // LJ: Up     RJ: Up
+            JumpingSideKick,     // LJ: Up     RJ: Right 
+            JumpingBackKick,     // LJ: Up     RJ: Left 
+            Squat,               // LJ: Down   RJ: None
+            FrontFootSweep,      // LJ: Down   RJ: Down or Right
+            DuckingReversePunch, // LJ: Down   RJ: Up
+            FrontKick,           // LJ: None   RJ: Right
+            MiddleReversePunch,  // LJ: None   RJ: Right          Mod: Close to Opponent
+            LowKick,             // LJ: None   RJ: Down
+            RoundKick,           // LJ: None   RJ: Up 
+            BackKick,            // LJ: None   RJ: Left 
         }
+
+
 
         void AnimatorStateMachine(GameTime gameTime) {
             System.Diagnostics.Debug.WriteLine(state);
@@ -38,10 +57,10 @@ namespace KarateChamp {
                     animator.PlayLoop(MainGame.white_Idle, this, gameTime);
                     break;
 
-                case State.Walking:
+                case State.Forward:
                     break;
 
-                case State.PunchShort:
+                case State.MiddleReversePunch:
 
                     if (Keyboard.GetState().IsKeyDown(Keys.Right))
                         animator.PlayTo(MainGame.white_PunchShort, this, gameTime);
@@ -49,11 +68,11 @@ namespace KarateChamp {
                         state = State.Idle;
                     else if (animator.PlayedToFrame)
                         animator.PlayAfter(MainGame.white_PunchShort, this, gameTime);
-                    else 
+                    else
                         animator.RollBack();
                     break;
 
-                case State.KickRound:
+                case State.RoundKick:
 
                     if (Keyboard.GetState().IsKeyDown(Keys.Left))
                         animator.PlayTo(MainGame.white_KickRound, this, gameTime);
@@ -65,12 +84,12 @@ namespace KarateChamp {
                         animator.RollBack();
                     break;
 
-                case State.JumpForward:
+                case State.ForwardSomersault:
 
                     if (animator.Stopped())
                         state = State.Idle;
                     animator.Play(MainGame.white_JumpForward, this, gameTime);
-                   
+
                     break;
             }
         }
@@ -85,7 +104,7 @@ namespace KarateChamp {
         public void Attack_PunchShort(GameTime gameTime) {
 
             attackCollision = new CollisionBox(this, new Vector2(position.X + 20, position.Y - 30), new Vector2(30, 15));
-            state = State.PunchShort;
+            state = State.MiddleReversePunch;
 
             System.Diagnostics.Debug.WriteLine("Punch");
             DEBUG_Collision.p1AttackCollision = attackCollision;
@@ -94,7 +113,7 @@ namespace KarateChamp {
         public void Attack_KickRound(GameTime gameTime) {
 
             attackCollision = new CollisionBox(this, new Vector2(position.X + 20, position.Y - 30), new Vector2(30, 15));
-            state = State.KickRound;
+            state = State.RoundKick;
 
             System.Diagnostics.Debug.WriteLine("Kick");
             DEBUG_Collision.p1AttackCollision = attackCollision;
@@ -108,7 +127,7 @@ namespace KarateChamp {
 
         public void JumpForward() {
 
-            state = State.JumpForward;
+            state = State.ForwardSomersault;
         }
 
         void CheckIfAttackHit(GameTime gameTime) {
