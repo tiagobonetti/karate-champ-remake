@@ -38,19 +38,19 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Animation.cs" />
+    <Compile Include="Animation\BaseAnimation.cs" />
     <Compile Include="Input\BaseInput.cs" />
     <Compile Include="GameObject.cs" />
-    <Compile Include="Animator.cs" />
-    <Compile Include="BaseCharacter.cs" />
-    <Compile Include="CollisionBox.cs" />
-    <Compile Include="CpuCharacter.cs" />
-    <Compile Include="DEBUG_Collision.cs" />
+    <Compile Include="Animation\Animator.cs" />
+    <Compile Include="Character\BaseCharacter.cs" />
+    <Compile Include="Collision\CollisionBox.cs" />
+    <Compile Include="Character\CpuCharacter.cs" />
+    <Compile Include="Collision\DEBUG_Collision.cs" />
     <Compile Include="Input\InputDictionary.cs" />
     <Compile Include="Input\KeyboardInput.cs" />
     <Compile Include="Input\Extensions.cs" />
     <Compile Include="MainGame.cs" />
-    <Compile Include="PlayerCharacter.cs" />
+    <Compile Include="Character\PlayerCharacter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

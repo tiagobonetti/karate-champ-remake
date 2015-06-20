@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using KarateChamp.Collision;
 
 namespace KarateChamp {
     public class GameObject {

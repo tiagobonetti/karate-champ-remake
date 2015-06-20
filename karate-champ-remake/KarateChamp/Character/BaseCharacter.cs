@@ -5,8 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using KarateChamp.Animation;
+using KarateChamp.Collision;
+using KarateChamp.Character;
 
-namespace KarateChamp {
+namespace KarateChamp.Character {
     public class BaseCharacter : GameObject {
 
         public float speed_Walk = 50f;

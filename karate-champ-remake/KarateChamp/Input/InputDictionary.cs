@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using KarateChamp.Character;
+
 
 namespace KarateChamp.Input {
     public class InputDictionary : Dictionary<Tuple<BaseInput.State, BaseInput.State, BaseInput.Modifier>, BaseCharacter.State> {
