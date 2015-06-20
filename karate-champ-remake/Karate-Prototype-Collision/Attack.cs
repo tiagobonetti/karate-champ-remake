@@ -34,6 +34,9 @@ namespace Karate_Prototype_Collision {
             else
                 animator.RollBack();
 
+            if (animator.PlayedToFrame) {
+                DEBUG_Collision.p1AttackCollision = Collision;
+            }
             animator.Update();
         }
     }

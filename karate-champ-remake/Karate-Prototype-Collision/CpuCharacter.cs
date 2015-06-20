@@ -11,11 +11,11 @@ namespace Karate_Prototype_Collision {
 
         public CpuCharacter(Texture2D[] spriteList, MainGame.Tag tag, Vector2 position, Orientation orientation) {
 
-            this.sprite = spriteList[0];
+            this.spriteSheet = spriteList[0];
             this.tag = tag;
             this.position = position;
             this.orientation = orientation;
-            collision = new CollisionBox(this, position, new Vector2(sprite.Width - 15, sprite.Height + 25));
+            collision = new CollisionBox(this, position, new Vector2(spriteSheet.Width - 15, spriteSheet.Height + 25));
             DEBUG_Collision.bodyCollisionList.Add(collision);
         }
 
@@ -28,10 +28,10 @@ namespace Karate_Prototype_Collision {
 
         public void Draw(SpriteBatch spriteBatch) {
 
-            Vector2 origin = new Vector2(sprite.Width * 0.5f, sprite.Height * 0.5f);
+            Vector2 origin = new Vector2(spriteSheet.Width * 0.5f, spriteSheet.Height * 0.5f);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
-            spriteBatch.Draw(sprite, position, null, null, origin, 0f, Vector2.One * 1.5f, Color.Red, FlipWithOrientation(), 0f);
+            spriteBatch.Draw(spriteSheet, position, null, null, origin, 0f, Vector2.One * 1.5f, Color.Red, FlipWithOrientation(), 0f);
             spriteBatch.End();
         }
 
