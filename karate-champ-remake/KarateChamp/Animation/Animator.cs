@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace KarateChamp {
+namespace KarateChamp.Animation {
     class Animator {
 
   //      public int HitFrame { get; private set; }
@@ -15,7 +15,7 @@ namespace KarateChamp {
         public State state = State.Stop;
         
         GameObject currentGameObject;
-        Animation currentAnimation;
+        BaseAnimation currentAnimation;
         GameTime gameTime;
         float elapsedTime = 9999999;
 
@@ -116,7 +116,7 @@ namespace KarateChamp {
             StateMachine();
         }
         */
-        public void Play(Animation animation, GameObject gameObject, GameTime gameTime) {
+        public void Play(BaseAnimation animation, GameObject gameObject, GameTime gameTime) {
 
             currentGameObject = gameObject;
             currentAnimation = animation;
@@ -124,7 +124,7 @@ namespace KarateChamp {
             EnterState(State.Play);
         }
 
-        public void PlayTo(Animation animation, GameObject gameObject, GameTime gameTime) {
+        public void PlayTo(BaseAnimation animation, GameObject gameObject, GameTime gameTime) {
 
             currentGameObject = gameObject;
             currentAnimation = animation;
@@ -132,7 +132,7 @@ namespace KarateChamp {
             EnterState(State.PlayTo);
         }
 
-        public void PlayAfter(Animation animation, GameObject gameObject, GameTime gameTime) {
+        public void PlayAfter(BaseAnimation animation, GameObject gameObject, GameTime gameTime) {
 
             currentGameObject = gameObject;
             currentAnimation = animation;
@@ -140,7 +140,7 @@ namespace KarateChamp {
             EnterState(State.PlayAfter);
         }
 
-        public void PlayLoop(Animation animation, GameObject gameObject, GameTime gameTime) {
+        public void PlayLoop(BaseAnimation animation, GameObject gameObject, GameTime gameTime) {
 
             currentGameObject = gameObject;
             currentAnimation = animation;

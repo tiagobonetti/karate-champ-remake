@@ -5,8 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using KarateChamp.Collision;
 
-namespace KarateChamp {
+namespace KarateChamp.Character {
     class PlayerCharacter : BaseCharacter {
 
         public PlayerCharacter(Texture2D[] spriteList, MainGame.Tag tag, Vector2 position, Orientation orientation) {

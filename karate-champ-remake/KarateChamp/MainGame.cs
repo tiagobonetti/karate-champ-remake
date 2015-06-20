@@ -2,6 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using KarateChamp.Animation;
+using KarateChamp.Collision;
+using KarateChamp.Character;
 
 namespace KarateChamp {
     public class MainGame : Game {
@@ -9,10 +12,10 @@ namespace KarateChamp {
         public static IList<GameObject> gameObjectList;
         public static KeyboardState previousKeyboardState;
 
-        public static Animation white_Idle;
-        public static Animation white_PunchShort;
-        public static Animation white_JumpForward;
-        public static Animation white_KickRound;
+        public static BaseAnimation white_Idle;
+        public static BaseAnimation white_PunchShort;
+        public static BaseAnimation white_JumpForward;
+        public static BaseAnimation white_KickRound;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -57,10 +60,10 @@ namespace KarateChamp {
             Rectangle rect_PunchShort = new Rectangle(25, 25, 30, 15);
             Rectangle rect_KickRound = new Rectangle(25, 25, 30, 15);
 
-            white_PunchShort = new Animation(Sprites_White_PunchShort, 0.10f, 3, rect_PunchShort);
-            white_KickRound = new Animation(Sprites_White_KickRound, 0.10f, 6, rect_KickRound);
-            white_Idle = new Animation(Sprites_White_Idle, 0.1f);
-            white_JumpForward = new Animation(Sprites_White_JumpForward, 0.13f);
+            white_PunchShort = new BaseAnimation(Sprites_White_PunchShort, 0.10f, 3, rect_PunchShort);
+            white_KickRound = new BaseAnimation(Sprites_White_KickRound, 0.10f, 6, rect_KickRound);
+            white_Idle = new BaseAnimation(Sprites_White_Idle, 0.1f);
+            white_JumpForward = new BaseAnimation(Sprites_White_JumpForward, 0.13f);
 
             whiteCharacter = new PlayerCharacter(Sprites_White_Idle, MainGame.Tag.Player, new Vector2(300, 100), BaseCharacter.Orientation.Right);
             redCharacter = new CpuCharacter(Sprites_White_Idle, MainGame.Tag.Computer, new Vector2(400, 200), BaseCharacter.Orientation.Left);
