@@ -15,7 +15,7 @@ namespace Karate_Prototype_Collision {
 
             if (bodyCollisionList.Count > 0) {
                 foreach (CollisionBox col in bodyCollisionList) {
-
+                    System.Diagnostics.Debug.WriteLine(bodyCollisionList.Count);
                     Rectangle rect = col.rect;
                     Texture2D rectTexture = new Texture2D(spriteBatch.GraphicsDevice, rect.Width, rect.Height);
 

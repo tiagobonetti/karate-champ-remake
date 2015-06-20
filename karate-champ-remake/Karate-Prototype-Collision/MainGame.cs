@@ -18,7 +18,7 @@ namespace Karate_Prototype_Collision {
         SpriteBatch spriteBatch;
         
         PlayerCharacter whiteCharacter;
-        CpuCharacter redCharacter;
+ //       CpuCharacter redCharacter;
         DEBUG_Collision debugCollision;
 
         public MainGame() {

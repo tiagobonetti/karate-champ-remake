@@ -168,7 +168,7 @@ namespace Karate_Prototype_Collision {
             }
             else {
                 elapsedTime = 0;
-                currentGameObject.animationRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex, currentAnimation.spriteRectPosition.Y, 84, 53);
+                currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex, currentAnimation.spriteRectPosition.Y, 84, 53);
                 FrameIndex++;
             }
             if (FrameIndex >= currentAnimation.size - 1) {
@@ -185,7 +185,7 @@ namespace Karate_Prototype_Collision {
             }
             else {
                 elapsedTime = 0;
-                currentGameObject.animationRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex, currentAnimation.spriteRectPosition.Y, 84, 53);
+                currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex, currentAnimation.spriteRectPosition.Y, 84, 53);
                 FrameIndex++;
             }
             if (FrameIndex >= currentAnimation.size - 1){
@@ -206,7 +206,7 @@ namespace Karate_Prototype_Collision {
             }
             else {
                 elapsedTime = 0;
-                currentGameObject.animationRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex, currentAnimation.spriteRectPosition.Y, 84, 53);
+                currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex, currentAnimation.spriteRectPosition.Y, 84, 53);
                 FrameIndex++;
             }
             if (FrameIndex >= referenceFrame) {
@@ -235,7 +235,7 @@ namespace Karate_Prototype_Collision {
                     EnterState(State.Stop);
                 }
                 else
-                    currentGameObject.animationRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex, currentAnimation.spriteRectPosition.Y, 84, 53);
+                    currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex, currentAnimation.spriteRectPosition.Y, 84, 53);
             }
         }
 
@@ -249,7 +249,7 @@ namespace Karate_Prototype_Collision {
                 elapsedTime = 0;
                 FrameIndex--;
                 if (FrameIndex >= 0)
-                    currentGameObject.animationRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex, currentAnimation.spriteRectPosition.Y, 84, 53);
+                    currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex, currentAnimation.spriteRectPosition.Y, 84, 53);
             }
             if (FrameIndex <= 0) {
                 EnterState(State.Stop);

@@ -8,12 +8,12 @@ using System.Text;
 namespace Karate_Prototype_Collision {
     public class GameObject {
 
-        public Texture2D sprite;
-        public Rectangle animationRect;
+        public Texture2D spriteSheet;
+        public Rectangle uvRect;
         public MainGame.Tag tag;
         public Orientation orientation;
         public CollisionBox collision;
-
+        public Vector2 collisionOffset;
         protected Vector2 position;
 
         public GameObject() {
@@ -36,12 +36,12 @@ namespace Karate_Prototype_Collision {
         protected void UpdateCollisionPosition() {
 
             if (orientation == Orientation.Right) {
-                collision.rect.X = (int)position.X - 17;
-                collision.rect.Y = (int)position.Y - 36;
+                collision.rect.X = (int)(position.X + collisionOffset.X);
+                collision.rect.Y = (int)position.Y;
             }
             else {
-                collision.rect.X = (int)position.X;
-                collision.rect.Y = (int)position.Y - 36;
+                collision.rect.X = (int)(position.X + collisionOffset.X);
+                collision.rect.Y = (int)position.Y;
             }
         }
     }

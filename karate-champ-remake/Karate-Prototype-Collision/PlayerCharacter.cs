@@ -11,12 +11,13 @@ namespace Karate_Prototype_Collision {
 
         public PlayerCharacter(Texture2D spriteSheet, MainGame.Tag tag, Vector2 position, Orientation orientation) {
 
-            this.sprite = spriteSheet;
+            this.spriteSheet = spriteSheet;
             this.tag = tag;
             this.position = position;
             this.orientation = orientation;
-            collision = new CollisionBox(this, position, new Vector2(sprite.Width - 15, sprite.Height + 25));
-            animationRect = new Rectangle(0, 0, 84, 53);
+            collisionOffset = new Vector2(20f, 0);
+            uvRect = new Rectangle(0, 0, 84, 53);
+            collision = new CollisionBox(this, new Vector2(uvRect.Center.X, uvRect.Center.Y) * collisionOffset, new Vector2(25, 53));
             DEBUG_Collision.bodyCollisionList.Add(collision);
         }
 
@@ -29,10 +30,25 @@ namespace Karate_Prototype_Collision {
 
         public void Draw(SpriteBatch spriteBatch) {
 
-            Vector2 origin = new Vector2(animationRect.Width * 0.5f, animationRect.Height * 0.5f);
+            Vector2 origin = new Vector2(uvRect.Width * 0.5f, uvRect.Height * 0.5f);
+
+            /*
+            Rectangle rect2 = uvRect;
+            Texture2D rectTexture = new Texture2D(spriteBatch.GraphicsDevice, rect2.Width, rect2.Height);
+
+            Color[] data = new Color[rectTexture.Width * rectTexture.Height];
+            for (int i = 0; i < data.Length; ++i) {
+                data[i] = new Color(255, 0, 0, 1);
+            }
+            rectTexture.SetData(data);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
-            spriteBatch.Draw(sprite, position, null, animationRect, Vector2.One, 0f, Vector2.One, Color.White, FlipWithOrientation(), 0f);
+            spriteBatch.Draw(rectTexture, position, Color.White);
+            spriteBatch.End();*/
+
+
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
+            spriteBatch.Draw(spriteSheet, position, null, uvRect, Vector2.One, 0f, Vector2.One, Color.White, FlipWithOrientation(), 0f);
             //  spriteBatch.Draw(sprite, position, null, null, origin, 0f, Vector2.One * 1.5f, Color.White, FlipWithOrientation(), 0f);
             spriteBatch.End();
         }
