@@ -1,76 +1,95 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+using Karate_Prototype_AI.Animation;
+using Karate_Prototype_AI.Collision;
+using Karate_Prototype_AI.Character;
 
 namespace Karate_Prototype_AI {
-    /// <summary>
-    /// This is the main type for your game
-    /// </summary>
     public class MainGame : Game {
+
+        public static IList<GameObject> gameObjectList;
+        public static KeyboardState previousKeyboardState;
+
+        public static BaseAnimation white_Idle;
+        public static BaseAnimation white_PunchShort;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        
+        PlayerCharacter whiteCharacter;
+        CpuCharacter redCharacter;
+        //DEBUG_Collision debugCollision;
 
-        public MainGame()
-            : base() {
+        public MainGame() {
+
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            IsMouseVisible = true;
+            gameObjectList = new List<GameObject>();
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
         protected override void Initialize() {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent() {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            Texture2D[] Sprites_White_Idle = new Texture2D[2];
+            for (int i = 0; i < Sprites_White_Idle.Length; i++)
+                Sprites_White_Idle[i] = Content.Load<Texture2D>("Sprites/Main Character/White_Idle");
+
+            Texture2D[] Sprites_White_PunchShort = new Texture2D[7];
+            for (int i = 0; i < Sprites_White_PunchShort.Length; i++)
+                Sprites_White_PunchShort[i] = Content.Load<Texture2D>("Sprites/Main Character/White_PunchShort_" + i);
+            
+            Rectangle rect_PunchShort = new Rectangle(25, 25, 30, 15);
+            Rectangle rect_KickRound = new Rectangle(25, 25, 30, 15);
+
+            white_PunchShort = new BaseAnimation(Sprites_White_PunchShort, 0.10f, 3, rect_PunchShort);
+            white_Idle = new BaseAnimation(Sprites_White_Idle, 0.1f);
+
+            whiteCharacter = new PlayerCharacter(Sprites_White_Idle, MainGame.Tag.Player, new Vector2(300, 100), BaseCharacter.Orientation.Right);
+            redCharacter = new CpuCharacter(Sprites_White_Idle, MainGame.Tag.Computer, new Vector2(400, 200), BaseCharacter.Orientation.Left);
+            redCharacter.Opponent = whiteCharacter;
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
         protected override void UnloadContent() {
-            // TODO: Unload any non ContentManager content here
         }
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime) {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
-
+            whiteCharacter.Update(gameTime);
+            redCharacter.Update(gameTime);
             base.Update(gameTime);
+            previousKeyboardState = Keyboard.GetState();
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime) {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-
+            Background();
+            whiteCharacter.Draw(spriteBatch);
+            redCharacter.Draw(spriteBatch);
             base.Draw(gameTime);
         }
+
+        public enum Tag {
+            Player,
+            Computer
+        }
+
+        void Background() {
+            Texture2D bg = Content.Load<Texture2D>("Sprites/Background/Bg");
+            Vector2 bgPos = new Vector2(graphics.PreferredBackBufferWidth * 0.5f, graphics.PreferredBackBufferWidth * 0.5f - 150);
+
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
+            spriteBatch.Draw(bg, bgPos, null, null, new Vector2(bg.Width * 0.5f, bg.Height * 0.5f), 0f, Vector2.One * 0.5f, Color.White, SpriteEffects.None, 0f);
+            spriteBatch.End();
+        }
+
     }
 }
