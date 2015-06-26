@@ -38,7 +38,7 @@ namespace KarateChamp {
         }
 
         protected override void LoadContent() {
-
+            Debug.LoadContent(Content);
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             Texture2D[] Sprites_White_Idle = new Texture2D[2];

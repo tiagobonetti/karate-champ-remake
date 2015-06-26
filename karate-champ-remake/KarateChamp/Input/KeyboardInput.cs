@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using KarateChamp.Character;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace KarateChamp.Input {
-    public class KeyboardInput {
+    public class KeyboardInput : IPlayerInput {
+        public Vector2 Position { get; set; }
+        public KeyboardInput() {
+            this.Position = Vector2.Zero;
+        }
         static List<Keys> wasd = new List<Keys>() {
             Keys.W,
             Keys.A,
@@ -19,7 +24,7 @@ namespace KarateChamp.Input {
             Keys.Down,
             Keys.Right
         };
-        public BaseCharacter.State GetMove(BaseInput.Modifier modifier, bool flipped) {
+        public Character.State GetMove(Modifier modifier, bool flipped) {
             KeyboardState state = Keyboard.GetState();
             var pressed = Keyboard.GetState().GetPressedKeys().ToList();
             var pressed_wasd = pressed.Intersect(wasd);
@@ -29,6 +34,37 @@ namespace KarateChamp.Input {
             Keys right = (pressed_arrows.Count() == 1) ? pressed_arrows.First() : Keys.None;
 
             return InputDictionary.GetMove(left.ToInput(flipped), right.ToInput(flipped), modifier);
+        }
+        public void DrawDebug(SpriteBatch sb) {
+            Vector2 pos = Position;
+            string msg;
+
+            KeyboardState state = Keyboard.GetState();
+            var pressed = Keyboard.GetState().GetPressedKeys().ToList();
+            var pressed_wasd = pressed.Intersect(wasd);
+            var pressed_arrows = pressed.Intersect(arrows);
+            State left  = ((pressed_wasd.Count() == 1) ? pressed_wasd.First() : Keys.None).ToInput(false);
+            State right = ((pressed_arrows.Count() == 1) ? pressed_arrows.First() : Keys.None).ToInput(false);
+
+            Debug.DrawText(sb, pos, "keyboard");
+            pos.Y += 30.0f;
+            msg = "WASD: ";
+            foreach (Keys key in pressed_wasd) {
+                msg += key.ToString() + " ";
+            }
+            Debug.DrawText(sb, pos, msg);
+            pos.Y += 25.0f;
+            msg = "Arrows: ";
+            foreach (Keys key in pressed_arrows) {
+                msg += key.ToString() + " ";
+            }
+            Debug.DrawText(sb, pos, msg);
+            pos.Y += 30.0f;
+            Debug.DrawText(sb, pos, "L: " + left.ToString());
+            pos.Y += 25.0f;
+            Debug.DrawText(sb, pos, "R: " + right.ToString());
+            pos.Y += 30.0f;
+            Debug.DrawText(sb, pos, "Move: " + InputDictionary.GetMove(left, right, Modifier.None).ToString());
         }
     }
 }

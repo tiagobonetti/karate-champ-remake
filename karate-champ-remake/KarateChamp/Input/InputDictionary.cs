@@ -2,45 +2,43 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using KarateChamp.Character;
-
 
 namespace KarateChamp.Input {
-    public class InputDictionary : Dictionary<Tuple<BaseInput.State, BaseInput.State, BaseInput.Modifier>, BaseCharacter.State> {
-        public void Add(BaseInput.State left, BaseInput.State rigth, BaseInput.Modifier modifier, BaseCharacter.State move) {
-            Add(new Tuple<BaseInput.State, BaseInput.State, BaseInput.Modifier>(left, rigth, modifier), move);
+    public class InputDictionary : Dictionary<Tuple<State, State, Modifier>, Character.State> {
+        public void Add(State left, State rigth, Modifier modifier, Character.State move) {
+            Add(new Tuple<State, State, Modifier>(left, rigth, modifier), move);
         }
         static InputDictionary dictionary;
         static InputDictionary() {
             InputDictionary.dictionary = new InputDictionary {
-               {BaseInput.State.Front, BaseInput.State.None,  BaseInput.Modifier.None,                 BaseCharacter.State.Forward            },
-               {BaseInput.State.Front, BaseInput.State.Up,    BaseInput.Modifier.None,                 BaseCharacter.State.UpperLungePunch    },
-               {BaseInput.State.Front, BaseInput.State.Front, BaseInput.Modifier.None,                 BaseCharacter.State.MiddleLungePunch   },
-               {BaseInput.State.Front, BaseInput.State.Back,  BaseInput.Modifier.None,                 BaseCharacter.State.ChangeDirection    },
-               {BaseInput.State.Back,  BaseInput.State.None,  BaseInput.Modifier.None,                 BaseCharacter.State.Withdraw           },
-               {BaseInput.State.Back,  BaseInput.State.None,  BaseInput.Modifier.IncomingUpperAttack,  BaseCharacter.State.UpperBlock         },
-               {BaseInput.State.Back,  BaseInput.State.None,  BaseInput.Modifier.IncomingMiddleAttack, BaseCharacter.State.MiddleBlock        },
-               {BaseInput.State.Back,  BaseInput.State.Up,    BaseInput.Modifier.None,                 BaseCharacter.State.UpperPunch         },
-               {BaseInput.State.Back,  BaseInput.State.Front, BaseInput.Modifier.None,                 BaseCharacter.State.BackRoundKick      },
-               {BaseInput.State.Up,    BaseInput.State.None,  BaseInput.Modifier.None,                 BaseCharacter.State.Jump               },
-               {BaseInput.State.Up,    BaseInput.State.Down,  BaseInput.Modifier.None,                 BaseCharacter.State.ForwardSomersault  },
-               {BaseInput.State.Up,    BaseInput.State.Up,    BaseInput.Modifier.None,                 BaseCharacter.State.BackwardSomersault },
-               {BaseInput.State.Up,    BaseInput.State.Front, BaseInput.Modifier.None,                 BaseCharacter.State.JumpingSideKick    },
-               {BaseInput.State.Up,    BaseInput.State.Back,  BaseInput.Modifier.None,                 BaseCharacter.State.JumpingBackKick    },
-               {BaseInput.State.Down,  BaseInput.State.None,  BaseInput.Modifier.None,                 BaseCharacter.State.Squat              },
-               {BaseInput.State.Down,  BaseInput.State.Down,  BaseInput.Modifier.None,                 BaseCharacter.State.FrontFootSweep     },
-               {BaseInput.State.Down,  BaseInput.State.Front, BaseInput.Modifier.None,                 BaseCharacter.State.FrontFootSweep     },
-               {BaseInput.State.Down,  BaseInput.State.Up,    BaseInput.Modifier.None,                 BaseCharacter.State.DuckingReversePunch},
-               {BaseInput.State.None,  BaseInput.State.Front, BaseInput.Modifier.None,                 BaseCharacter.State.FrontKick          },
-               {BaseInput.State.None,  BaseInput.State.Front, BaseInput.Modifier.CloseToOpponent,      BaseCharacter.State.MiddleReversePunch },
-               {BaseInput.State.None,  BaseInput.State.Down,  BaseInput.Modifier.None,                 BaseCharacter.State.LowKick            },
-               {BaseInput.State.None,  BaseInput.State.Up,    BaseInput.Modifier.None,                 BaseCharacter.State.RoundKick          },
-               {BaseInput.State.None,  BaseInput.State.Back,  BaseInput.Modifier.None,                 BaseCharacter.State.BackKick           } 
+               {State.Front, State.None,  Modifier.None,                 Character.State.Forward            },
+               {State.Front, State.Up,    Modifier.None,                 Character.State.UpperLungePunch    },
+               {State.Front, State.Front, Modifier.None,                 Character.State.MiddleLungePunch   },
+               {State.Front, State.Back,  Modifier.None,                 Character.State.ChangeDirection    },
+               {State.Back,  State.None,  Modifier.None,                 Character.State.Withdraw           },
+               {State.Back,  State.None,  Modifier.IncomingUpperAttack,  Character.State.UpperBlock         },
+               {State.Back,  State.None,  Modifier.IncomingMiddleAttack, Character.State.MiddleBlock        },
+               {State.Back,  State.Up,    Modifier.None,                 Character.State.UpperPunch         },
+               {State.Back,  State.Front, Modifier.None,                 Character.State.BackRoundKick      },
+               {State.Up,    State.None,  Modifier.None,                 Character.State.Jump               },
+               {State.Up,    State.Down,  Modifier.None,                 Character.State.ForwardSomersault  },
+               {State.Up,    State.Up,    Modifier.None,                 Character.State.BackwardSomersault },
+               {State.Up,    State.Front, Modifier.None,                 Character.State.JumpingSideKick    },
+               {State.Up,    State.Back,  Modifier.None,                 Character.State.JumpingBackKick    },
+               {State.Down,  State.None,  Modifier.None,                 Character.State.Squat              },
+               {State.Down,  State.Down,  Modifier.None,                 Character.State.FrontFootSweep     },
+               {State.Down,  State.Front, Modifier.None,                 Character.State.FrontFootSweep     },
+               {State.Down,  State.Up,    Modifier.None,                 Character.State.DuckingReversePunch},
+               {State.None,  State.Front, Modifier.None,                 Character.State.FrontKick          },
+               {State.None,  State.Front, Modifier.CloseToOpponent,      Character.State.MiddleReversePunch },
+               {State.None,  State.Down,  Modifier.None,                 Character.State.LowKick            },
+               {State.None,  State.Up,    Modifier.None,                 Character.State.RoundKick          },
+               {State.None,  State.Back,  Modifier.None,                 Character.State.BackKick           } 
            };
         }
-        public static BaseCharacter.State GetMove(BaseInput.State left, BaseInput.State rigth, BaseInput.Modifier modifier) {
-            BaseCharacter.State move;
-            InputDictionary.dictionary.TryGetValue(new Tuple<BaseInput.State, BaseInput.State, BaseInput.Modifier>(left, rigth, modifier), out move);
+        public static Character.State GetMove(State left, State rigth, Modifier modifier) {
+            Character.State move;
+            InputDictionary.dictionary.TryGetValue(new Tuple<State, State, Modifier>(left, rigth, modifier), out move);
             return move;
         }
     }

@@ -10,6 +10,33 @@ using KarateChamp.Collision;
 using KarateChamp.Character;
 
 namespace KarateChamp.Character {
+
+    public enum State {
+        Idle,
+        Forward,             // LJ: Front  RJ: None
+        UpperLungePunch,     // LJ: Front  RJ: Up
+        MiddleLungePunch,    // LJ: Front  RJ: Rigth
+        ChangeDirection,     // LJ: Front  RJ: Left
+        Withdraw,            // LJ: Back   RJ: None
+        UpperBlock,          // LJ: Back   RJ: None           Mod: Incoming Upper Attack
+        MiddleBlock,         // LJ: Back   RJ: None           Mod: Incoming Middle Attack
+        UpperPunch,          // LJ: Back   RJ: Up    
+        BackRoundKick,       // LJ: Back   RJ: Right 
+        Jump,                // LJ: Up     RJ: None
+        ForwardSomersault,   // LJ: Up     RJ: Down
+        BackwardSomersault,  // LJ: Up     RJ: Up
+        JumpingSideKick,     // LJ: Up     RJ: Right 
+        JumpingBackKick,     // LJ: Up     RJ: Left 
+        Squat,               // LJ: Down   RJ: None
+        FrontFootSweep,      // LJ: Down   RJ: Down or Right
+        DuckingReversePunch, // LJ: Down   RJ: Up
+        FrontKick,           // LJ: None   RJ: Right
+        MiddleReversePunch,  // LJ: None   RJ: Right          Mod: Close to Opponent
+        LowKick,             // LJ: None   RJ: Down
+        RoundKick,           // LJ: None   RJ: Up 
+        BackKick,            // LJ: None   RJ: Left 
+    }
+
     public class BaseCharacter : GameObject {
 
         public float speed_Walk = 50f;
@@ -21,34 +48,6 @@ namespace KarateChamp.Character {
         protected Vector2 velocity = Vector2.Zero;
 
         Animator animator = new Animator();
-
-        public enum State {
-            Idle,
-            Forward,             // LJ: Front  RJ: None
-            UpperLungePunch,     // LJ: Front  RJ: Up
-            MiddleLungePunch,    // LJ: Front  RJ: Rigth
-            ChangeDirection,     // LJ: Front  RJ: Left
-            Withdraw,            // LJ: Back   RJ: None
-            UpperBlock,          // LJ: Back   RJ: None           Mod: Incoming Upper Attack
-            MiddleBlock,         // LJ: Back   RJ: None           Mod: Incoming Middle Attack
-            UpperPunch,          // LJ: Back   RJ: Up    
-            BackRoundKick,       // LJ: Back   RJ: Right 
-            Jump,                // LJ: Up     RJ: None
-            ForwardSomersault,   // LJ: Up     RJ: Down
-            BackwardSomersault,  // LJ: Up     RJ: Up
-            JumpingSideKick,     // LJ: Up     RJ: Right 
-            JumpingBackKick,     // LJ: Up     RJ: Left 
-            Squat,               // LJ: Down   RJ: None
-            FrontFootSweep,      // LJ: Down   RJ: Down or Right
-            DuckingReversePunch, // LJ: Down   RJ: Up
-            FrontKick,           // LJ: None   RJ: Right
-            MiddleReversePunch,  // LJ: None   RJ: Right          Mod: Close to Opponent
-            LowKick,             // LJ: None   RJ: Down
-            RoundKick,           // LJ: None   RJ: Up 
-            BackKick,            // LJ: None   RJ: Left 
-        }
-
-
 
         void AnimatorStateMachine(GameTime gameTime) {
             System.Diagnostics.Debug.WriteLine(state);
