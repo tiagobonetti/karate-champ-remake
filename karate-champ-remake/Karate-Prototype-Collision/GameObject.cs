@@ -14,7 +14,7 @@ namespace Karate_Prototype_Collision {
         public Orientation orientation;
         public CollisionBox collision;
         public Vector2 collisionOffset;
-        protected Vector2 position;
+        public Vector2 position;
 
         public GameObject() {
             MainGame.gameObjectList.Add(this);

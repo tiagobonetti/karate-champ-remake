@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System;
 
 namespace Karate_Prototype_Collision {
     public class MainGame : Game {
@@ -16,9 +17,11 @@ namespace Karate_Prototype_Collision {
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        
+
+        public static Texture2D colSprite;
+
         PlayerCharacter whiteCharacter;
- //       CpuCharacter redCharacter;
+        //       CpuCharacter redCharacter;
         DEBUG_Collision debugCollision;
 
         public MainGame() {
@@ -49,10 +52,11 @@ namespace Karate_Prototype_Collision {
             white_JumpForward = new Animation(new Point(84, 53 * d), 9, 0.10f, 5);
             */
             Texture2D spritesheet = Content.Load<Texture2D>("KarateChampAligned");
+            colSprite = Content.Load<Texture2D>("KarateChampCollision");
 
             whiteCharacter = new PlayerCharacter(spritesheet, MainGame.Tag.Player, new Vector2(100, 100), BaseCharacter.Orientation.Right);
-     //       whiteCharacter = new PlayerCharacter(Sprites_White_Idle, MainGame.Tag.Player, new Vector2(300, 100), BaseCharacter.Orientation.Right);
-      //      redCharacter = new CpuCharacter(Sprites_White_Idle, MainGame.Tag.Computer, new Vector2(400, 200), BaseCharacter.Orientation.Left);
+            //       whiteCharacter = new PlayerCharacter(Sprites_White_Idle, MainGame.Tag.Player, new Vector2(300, 100), BaseCharacter.Orientation.Right);
+            //      redCharacter = new CpuCharacter(Sprites_White_Idle, MainGame.Tag.Computer, new Vector2(400, 200), BaseCharacter.Orientation.Left);
         }
 
         protected override void UnloadContent() {
@@ -63,9 +67,39 @@ namespace Karate_Prototype_Collision {
                 Exit();
 
             whiteCharacter.Update(gameTime);
-        //    redCharacter.Update(gameTime);
+            //    redCharacter.Update(gameTime);
             base.Update(gameTime);
             previousKeyboardState = Keyboard.GetState();
+        }
+
+        void TestGetColisionFromSprite() {
+            
+            Rectangle uvRect = new Rectangle(83 * 5, 53 * 4, 83, 53);
+            GameObject obj = new GameObject();
+            GetCol(colSprite, uvRect, obj);
+        }
+
+        public CollisionBox GetCol(Texture2D sprite, Rectangle uvRect, GameObject owner) {
+
+            Point rectStartPosition = Point.Zero;
+            Point rectEndPosition = Point.Zero;
+            Color[] colorData = new Color[uvRect.Width * uvRect.Height];
+            sprite.GetData<Color>(0, uvRect, colorData, 0, uvRect.Width * uvRect.Height);
+            int d = 0;
+            for (int i = 0; i < colorData.Length; i++) {
+                if (colorData[i] == Color.Red){
+                    if (rectStartPosition == Point.Zero) {
+                        rectStartPosition = new Point(i % uvRect.Width, (int)Math.Ceiling((double)i / (double)uvRect.Width));
+                        d = i;
+                    }
+                    rectEndPosition = new Point(i % uvRect.Width, (int)Math.Ceiling((double)i / (double)uvRect.Width));
+                }
+               
+            }
+            System.Diagnostics.Debug.WriteLine(d + " " + rectStartPosition + " " + rectEndPosition);
+            Vector2 pos = new Vector2(rectStartPosition.X, rectStartPosition.Y);
+            Vector2 size = new Vector2(rectEndPosition.X - rectStartPosition.X, rectEndPosition.Y - rectStartPosition.Y);
+            return new CollisionBox(owner, pos, size);
         }
 
         protected override void Draw(GameTime gameTime) {

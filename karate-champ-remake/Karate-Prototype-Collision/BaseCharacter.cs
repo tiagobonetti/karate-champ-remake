@@ -72,25 +72,23 @@ namespace Karate_Prototype_Collision {
 
         public void Attack_PunchShort(GameTime gameTime) {
 
-            CollisionBox collision = new CollisionBox(this, new Vector2(position.X + 60, position.Y), new Vector2(30, 15));
-            Animation animation = new Animation(new Point(84, 53 * 14), 0, 7, 0.10f);
-            punchShort = new Attack(collision, animation, 3);
+      //      CollisionBox collision = new CollisionBox(this, new Vector2(position.X + 60, position.Y), new Vector2(30, 15));
+            Animation animation = new Animation(new Point(83, 53 * 14), 0, 7, 0.10f);
+            punchShort = new Attack(animation, 3, this);
             state = State.PunchShort;
 
             System.Diagnostics.Debug.WriteLine("Punch");
-      //      DEBUG_Collision.p1AttackCollision = collision;
         }
 
         public void Attack_KickRound(GameTime gameTime) {
 
-            CollisionBox collision = new CollisionBox(this, new Vector2(position.X + 20, position.Y - 30), new Vector2(30, 15));
-            Animation animation = new Animation(new Point(84, 53 * 4), 0, 10, 0.10f);
-            KickRound = new Attack(collision, animation, 5);
+     //       CollisionBox collision = new CollisionBox(this, new Vector2(position.X + 20, position.Y - 30), new Vector2(30, 15));
+            Animation animation = new Animation(new Point(83, 53 * 4), 0, 10, 0.10f);
+            KickRound = new Attack(animation, 5, this);
 
             state = State.KickRound;
 
             System.Diagnostics.Debug.WriteLine("Kick");
-            DEBUG_Collision.p1AttackCollision = collision;
         }
 
         public void HoldAttack(GameTime gameTime) {
@@ -116,7 +114,7 @@ namespace Karate_Prototype_Collision {
         }
 
         void Hit(GameObject obj) {
-            System.Diagnostics.Debug.WriteLine("Hit");
+      //      System.Diagnostics.Debug.WriteLine("Hit");
         }
 
         public void TakeDamage() {
