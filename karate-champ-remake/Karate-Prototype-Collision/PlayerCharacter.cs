@@ -16,7 +16,7 @@ namespace Karate_Prototype_Collision {
             this.position = position;
             this.orientation = orientation;
             collisionOffset = new Vector2(20f, 0);
-            uvRect = new Rectangle(0, 0, 84, 53);
+            uvRect = new Rectangle(0, 0, 83, 53);
             collision = new CollisionBox(this, new Vector2(uvRect.Center.X, uvRect.Center.Y) * collisionOffset, new Vector2(25, 53));
             DEBUG_Collision.bodyCollisionList.Add(collision);
         }
