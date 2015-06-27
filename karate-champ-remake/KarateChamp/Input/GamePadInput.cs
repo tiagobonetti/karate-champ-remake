@@ -8,6 +8,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace KarateChamp.Input {
+
+    using Orientation = GameObject.Orientation;
+    using Move = Character.State;
+
     class GamePadInput : IPlayerInput {
         public Vector2 Position { get; set; }
         const float threshold = 0.75f;
@@ -17,18 +21,18 @@ namespace KarateChamp.Input {
             this.Position = Vector2.Zero;
             this.player = player;
         }
-        public Character.State GetMove(Modifier modifier, bool flipped) {
+        public Move GetMove(Modifier modifier, Orientation flipped) {
             GamePadState state = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.IndependentAxes);
             State left = GetStick(state.ThumbSticks.Left, flipped);
             State right = GetStick(state.ThumbSticks.Right, flipped);
             return InputDictionary.GetMove(left, right, modifier);
         }
-        public State GetStick(Vector2 ThumbStick, bool flipped) {
+        public State GetStick(Vector2 ThumbStick, Orientation flipped) {
             if (ThumbStick.X > threshold) {
-                return (flipped) ? State.Back : State.Front;
+                return (flipped == Orientation.Right) ? State.Back : State.Front;
             }
             else if (ThumbStick.X < -threshold) {
-                return (flipped) ? State.Front : State.Back;
+                return (flipped == Orientation.Left) ? State.Back : State.Front;
             }
             else if (ThumbStick.Y > threshold) {
                 return State.Up;
@@ -40,11 +44,11 @@ namespace KarateChamp.Input {
                 return State.None;
             }
         }
-        public void DrawDebug(SpriteBatch sb) {
+        public void DrawDebug(SpriteBatch sb, Orientation orientation) {
             GamePadState state = GamePad.GetState(player, GamePadDeadZone.IndependentAxes);
             Vector2 pos = Position;
-            State left = GetStick(state.ThumbSticks.Left, false);
-            State right = GetStick(state.ThumbSticks.Right, false);
+            State left = GetStick(state.ThumbSticks.Left, orientation);
+            State right = GetStick(state.ThumbSticks.Right, orientation);
 
             Debug.DrawText(sb, pos, "P " + player.ToString() + " : " + state.IsConnected.ToString());
             pos.Y += 30.0f;

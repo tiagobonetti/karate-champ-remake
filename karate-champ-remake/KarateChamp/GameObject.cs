@@ -7,7 +7,7 @@ using System.Text;
 using KarateChamp.Collision;
 
 namespace KarateChamp {
-    public class GameObject {
+        public class GameObject {
 
         public Texture2D spriteSheet;
         public Rectangle uvRect;

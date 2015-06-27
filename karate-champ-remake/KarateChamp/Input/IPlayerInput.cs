@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace KarateChamp.Input {
 
+    using Orientation = GameObject.Orientation;
+    using Move = Character.State;
+
     public enum State {
         None,
         Up,
@@ -14,6 +17,7 @@ namespace KarateChamp.Input {
         Back,
         Front,
     }
+
     public enum Modifier {
         None,
         IncomingUpperAttack,
@@ -23,7 +27,7 @@ namespace KarateChamp.Input {
 
     public interface IPlayerInput {
         Vector2 Position { get; set; }
-        Character.State GetMove(Modifier modifier, bool flipped);
-        void DrawDebug(SpriteBatch sb);
+        Move GetMove(Modifier modifier, Orientation orientation);
+        void DrawDebug(SpriteBatch sb, Orientation orientation);
     }
 }

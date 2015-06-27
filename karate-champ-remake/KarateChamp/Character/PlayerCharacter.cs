@@ -35,13 +35,13 @@ namespace KarateChamp.Character {
             Vector2 origin = new Vector2(sprite.Width * 0.5f, sprite.Height * 0.5f);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
-            PlayerInput.DrawDebug(spriteBatch);
+            PlayerInput.DrawDebug(spriteBatch, orientation);
             spriteBatch.Draw(sprite, position, null, null, origin, 0f, Vector2.One * 1.5f, Color.White, FlipWithOrientation(), 0f);
             spriteBatch.End();
         }
 
         void Control(GameTime gameTime) {
-            State move = PlayerInput.GetMove(Input.Modifier.None, false);
+            State move = PlayerInput.GetMove(Input.Modifier.None, orientation);
             if (IsGrounded()) {
                 switch (move) {
                     case State.Forward:

@@ -7,6 +7,10 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace KarateChamp.Input {
+
+    using Orientantion = GameObject.Orientation;
+    using Move = Character.State;
+
     public class KeyboardInput : IPlayerInput {
         public Vector2 Position { get; set; }
         public KeyboardInput() {
@@ -24,7 +28,7 @@ namespace KarateChamp.Input {
             Keys.Down,
             Keys.Right
         };
-        public Character.State GetMove(Modifier modifier, bool flipped) {
+        public Move GetMove(Modifier modifier, Orientantion orientation) {
             KeyboardState state = Keyboard.GetState();
             var pressed = Keyboard.GetState().GetPressedKeys().ToList();
             var pressed_wasd = pressed.Intersect(wasd);
@@ -33,9 +37,9 @@ namespace KarateChamp.Input {
             Keys left = (pressed_wasd.Count() == 1) ? pressed_wasd.First() : Keys.None;
             Keys right = (pressed_arrows.Count() == 1) ? pressed_arrows.First() : Keys.None;
 
-            return InputDictionary.GetMove(left.ToInput(flipped), right.ToInput(flipped), modifier);
+            return InputDictionary.GetMove(left.ToInput(orientation), right.ToInput(orientation), modifier);
         }
-        public void DrawDebug(SpriteBatch sb) {
+        public void DrawDebug(SpriteBatch sb, Orientantion orientation) {
             Vector2 pos = Position;
             string msg;
 
@@ -43,8 +47,8 @@ namespace KarateChamp.Input {
             var pressed = Keyboard.GetState().GetPressedKeys().ToList();
             var pressed_wasd = pressed.Intersect(wasd);
             var pressed_arrows = pressed.Intersect(arrows);
-            State left  = ((pressed_wasd.Count() == 1) ? pressed_wasd.First() : Keys.None).ToInput(false);
-            State right = ((pressed_arrows.Count() == 1) ? pressed_arrows.First() : Keys.None).ToInput(false);
+            State left  = ((pressed_wasd.Count() == 1) ? pressed_wasd.First() : Keys.None).ToInput(orientation);
+            State right = ((pressed_arrows.Count() == 1) ? pressed_arrows.First() : Keys.None).ToInput(orientation);
 
             Debug.DrawText(sb, pos, "keyboard");
             pos.Y += 30.0f;

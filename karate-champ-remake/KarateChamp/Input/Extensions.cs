@@ -5,9 +5,10 @@ using System.Text;
 using Microsoft.Xna.Framework.Input;
 
 namespace KarateChamp.Input {
+    using Orientantion = GameObject.Orientation;
     public static class Extensions {
         // We assume Rigth to Left as the default character oriantation
-        public static State ToInput(this Keys state, bool flipped) {
+        public static State ToInput(this Keys state, Orientantion orientation) {
             State input;
             switch (state) {
                 case Keys.Up:
@@ -16,7 +17,7 @@ namespace KarateChamp.Input {
                     break;
                 case Keys.Left:
                 case Keys.A:
-                    input = (flipped) ? State.Front : State.Back;
+                    input = (orientation == Orientantion.Left) ? State.Front : State.Back;
                     break;
                 case Keys.Down:
                 case Keys.S:
@@ -24,7 +25,7 @@ namespace KarateChamp.Input {
                     break;
                 case Keys.Right:
                 case Keys.D:
-                    input = (flipped) ? State.Back : State.Front;
+                    input = (orientation == Orientantion.Right) ? State.Front : State.Back;
                     break;
                 case Keys.None:
                     input = State.None;
