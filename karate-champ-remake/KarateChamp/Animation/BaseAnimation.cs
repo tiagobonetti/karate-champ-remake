@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace KarateChamp.Animation {
+namespace KarateChamp {
     public class BaseAnimation {
 
         public Texture2D[] Sprites { get; private set; }

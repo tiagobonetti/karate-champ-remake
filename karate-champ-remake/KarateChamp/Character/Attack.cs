@@ -1,12 +1,14 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using KarateChamp.Collision;
+using KarateChamp.Animation;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
-namespace Karate_Prototype_Collision {
+namespace KarateChamp.Character {
     class Attack {
 
         public int HitFrame { get; private set; }
@@ -16,7 +18,7 @@ namespace Karate_Prototype_Collision {
         public GameObject Owner { get; private set; }
         public bool finished { get; private set; }
 
-        Animatorator animator = new Animatorator();
+        Animator animator = new Animator();
 
         public Attack(Animation animation, int hitFrame, GameObject owner) {
 
@@ -27,15 +29,14 @@ namespace Karate_Prototype_Collision {
             Animation = animation;
         }
 
-        public CollisionBox GetCollision()
-        {
+        public CollisionBox GetCollision() {
             if (Owner.orientation == GameObject.Orientation.Left)
                 return CollisionLeft;
             else
                 return CollisionRight;
         }
 
-        public void Execute(Keys key, GameTime gameTime){
+        public void Execute(Keys key, GameTime gameTime) {
 
             if (Keyboard.GetState().IsKeyDown(key))
                 animator.PlayTo(HitFrame, Animation, Owner, gameTime);

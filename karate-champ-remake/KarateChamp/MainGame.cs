@@ -17,6 +17,8 @@ namespace KarateChamp {
         public static BaseAnimation white_JumpForward;
         public static BaseAnimation white_KickRound;
 
+        public static Texture2D colSprite;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         
@@ -40,6 +42,8 @@ namespace KarateChamp {
         protected override void LoadContent() {
             Debug.LoadContent(Content);
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            colSprite = Content.Load<Texture2D>("KarateChampCollision");
 
             Texture2D[] Sprites_White_Idle = new Texture2D[2];
             for (int i = 0; i < Sprites_White_Idle.Length; i++)

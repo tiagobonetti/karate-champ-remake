@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace KarateChamp.Animation {
+namespace KarateChamp {
     class Animator {
 
   //      public int HitFrame { get; private set; }
@@ -15,9 +15,10 @@ namespace KarateChamp.Animation {
         public State state = State.Stop;
         
         GameObject currentGameObject;
-        BaseAnimation currentAnimation;
+        Animation currentAnimation;
         GameTime gameTime;
         float elapsedTime = 9999999;
+        int referenceFrame;
 
         public Animator() {
             FrameIndex = 0;
@@ -98,25 +99,15 @@ namespace KarateChamp.Animation {
                 case State.RollBack:
                     RollBackAnimation();
                     break;
-                
             }
+            System.Diagnostics.Debug.WriteLine("Animator State " + state);
         }
 
         public void Update() {
             StateMachine();
         }
-        /*
-        public void Run(GameObject gameObject, Texture2D[] animation, float length, GameTime gameTime) {
 
-            currentGameObject = gameObject;
-            currentAnimation = animation;
-            this.length = length;
-            this.gameTime = gameTime;
-            initialized = true;
-            StateMachine();
-        }
-        */
-        public void Play(BaseAnimation animation, GameObject gameObject, GameTime gameTime) {
+        public void Play(Animation animation, GameObject gameObject, GameTime gameTime) {
 
             currentGameObject = gameObject;
             currentAnimation = animation;
@@ -124,23 +115,25 @@ namespace KarateChamp.Animation {
             EnterState(State.Play);
         }
 
-        public void PlayTo(BaseAnimation animation, GameObject gameObject, GameTime gameTime) {
+        public void PlayTo(int frame, Animation animation, GameObject gameObject, GameTime gameTime) {
 
             currentGameObject = gameObject;
             currentAnimation = animation;
             this.gameTime = gameTime;
+            referenceFrame = frame;
             EnterState(State.PlayTo);
         }
 
-        public void PlayAfter(BaseAnimation animation, GameObject gameObject, GameTime gameTime) {
+        public void PlayAfter(int frame, Animation animation, GameObject gameObject, GameTime gameTime) {
 
             currentGameObject = gameObject;
             currentAnimation = animation;
             this.gameTime = gameTime;
+            referenceFrame = frame;
             EnterState(State.PlayAfter);
         }
 
-        public void PlayLoop(BaseAnimation animation, GameObject gameObject, GameTime gameTime) {
+        public void PlayLoop(Animation animation, GameObject gameObject, GameTime gameTime) {
 
             currentGameObject = gameObject;
             currentAnimation = animation;
@@ -175,10 +168,10 @@ namespace KarateChamp.Animation {
             }
             else {
                 elapsedTime = 0;
-                currentGameObject.sprite = currentAnimation.Sprites[FrameIndex];
+                currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex, currentAnimation.spriteRectPosition.Y, 84, 53);
                 FrameIndex++;
             }
-            if (FrameIndex >= currentAnimation.Sprites.Length - 1) {
+            if (FrameIndex >= currentAnimation.size - 1) {
                 EnterState(State.Stop);
             }
 
@@ -192,10 +185,10 @@ namespace KarateChamp.Animation {
             }
             else {
                 elapsedTime = 0;
-                currentGameObject.sprite = currentAnimation.Sprites[FrameIndex];
+                currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex, currentAnimation.spriteRectPosition.Y, 84, 53);
                 FrameIndex++;
             }
-            if (FrameIndex >= currentAnimation.Sprites.Length - 1){
+            if (FrameIndex >= currentAnimation.size - 1){
                 FrameIndex = 0;
             }
 
@@ -213,11 +206,11 @@ namespace KarateChamp.Animation {
             }
             else {
                 elapsedTime = 0;
-                currentGameObject.sprite = currentAnimation.Sprites[FrameIndex];
+                currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex, currentAnimation.spriteRectPosition.Y, 84, 53);
                 FrameIndex++;
             }
-            if (FrameIndex >= currentAnimation.HitFrame) {
-                FrameIndex = currentAnimation.HitFrame;
+            if (FrameIndex >= referenceFrame) {
+                FrameIndex = referenceFrame;
                 elapsedTime = 9999999;
                 PlayedToFrame = true;
             }
@@ -228,8 +221,8 @@ namespace KarateChamp.Animation {
 
             System.Diagnostics.Debug.WriteLine("PlayAfterHitFrame Index " + FrameIndex);
 
-            if (FrameIndex <= currentAnimation.HitFrame) {
-                FrameIndex = currentAnimation.HitFrame;
+            if (FrameIndex <= referenceFrame) {
+                FrameIndex = referenceFrame;
             }
 
             if (elapsedTime < currentAnimation.animationLength) {
@@ -238,11 +231,11 @@ namespace KarateChamp.Animation {
             else {
                 elapsedTime = 0;
                 FrameIndex++;
-                if (FrameIndex > currentAnimation.Sprites.Length - 1) {
+                if (FrameIndex > currentAnimation.size - 1) {
                     EnterState(State.Stop);
                 }
                 else
-                    currentGameObject.sprite = currentAnimation.Sprites[FrameIndex];
+                    currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex, currentAnimation.spriteRectPosition.Y, 84, 53);
             }
         }
 
@@ -256,7 +249,7 @@ namespace KarateChamp.Animation {
                 elapsedTime = 0;
                 FrameIndex--;
                 if (FrameIndex >= 0)
-                    currentGameObject.sprite = currentAnimation.Sprites[FrameIndex];
+                    currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex, currentAnimation.spriteRectPosition.Y, 84, 53);
             }
             if (FrameIndex <= 0) {
                 EnterState(State.Stop);

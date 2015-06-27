@@ -9,13 +9,17 @@ using KarateChamp.Collision;
 namespace KarateChamp {
     public class GameObject {
 
-        public Texture2D sprite;
-        public Texture2D[] spriteList;
+        public Texture2D spriteSheet;
+        public Rectangle uvRect;
         public MainGame.Tag tag;
         public Orientation orientation;
         public CollisionBox collision;
+        public Vector2 collisionOffset;
+        public Vector2 position;
 
-        protected Vector2 position;
+        public GameObject() {
+            MainGame.gameObjectList.Add(this);
+        }
 
         public enum Orientation {
             Left,
@@ -33,12 +37,12 @@ namespace KarateChamp {
         protected void UpdateCollisionPosition() {
 
             if (orientation == Orientation.Right) {
-                collision.rect.X = (int)position.X - 17;
-                collision.rect.Y = (int)position.Y - 36;
+                collision.rect.X = (int)(position.X + collisionOffset.X);
+                collision.rect.Y = (int)position.Y;
             }
             else {
-                collision.rect.X = (int)position.X;
-                collision.rect.Y = (int)position.Y - 36;
+                collision.rect.X = (int)(position.X + collisionOffset.X);
+                collision.rect.Y = (int)position.Y;
             }
         }
     }

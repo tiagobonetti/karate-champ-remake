@@ -62,10 +62,10 @@
     <Content Include="Content\KarateChampAligned.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\Background\Bg.png">
+    <Content Include="Content\KarateChampCollision.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\KarateChampCollision.png">
+    <Content Include="Content\Sprites\Background\Bg.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
