@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using KarateChamp.Animation;
 using KarateChamp.Collision;
 using KarateChamp.Character;
 
@@ -49,45 +48,34 @@ namespace KarateChamp.Character {
 
         Animator animatorator = new Animator();
         Animation idle = new Animation(new Point(84, 53 * 0), 0, 0, 0.10f);
+        Animation jumpForward = new Animation(new Point(84, 53 * 10), 0, 10, 0.10f);
         Attack punchShort;
         Attack KickRound;
-
-        public enum State {
-
-            Idle,
-            Walking,
-            PunchShort,
-            KickRound,
-            JumpForward,
-        }
 
         void StateMachine(GameTime gameTime) {
             System.Diagnostics.Debug.WriteLine(state);
             switch (state) {
-                case State.Idle:
+                case Character.State.Idle:
                     animatorator.PlayLoop(idle, this, gameTime);
                     animatorator.Update();
                     break;
 
-                case State.Walking:
-                    break;
-
-                case State.PunchShort:
+                case Character.State.MiddleLungePunch:
                     punchShort.Execute(Keys.Right, gameTime);
                     if (punchShort.finished)
                         state = State.Idle;
                     break;
 
-                case State.KickRound:
+                case Character.State.RoundKick:
                     KickRound.Execute(Keys.Left, gameTime);
                     if (KickRound.finished)
                         state = State.Idle;
                     break;
 
-                case State.JumpForward:
+                case Character.State.ForwardSomersault:
                     if (animatorator.Stopped())
                         state = State.Idle;
-                    animatorator.Play(MainGame.white_JumpForward, this, gameTime);
+                    animatorator.Play(jumpForward, this, gameTime);
                      
                     break;
             }
@@ -105,7 +93,7 @@ namespace KarateChamp.Character {
             //      CollisionBox collision = new CollisionBox(this, new Vector2(position.X + 60, position.Y), new Vector2(30, 15));
             Animation animation = new Animation(new Point(83, 53 * 14), 0, 7, 0.10f);
             punchShort = new Attack(animation, 3, this);
-            state = State.PunchShort;
+            state = State.MiddleLungePunch;
 
             System.Diagnostics.Debug.WriteLine("Punch");
         }
@@ -116,7 +104,7 @@ namespace KarateChamp.Character {
             Animation animation = new Animation(new Point(83, 53 * 4), 0, 10, 0.10f);
             KickRound = new Attack(animation, 5, this);
 
-            state = State.KickRound;
+            state = State.RoundKick;
 
             System.Diagnostics.Debug.WriteLine("Kick");
         }
@@ -129,7 +117,7 @@ namespace KarateChamp.Character {
 
         public void JumpForward() {
 
-            state = State.JumpForward;
+            state = State.ForwardSomersault;
         }
 
         void CheckIfAttackHit(GameTime gameTime) {

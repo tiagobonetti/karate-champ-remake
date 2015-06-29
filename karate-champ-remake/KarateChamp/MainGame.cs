@@ -2,20 +2,19 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-using KarateChamp.Animation;
-using KarateChamp.Collision;
 using KarateChamp.Character;
+using KarateChamp.Collision;
 
 namespace KarateChamp {
     public class MainGame : Game {
 
         public static IList<GameObject> gameObjectList;
         public static KeyboardState previousKeyboardState;
-
-        public static BaseAnimation white_Idle;
-        public static BaseAnimation white_PunchShort;
-        public static BaseAnimation white_JumpForward;
-        public static BaseAnimation white_KickRound;
+        /*
+        public static Animation white_Idle;
+        public static Animation white_PunchShort;
+        public static Animation white_JumpForward;
+        public static Animation white_KickRound;*/
 
         public static Texture2D colSprite;
 
@@ -44,7 +43,10 @@ namespace KarateChamp {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             colSprite = Content.Load<Texture2D>("KarateChampCollision");
+            Texture2D spritesheet = Content.Load<Texture2D>("KarateChampAligned");
 
+            whiteCharacter = new PlayerCharacter(spritesheet, MainGame.Tag.Player, new Vector2(100, 100), BaseCharacter.Orientation.Right);
+            /*
             Texture2D[] Sprites_White_Idle = new Texture2D[2];
             for (int i = 0; i < Sprites_White_Idle.Length; i++)
                 Sprites_White_Idle[i] = Content.Load<Texture2D>("Sprites/Main Character/White_Idle");
@@ -60,17 +62,17 @@ namespace KarateChamp {
             Texture2D[] Sprites_White_KickRound = new Texture2D[10];
             for (int i = 0; i < Sprites_White_KickRound.Length; i++)
                 Sprites_White_KickRound[i] = Content.Load<Texture2D>("Sprites/Main Character/White_KickRound_" + i);
-
+            */
             Rectangle rect_PunchShort = new Rectangle(25, 25, 30, 15);
             Rectangle rect_KickRound = new Rectangle(25, 25, 30, 15);
-
+            /*
             white_PunchShort = new BaseAnimation(Sprites_White_PunchShort, 0.10f, 3, rect_PunchShort);
             white_KickRound = new BaseAnimation(Sprites_White_KickRound, 0.10f, 6, rect_KickRound);
             white_Idle = new BaseAnimation(Sprites_White_Idle, 0.1f);
             white_JumpForward = new BaseAnimation(Sprites_White_JumpForward, 0.13f);
 
             whiteCharacter = new PlayerCharacter(Sprites_White_Idle, MainGame.Tag.Player, new Vector2(300, 100), BaseCharacter.Orientation.Right);
-            redCharacter = new CpuCharacter(Sprites_White_Idle, MainGame.Tag.Computer, new Vector2(400, 200), BaseCharacter.Orientation.Left);
+            redCharacter = new CpuCharacter(Sprites_White_Idle, MainGame.Tag.Computer, new Vector2(400, 200), BaseCharacter.Orientation.Left);*/
         }
 
         protected override void UnloadContent() {

@@ -11,17 +11,16 @@ namespace KarateChamp.Character {
     class PlayerCharacter : BaseCharacter {
         public Input.IPlayerInput PlayerInput { get; set; }
 
-        public PlayerCharacter(Texture2D[] spriteList, MainGame.Tag tag, Vector2 position, Orientation orientation) {
-            this.PlayerInput = new Input.GamePadInput(PlayerIndex.One);
-            this.spriteList = spriteList;
-            this.sprite = spriteList[0];
+        public PlayerCharacter(Texture2D spriteSheet, MainGame.Tag tag, Vector2 position, Orientation orientation) {
+
+            this.spriteSheet = spriteSheet;
             this.tag = tag;
             this.position = position;
             this.orientation = orientation;
-            collision = new CollisionBox(this, position, new Vector2(sprite.Width - 15, sprite.Height + 25));
-
+            collisionOffset = new Vector2(20f, 0);
+            uvRect = new Rectangle(0, 0, 83, 53);
+            collision = new CollisionBox(this, new Vector2(uvRect.Center.X, uvRect.Center.Y) * collisionOffset, new Vector2(25, 53));
             DEBUG_Collision.bodyCollisionList.Add(collision);
-            MainGame.gameObjectList.Add(this);
         }
 
         public void Update(GameTime gameTime) {
@@ -32,15 +31,70 @@ namespace KarateChamp.Character {
         }
 
         public void Draw(SpriteBatch spriteBatch) {
-            Vector2 origin = new Vector2(sprite.Width * 0.5f, sprite.Height * 0.5f);
+
+            Vector2 origin = new Vector2(uvRect.Width * 0.5f, uvRect.Height * 0.5f);
+
+            /*
+            Rectangle rect2 = uvRect;
+            Texture2D rectTexture = new Texture2D(spriteBatch.GraphicsDevice, rect2.Width, rect2.Height);
+
+            Color[] data = new Color[rectTexture.Width * rectTexture.Height];
+            for (int i = 0; i < data.Length; ++i) {
+                data[i] = new Color(255, 0, 0, 1);
+            }
+            rectTexture.SetData(data);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
-            PlayerInput.DrawDebug(spriteBatch, orientation);
-            spriteBatch.Draw(sprite, position, null, null, origin, 0f, Vector2.One * 1.5f, Color.White, FlipWithOrientation(), 0f);
+            spriteBatch.Draw(rectTexture, position, Color.White);
+            spriteBatch.End();*/
+
+
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
+            spriteBatch.Draw(spriteSheet, position, null, uvRect, Vector2.One, 0f, Vector2.One, Color.White, FlipWithOrientation(), 0f);
             spriteBatch.End();
         }
 
         void Control(GameTime gameTime) {
+
+            if (IsGrounded()) {
+                if (Keyboard.GetState().IsKeyDown(Keys.Right)) {
+                    if (MainGame.previousKeyboardState.IsKeyDown(Keys.Right) != Keyboard.GetState().IsKeyDown(Keys.Right)) {
+                        Attack_PunchShort(gameTime);
+                    }
+                }
+
+                if (Keyboard.GetState().IsKeyDown(Keys.Left)) {
+                    if (MainGame.previousKeyboardState.IsKeyDown(Keys.Left) != Keyboard.GetState().IsKeyDown(Keys.Left)) {
+                        Attack_KickRound(gameTime);
+                    }
+                }
+            }
+
+            if (IsGrounded()) {
+                if (Keyboard.GetState().IsKeyDown(Keys.A)) {
+                    orientation = Orientation.Left;
+                    velocity.X = -speed_Walk;
+                }
+                else if (Keyboard.GetState().IsKeyDown(Keys.D)) {
+                    orientation = Orientation.Right;
+                    velocity.X = speed_Walk;
+                }
+                else {
+                    velocity.X = 0f;
+                }
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.W)) {
+                if (IsGrounded()) {
+                    JumpForward();
+                    position.Y -= 2f;
+                    velocity.Y = -speed_Jump;
+                }
+            }
+
+            position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            
+            /*
             State move = PlayerInput.GetMove(Input.Modifier.None, orientation);
             if (IsGrounded()) {
                 switch (move) {
@@ -52,7 +106,7 @@ namespace KarateChamp.Character {
                         break;
                     case State.ForwardSomersault:
                         JumpForward();
-                        if (sprite == MainGame.white_JumpForward.Sprites[2]) {
+                        if (uvRect.Location == new Point(84 * 2, 53 * 10)) {
                             velocity.X = speed_Walk;
                             position.Y -= 2f;
                             velocity.Y = -speed_Jump;
@@ -71,7 +125,7 @@ namespace KarateChamp.Character {
                         break;
                 }
             }
-            position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;*/
         }
     }
 }
