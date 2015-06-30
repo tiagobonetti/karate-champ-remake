@@ -7,13 +7,11 @@ using System.Text;
 
 namespace KarateChamp {
     class Animator {
-
-  //      public int HitFrame { get; private set; }
         public int FrameIndex { get; private set; }
         public bool PlayedToFrame { get; private set; }
 
         public State state = State.Stop;
-        
+
         GameObject currentGameObject;
         Animation currentAnimation;
         GameTime gameTime;
@@ -24,8 +22,7 @@ namespace KarateChamp {
             FrameIndex = 0;
         }
 
-        public enum State{
-
+        public enum State {
             Play,
             PlayTo,
             PlayAfter,
@@ -74,10 +71,6 @@ namespace KarateChamp {
         }
 
         void StateMachine() {
-
-         //   if (!initialized)
-           //     throw new Exception("Animation not Initialized - Use Animator.Init()");
-            
             switch (state) {
                 case State.Play:
                     PlayAnimation();
@@ -108,7 +101,6 @@ namespace KarateChamp {
         }
 
         public void Play(Animation animation, GameObject gameObject, GameTime gameTime) {
-
             currentGameObject = gameObject;
             currentAnimation = animation;
             this.gameTime = gameTime;
@@ -116,7 +108,6 @@ namespace KarateChamp {
         }
 
         public void PlayTo(int frame, Animation animation, GameObject gameObject, GameTime gameTime) {
-
             currentGameObject = gameObject;
             currentAnimation = animation;
             this.gameTime = gameTime;
@@ -125,7 +116,6 @@ namespace KarateChamp {
         }
 
         public void PlayAfter(int frame, Animation animation, GameObject gameObject, GameTime gameTime) {
-
             currentGameObject = gameObject;
             currentAnimation = animation;
             this.gameTime = gameTime;
@@ -134,7 +124,6 @@ namespace KarateChamp {
         }
 
         public void PlayLoop(Animation animation, GameObject gameObject, GameTime gameTime) {
-
             currentGameObject = gameObject;
             currentAnimation = animation;
             this.gameTime = gameTime;
@@ -150,11 +139,7 @@ namespace KarateChamp {
         }
 
         public bool Stopped() {
-
-            if (state == State.Stop)
-                return true;
-            else
-                return false;
+            return (state == State.Stop);
         }
 
         public void RollBack() {
@@ -179,7 +164,7 @@ namespace KarateChamp {
         }
 
         void PlayLoopAnimation() {
-           
+
             if (elapsedTime < currentAnimation.animationLength) {
                 elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
@@ -188,7 +173,7 @@ namespace KarateChamp {
                 currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex, currentAnimation.spriteRectPosition.Y, 84, 53);
                 FrameIndex++;
             }
-            if (FrameIndex >= currentAnimation.size - 1){
+            if (FrameIndex >= currentAnimation.size - 1) {
                 FrameIndex = 0;
             }
 

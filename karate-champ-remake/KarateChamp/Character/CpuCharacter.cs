@@ -22,9 +22,7 @@ namespace KarateChamp {
         }
 
         public void Update(GameTime gameTime) {
-            Control(gameTime);
-            ApplyGravity();
-            BaseUpdate(gameTime);
+            BaseUpdate(gameTime, CharacterState.Idle);
         }
 
         public void Draw(SpriteBatch spriteBatch) {

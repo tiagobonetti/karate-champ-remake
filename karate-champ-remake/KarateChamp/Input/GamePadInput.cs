@@ -28,10 +28,10 @@ namespace KarateChamp {
         }
         public InputState GetStick(Vector2 ThumbStick, Orientation flipped) {
             if (ThumbStick.X > threshold) {
-                return (flipped == Orientation.Right) ? InputState.Back : InputState.Front;
+                return (flipped == Orientation.Right) ? InputState.Front : InputState.Back;
             }
             else if (ThumbStick.X < -threshold) {
-                return (flipped == Orientation.Left) ? InputState.Back : InputState.Front;
+                return (flipped == Orientation.Left) ? InputState.Front : InputState.Back;
             }
             else if (ThumbStick.Y > threshold) {
                 return InputState.Up;
