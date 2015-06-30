@@ -9,10 +9,11 @@ using System.Text;
 namespace KarateChamp {
     class PlayerCharacter : BaseCharacter {
         public IPlayerInput playerInput;
+
         public PlayerCharacter(Texture2D spriteSheet, MainGame.Tag tag, float positionX, Orientation orientation) {
             this.spriteSheet = spriteSheet;
             this.tag = tag;
-            uvRect = new Rectangle(0, 0, 83, 53);
+            
             this.position = new Vector2(positionX, floor - uvRect.Height);
             this.orientation = orientation;
             this.playerInput = new GamePadInput(PlayerIndex.One);

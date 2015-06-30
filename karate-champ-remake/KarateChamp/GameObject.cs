@@ -25,6 +25,13 @@ namespace KarateChamp {
             Right
         }
 
+        public void Flip(){
+            if (orientation == Orientation.Left)
+                orientation = Orientation.Right;
+            else
+                orientation = Orientation.Left;
+        }
+
         protected SpriteEffects FlipWithOrientation() {
 
             if (orientation == Orientation.Left)

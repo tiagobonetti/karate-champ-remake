@@ -17,8 +17,10 @@ namespace KarateChamp {
         GameTime gameTime;
         float elapsedTime = 9999999;
         int referenceFrame;
+        int startFrame;
 
         public Animator() {
+            startFrame = 0;
             FrameIndex = 0;
         }
 
@@ -39,28 +41,28 @@ namespace KarateChamp {
 
                 switch (state) {
                     case State.Play:
-                        FrameIndex = 0;
+                        FrameIndex = startFrame;
                         elapsedTime = 9999999;
                         break;
                     case State.PlayTo:
-                        FrameIndex = 0;
+                        FrameIndex = startFrame;
                         elapsedTime = 9999999;
                         break;
                     case State.PlayAfter:
-                        FrameIndex = 0;
+                        FrameIndex = startFrame;
                         elapsedTime = 0;
                         break;
                     case State.PlayLoop:
-                        FrameIndex = 0;
+                        FrameIndex = startFrame;
                         elapsedTime = 9999999;
                         break;
                     case State.Stop:
-                        FrameIndex = 0;
+                        FrameIndex = startFrame;
                         elapsedTime = 9999999;
                         PlayedToFrame = false;
                         break;
                     case State.Hold:
-                        FrameIndex = 0;
+                        FrameIndex = startFrame;
                         elapsedTime = 9999999;
                         break;
                     case State.RollBack:
@@ -104,6 +106,7 @@ namespace KarateChamp {
             currentGameObject = gameObject;
             currentAnimation = animation;
             this.gameTime = gameTime;
+            startFrame = animation.startIndex;
             EnterState(State.Play);
         }
 
@@ -112,6 +115,7 @@ namespace KarateChamp {
             currentAnimation = animation;
             this.gameTime = gameTime;
             referenceFrame = frame;
+            startFrame = animation.startIndex;
             EnterState(State.PlayTo);
         }
 
@@ -127,6 +131,7 @@ namespace KarateChamp {
             currentGameObject = gameObject;
             currentAnimation = animation;
             this.gameTime = gameTime;
+            startFrame = animation.startIndex;
             EnterState(State.PlayLoop);
         }
 
@@ -153,10 +158,13 @@ namespace KarateChamp {
             }
             else {
                 elapsedTime = 0;
-                currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex, currentAnimation.spriteRectPosition.Y, 84, 53);
+                currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex, 
+                                                         currentAnimation.spriteRectPosition.Y, 
+                                                         currentGameObject.uvRect.Width, 
+                                                         currentGameObject.uvRect.Height);
                 FrameIndex++;
             }
-            if (FrameIndex >= currentAnimation.size - 1) {
+            if (FrameIndex > currentAnimation.size - 1) {
                 EnterState(State.Stop);
             }
 
@@ -170,11 +178,14 @@ namespace KarateChamp {
             }
             else {
                 elapsedTime = 0;
-                currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex, currentAnimation.spriteRectPosition.Y, 84, 53);
+                currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex,
+                                                         currentAnimation.spriteRectPosition.Y,
+                                                         currentGameObject.uvRect.Width,
+                                                         currentGameObject.uvRect.Height);
                 FrameIndex++;
             }
-            if (FrameIndex >= currentAnimation.size - 1) {
-                FrameIndex = 0;
+            if (FrameIndex > currentAnimation.size - 1) {
+                FrameIndex = startFrame;
             }
 
             System.Diagnostics.Debug.WriteLine("PlayLoopAnimation Index " + FrameIndex);
@@ -191,7 +202,10 @@ namespace KarateChamp {
             }
             else {
                 elapsedTime = 0;
-                currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex, currentAnimation.spriteRectPosition.Y, 84, 53);
+                currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex,
+                                                         currentAnimation.spriteRectPosition.Y,
+                                                         currentGameObject.uvRect.Width,
+                                                         currentGameObject.uvRect.Height);
                 FrameIndex++;
             }
             if (FrameIndex >= referenceFrame) {
@@ -220,7 +234,10 @@ namespace KarateChamp {
                     EnterState(State.Stop);
                 }
                 else
-                    currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex, currentAnimation.spriteRectPosition.Y, 84, 53);
+                    currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex,
+                                                             currentAnimation.spriteRectPosition.Y,
+                                                             currentGameObject.uvRect.Width,
+                                                             currentGameObject.uvRect.Height);
             }
         }
 
@@ -234,7 +251,10 @@ namespace KarateChamp {
                 elapsedTime = 0;
                 FrameIndex--;
                 if (FrameIndex >= 0)
-                    currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex, currentAnimation.spriteRectPosition.Y, 84, 53);
+                    currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex,
+                                                             currentAnimation.spriteRectPosition.Y,
+                                                             currentGameObject.uvRect.Width,
+                                                             currentGameObject.uvRect.Height);
             }
             if (FrameIndex <= 0) {
                 EnterState(State.Stop);

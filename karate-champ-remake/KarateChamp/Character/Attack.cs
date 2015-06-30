@@ -15,6 +15,7 @@ namespace KarateChamp {
         public Animation Animation { get; private set; }
         public GameObject Owner { get; private set; }
         public bool finished { get; private set; }
+        bool executeMoving = false;
 
         Animator animator = new Animator();
 
@@ -22,8 +23,9 @@ namespace KarateChamp {
             State = state;
             HitFrame = hitFrame;
             Owner = owner;
-            CollisionLeft = CalcCollision(MainGame.colSprite, new Rectangle(83 * hitFrame, animation.spriteRectPosition.Y, 83, 53), Owner, false);
-            CollisionRight = CalcCollision(MainGame.colSprite, new Rectangle(83 * hitFrame, animation.spriteRectPosition.Y, 83, 53), Owner, true);
+            Point rectSize = new Point(owner.uvRect.Width, owner.uvRect.Height);
+            CollisionLeft = CalcCollision(MainGame.colSprite, new Rectangle(83 * hitFrame, animation.spriteRectPosition.Y, rectSize.X, rectSize.Y), Owner, false);
+            CollisionRight = CalcCollision(MainGame.colSprite, new Rectangle(83 * hitFrame, animation.spriteRectPosition.Y, rectSize.X, rectSize.Y), Owner, true);
             Animation = animation;
         }
 
@@ -46,6 +48,30 @@ namespace KarateChamp {
             }
             else {
                 animator.RollBack();
+            }
+
+            if (animator.PlayedToFrame) {
+                CheckIfHit(gameTime);
+                DEBUG_Collision.p1AttackCollisionLeft = CollisionLeft;
+                DEBUG_Collision.p1AttackCollisionRight = CollisionRight;
+            }
+            animator.Update();
+        }
+
+        public void ExecuteMoving(CharacterState input, GameTime gameTime, Vector2 velocityChange, BaseCharacter baseChar) {
+
+            if (State == input) {
+                executeMoving = true;
+            }
+            if (executeMoving) {
+                if (baseChar.IsGrounded())
+                    baseChar.velocity = velocityChange;
+                animator.PlayTo(Animation.size - 1, Animation, Owner, gameTime);
+            }
+
+            if (animator.PlayedToFrame && baseChar.IsGrounded()) {
+                finished = true;
+                executeMoving = false;
             }
 
             if (animator.PlayedToFrame) {
@@ -82,8 +108,6 @@ namespace KarateChamp {
                     rectEndPosition = new Point(i % uvRect.Size.X, ((int)Math.Ceiling((double)i / (double)uvRect.Size.X)) - 1);
                 }
             }
-
-            System.Diagnostics.Debug.WriteLine(d + " " + rectStartPosition + " " + rectEndPosition);
 
             Vector2 size = new Vector2(rectEndPosition.X - rectStartPosition.X, rectEndPosition.Y - rectStartPosition.Y);
             Vector2 pos;

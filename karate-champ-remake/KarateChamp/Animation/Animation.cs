@@ -16,6 +16,7 @@ namespace KarateChamp {
 
             this.spriteRectPosition = spriteRectPosition;
             this.size = size;
+            this.startIndex = startIndex;
             animationLength = length;
         }
     }

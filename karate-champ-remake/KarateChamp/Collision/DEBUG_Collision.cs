@@ -37,6 +37,9 @@ namespace KarateChamp {
             }
 
             if (p1AttackCollisionLeft != null) {
+                if (p1AttackCollisionLeft.rect.Width <= 0 || p1AttackCollisionLeft.rect.Height <= 0)
+                    throw new Exception("Width/Height can't be zero!");
+
                 Rectangle p1Rect = p1AttackCollisionLeft.rect;
                 Texture2D p1RectTexture = new Texture2D(spriteBatch.GraphicsDevice, p1Rect.Width, p1Rect.Height);
 
@@ -55,6 +58,8 @@ namespace KarateChamp {
             }
 
             if (p1AttackCollisionRight != null) {
+                if (p1AttackCollisionRight.rect.Width <= 0 || p1AttackCollisionRight.rect.Height <= 0)
+                    throw new Exception("Width/Height can't be zero!");
                 Rectangle p1Rect = p1AttackCollisionRight.rect;
                 Texture2D p1RectTexture = new Texture2D(spriteBatch.GraphicsDevice, p1Rect.Width, p1Rect.Height);
 
