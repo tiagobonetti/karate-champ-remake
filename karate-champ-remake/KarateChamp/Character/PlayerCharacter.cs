@@ -5,11 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using KarateChamp.Collision;
 
-namespace KarateChamp.Character {
+namespace KarateChamp {
     class PlayerCharacter : BaseCharacter {
-        public Input.IPlayerInput PlayerInput { get; set; }
+        public IPlayerInput PlayerInput { get; set; }
 
         public PlayerCharacter(Texture2D spriteSheet, MainGame.Tag tag, Vector2 position, Orientation orientation) {
 

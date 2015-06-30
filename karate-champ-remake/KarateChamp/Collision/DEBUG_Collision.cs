@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace KarateChamp.Collision {
+namespace KarateChamp {
     class DEBUG_Collision {
 
         public static IList<CollisionBox> bodyCollisionList = new List<CollisionBox>();

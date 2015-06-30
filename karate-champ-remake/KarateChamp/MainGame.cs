@@ -2,8 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-using KarateChamp.Character;
-using KarateChamp.Collision;
 
 namespace KarateChamp {
     public class MainGame : Game {

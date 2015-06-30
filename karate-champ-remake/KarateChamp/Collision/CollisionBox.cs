@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace KarateChamp.Collision {
+namespace KarateChamp {
     public class CollisionBox {
 
         public GameObject owner;

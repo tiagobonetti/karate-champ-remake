@@ -7,10 +7,9 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace KarateChamp.Input {
+namespace KarateChamp {
 
     using Orientation = GameObject.Orientation;
-    using Move = Character.State;
 
     class GamePadInput : IPlayerInput {
         public Vector2 Position { get; set; }
@@ -21,34 +20,34 @@ namespace KarateChamp.Input {
             this.Position = Vector2.Zero;
             this.player = player;
         }
-        public Move GetMove(Modifier modifier, Orientation flipped) {
+        public CharacterState GetMove(Modifier modifier, Orientation flipped) {
             GamePadState state = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.IndependentAxes);
-            State left = GetStick(state.ThumbSticks.Left, flipped);
-            State right = GetStick(state.ThumbSticks.Right, flipped);
+            InputState left = GetStick(state.ThumbSticks.Left, flipped);
+            InputState right = GetStick(state.ThumbSticks.Right, flipped);
             return InputDictionary.GetMove(left, right, modifier);
         }
-        public State GetStick(Vector2 ThumbStick, Orientation flipped) {
+        public InputState GetStick(Vector2 ThumbStick, Orientation flipped) {
             if (ThumbStick.X > threshold) {
-                return (flipped == Orientation.Right) ? State.Back : State.Front;
+                return (flipped == Orientation.Right) ? InputState.Back : InputState.Front;
             }
             else if (ThumbStick.X < -threshold) {
-                return (flipped == Orientation.Left) ? State.Back : State.Front;
+                return (flipped == Orientation.Left) ? InputState.Back : InputState.Front;
             }
             else if (ThumbStick.Y > threshold) {
-                return State.Up;
+                return InputState.Up;
             }
             else if (ThumbStick.Y < -threshold) {
-                return State.Down;
+                return InputState.Down;
             }
             else {
-                return State.None;
+                return InputState.None;
             }
         }
         public void DrawDebug(SpriteBatch sb, Orientation orientation) {
             GamePadState state = GamePad.GetState(player, GamePadDeadZone.IndependentAxes);
             Vector2 pos = Position;
-            State left = GetStick(state.ThumbSticks.Left, orientation);
-            State right = GetStick(state.ThumbSticks.Right, orientation);
+            InputState left = GetStick(state.ThumbSticks.Left, orientation);
+            InputState right = GetStick(state.ThumbSticks.Right, orientation);
 
             Debug.DrawText(sb, pos, "P " + player.ToString() + " : " + state.IsConnected.ToString());
             pos.Y += 30.0f;

@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using KarateChamp.Collision;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace KarateChamp.Character {
+namespace KarateChamp {
     class Attack {
 
         public int HitFrame { get; private set; }
