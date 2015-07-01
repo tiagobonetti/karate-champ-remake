@@ -40,9 +40,9 @@ namespace KarateChamp {
         public const float gravityPull = 12f;
         public const float floor = 330;
 
+        public BaseCharacter Opponent { get; set;}
         public CharacterState state = CharacterState.Idle;
         public Vector2 velocity = Vector2.Zero;
-        public CollisionBox attackCollision;
 
         Animator animator = new Animator();
         Animation idle;
@@ -77,7 +77,7 @@ namespace KarateChamp {
         }
 
         void ChangeState(GameTime gameTime, CharacterState input) {
-            System.Diagnostics.Debug.WriteLine("State: " + state.ToString() + " Input: " + input.ToString());
+            //System.Diagnostics.Debug.WriteLine("State: " + state.ToString() + " Input: " + input.ToString());
             state = input;
             switch (input) {
                 default:
@@ -94,7 +94,8 @@ namespace KarateChamp {
                     break;
 
                 case CharacterState.ChangeDirection:
-                //    Flip();
+                    velocity = Vector2.Zero;
+                    Flip();
                     break;
 
                 case CharacterState.Withdraw:
@@ -191,7 +192,7 @@ namespace KarateChamp {
         }
         void StateMachine(GameTime gameTime, CharacterState input) {
 
-            System.Diagnostics.Debug.WriteLine(state);
+            //System.Diagnostics.Debug.WriteLine(state);
             switch (state) {
                 default:
                 case CharacterState.Idle:
@@ -318,21 +319,6 @@ namespace KarateChamp {
             StateMachine(gameTime, input);
             ApplyPhysics(gameTime);
             UpdateCollisionPosition();
-            CheckIfAttackHit(gameTime);
-        }
-
-        void CheckIfAttackHit(GameTime gameTime) {
-            GameObject objectHit;
-            if (attackCollision != null) {
-                if (attackCollision.OnCollision(out objectHit)) {
-                    if (objectHit.tag == MainGame.Tag.Computer)
-                        Hit(objectHit);
-                }
-            }
-        }
-
-        void Hit(GameObject obj) {
-            System.Diagnostics.Debug.WriteLine("Hit");
         }
 
         public void TakeHit() {
@@ -430,7 +416,7 @@ namespace KarateChamp {
             int offset_Y = 2;
             int size = 10;
             int hitFrame = 5;
-            Animation animation = new Animation(new Point(uvRect.Width, uvRect.Height * offset_Y), 0, size, 0.10f);
+            Animation animation = new Animation(new Point(uvRect.Width, uvRect.Height * offset_Y), 0, size, 0.01f);
             frontKick = new Attack(CharacterState.FrontKick, animation, hitFrame, this);
             System.Diagnostics.Debug.WriteLine("Kick");
         }

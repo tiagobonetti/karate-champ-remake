@@ -21,7 +21,7 @@ namespace KarateChamp {
             this.player = player;
         }
         public CharacterState GetMove(Modifier modifier, Orientation flipped) {
-            GamePadState state = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.IndependentAxes);
+            GamePadState state = GamePad.GetState(player, GamePadDeadZone.IndependentAxes);
             InputState left = GetStick(state.ThumbSticks.Left, flipped);
             InputState right = GetStick(state.ThumbSticks.Right, flipped);
             return InputDictionary.GetMove(left, right, modifier);

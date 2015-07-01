@@ -95,7 +95,7 @@ namespace KarateChamp {
                     RollBackAnimation();
                     break;
             }
-            System.Diagnostics.Debug.WriteLine("Animator State " + state);
+            // System.Diagnostics.Debug.WriteLine("Animator State " + state);
         }
 
         public void Update() {
@@ -168,7 +168,7 @@ namespace KarateChamp {
                 EnterState(State.Stop);
             }
 
-            System.Diagnostics.Debug.WriteLine("PlayAnimation Index " + FrameIndex);
+            // System.Diagnostics.Debug.WriteLine("PlayAnimation Index " + FrameIndex);
         }
 
         void PlayLoopAnimation() {
@@ -188,7 +188,7 @@ namespace KarateChamp {
                 FrameIndex = startFrame;
             }
 
-            System.Diagnostics.Debug.WriteLine("PlayLoopAnimation Index " + FrameIndex);
+            // System.Diagnostics.Debug.WriteLine("PlayLoopAnimation Index " + FrameIndex);
         }
 
         void HoldAnimation() {
@@ -213,12 +213,12 @@ namespace KarateChamp {
                 elapsedTime = 9999999;
                 PlayedToFrame = true;
             }
-            System.Diagnostics.Debug.WriteLine("PlayUntilHitFrame Index " + FrameIndex);
+            // System.Diagnostics.Debug.WriteLine("PlayUntilHitFrame Index " + FrameIndex);
         }
 
         void PlayAfterHitFrame() {
 
-            System.Diagnostics.Debug.WriteLine("PlayAfterHitFrame Index " + FrameIndex);
+            // System.Diagnostics.Debug.WriteLine("PlayAfterHitFrame Index " + FrameIndex);
 
             if (FrameIndex <= referenceFrame) {
                 FrameIndex = referenceFrame;
@@ -242,7 +242,8 @@ namespace KarateChamp {
         }
 
         void RollBackAnimation() {
-            System.Diagnostics.Debug.WriteLine("Rollback Index" + FrameIndex);
+            // System.Diagnostics.Debug.WriteLine("Rollback Index" + FrameIndex);
+
 
             if (elapsedTime < currentAnimation.animationLength) {
                 elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;

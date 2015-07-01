@@ -13,13 +13,13 @@ namespace KarateChamp {
         public CollisionBox CollisionLeft { get; private set; }
         public CollisionBox CollisionRight { get; private set; }
         public Animation Animation { get; private set; }
-        public GameObject Owner { get; private set; }
+        public BaseCharacter Owner { get; private set; }
         public bool finished { get; private set; }
         bool executeMoving = false;
 
         Animator animator = new Animator();
 
-        public Attack(CharacterState state, Animation animation, int hitFrame, GameObject owner) {
+        public Attack(CharacterState state, Animation animation, int hitFrame, BaseCharacter owner) {
             State = state;
             HitFrame = hitFrame;
             Owner = owner;
@@ -84,13 +84,22 @@ namespace KarateChamp {
 
         void CheckIfHit(GameTime gameTime) {
             GameObject objectHit;
-            if (CollisionLeft.OnCollision(out objectHit)) {
-                if (objectHit.tag == MainGame.Tag.Computer)
-                    Hit(objectHit);
+            if (Owner.orientation == GameObject.Orientation.Left) {
+                if (CollisionLeft.OnCollision(out objectHit)) {
+                    if (objectHit == Owner.Opponent)
+                        Hit(objectHit);
+                }
+            }
+            else {
+                if (CollisionRight.OnCollision(out objectHit)) {
+                    if (objectHit == Owner.Opponent)
+                        Hit(objectHit);
+                }
             }
         }
 
         void Hit(GameObject obj) {
+            System.Diagnostics.Debug.WriteLine("Hit!"+Owner.Opponent);
         }
 
         public CollisionBox CalcCollision(Texture2D sprite, Rectangle uvRect, GameObject owner, bool facingRight) {

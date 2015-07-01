@@ -8,23 +8,28 @@ using System.Text;
 
 namespace KarateChamp {
     class PlayerCharacter : BaseCharacter {
-        public IPlayerInput playerInput;
+        public IPlayerInput PlayerInput { get; set; }
 
         public PlayerCharacter(Texture2D spriteSheet, MainGame.Tag tag, float positionX, Orientation orientation) {
             this.spriteSheet = spriteSheet;
             this.tag = tag;
-            
             this.position = new Vector2(positionX, floor - uvRect.Height);
             this.orientation = orientation;
-            this.playerInput = new GamePadInput(PlayerIndex.One);
-
+            this.PlayerInput = null;
             collisionOffset = new Vector2(20f, 0);
             collision = new CollisionBox(this, new Vector2(uvRect.Center.X, uvRect.Center.Y) * collisionOffset, new Vector2(25, 53));
             DEBUG_Collision.bodyCollisionList.Add(collision);
         }
 
         public void Update(GameTime gameTime) {
-            CharacterState input = playerInput.GetMove(Modifier.None, orientation);
+            CharacterState input;
+            if (PlayerInput == null) {
+                input = CharacterState.Idle;
+            }
+            else {
+                input = PlayerInput.GetMove(Modifier.None, orientation);
+            }
+
             BaseUpdate(gameTime, input);
         }
 
@@ -33,7 +38,9 @@ namespace KarateChamp {
             Vector2 origin = new Vector2(uvRect.Width * 0.5f, uvRect.Height * 0.5f);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
             spriteBatch.Draw(spriteSheet, position, null, uvRect, Vector2.One, 0f, Vector2.One, Color.White, FlipWithOrientation(), 0f);
-            playerInput.DrawDebug(spriteBatch, orientation);
+            if (PlayerInput != null) {
+                PlayerInput.DrawDebug(spriteBatch, orientation);
+            }
             spriteBatch.End();
         }
     }
