@@ -20,7 +20,7 @@ namespace KarateChamp {
         SpriteBatch spriteBatch;
         
         PlayerCharacter whiteCharacter;
-        CpuCharacter redCharacter;
+        PlayerCharacter redCharacter;
         DEBUG_Collision debugCollision;
 
         public MainGame() {
@@ -43,34 +43,17 @@ namespace KarateChamp {
             colSprite = Content.Load<Texture2D>("KarateChampCollision");
             Texture2D spritesheet = Content.Load<Texture2D>("KarateChampAligned");
 
-            whiteCharacter = new PlayerCharacter(spritesheet, MainGame.Tag.Player, 100.0f, BaseCharacter.Orientation.Right);
-            /*
-            Texture2D[] Sprites_White_Idle = new Texture2D[2];
-            for (int i = 0; i < Sprites_White_Idle.Length; i++)
-                Sprites_White_Idle[i] = Content.Load<Texture2D>("Sprites/Main Character/White_Idle");
+            whiteCharacter = new PlayerCharacter(spritesheet, MainGame.Tag.PlayerOne, 100.0f, BaseCharacter.Orientation.Right);
+            whiteCharacter.PlayerInput = new GamePadInput(PlayerIndex.One);
 
-            Texture2D[] Sprites_White_PunchShort = new Texture2D[7];
-            for (int i = 0; i < Sprites_White_PunchShort.Length; i++)
-                Sprites_White_PunchShort[i] = Content.Load<Texture2D>("Sprites/Main Character/White_PunchShort_" + i);
-            
-            Texture2D[] Sprites_White_JumpForward = new Texture2D[10];
-            for (int i = 0; i < Sprites_White_JumpForward.Length; i++)
-                Sprites_White_JumpForward[i] = Content.Load<Texture2D>("Sprites/Main Character/White_JumpForward_" + i);
-            
-            Texture2D[] Sprites_White_KickRound = new Texture2D[10];
-            for (int i = 0; i < Sprites_White_KickRound.Length; i++)
-                Sprites_White_KickRound[i] = Content.Load<Texture2D>("Sprites/Main Character/White_KickRound_" + i);
-            */
-            Rectangle rect_PunchShort = new Rectangle(25, 25, 30, 15);
-            Rectangle rect_KickRound = new Rectangle(25, 25, 30, 15);
-            /*
-            white_PunchShort = new BaseAnimation(Sprites_White_PunchShort, 0.10f, 3, rect_PunchShort);
-            white_KickRound = new BaseAnimation(Sprites_White_KickRound, 0.10f, 6, rect_KickRound);
-            white_Idle = new BaseAnimation(Sprites_White_Idle, 0.1f);
-            white_JumpForward = new BaseAnimation(Sprites_White_JumpForward, 0.13f);
+            redCharacter = new PlayerCharacter(spritesheet, MainGame.Tag.PlayerOne, 400.0f, BaseCharacter.Orientation.Left);
+            redCharacter.PlayerInput = new GamePadInput(PlayerIndex.Two);
+            redCharacter.PlayerInput.Position = new Vector2(600.0f, 0.0f);
 
-            whiteCharacter = new PlayerCharacter(Sprites_White_Idle, MainGame.Tag.Player, new Vector2(300, 100), BaseCharacter.Orientation.Right);
-            redCharacter = new CpuCharacter(Sprites_White_Idle, MainGame.Tag.Computer, new Vector2(400, 200), BaseCharacter.Orientation.Left);*/
+            whiteCharacter.Opponent = redCharacter;
+            redCharacter.Opponent = whiteCharacter;
+
+
         }
 
         protected override void UnloadContent() {
@@ -81,7 +64,7 @@ namespace KarateChamp {
                 Exit();
 
             whiteCharacter.Update(gameTime);
-        //    redCharacter.Update(gameTime);
+            redCharacter.Update(gameTime);
             base.Update(gameTime);
             previousKeyboardState = Keyboard.GetState();
         }
@@ -91,13 +74,14 @@ namespace KarateChamp {
 
             Background();
             whiteCharacter.Draw(spriteBatch);
-       //     redCharacter.Draw(spriteBatch);
+            redCharacter.Draw(spriteBatch);
             debugCollision.Draw(spriteBatch);
             base.Draw(gameTime);
         }
 
         public enum Tag {
-            Player,
+            PlayerOne,
+            PlayerTwo,
             Computer
         }
 

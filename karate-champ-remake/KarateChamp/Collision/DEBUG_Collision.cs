@@ -17,13 +17,13 @@ namespace KarateChamp {
 
             if (bodyCollisionList.Count > 0) {
                 foreach (CollisionBox col in bodyCollisionList) {
-                    System.Diagnostics.Debug.WriteLine(bodyCollisionList.Count);
+                    //System.Diagnostics.Debug.WriteLine(bodyCollisionList.Count);
                     Rectangle rect = col.rect;
                     Texture2D rectTexture = new Texture2D(spriteBatch.GraphicsDevice, rect.Width, rect.Height);
 
                     Color[] data = new Color[rectTexture.Width * rectTexture.Height];
                     for (int i = 0; i < data.Length; ++i) {
-                        if (col.owner.tag == MainGame.Tag.Player)
+                        if (col.owner.tag == MainGame.Tag.PlayerOne)
                             data[i] = new Color(0, 0, 255, 1);
                         else if (col.owner.tag == MainGame.Tag.Computer)
                             data[i] = new Color(0, 0, 255, 1);
@@ -45,7 +45,7 @@ namespace KarateChamp {
 
                 Color[] p1Data = new Color[p1RectTexture.Width * p1RectTexture.Height];
                 for (int i = 0; i < p1Data.Length; ++i) {
-                    if (p1AttackCollisionLeft.owner.tag == MainGame.Tag.Player)
+                    if (p1AttackCollisionLeft.owner.tag == MainGame.Tag.PlayerOne)
                         p1Data[i] = new Color(0, 255, 0, 1);
                     else if (p1AttackCollisionLeft.owner.tag == MainGame.Tag.Computer)
                         p1Data[i] = new Color(255, 0, 0, 1);
@@ -65,7 +65,7 @@ namespace KarateChamp {
 
                 Color[] p1Data = new Color[p1RectTexture.Width * p1RectTexture.Height];
                 for (int i = 0; i < p1Data.Length; ++i) {
-                    if (p1AttackCollisionRight.owner.tag == MainGame.Tag.Player)
+                    if (p1AttackCollisionRight.owner.tag == MainGame.Tag.PlayerOne)
                         p1Data[i] = new Color(255, 0, 0, 1);
                     else if (p1AttackCollisionRight.owner.tag == MainGame.Tag.Computer)
                         p1Data[i] = new Color(255, 0, 0, 1);
