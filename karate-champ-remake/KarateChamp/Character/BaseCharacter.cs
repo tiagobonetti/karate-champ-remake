@@ -72,6 +72,8 @@ namespace KarateChamp {
         public BaseCharacter() {
             uvRect = new Rectangle(0, 0, 83, 53);
             idle = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 6, 1, 0.10f);
+            forward = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 6, 12, 0.10f);
+            withdraw = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 6, 12, 0.10f);
             forwardSomersault = new Animation(new Point(uvRect.Width, uvRect.Height * 10), 0, 10, 0.10f);
             backwardSomersault = new Animation(new Point(uvRect.Width, uvRect.Height * 11), 0, 10, 0.10f);
         }
@@ -91,6 +93,7 @@ namespace KarateChamp {
                         velocity.X = speedWalk;
                     else
                         velocity.X = -speedWalk;
+                    animator.PlayLoop(forward, this, gameTime);
                     break;
 
                 case CharacterState.ChangeDirection:
@@ -102,6 +105,7 @@ namespace KarateChamp {
                         velocity.X = -speedWalk;
                     else
                         velocity.X = speedWalk;
+                    animator.PlayLoop(withdraw, this, gameTime);
                     break;
 
                 case CharacterState.ForwardSomersault:
@@ -248,7 +252,11 @@ namespace KarateChamp {
                     break;
 
                 case CharacterState.JumpingSideKick:
-                    Vector2 velocityChange = new Vector2(60, -335);
+                    Vector2 velocityChange;
+                    if (orientation == Orientation.Right)
+                        velocityChange = new Vector2(60, -335);
+                    else
+                        velocityChange = new Vector2(-60, -335);
                     jumpingSideKick.ExecuteMoving(input, gameTime,  velocityChange, this);
                     if (jumpingSideKick.finished) {
                         ChangeState(gameTime, input);
@@ -257,9 +265,10 @@ namespace KarateChamp {
 
                 case CharacterState.JumpingBackKick:
                     jumpingBackKick.Execute(input, gameTime);
+
                     if (jumpingBackKick.finished) {
-                        Flip();
                         ChangeState(gameTime, input);
+                        Flip();
                     }
                     break;
 
@@ -394,8 +403,13 @@ namespace KarateChamp {
             int offset_Y = 9;
             int size = 10;
             int hitFrame = 6;
+            Rectangle rect;
+            if (orientation == Orientation.Right)
+                rect = new Rectangle((int)position.X + 112, (int)position.Y, 10, 5);
+            else
+                rect = new Rectangle((int)position.X - uvRect.Width/2, (int)position.Y, 10, 5);
             Animation animation = new Animation(new Point(uvRect.Width, uvRect.Height * offset_Y), 0, size, 0.10f);
-            jumpingSideKick = new Attack(CharacterState.JumpingSideKick, animation, hitFrame, this);
+            jumpingSideKick = new Attack(CharacterState.JumpingSideKick, animation, hitFrame, rect, this);
             System.Diagnostics.Debug.WriteLine("Kick");
         }
 

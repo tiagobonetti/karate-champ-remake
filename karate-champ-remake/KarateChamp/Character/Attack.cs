@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.Input;
 
 namespace KarateChamp {
     class Attack {
+
+        public Animator animator = new Animator();
         public CharacterState State { get; private set; }
         public int HitFrame { get; private set; }
         public CollisionBox CollisionLeft { get; private set; }
@@ -16,8 +18,7 @@ namespace KarateChamp {
         public GameObject Owner { get; private set; }
         public bool finished { get; private set; }
         bool executeMoving = false;
-
-        Animator animator = new Animator();
+        bool hitChecked = false;
 
         public Attack(CharacterState state, Animation animation, int hitFrame, GameObject owner) {
             State = state;
@@ -26,6 +27,18 @@ namespace KarateChamp {
             Point rectSize = new Point(owner.uvRect.Width, owner.uvRect.Height);
             CollisionLeft = CalcCollision(MainGame.colSprite, new Rectangle(83 * hitFrame, animation.spriteRectPosition.Y, rectSize.X, rectSize.Y), Owner, false);
             CollisionRight = CalcCollision(MainGame.colSprite, new Rectangle(83 * hitFrame, animation.spriteRectPosition.Y, rectSize.X, rectSize.Y), Owner, true);
+            Animation = animation;
+        }
+
+        public Attack(CharacterState state, Animation animation, int hitFrame, Rectangle collisionPosition, GameObject owner) {
+            State = state;
+            HitFrame = hitFrame;
+            Owner = owner;
+            Point rectSize = new Point(owner.uvRect.Width, owner.uvRect.Height);
+            CollisionLeft = CalcCollision(MainGame.colSprite, new Rectangle(83 * hitFrame, animation.spriteRectPosition.Y, rectSize.X, rectSize.Y), Owner, false);
+            CollisionRight = CalcCollision(MainGame.colSprite, new Rectangle(83 * hitFrame, animation.spriteRectPosition.Y, rectSize.X, rectSize.Y), Owner, true);
+            CollisionLeft.rect = collisionPosition;
+            CollisionRight.rect = collisionPosition;
             Animation = animation;
         }
 
@@ -50,7 +63,8 @@ namespace KarateChamp {
                 animator.RollBack();
             }
 
-            if (animator.PlayedToFrame) {
+            if (animator.PlayedToFrame && !hitChecked) {
+                hitChecked = true;
                 CheckIfHit(gameTime);
                 DEBUG_Collision.p1AttackCollisionLeft = CollisionLeft;
                 DEBUG_Collision.p1AttackCollisionRight = CollisionRight;
@@ -60,13 +74,21 @@ namespace KarateChamp {
 
         public void ExecuteMoving(CharacterState input, GameTime gameTime, Vector2 velocityChange, BaseCharacter baseChar) {
 
+      //      CollisionLeft.rect.Location = new Point(CollisionLeft.rect.X - (int)velocityChange.X - Owner.uvRect.Width / 2, CollisionLeft.rect.Y - 55);
+       //     CollisionRight.rect = collisionPosition;
+
             if (State == input) {
                 executeMoving = true;
             }
+
             if (executeMoving) {
                 if (baseChar.IsGrounded())
                     baseChar.velocity = velocityChange;
-                animator.PlayTo(Animation.size - 1, Animation, Owner, gameTime);
+                
+                if (!animator.PlayedToFrame)
+                    animator.PlayTo(HitFrame, Animation, Owner, gameTime);
+                else
+                    animator.PlayAfter(HitFrame - 1, Animation, Owner, gameTime);
             }
 
             if (animator.PlayedToFrame && baseChar.IsGrounded()) {

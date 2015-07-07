@@ -218,8 +218,6 @@ namespace KarateChamp {
 
         void PlayAfterHitFrame() {
 
-            System.Diagnostics.Debug.WriteLine("PlayAfterHitFrame Index " + FrameIndex);
-
             if (FrameIndex <= referenceFrame) {
                 FrameIndex = referenceFrame;
             }
@@ -239,11 +237,11 @@ namespace KarateChamp {
                                                              currentGameObject.uvRect.Width,
                                                              currentGameObject.uvRect.Height);
             }
+            System.Diagnostics.Debug.WriteLine("PlayAfterHitFrame Index " + FrameIndex);
         }
 
         void RollBackAnimation() {
-            System.Diagnostics.Debug.WriteLine("Rollback Index" + FrameIndex);
-
+            
             if (elapsedTime < currentAnimation.animationLength) {
                 elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
@@ -259,6 +257,7 @@ namespace KarateChamp {
             if (FrameIndex <= 0) {
                 EnterState(State.Stop);
             }
+            System.Diagnostics.Debug.WriteLine("Rollback Index" + FrameIndex);
         }
     }
 }
