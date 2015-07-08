@@ -64,7 +64,7 @@ namespace KarateChamp {
                 Exit();
 
             whiteCharacter.Update(gameTime);
-        //    redCharacter.Update(gameTime);
+            redCharacter.Update(gameTime);
             base.Update(gameTime);
             previousKeyboardState = Keyboard.GetState();
         }

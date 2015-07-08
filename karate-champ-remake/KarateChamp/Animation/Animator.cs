@@ -183,7 +183,7 @@ namespace KarateChamp {
                                                          currentGameObject.uvRect.Width,
                                                          currentGameObject.uvRect.Height);
                 FrameIndex++;
-                System.Diagnostics.Debug.WriteLine("PlayLoopAnimation Index " + FrameIndex);
+    //            System.Diagnostics.Debug.WriteLine("PlayLoopAnimation Index " + FrameIndex);
             }
             if (FrameIndex > currentAnimation.size - 1) {
                 FrameIndex = startFrame;

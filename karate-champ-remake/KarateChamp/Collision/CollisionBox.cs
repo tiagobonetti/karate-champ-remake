@@ -11,17 +11,10 @@ namespace KarateChamp {
         public GameObject owner;
         public Rectangle rect;
         public float lifespan;
-        bool oneTimeCheck;
 
         public CollisionBox(GameObject owner, Vector2 position, Vector2 size) {
             this.owner = owner;
             rect = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
-        }
-
-        public CollisionBox(GameObject owner, Vector2 position, Vector2 size, bool oneTimeCheck) {
-            this.owner = owner;
-            rect = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
-            this.oneTimeCheck = oneTimeCheck;
         }
 
         public bool OnCollision(out GameObject objHit) {

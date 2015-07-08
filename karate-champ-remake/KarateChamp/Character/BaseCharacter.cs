@@ -91,7 +91,7 @@ namespace KarateChamp {
         }
 
         void ChangeState(GameTime gameTime, CharacterState input) {
-            System.Diagnostics.Debug.WriteLine("State: " + state.ToString() + " Input: " + input.ToString());
+    //        System.Diagnostics.Debug.WriteLine("State: " + state.ToString() + " Input: " + input.ToString());
             state = input;
             switch (input) {
                 default:
@@ -102,7 +102,8 @@ namespace KarateChamp {
 
                 case CharacterState.Fall:
                     velocity = Vector2.Zero;
-                    animator.PlayLoop(fallDown, this, gameTime);
+                    animator.PlayLoop(GetFallingAnimation(CharacterState.UpperLungePunch), this, gameTime);
+                    System.Diagnostics.Debug.WriteLine("CharacterState.Fall");
                     break;
 
                 case CharacterState.Forward:
@@ -217,6 +218,7 @@ namespace KarateChamp {
             switch (state) {
                 default:
                 case CharacterState.Idle:
+                case CharacterState.Fall:
                 case CharacterState.Forward:
                 case CharacterState.Withdraw:
                     animator.Update();
@@ -348,6 +350,8 @@ namespace KarateChamp {
         }
 
         public void TakeHit(CharacterState attackState) {
+            state = CharacterState.Fall;
+            System.Diagnostics.Debug.WriteLine("Take Hit!");
         }
         
         Animation GetFallingAnimation(CharacterState attackState) {
@@ -387,6 +391,12 @@ namespace KarateChamp {
                 System.Diagnostics.Debug.WriteLine("Applying Physics");
             }*/
             position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        }
+
+        Attack CreateAttack (CharacterState state, int offset_Y, int size, int hitFrame) {
+
+            Animation animation = new Animation(new Point(uvRect.Width, uvRect.Height * offset_Y), 0, size, 0.10f);
+            return new Attack(state, animation, hitFrame, this);
         }
 
         public void UpperLungePunch() {
