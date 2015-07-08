@@ -110,19 +110,19 @@ namespace KarateChamp {
             if (Owner.orientation == GameObject.Orientation.Left) {
                 if (CollisionLeft.OnCollision(out objectHit)) {
                     if (objectHit == Owner.Opponent)
-                        Hit(Owner.Opponent);
+                        Hit(Owner.Opponent, gameTime);
                 }
             }
             else {
                 if (CollisionRight.OnCollision(out objectHit)) {
                     if (objectHit == Owner.Opponent)
-                        Hit(Owner.Opponent);
+                        Hit(Owner.Opponent, gameTime);
                 }
             }
         }
 
-        void Hit(BaseCharacter character) {
-            character.TakeHit(State);
+        void Hit(BaseCharacter character, GameTime gameTime) {
+            character.TakeHit(State, gameTime);
             System.Diagnostics.Debug.WriteLine("Hit! " + Owner.Opponent);
         }
 

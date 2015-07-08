@@ -8,12 +8,6 @@ namespace KarateChamp {
 
         public static IList<GameObject> gameObjectList;
         public static KeyboardState previousKeyboardState;
-        /*
-        public static Animation white_Idle;
-        public static Animation white_PunchShort;
-        public static Animation white_JumpForward;
-        public static Animation white_KickRound;*/
-
         public static Texture2D colSprite;
 
         GraphicsDeviceManager graphics;
@@ -44,7 +38,7 @@ namespace KarateChamp {
             Texture2D spritesheet = Content.Load<Texture2D>("KarateChampAligned");
 
             whiteCharacter = new PlayerCharacter(spritesheet, MainGame.Tag.PlayerOne, 100.0f, BaseCharacter.Orientation.Right);
-            whiteCharacter.PlayerInput = new GamePadInput(PlayerIndex.One);
+            whiteCharacter.PlayerInput = new KeyboardInput();
 
             redCharacter = new PlayerCharacter(spritesheet, MainGame.Tag.PlayerOne, 400.0f, BaseCharacter.Orientation.Left);
             redCharacter.PlayerInput = new GamePadInput(PlayerIndex.Two);

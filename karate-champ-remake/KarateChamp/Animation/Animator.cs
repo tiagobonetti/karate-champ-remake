@@ -218,6 +218,7 @@ namespace KarateChamp {
         }
 
         void PlayAfterHitFrame() {
+            // System.Diagnostics.Debug.WriteLine("PlayAfterHitFrame Index " + FrameIndex);
 
             if (FrameIndex <= referenceFrame) {
                 FrameIndex = referenceFrame;
@@ -242,7 +243,7 @@ namespace KarateChamp {
         }
 
         void RollBackAnimation() {
-
+            // System.Diagnostics.Debug.WriteLine("Rollback Index" + FrameIndex);
             if (elapsedTime < currentAnimation.animationLength) {
                 elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             }

@@ -27,6 +27,7 @@ namespace KarateChamp {
         JumpingBackKick,     // LJ: Up     RJ: Left 
         Squat,               // LJ: Down   RJ: None
         FrontFootSweep,      // LJ: Down   RJ: Down or Right
+        BackFootSweep,       // LJ: Down   RJ: Left
         DuckingReversePunch, // LJ: Down   RJ: Up
         FrontKick,           // LJ: None   RJ: Right
         MiddleReversePunch,  // LJ: None   RJ: Right          Mod: Close to Opponent
@@ -41,11 +42,12 @@ namespace KarateChamp {
         public const float gravityPull = 12f;
         public const float floor = 330;
 
-        public BaseCharacter Opponent { get; set;}
+        public BaseCharacter Opponent { get; set; }
         public CharacterState state = CharacterState.Idle;
         public Vector2 velocity = Vector2.Zero;
 
         Animator animator = new Animator();
+        //Animations
         Animation idle;
         Animation forward;
         Animation changeDirection;
@@ -61,6 +63,8 @@ namespace KarateChamp {
         Animation fallForward;
         Animation fallForward2;
         Animation fallBack;
+        //Attacks
+        Attack currentAttack;
         Attack upperLungePunch;
         Attack middleLungePunch;
         Attack upperPunch;
@@ -68,6 +72,7 @@ namespace KarateChamp {
         Attack jumpingSideKick;
         Attack jumpingBackKick;
         Attack frontFootSweep;
+        Attack backFootSweep;
         Attack duckingReversePunch;
         Attack frontKick;
         Attack middleReversePunch;
@@ -78,7 +83,7 @@ namespace KarateChamp {
         public BaseCharacter() {
             uvRect = new Rectangle(0, 0, 83, 53);
             idle = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 6, 1, 0.10f);
-            forward = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 8, 12, 0.10f);
+            forward = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 7, 12, 0.10f);
             withdraw = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 6, 12, 0.10f);
             forwardSomersault = new Animation(new Point(uvRect.Width, uvRect.Height * 10), 0, 10, 0.10f);
             backwardSomersault = new Animation(new Point(uvRect.Width, uvRect.Height * 11), 0, 10, 0.10f);
@@ -90,10 +95,57 @@ namespace KarateChamp {
             fallBack = new Animation(new Point(uvRect.Width, uvRect.Height * 19), 0, 3, 0.10f);
         }
 
-        void ChangeState(GameTime gameTime, CharacterState input) {
-    //        System.Diagnostics.Debug.WriteLine("State: " + state.ToString() + " Input: " + input.ToString());
-            state = input;
-            switch (input) {
+        void EvalInput(GameTime gameTime, CharacterState input) {
+            //System.Diagnostics.Debug.WriteLine("State: " + state.ToString() + " Input: " + input.ToString());
+            switch (state) {
+                default:
+                case CharacterState.Idle:
+                case CharacterState.Forward:
+                case CharacterState.Withdraw:
+                case CharacterState.ChangeDirection:
+                    state = input;
+                    OnEntry(gameTime);
+                    break;
+                case CharacterState.ForwardSomersault:
+                case CharacterState.BackwardSomersault:
+                    if (IsGrounded()) {
+                        state = input;
+                        OnEntry(gameTime);
+                    }
+                    break;
+                case CharacterState.UpperLungePunch:
+                case CharacterState.MiddleLungePunch:
+                case CharacterState.UpperPunch:
+                case CharacterState.BackRoundKick:
+                case CharacterState.FrontFootSweep:
+                case CharacterState.BackFootSweep:
+                case CharacterState.DuckingReversePunch:
+                case CharacterState.FrontKick:
+                case CharacterState.MiddleReversePunch:
+                case CharacterState.LowKick:
+                case CharacterState.RoundKick:
+                case CharacterState.BackKick:
+                case CharacterState.JumpingSideKick:
+                    if (currentAttack.finished) {
+                        state = input;
+                        OnEntry(gameTime);
+                    }
+                    break;
+                case CharacterState.JumpingBackKick:
+                    if (currentAttack.finished) {
+                        state = input;
+                        Flip();
+                        OnEntry(gameTime);
+                    }
+                    break;
+                case CharacterState.Fall:
+                    break;
+            }
+        }
+
+        void OnEntry(GameTime gameTime) {
+            //System.Diagnostics.Debug.WriteLine("State: " + state.ToString() + " Input: " + input.ToString());
+            switch (state) {
                 default:
                 case CharacterState.Idle:
                     velocity = Vector2.Zero;
@@ -107,6 +159,7 @@ namespace KarateChamp {
                     break;
 
                 case CharacterState.Forward:
+                    velocity.Y = 0.0f;
                     if (orientation == Orientation.Right)
                         velocity.X = speedWalk;
                     else
@@ -120,6 +173,7 @@ namespace KarateChamp {
                     break;
 
                 case CharacterState.Withdraw:
+                    velocity.Y = 0.0f;
                     if (orientation == Orientation.Right)
                         velocity.X = -speedWalk;
                     else
@@ -133,7 +187,7 @@ namespace KarateChamp {
                             velocity = new Vector2(speedWalk, -speedJump);
                         else
                             velocity = new Vector2(-speedWalk, -speedJump);
-                        
+
                     animator.Play(forwardSomersault, this, gameTime);
                     break;
 
@@ -181,6 +235,11 @@ namespace KarateChamp {
                     FrontFootSweep();
                     break;
 
+                case CharacterState.BackFootSweep:
+                    velocity = Vector2.Zero;
+                    BackFootSweep();
+                    break;
+
                 case CharacterState.DuckingReversePunch:
                     velocity = Vector2.Zero;
                     DuckingReversePunch();
@@ -214,131 +273,45 @@ namespace KarateChamp {
         }
         void StateMachine(GameTime gameTime, CharacterState input) {
 
-      //      System.Diagnostics.Debug.WriteLine(state);
+            EvalInput(gameTime, input);
             switch (state) {
+                case CharacterState.ChangeDirection:
+                    break;
                 default:
                 case CharacterState.Idle:
                 case CharacterState.Fall:
                 case CharacterState.Forward:
                 case CharacterState.Withdraw:
-                    animator.Update();
-                    ChangeState(gameTime, input);
-                    break;
-
-                case CharacterState.ChangeDirection:
-                    ChangeState(gameTime, input);
-                    break;
-
                 case CharacterState.ForwardSomersault:
-                    animator.Update();
-                    if (IsGrounded()) {
-                        ChangeState(gameTime, input);
-                    }
-                    break;
-
                 case CharacterState.BackwardSomersault:
                     animator.Update();
-                    if (IsGrounded()) {
-                        ChangeState(gameTime, input);
-                    }
                     break;
-
-                case CharacterState.UpperLungePunch:
-                    upperLungePunch.Execute(input, gameTime);
-                    if (upperLungePunch.finished) {
-                        ChangeState(gameTime, input);
-                    }
-                    break;
-
-                case CharacterState.MiddleLungePunch:
-                    middleLungePunch.Execute(input, gameTime);
-                    if (middleLungePunch.finished) {
-                        ChangeState(gameTime, input);
-                    }
-                    break;
-
-                case CharacterState.UpperPunch:
-                    upperPunch.Execute(input, gameTime);
-                    if (upperPunch.finished) {
-                        ChangeState(gameTime, input);
-                    }
-                    break;
-
-                case CharacterState.BackRoundKick:
-                    backRoundKick.Execute(input, gameTime);
-                    if (backRoundKick.finished) {
-                        ChangeState(gameTime, input);
-                    }
-                    break;
-
                 case CharacterState.JumpingSideKick:
                     Vector2 velocityChange;
                     if (orientation == Orientation.Right)
                         velocityChange = new Vector2(60, -335);
                     else
                         velocityChange = new Vector2(-60, -335);
-                    jumpingSideKick.ExecuteMoving(input, gameTime,  velocityChange, this);
-                    if (jumpingSideKick.finished) {
-                        ChangeState(gameTime, input);
-                    }
+                    jumpingSideKick.ExecuteMoving(input, gameTime, velocityChange, this);
                     break;
 
                 case CharacterState.JumpingBackKick:
                     jumpingBackKick.Execute(input, gameTime);
 
-                    if (jumpingBackKick.finished) {
-                        ChangeState(gameTime, input);
-                        Flip();
-                    }
                     break;
-
+                case CharacterState.UpperLungePunch:
+                case CharacterState.MiddleLungePunch:
+                case CharacterState.UpperPunch:
+                case CharacterState.BackRoundKick:
                 case CharacterState.FrontFootSweep:
-                    frontFootSweep.Execute(input, gameTime);
-                    if (frontFootSweep.finished) {
-                        ChangeState(gameTime, input);
-                    }
-                    break;
-
+                case CharacterState.BackFootSweep:
                 case CharacterState.DuckingReversePunch:
-                    duckingReversePunch.Execute(input, gameTime);
-                    if (duckingReversePunch.finished) {
-                        ChangeState(gameTime, input);
-                    }
-                    break;
-
                 case CharacterState.FrontKick:
-                    frontKick.Execute(input, gameTime);
-                    if (frontKick.finished) {
-                        ChangeState(gameTime, input);
-                    }
-                    break;
-
                 case CharacterState.MiddleReversePunch:
-                    middleReversePunch.Execute(input, gameTime);
-                    if (middleReversePunch.finished) {
-                        ChangeState(gameTime, input);
-                    }
-                    break;
-
                 case CharacterState.LowKick:
-                    lowKick.Execute(input, gameTime);
-                    if (lowKick.finished) {
-                        ChangeState(gameTime, input);
-                    }
-                    break;
-
                 case CharacterState.RoundKick:
-                    roundKick.Execute(input, gameTime);
-                    if (roundKick.finished) {
-                        ChangeState(gameTime, input);
-                    }
-                    break;
-
                 case CharacterState.BackKick:
-                    backKick.Execute(input, gameTime);
-                    if (backKick.finished) {
-                        ChangeState(gameTime, input);
-                    }
+                    currentAttack.Execute(input, gameTime);
                     break;
             }
         }
@@ -349,8 +322,9 @@ namespace KarateChamp {
             UpdateCollisionPosition();
         }
 
-        public void TakeHit(CharacterState attackState) {
+        public void TakeHit(CharacterState attackState, GameTime gameTime) {
             state = CharacterState.Fall;
+            OnEntry(gameTime);
             System.Diagnostics.Debug.WriteLine("Take Hit!");
         }
         
@@ -405,6 +379,7 @@ namespace KarateChamp {
             int hitFrame = 5;
             Animation animation = new Animation(new Point(uvRect.Width, uvRect.Height * offset_Y), 0, size, 0.10f);
             upperLungePunch = new Attack(CharacterState.UpperLungePunch, animation, hitFrame, this);
+            currentAttack = upperLungePunch;
             System.Diagnostics.Debug.WriteLine("Kick");
         }
 
@@ -414,6 +389,7 @@ namespace KarateChamp {
             int hitFrame = 5;
             Animation animation = new Animation(new Point(uvRect.Width, uvRect.Height * offset_Y), 0, size, 0.10f);
             middleLungePunch = new Attack(CharacterState.MiddleLungePunch, animation, hitFrame, this);
+            currentAttack = middleLungePunch;
             System.Diagnostics.Debug.WriteLine("Kick");
         }
 
@@ -423,6 +399,7 @@ namespace KarateChamp {
             int hitFrame = 5;
             Animation animation = new Animation(new Point(uvRect.Width, uvRect.Height * offset_Y), 0, size, 0.10f);
             upperPunch = new Attack(CharacterState.UpperPunch, animation, hitFrame, this);
+            currentAttack = upperPunch;
             System.Diagnostics.Debug.WriteLine("Kick");
         }
 
@@ -432,6 +409,7 @@ namespace KarateChamp {
             int hitFrame = 5;
             Animation animation = new Animation(new Point(uvRect.Width, uvRect.Height * offset_Y), 0, size, 0.10f);
             backRoundKick = new Attack(CharacterState.BackRoundKick, animation, hitFrame, this);
+            currentAttack = backRoundKick;
             System.Diagnostics.Debug.WriteLine("Kick");
         }
 
@@ -443,9 +421,10 @@ namespace KarateChamp {
             if (orientation == Orientation.Right)
                 rect = new Rectangle((int)position.X + 112, (int)position.Y, 10, 5);
             else
-                rect = new Rectangle((int)position.X - uvRect.Width/2, (int)position.Y, 10, 5);
+                rect = new Rectangle((int)position.X - uvRect.Width / 2, (int)position.Y, 10, 5);
             Animation animation = new Animation(new Point(uvRect.Width, uvRect.Height * offset_Y), 0, size, 0.10f);
             jumpingSideKick = new Attack(CharacterState.JumpingSideKick, animation, hitFrame, rect, this);
+            currentAttack = jumpingSideKick;
             System.Diagnostics.Debug.WriteLine("Kick");
         }
 
@@ -455,6 +434,7 @@ namespace KarateChamp {
             int hitFrame = 5;
             Animation animation = new Animation(new Point(uvRect.Width, uvRect.Height * offset_Y), 0, size, 0.10f);
             jumpingBackKick = new Attack(CharacterState.JumpingBackKick, animation, hitFrame, this);
+            currentAttack = jumpingBackKick;
             System.Diagnostics.Debug.WriteLine("Kick");
         }
 
@@ -464,6 +444,7 @@ namespace KarateChamp {
             int hitFrame = 5;
             Animation animation = new Animation(new Point(uvRect.Width, uvRect.Height * offset_Y), 0, size, 0.10f);
             frontFootSweep = new Attack(CharacterState.FrontFootSweep, animation, hitFrame, this);
+            currentAttack = frontFootSweep;
             System.Diagnostics.Debug.WriteLine("Kick");
         }
 
@@ -473,6 +454,7 @@ namespace KarateChamp {
             int hitFrame = 5;
             Animation animation = new Animation(new Point(uvRect.Width, uvRect.Height * offset_Y), 0, size, 0.10f);
             duckingReversePunch = new Attack(CharacterState.DuckingReversePunch, animation, hitFrame, this);
+            currentAttack = duckingReversePunch;
             System.Diagnostics.Debug.WriteLine("Kick");
         }
 
@@ -482,6 +464,7 @@ namespace KarateChamp {
             int hitFrame = 5;
             Animation animation = new Animation(new Point(uvRect.Width, uvRect.Height * offset_Y), 0, size, 0.01f);
             frontKick = new Attack(CharacterState.FrontKick, animation, hitFrame, this);
+            currentAttack = frontKick;
             System.Diagnostics.Debug.WriteLine("Kick");
         }
 
@@ -491,6 +474,7 @@ namespace KarateChamp {
             int hitFrame = 3;
             Animation animation = new Animation(new Point(uvRect.Width, uvRect.Height * offset_Y), 0, size, 0.10f);
             middleReversePunch = new Attack(CharacterState.MiddleReversePunch, animation, hitFrame, this);
+            currentAttack = middleReversePunch;
             System.Diagnostics.Debug.WriteLine("Kick");
         }
 
@@ -500,6 +484,7 @@ namespace KarateChamp {
             int hitFrame = 5;
             Animation animation = new Animation(new Point(uvRect.Width, uvRect.Height * offset_Y), 0, size, 0.10f);
             lowKick = new Attack(CharacterState.LowKick, animation, hitFrame, this);
+            currentAttack = lowKick;
             System.Diagnostics.Debug.WriteLine("Kick");
         }
 
@@ -509,6 +494,7 @@ namespace KarateChamp {
             int hitFrame = 4;
             Animation animation = new Animation(new Point(uvRect.Width, uvRect.Height * offset_Y), 0, size, 0.10f);
             roundKick = new Attack(CharacterState.RoundKick, animation, hitFrame, this);
+            currentAttack = roundKick;
             System.Diagnostics.Debug.WriteLine("Kick");
         }
 
@@ -518,18 +504,18 @@ namespace KarateChamp {
             int hitFrame = 4;
             Animation animation = new Animation(new Point(uvRect.Width, uvRect.Height * offset_Y), 0, size, 0.10f);
             backKick = new Attack(CharacterState.BackKick, animation, hitFrame, this);
+            currentAttack = backKick;
             System.Diagnostics.Debug.WriteLine("Kick");
         }
 
-        /* Não tem na lista!
         public void BackFootSweep() {
             int offset_Y = 7;
             int size = 12;
             int hitFrame = 5;
             Animation animation = new Animation(new Point(uvRect.Width, uvRect.Height * offset_Y), 0, size, 0.10f);
             backFootSweep = new Attack(CharacterState.BackFootSweep, animation, hitFrame, this);
+            currentAttack = backFootSweep;
             System.Diagnostics.Debug.WriteLine("Kick");
         }
-        */
     }
 }
