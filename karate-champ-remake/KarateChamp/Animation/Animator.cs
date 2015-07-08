@@ -11,9 +11,9 @@ namespace KarateChamp {
         public bool PlayedToFrame { get; private set; }
 
         public State state = State.Stop;
+        public Animation currentAnimation;
 
         GameObject currentGameObject;
-        Animation currentAnimation;
         GameTime gameTime;
         float elapsedTime = 9999999;
         int referenceFrame;
@@ -183,6 +183,7 @@ namespace KarateChamp {
                                                          currentGameObject.uvRect.Width,
                                                          currentGameObject.uvRect.Height);
                 FrameIndex++;
+                System.Diagnostics.Debug.WriteLine("PlayLoopAnimation Index " + FrameIndex);
             }
             if (FrameIndex > currentAnimation.size - 1) {
                 FrameIndex = startFrame;
@@ -218,11 +219,6 @@ namespace KarateChamp {
 
         void PlayAfterHitFrame() {
 
-<<<<<<< HEAD
-=======
-            // System.Diagnostics.Debug.WriteLine("PlayAfterHitFrame Index " + FrameIndex);
-
->>>>>>> origin/master
             if (FrameIndex <= referenceFrame) {
                 FrameIndex = referenceFrame;
             }
@@ -242,17 +238,11 @@ namespace KarateChamp {
                                                              currentGameObject.uvRect.Width,
                                                              currentGameObject.uvRect.Height);
             }
-            System.Diagnostics.Debug.WriteLine("PlayAfterHitFrame Index " + FrameIndex);
+   //         System.Diagnostics.Debug.WriteLine("PlayAfterHitFrame Index " + FrameIndex);
         }
 
         void RollBackAnimation() {
-<<<<<<< HEAD
-            
-=======
-            // System.Diagnostics.Debug.WriteLine("Rollback Index" + FrameIndex);
 
-
->>>>>>> origin/master
             if (elapsedTime < currentAnimation.animationLength) {
                 elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
@@ -268,7 +258,7 @@ namespace KarateChamp {
             if (FrameIndex <= 0) {
                 EnterState(State.Stop);
             }
-            System.Diagnostics.Debug.WriteLine("Rollback Index" + FrameIndex);
+    //        System.Diagnostics.Debug.WriteLine("Rollback Index" + FrameIndex);
         }
     }
 }

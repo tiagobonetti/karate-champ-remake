@@ -10,6 +10,7 @@ namespace KarateChamp {
 
     public enum CharacterState {
         Idle,
+        Fall,
         Forward,             // LJ: Front  RJ: None
         UpperLungePunch,     // LJ: Front  RJ: Up
         MiddleLungePunch,    // LJ: Front  RJ: Rigth
@@ -55,6 +56,11 @@ namespace KarateChamp {
         Animation forwardSomersault;
         Animation backwardSomersault;
         Animation squat;
+        Animation fallSide;
+        Animation fallDown;
+        Animation fallForward;
+        Animation fallForward2;
+        Animation fallBack;
         Attack upperLungePunch;
         Attack middleLungePunch;
         Attack upperPunch;
@@ -72,20 +78,31 @@ namespace KarateChamp {
         public BaseCharacter() {
             uvRect = new Rectangle(0, 0, 83, 53);
             idle = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 6, 1, 0.10f);
-            forward = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 6, 12, 0.10f);
+            forward = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 8, 12, 0.10f);
             withdraw = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 6, 12, 0.10f);
             forwardSomersault = new Animation(new Point(uvRect.Width, uvRect.Height * 10), 0, 10, 0.10f);
             backwardSomersault = new Animation(new Point(uvRect.Width, uvRect.Height * 11), 0, 10, 0.10f);
+
+            fallSide = new Animation(new Point(uvRect.Width, uvRect.Height * 18), 4, 3, 0.10f);
+            fallDown = new Animation(new Point(uvRect.Width, uvRect.Height * 18), 8, 3, 0.10f);
+            fallForward = new Animation(new Point(uvRect.Width, uvRect.Height * 19), 4, 3, 0.10f);
+            fallForward2 = new Animation(new Point(uvRect.Width, uvRect.Height * 19), 8, 3, 0.10f);
+            fallBack = new Animation(new Point(uvRect.Width, uvRect.Height * 19), 0, 3, 0.10f);
         }
 
         void ChangeState(GameTime gameTime, CharacterState input) {
-            //System.Diagnostics.Debug.WriteLine("State: " + state.ToString() + " Input: " + input.ToString());
+            System.Diagnostics.Debug.WriteLine("State: " + state.ToString() + " Input: " + input.ToString());
             state = input;
             switch (input) {
                 default:
                 case CharacterState.Idle:
                     velocity = Vector2.Zero;
                     animator.PlayLoop(idle, this, gameTime);
+                    break;
+
+                case CharacterState.Fall:
+                    velocity = Vector2.Zero;
+                    animator.PlayLoop(fallDown, this, gameTime);
                     break;
 
                 case CharacterState.Forward:
@@ -196,7 +213,7 @@ namespace KarateChamp {
         }
         void StateMachine(GameTime gameTime, CharacterState input) {
 
-            //System.Diagnostics.Debug.WriteLine(state);
+      //      System.Diagnostics.Debug.WriteLine(state);
             switch (state) {
                 default:
                 case CharacterState.Idle:
@@ -330,8 +347,27 @@ namespace KarateChamp {
             UpdateCollisionPosition();
         }
 
-        public void TakeHit() {
+        public void TakeHit(CharacterState attackState) {
+        }
+        
+        Animation GetFallingAnimation(CharacterState attackState) {
 
+            switch (attackState) {
+                default:
+                case CharacterState.UpperLungePunch:
+                case CharacterState.MiddleLungePunch:
+                case CharacterState.UpperPunch:
+                case CharacterState.RoundKick:
+                case CharacterState.BackKick:
+                case CharacterState.BackRoundKick:
+                case CharacterState.FrontKick:
+                case CharacterState.JumpingBackKick:
+                case CharacterState.DuckingReversePunch:
+                case CharacterState.MiddleReversePunch:
+                case CharacterState.LowKick:
+                case CharacterState.FrontFootSweep:
+                    return fallDown;
+            }
         }
 
         public bool IsGrounded() {
@@ -345,7 +381,11 @@ namespace KarateChamp {
             }
             else {
                 velocity.Y += gravityPull;
-            }
+            }/*
+            if (state == CharacterState.Forward && animator.FrameIndex > animator.currentAnimation.startIndex) {
+                position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                System.Diagnostics.Debug.WriteLine("Applying Physics");
+            }*/
             position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 

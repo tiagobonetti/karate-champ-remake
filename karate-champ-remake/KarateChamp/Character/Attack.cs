@@ -30,7 +30,7 @@ namespace KarateChamp {
             Animation = animation;
         }
 
-        public Attack(CharacterState state, Animation animation, int hitFrame, Rectangle collisionPosition, GameObject owner) {
+        public Attack(CharacterState state, Animation animation, int hitFrame, Rectangle collisionPosition, BaseCharacter owner) {
             State = state;
             HitFrame = hitFrame;
             Owner = owner;
@@ -96,7 +96,8 @@ namespace KarateChamp {
                 executeMoving = false;
             }
 
-            if (animator.PlayedToFrame) {
+            if (animator.PlayedToFrame && !hitChecked) {
+                hitChecked = true;
                 CheckIfHit(gameTime);
                 DEBUG_Collision.p1AttackCollisionLeft = CollisionLeft;
                 DEBUG_Collision.p1AttackCollisionRight = CollisionRight;
