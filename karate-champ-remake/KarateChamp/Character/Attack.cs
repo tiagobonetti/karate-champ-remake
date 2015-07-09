@@ -72,28 +72,25 @@ namespace KarateChamp {
             animator.Update();
         }
 
-        public void ExecuteMoving(CharacterState input, GameTime gameTime, Vector2 velocityChange, BaseCharacter baseChar) {
+        public void ExecuteMoving(CharacterState input, GameTime gameTime, BaseCharacter baseChar) {
 
-      //      CollisionLeft.rect.Location = new Point(CollisionLeft.rect.X - (int)velocityChange.X - Owner.uvRect.Width / 2, CollisionLeft.rect.Y - 55);
-       //     CollisionRight.rect = collisionPosition;
-
-            if (State == input) {
-                executeMoving = true;
+            if (
+                animator.FrameIndex <= HitFrame &&
+                (State == input || animator.FrameIndex > 3)) {
+                animator.PlayTo(HitFrame, Animation, Owner, gameTime);
             }
-
-            if (executeMoving) {
-                if (baseChar.IsGrounded())
-                    baseChar.velocity = velocityChange;
-                
-                if (!animator.PlayedToFrame)
-                    animator.PlayTo(HitFrame, Animation, Owner, gameTime);
-                else
-                    animator.PlayAfter(HitFrame - 1, Animation, Owner, gameTime);
+            else if (animator.Stopped()) {
+                finished = true;
+            }
+            else if (animator.PlayedToFrame) {
+                animator.PlayAfter(HitFrame, Animation, Owner, gameTime);
+            }
+            else {
+                animator.RollBack();
             }
 
             if (animator.PlayedToFrame && baseChar.IsGrounded()) {
                 finished = true;
-                executeMoving = false;
             }
 
             if (animator.PlayedToFrame && !hitChecked) {

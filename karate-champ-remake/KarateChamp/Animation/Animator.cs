@@ -59,7 +59,6 @@ namespace KarateChamp {
                     case State.Stop:
                         FrameIndex = startFrame;
                         elapsedTime = 9999999;
-                        PlayedToFrame = false;
                         break;
                     case State.Hold:
                         FrameIndex = startFrame;
@@ -168,7 +167,7 @@ namespace KarateChamp {
                 EnterState(State.Stop);
             }
 
-            // System.Diagnostics.Debug.WriteLine("PlayAnimation Index " + FrameIndex);
+            System.Diagnostics.Debug.WriteLine("PlayAnimation Index " + FrameIndex);
         }
 
         void PlayLoopAnimation() {
@@ -214,11 +213,11 @@ namespace KarateChamp {
                 elapsedTime = 9999999;
                 PlayedToFrame = true;
             }
-            // System.Diagnostics.Debug.WriteLine("PlayUntilHitFrame Index " + FrameIndex);
+            System.Diagnostics.Debug.WriteLine("PlayUntilHitFrame Index " + FrameIndex);
         }
 
         void PlayAfterHitFrame() {
-            // System.Diagnostics.Debug.WriteLine("PlayAfterHitFrame Index " + FrameIndex);
+            System.Diagnostics.Debug.WriteLine("PlayAfterHitFrame Index " + FrameIndex);
 
             if (FrameIndex <= referenceFrame) {
                 FrameIndex = referenceFrame;
