@@ -144,6 +144,8 @@ namespace KarateChamp {
                         }
                         break;
                     case CharacterState.Fall:
+                        state = input;
+                        OnEntry(gameTime);
                         break;
                 }
             }
@@ -160,7 +162,7 @@ namespace KarateChamp {
 
                 case CharacterState.Fall:
                     velocity = Vector2.Zero;
-                    animator.PlayLoop(GetFallingAnimation(CharacterState.UpperLungePunch), this, gameTime);
+                    animator.Play(GetFallingAnimation(CharacterState.UpperLungePunch), this, gameTime);
                     System.Diagnostics.Debug.WriteLine("CharacterState.Fall");
                     break;
 
@@ -175,7 +177,10 @@ namespace KarateChamp {
 
                 case CharacterState.ChangeDirection:
                     velocity = Vector2.Zero;
-                    Flip();
+                    if (Opponent.position.X > position.X)
+                        orientation = Orientation.Right;
+                    else if ((Opponent.position.X < position.X))
+                        orientation = Orientation.Left;
                     break;
 
                 case CharacterState.Withdraw:
@@ -197,71 +202,85 @@ namespace KarateChamp {
 
                 case CharacterState.UpperLungePunch:
                     velocity = Vector2.Zero;
-                    UpperLungePunch();
+                    //UpperLungePunch();
+                    currentAttack = CreateAttack(state, 12, 10, 5);
                     break;
 
                 case CharacterState.MiddleLungePunch:
                     velocity = Vector2.Zero;
-                    MiddleLungePunch();
+                    //MiddleLungePunch();
+                    currentAttack = CreateAttack(state, 13, 10, 5);
                     break;
 
                 case CharacterState.UpperPunch:
                     velocity = Vector2.Zero;
-                    UpperPunch();
+                    //UpperPunch();
+                    currentAttack = CreateAttack(state, 12, 10, 5);
                     break;
 
                 case CharacterState.BackRoundKick:
                     velocity = Vector2.Zero;
-                    BackRoundKick();
+                    //BackRoundKick();
+                    currentAttack = CreateAttack(state, 4, 10, 5);
                     break;
 
                 case CharacterState.JumpingSideKick:
-                      JumpingSideKick();
+                    //JumpingSideKick();
+                    currentAttack = CreateAttack(state, 9, 10, 6);
                     break;
 
                 case CharacterState.JumpingBackKick:
                     velocity = Vector2.Zero;
-                    JumpingBackKick();
+                    //JumpingBackKick();
+                    currentAttack = CreateAttack(state, 6, 10, 5);
                     break;
 
                 case CharacterState.FrontFootSweep:
                     velocity = Vector2.Zero;
-                    FrontFootSweep();
+                    //FrontFootSweep();
+                    currentAttack = CreateAttack(state, 8, 10, 5);
                     break;
 
                 case CharacterState.BackFootSweep:
                     velocity = Vector2.Zero;
-                    BackFootSweep();
+                    //BackFootSweep();
+                    currentAttack = CreateAttack(state, 7, 12, 5);
                     break;
 
                 case CharacterState.DuckingReversePunch:
                     velocity = Vector2.Zero;
-                    DuckingReversePunch();
+                    //DuckingReversePunch();
+                    currentAttack = CreateAttack(state, 15, 12, 5);
                     break;
 
                 case CharacterState.FrontKick:
                     velocity = Vector2.Zero;
-                    FrontKick();
+                    //FrontKick();
+                    currentAttack = CreateAttack(state, 2, 10, 5);
                     break;
 
                 case CharacterState.MiddleReversePunch:
                     velocity = Vector2.Zero;
-                    MiddleReversePunch();
+                    //MiddleReversePunch();
+                    currentAttack = CreateAttack(state, 14, 7, 3);
                     break;
 
                 case CharacterState.LowKick:
                     velocity = Vector2.Zero;
-                    LowKick();
+                    //LowKick();
+                    currentAttack = CreateAttack(state, 3, 11, 5);
                     break;
 
                 case CharacterState.RoundKick:
                     velocity = Vector2.Zero;
-                    RoundKick();
+                    //RoundKick();
+                    currentAttack = CreateAttack(state, 1, 10, 4);
                     break;
 
                 case CharacterState.BackKick:
                     velocity = Vector2.Zero;
-                    BackKick();
+                    //BackKick();
+                    currentAttack = CreateAttack(state, 5, 9, 4);
                     break;
             }
         }
@@ -323,11 +342,11 @@ namespace KarateChamp {
                             OnEntry(gameTime);
                         }
                     }
-                    jumpingSideKick.ExecuteMoving(input, gameTime, this);
+                    currentAttack.ExecuteMoving(input, gameTime, this);
                     break;
 
                 case CharacterState.JumpingBackKick:
-                    jumpingBackKick.Execute(input, gameTime);
+                    currentAttack.Execute(input, gameTime);
 
                     break;
                 case CharacterState.UpperLungePunch:

@@ -74,24 +74,18 @@ namespace KarateChamp {
 
         public void ExecuteMoving(CharacterState input, GameTime gameTime, BaseCharacter baseChar) {
 
-            if (
-                animator.FrameIndex <= HitFrame &&
-                (State == input || animator.FrameIndex > 3)) {
-                animator.PlayTo(HitFrame, Animation, Owner, gameTime);
+            if (State == input && !animator.PlayedToFrame) {
+                animator.PlayTo(3, Animation, Owner, gameTime);
+                executeMoving = true;
             }
-            else if (animator.Stopped()) {
+            else if (animator.Stopped() && baseChar.IsGrounded()) {
                 finished = true;
             }
-            else if (animator.PlayedToFrame) {
-                animator.PlayAfter(HitFrame, Animation, Owner, gameTime);
+            else if (!animator.Stopped() && animator.PlayedToFrame) {
+                animator.PlayAfter(3, Animation, Owner, gameTime);
             }
-            else {
-                animator.RollBack();
-            }
-
-            if (animator.PlayedToFrame && baseChar.IsGrounded()) {
-                finished = true;
-            }
+            else
+                animator.RollBack();          
 
             if (animator.PlayedToFrame && !hitChecked) {
                 hitChecked = true;

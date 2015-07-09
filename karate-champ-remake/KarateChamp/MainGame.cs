@@ -37,7 +37,7 @@ namespace KarateChamp {
             colSprite = Content.Load<Texture2D>("KarateChampCollision");
             Texture2D spritesheet = Content.Load<Texture2D>("KarateChampAligned");
 
-            whiteCharacter = new PlayerCharacter(spritesheet, MainGame.Tag.PlayerOne, 100.0f, BaseCharacter.Orientation.Right);
+            whiteCharacter = new PlayerCharacter(spritesheet, MainGame.Tag.PlayerOne, 300.0f, BaseCharacter.Orientation.Right);
             whiteCharacter.PlayerInput = new KeyboardInput();
 
             redCharacter = new PlayerCharacter(spritesheet, MainGame.Tag.PlayerOne, 400.0f, BaseCharacter.Orientation.Left);
