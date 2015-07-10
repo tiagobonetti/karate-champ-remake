@@ -8,16 +8,22 @@ using Microsoft.Xna.Framework.Input;
 
 namespace KarateChamp {
     class Attack {
-
         public Animator animator = new Animator();
         public CharacterState State { get; private set; }
-        public int HitFrame { get; private set; }
+
         public CollisionBox CollisionLeft { get; private set; }
         public CollisionBox CollisionRight { get; private set; }
         public Animation Animation { get; private set; }
         public BaseCharacter Owner { get; private set; }
-        public bool finished { get; private set; }
+
+        int lockFrame;
+        public bool Locked { get; private set; }
+
+        int HitFrame;
         bool hitChecked = false;
+
+        bool onHold = false;
+        bool holdable = true;
 
         Vector2 hitbox_size;
         Vector2 hitbox_offset_right;
@@ -29,9 +35,15 @@ namespace KarateChamp {
             Owner = owner;
             Animation = animation;
 
-            // Refactored collision calc
+            if (state == CharacterState.JumpingSideKick) {
+                lockFrame = 3;
+                holdable = false;
+            }
+            else {
+                lockFrame = hitFrame;
+            }
+
             CalcHibox(MainGame.colSprite, hitFrame);
-            UpdateCollision();
         }
 
         public CollisionBox GetCollision() {
@@ -41,42 +53,65 @@ namespace KarateChamp {
                 return CollisionRight;
         }
 
-        public void Execute(CharacterState input, GameTime gameTime) {
-            // Now thats a workaround
-            if (State == CharacterState.JumpingSideKick) {
-                if (State == input && !animator.PlayedToFrame) {
-                    animator.PlayTo(3, Animation, Owner, gameTime);
-                }
-                else if (animator.Stopped() && Owner.IsGrounded()) {
-                    finished = true;
-                }
-                else if (!animator.Stopped() && animator.PlayedToFrame) {
-                    animator.PlayAfter(3, Animation, Owner, gameTime);
-                }
-                else
-                    animator.RollBack();
-            }
-            // This is the normal execute
-            else {
-                if (State == input) {
-                    animator.PlayTo(HitFrame, Animation, Owner, gameTime);
-                }
-                else if (animator.Stopped()) {
-                    finished = true;
-                }
-                else if (animator.PlayedToFrame) {
-                    animator.PlayAfter(HitFrame, Animation, Owner, gameTime);
-                }
-                else {
-                    animator.RollBack();
-                }
-            }
+        public void Start(GameTime gameTime) {
+            animator.Play(Animation, Owner, gameTime);
+            UpdateCollision();
+            hitChecked = false;
+        }
 
-            if (animator.PlayedToFrame && !hitChecked) {
-                hitChecked = true;
-                CheckIfHit(gameTime);
-                DEBUG_Collision.p1AttackCollisionLeft = CollisionLeft;
-                DEBUG_Collision.p1AttackCollisionRight = CollisionRight;
+        public void Execute(CharacterState input, GameTime gameTime) {
+            switch (animator.state) {
+                //Animation is running normally
+                case Animator.State.Play:
+                    // FrameIndex counting and hit/lock are insane double test it
+                    if (animator.FrameIndex <= lockFrame) {
+                        //Animation is unlocked whe must be sure player still inputting the attack
+                        if (input != State) {
+                            // Player is rolling back the attack
+                            animator.RollBack();
+                        }
+                    }
+                    else {
+                        // Animation is now locked and will run to the end
+                        Locked = true;
+                    }
+                    // If we are on the hit frame for the first time aplly hit detection
+                    if (!hitChecked && animator.FrameIndex > HitFrame) {
+                        CheckIfHit(gameTime);
+                        hitChecked = true;
+                        // When the attack hit animation is put on hold if holdable
+                        onHold = holdable;
+                        DEBUG_Collision.p1AttackCollisionLeft = CollisionLeft;
+                        DEBUG_Collision.p1AttackCollisionRight = CollisionRight;
+                    }
+
+                    // If player is on hold player must change the input to let the attack go
+                    if (onHold) {
+                        if (input == State) {
+                            // This is a workaround that will hold this frame
+                            animator.elapsedTime = 0.0f;
+                        }
+                        else {
+                            onHold = false;
+                        }
+                    }
+                    break;
+                case Animator.State.RollBack:
+                    // Player is rolling back the attack but he may change the input yet again
+                    if (input == State) {
+                        // Player is reverting to attacking again
+                        // This is a workaround for reverting to play state
+                        animator.state = Animator.State.Play;
+                        animator.elapsedTime = 0.0f;
+                    }
+                    break;
+                case Animator.State.Stop:
+                    // Animation has ended maybe rolling all the way or back
+                    // Before the attack is unlocked player must be on the ground
+                    if (Owner.IsGrounded()) {
+                        Locked = false;
+                    }
+                    break;
             }
             animator.Update();
         }
