@@ -26,7 +26,7 @@ namespace KarateChamp {
 
         public enum State {
             Play,
-            PlayTo,
+            PlayLoose,
             PlayAfter,
             PlayLoop,
             Stop,
@@ -44,7 +44,7 @@ namespace KarateChamp {
                         FrameIndex = startFrame;
                         elapsedTime = 9999999;
                         break;
-                    case State.PlayTo:
+                    case State.PlayLoose:
                         FrameIndex = startFrame;
                         elapsedTime = 9999999;
                         break;
@@ -76,7 +76,7 @@ namespace KarateChamp {
                 case State.Play:
                     PlayAnimation();
                     break;
-                case State.PlayTo:
+                case State.PlayLoose:
                     PlayUntilHitFrame();
                     break;
                 case State.PlayAfter:
@@ -115,7 +115,7 @@ namespace KarateChamp {
             this.gameTime = gameTime;
             referenceFrame = frame;
             startFrame = animation.startIndex;
-            EnterState(State.PlayTo);
+            EnterState(State.PlayLoose);
         }
 
         public void PlayAfter(int frame, Animation animation, GameObject gameObject, GameTime gameTime) {

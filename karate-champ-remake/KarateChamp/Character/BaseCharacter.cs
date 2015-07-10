@@ -342,7 +342,7 @@ namespace KarateChamp {
                             OnEntry(gameTime);
                         }
                     }
-                    currentAttack.ExecuteMoving(input, gameTime, this);
+                    currentAttack.Execute(input, gameTime);
                     break;
 
                 case CharacterState.JumpingBackKick:
@@ -467,14 +467,9 @@ namespace KarateChamp {
             int offset_Y = 9;
             int size = 10;
             int hitFrame = 6;
-            Rectangle rect;
-            if (orientation == Orientation.Right)
-                rect = new Rectangle((int)position.X + 112, (int)position.Y, 10, 5);
-            else
-                rect = new Rectangle((int)position.X - uvRect.Width / 2, (int)position.Y, 10, 5);
             Animation animation = new Animation(new Point(uvRect.Width, uvRect.Height * offset_Y), 0, size, 0.10f);
-            jumpingSideKick = new Attack(CharacterState.JumpingSideKick, animation, hitFrame, rect, this);
-            jumpingSideKick.animator.state = Animator.State.PlayTo;
+            jumpingSideKick = new Attack(CharacterState.JumpingSideKick, animation, hitFrame, this);
+            jumpingSideKick.animator.state = Animator.State.PlayLoose;
             currentAttack = jumpingSideKick;
             System.Diagnostics.Debug.WriteLine("Kick");
         }

@@ -17,29 +17,21 @@ namespace KarateChamp {
         public Animation Animation { get; private set; }
         public BaseCharacter Owner { get; private set; }
         public bool finished { get; private set; }
-        bool executeMoving = false;
         bool hitChecked = false;
+
+        Vector2 hitbox_size;
+        Vector2 hitbox_offset_right;
+        Vector2 hitbox_offset_left;
 
         public Attack(CharacterState state, Animation animation, int hitFrame, BaseCharacter owner) {
             State = state;
             HitFrame = hitFrame;
             Owner = owner;
-            Point rectSize = new Point(owner.uvRect.Width, owner.uvRect.Height);
-            CollisionLeft = CalcCollision(MainGame.colSprite, new Rectangle(83 * hitFrame, animation.spriteRectPosition.Y, rectSize.X, rectSize.Y), Owner, false);
-            CollisionRight = CalcCollision(MainGame.colSprite, new Rectangle(83 * hitFrame, animation.spriteRectPosition.Y, rectSize.X, rectSize.Y), Owner, true);
             Animation = animation;
-        }
 
-        public Attack(CharacterState state, Animation animation, int hitFrame, Rectangle collisionPosition, BaseCharacter owner) {
-            State = state;
-            HitFrame = hitFrame;
-            Owner = owner;
-            Point rectSize = new Point(owner.uvRect.Width, owner.uvRect.Height);
-            CollisionLeft = CalcCollision(MainGame.colSprite, new Rectangle(83 * hitFrame, animation.spriteRectPosition.Y, rectSize.X, rectSize.Y), Owner, false);
-            CollisionRight = CalcCollision(MainGame.colSprite, new Rectangle(83 * hitFrame, animation.spriteRectPosition.Y, rectSize.X, rectSize.Y), Owner, true);
-            CollisionLeft.rect = collisionPosition;
-            CollisionRight.rect = collisionPosition;
-            Animation = animation;
+            // Refactored collision calc
+            CalcHibox(MainGame.colSprite, hitFrame);
+            UpdateCollision();
         }
 
         public CollisionBox GetCollision() {
@@ -50,42 +42,35 @@ namespace KarateChamp {
         }
 
         public void Execute(CharacterState input, GameTime gameTime) {
-            if (State == input) {
-                animator.PlayTo(HitFrame, Animation, Owner, gameTime);
+            // Now thats a workaround
+            if (State == CharacterState.JumpingSideKick) {
+                if (State == input && !animator.PlayedToFrame) {
+                    animator.PlayTo(3, Animation, Owner, gameTime);
+                }
+                else if (animator.Stopped() && Owner.IsGrounded()) {
+                    finished = true;
+                }
+                else if (!animator.Stopped() && animator.PlayedToFrame) {
+                    animator.PlayAfter(3, Animation, Owner, gameTime);
+                }
+                else
+                    animator.RollBack();
             }
-            else if (animator.Stopped()) {
-                finished = true;
-            }
-            else if (animator.PlayedToFrame) {
-                animator.PlayAfter(HitFrame, Animation, Owner, gameTime);
-            }
+            // This is the normal execute
             else {
-                animator.RollBack();
+                if (State == input) {
+                    animator.PlayTo(HitFrame, Animation, Owner, gameTime);
+                }
+                else if (animator.Stopped()) {
+                    finished = true;
+                }
+                else if (animator.PlayedToFrame) {
+                    animator.PlayAfter(HitFrame, Animation, Owner, gameTime);
+                }
+                else {
+                    animator.RollBack();
+                }
             }
-
-            if (animator.PlayedToFrame && !hitChecked) {
-                hitChecked = true;
-                CheckIfHit(gameTime);
-                DEBUG_Collision.p1AttackCollisionLeft = CollisionLeft;
-                DEBUG_Collision.p1AttackCollisionRight = CollisionRight;
-            }
-            animator.Update();
-        }
-
-        public void ExecuteMoving(CharacterState input, GameTime gameTime, BaseCharacter baseChar) {
-
-            if (State == input && !animator.PlayedToFrame) {
-                animator.PlayTo(3, Animation, Owner, gameTime);
-                executeMoving = true;
-            }
-            else if (animator.Stopped() && baseChar.IsGrounded()) {
-                finished = true;
-            }
-            else if (!animator.Stopped() && animator.PlayedToFrame) {
-                animator.PlayAfter(3, Animation, Owner, gameTime);
-            }
-            else
-                animator.RollBack();          
 
             if (animator.PlayedToFrame && !hitChecked) {
                 hitChecked = true;
@@ -117,31 +102,41 @@ namespace KarateChamp {
             System.Diagnostics.Debug.WriteLine("Hit! " + Owner.Opponent);
         }
 
-        public CollisionBox CalcCollision(Texture2D sprite, Rectangle uvRect, GameObject owner, bool facingRight) {
-            Point rectStartPosition = Point.Zero;
-            Point rectEndPosition = Point.Zero;
-            Color[] colorData = new Color[uvRect.Size.X * uvRect.Size.Y];
-            sprite.GetData<Color>(0, uvRect, colorData, 0, uvRect.Size.X * uvRect.Size.Y);
-            int d = 0;
-            for (int i = 0; i < colorData.Length; i++) {
-                if (colorData[i] == Color.Red) {
-                    if (rectStartPosition == Point.Zero) {
-                        rectStartPosition = new Point(i % uvRect.Size.X, ((int)Math.Ceiling((double)i / (double)uvRect.Size.X)) - 1);
-                        d = i;
-                    }
-                    rectEndPosition = new Point(i % uvRect.Size.X, ((int)Math.Ceiling((double)i / (double)uvRect.Size.X)) - 1);
-                }
+        public void CalcHibox(Texture2D sprite, int hitFrame) {
+            // Now thats a workaround
+            if (State == CharacterState.JumpingSideKick) {
+                hitbox_size = new Vector2(10.0f, 5.0f);
+                hitbox_offset_right = new Vector2(112.0f, 0.0f);
+                hitbox_offset_left = new Vector2(-0.5f * Owner.uvRect.Width, 0.0f);
             }
-
-            Vector2 size = new Vector2(rectEndPosition.X - rectStartPosition.X, rectEndPosition.Y - rectStartPosition.Y);
-            Vector2 pos;
-            if (facingRight) {
-                pos = owner.position + new Vector2(rectStartPosition.X, rectStartPosition.Y);
-            }
+            // This is the normal hitbox calc
             else {
-                pos = owner.position + new Vector2(83 - rectStartPosition.X - size.X, rectStartPosition.Y);
+                Point rectSize = new Point(Owner.uvRect.Width, Owner.uvRect.Height);
+                Rectangle uvRect = new Rectangle(83 * hitFrame, Animation.spriteRectPosition.Y, rectSize.X, rectSize.Y);
+
+                Point rectStartPosition = Point.Zero;
+                Point rectEndPosition = Point.Zero;
+                Color[] colorData = new Color[rectSize.X * rectSize.Y];
+                sprite.GetData<Color>(0, uvRect, colorData, 0, rectSize.X * rectSize.Y);
+                int d = 0;
+                for (int i = 0; i < colorData.Length; i++) {
+                    if (colorData[i] == Color.Red) {
+                        if (rectStartPosition == Point.Zero) {
+                            rectStartPosition = new Point(i % rectSize.X, ((int)Math.Ceiling((double)i / (double)rectSize.X)) - 1);
+                            d = i;
+                        }
+                        rectEndPosition = new Point(i % rectSize.X, ((int)Math.Ceiling((double)i / (double)rectSize.X)) - 1);
+                    }
+                }
+                hitbox_size = new Vector2(rectEndPosition.X - rectStartPosition.X, rectEndPosition.Y - rectStartPosition.Y);
+                hitbox_offset_right = new Vector2(rectStartPosition.X, rectStartPosition.Y);
+                hitbox_offset_left = new Vector2(83 - rectStartPosition.X - hitbox_size.X, rectStartPosition.Y);
             }
-            return new CollisionBox(owner, pos, size);
+        }
+
+        void UpdateCollision() {
+            CollisionLeft = new CollisionBox(Owner, Owner.position + hitbox_offset_left, hitbox_size);
+            CollisionRight = new CollisionBox(Owner, Owner.position + hitbox_offset_right, hitbox_size);
         }
     }
 }
