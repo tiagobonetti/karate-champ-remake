@@ -25,6 +25,7 @@ namespace KarateChamp {
         public enum State {
             Play,
             PlayLoop,
+            PlayLoopBackwards,
             Stop,
             RollBack
         }
@@ -43,6 +44,10 @@ namespace KarateChamp {
                         FrameIndex = startFrame;
                         elapsedTime = 9999999;
                         break;
+                    case State.PlayLoopBackwards:
+                        FrameIndex = startFrame;
+                        elapsedTime = 9999999;
+                        break;
                     case State.Stop:
                         elapsedTime = 9999999;
                         break;
@@ -54,12 +59,19 @@ namespace KarateChamp {
         }
 
         void StateMachine() {
+            if (currentGameObject != null)
+                if (currentGameObject.name == "p2") {
+                    System.Diagnostics.Debug.WriteLine(state + " Index " + FrameIndex);
+                }
             switch (state) {
                 case State.Play:
                     PlayAnimation();
                     break;
                 case State.PlayLoop:
                     PlayLoopAnimation();
+                    break;
+                case State.PlayLoopBackwards:
+                    PlayLoopAnimationBackwards();
                     break;
                 case State.Stop:
                     break;
@@ -89,6 +101,14 @@ namespace KarateChamp {
             EnterState(State.PlayLoop);
         }
 
+        public void PlayLoopBackwards(Animation animation, GameObject gameObject, GameTime gameTime) {
+            currentGameObject = gameObject;
+            currentAnimation = animation;
+            this.gameTime = gameTime;
+            startFrame = animation.startIndex;
+            EnterState(State.PlayLoopBackwards);
+        }
+
         public void Stop() {
             EnterState(State.Stop);
         }
@@ -114,7 +134,7 @@ namespace KarateChamp {
                 EnterState(State.Stop);
             }
 
-            System.Diagnostics.Debug.WriteLine("PlayAnimation Index " + FrameIndex);
+       //     System.Diagnostics.Debug.WriteLine("PlayAnimation Index " + FrameIndex);
         }
 
         void PlayLoopAnimation() {
@@ -134,7 +154,25 @@ namespace KarateChamp {
             if (FrameIndex > currentAnimation.size - 1) {
                 FrameIndex = startFrame;
             }
-            // System.Diagnostics.Debug.WriteLine("PlayLoopAnimation Index " + FrameIndex);
+        }
+
+        void PlayLoopAnimationBackwards() {
+
+            if (elapsedTime < currentAnimation.animationLength) {
+                elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+            else {
+                elapsedTime = 0;
+         //       System.Diagnostics.Debug.WriteLine("PlayLoopAnimationBackwards Index " + FrameIndex);
+                currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex,
+                                                         currentAnimation.spriteRectPosition.Y,
+                                                         currentGameObject.uvRect.Width,
+                                                         currentGameObject.uvRect.Height);
+                FrameIndex--;
+            }
+            if (FrameIndex <= currentAnimation.size) {
+                FrameIndex = startFrame;
+            }
         }
 
         void RollBackAnimation() {
@@ -154,7 +192,7 @@ namespace KarateChamp {
             if (FrameIndex <= 0) {
                 EnterState(State.Stop);
             }
-           System.Diagnostics.Debug.WriteLine("Rollback Index " + FrameIndex);
+      //     System.Diagnostics.Debug.WriteLine("Rollback Index " + FrameIndex);
         }
     }
 }

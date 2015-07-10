@@ -36,14 +36,14 @@ namespace KarateChamp {
             Animation = animation;
 
             if (state == CharacterState.JumpingSideKick) {
-                lockFrame = 3;
+                lockFrame = 2;
                 holdable = false;
             }
             else {
                 lockFrame = hitFrame;
             }
 
-            CalcHibox(MainGame.colSprite, hitFrame);
+            CalcHibox(Scene_Fight.colSprite, hitFrame);
         }
 
         public CollisionBox GetCollision() {
@@ -134,15 +134,16 @@ namespace KarateChamp {
 
         void Hit(BaseCharacter character, GameTime gameTime) {
             character.TakeHit(State, gameTime);
+            MainGame.scoreboard.AddScore(Owner.name, 1);
             System.Diagnostics.Debug.WriteLine("Hit! " + Owner.Opponent);
         }
 
         public void CalcHibox(Texture2D sprite, int hitFrame) {
             // Now thats a workaround
             if (State == CharacterState.JumpingSideKick) {
-                hitbox_size = new Vector2(10.0f, 5.0f);
-                hitbox_offset_right = new Vector2(112.0f, 0.0f);
-                hitbox_offset_left = new Vector2(-0.5f * Owner.uvRect.Width, 0.0f);
+                hitbox_size = new Vector2(7.0f, 5.0f);
+                hitbox_offset_right = new Vector2(105.0f, 5f);
+                hitbox_offset_left = new Vector2(-0.35f * Owner.uvRect.Width, 5f);
             }
             // This is the normal hitbox calc
             else {

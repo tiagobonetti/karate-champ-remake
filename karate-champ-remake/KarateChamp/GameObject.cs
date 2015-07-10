@@ -11,6 +11,7 @@ namespace KarateChamp {
         public Texture2D spriteSheet;
         public Rectangle uvRect;
         public MainGame.Tag tag;
+        public string name;
         public Orientation orientation;
         public CollisionBox collision;
         public Vector2 collisionOffset;

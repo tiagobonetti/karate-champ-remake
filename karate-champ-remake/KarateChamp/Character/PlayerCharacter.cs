@@ -10,12 +10,13 @@ namespace KarateChamp {
     class PlayerCharacter : BaseCharacter {
         public IPlayerInput PlayerInput { get; set; }
 
-        public PlayerCharacter(Texture2D spriteSheet, MainGame.Tag tag, float positionX, Orientation orientation) {
+        public PlayerCharacter(Texture2D spriteSheet, MainGame.Tag tag, float positionX, Orientation orientation, string name) {
             this.spriteSheet = spriteSheet;
             this.tag = tag;
             this.position = new Vector2(positionX, floor - uvRect.Height);
             this.orientation = orientation;
             this.PlayerInput = null;
+            this.name = name;
             collisionOffset = new Vector2(20f, 0);
             collision = new CollisionBox(this, new Vector2(uvRect.Center.X, uvRect.Center.Y) * collisionOffset, new Vector2(25, 53));
             DEBUG_Collision.bodyCollisionList.Add(collision);
@@ -23,13 +24,17 @@ namespace KarateChamp {
 
         public void Update(GameTime gameTime) {
             CharacterState input;
-            if (PlayerInput == null) {
-                input = CharacterState.Idle;
-            }
+            if (state == CharacterState.Fall)
+                input = CharacterState.Fall;
             else {
-                input = PlayerInput.GetMove(Modifier.None, orientation);
+                if (PlayerInput == null) {
+                    input = CharacterState.Idle;
+                }
+                else {
+                    input = PlayerInput.GetMove(Modifier.None, orientation);
+                }
             }
-
+            
             BaseUpdate(gameTime, input);
         }
 

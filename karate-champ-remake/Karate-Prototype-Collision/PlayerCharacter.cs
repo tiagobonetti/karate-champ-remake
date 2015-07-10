@@ -32,21 +32,6 @@ namespace Karate_Prototype_Collision {
 
             Vector2 origin = new Vector2(uvRect.Width * 0.5f, uvRect.Height * 0.5f);
 
-            /*
-            Rectangle rect2 = uvRect;
-            Texture2D rectTexture = new Texture2D(spriteBatch.GraphicsDevice, rect2.Width, rect2.Height);
-
-            Color[] data = new Color[rectTexture.Width * rectTexture.Height];
-            for (int i = 0; i < data.Length; ++i) {
-                data[i] = new Color(255, 0, 0, 1);
-            }
-            rectTexture.SetData(data);
-
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
-            spriteBatch.Draw(rectTexture, position, Color.White);
-            spriteBatch.End();*/
-
-
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
             spriteBatch.Draw(spriteSheet, position, null, uvRect, Vector2.One, 0f, Vector2.One, Color.White, FlipWithOrientation(), 0f);
             //  spriteBatch.Draw(sprite, position, null, null, origin, 0f, Vector2.One * 1.5f, Color.White, FlipWithOrientation(), 0f);

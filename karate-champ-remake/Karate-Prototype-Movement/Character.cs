@@ -10,7 +10,7 @@ namespace Karate_Prototype_Movement {
 
     class Character {
 
-        public float speed_Walk = 150f;
+        public float speed_Walk = 50f;
         public float speed_Jump = 350f;
         public float gravityPull = 12f;
         public Vector2 position;
