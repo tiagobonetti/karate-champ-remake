@@ -41,6 +41,7 @@
     <Compile Include="Animation\Animation.cs" />
     <Compile Include="Animation\BaseAnimation.cs" />
     <Compile Include="Character\Attack.cs" />
+    <Compile Include="Character\Block.cs" />
     <Compile Include="Debug.cs" />
     <Compile Include="Input\IPlayerInput.cs" />
     <Compile Include="GameObject.cs" />

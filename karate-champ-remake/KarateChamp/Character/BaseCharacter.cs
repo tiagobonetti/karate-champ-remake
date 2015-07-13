@@ -47,13 +47,10 @@ namespace KarateChamp {
         public Vector2 velocity = Vector2.Zero;
 
         Animator animator = new Animator();
-        //Animations
+
         Animation idle;
         Animation forward;
-        Animation changeDirection;
         Animation withdraw;
-        Animation upperBlock;
-        Animation middleBlock;
         Animation forwardSomersault;
         Animation backwardSomersault;
         Animation squat;
@@ -61,10 +58,9 @@ namespace KarateChamp {
         Animation fallDown;
         Animation fallForward;
         Animation fallForward2;
-
         Animation fallBack;
-        //Attacks
-        
+
+        Block currentBlock;
         Attack currentAttack;
         /*
         Attack upperLungePunch;
@@ -84,8 +80,9 @@ namespace KarateChamp {
 
         public BaseCharacter() {
             uvRect = new Rectangle(0, 0, 83, 53);
+
             idle = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 6, 1, 0.10f);
-            forward = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 7, 12, 0.13f);
+            forward = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 1, 7, 0.13f);
             withdraw = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 11, 5, 0.13f);
             forwardSomersault = new Animation(new Point(uvRect.Width, uvRect.Height * 10), 0, 10, 0.10f);
             backwardSomersault = new Animation(new Point(uvRect.Width, uvRect.Height * 11), 0, 11, 0.10f);
@@ -100,6 +97,10 @@ namespace KarateChamp {
 
         void EvalInput(GameTime gameTime, CharacterState input) {
             //System.Diagnostics.Debug.WriteLine("State: " + state.ToString() + " Input: " + input.ToString());
+
+            if (state == CharacterState.Fall)
+                input = CharacterState.Fall;
+
             if (input != state) {
                 switch (state) {
                     default:
@@ -144,6 +145,15 @@ namespace KarateChamp {
                             OnEntry(gameTime);
                         }
                         break;
+                    case CharacterState.UpperBlock:
+                    case CharacterState.MiddleBlock:
+                        if (!currentBlock.Locked) {
+                            state = input;
+                            currentBlock = null;
+                            OnEntry(gameTime);
+                        }
+                        break;
+
                     case CharacterState.Fall:
                         state = input;
                         OnEntry(gameTime);
@@ -193,6 +203,21 @@ namespace KarateChamp {
                     animator.PlayLoopBackwards(withdraw, this, gameTime);
                     break;
 
+                case CharacterState.UpperBlock:
+                    velocity = Vector2.Zero;
+                    currentAttack = null;
+                    Animation upperBlockAnimation = new Animation(new Point(uvRect.Width, uvRect.Height * 16), 0, 5, 0.10f);
+                    currentBlock = new Block(state, upperBlockAnimation, 4, Location.Upper, this); 
+                    currentBlock.Start(gameTime);
+                    break;
+                case CharacterState.MiddleBlock:
+                    velocity = Vector2.Zero;
+                    currentAttack = null;
+                    Animation middleBlockAnimation = new Animation(new Point(uvRect.Width, uvRect.Height * 17), 0, 6, 0.10f);
+                    currentBlock = new Block(state, middleBlockAnimation, 5, Location.Middle, this); 
+                    currentBlock.Start(gameTime);
+                    break;
+
                 case CharacterState.ForwardSomersault:
                     animator.Play(forwardSomersault, this, gameTime);
                     break;
@@ -208,91 +233,91 @@ namespace KarateChamp {
 
                 case CharacterState.UpperLungePunch:
                     velocity = Vector2.Zero;
-                    currentAttack = CreateAttack(state, 12, 10, 5);
+                    currentAttack = CreateAttack(state, 12, 10, 5, Location.Upper);
                     currentAttack.Start(gameTime);
                     break;
 
                 case CharacterState.MiddleLungePunch:
                     velocity = Vector2.Zero;
-                    currentAttack = CreateAttack(state, 13, 10, 5);
+                    currentAttack = CreateAttack(state, 13, 10, 5, Location.Middle);
                     currentAttack.Start(gameTime);
                     break;
 
                 case CharacterState.UpperPunch:
                     velocity = Vector2.Zero;
-                    currentAttack = CreateAttack(state, 12, 10, 5);
+                    currentAttack = CreateAttack(state, 12, 10, 5, Location.Upper);
                     currentAttack.Start(gameTime);
                     break;
 
                 case CharacterState.BackRoundKick:
                     velocity = Vector2.Zero;
-                    currentAttack = CreateAttack(state, 4, 10, 5);
+                    currentAttack = CreateAttack(state, 4, 10, 5, Location.Upper);
                     currentAttack.Start(gameTime);
                     break;
 
                 case CharacterState.JumpingSideKick:
-                    currentAttack = CreateAttack(state, 9, 10, 6);
+                    currentAttack = CreateAttack(state, 9, 10, 6, Location.Upper);
                     currentAttack.Start(gameTime);
                     break;
 
                 case CharacterState.JumpingBackKick:
                     velocity = Vector2.Zero;
-                    currentAttack = CreateAttack(state, 6, 10, 5);
+                    currentAttack = CreateAttack(state, 6, 10, 5, Location.Upper);
                     currentAttack.Start(gameTime);
                     break;
 
                 case CharacterState.FrontFootSweep:
                     velocity = Vector2.Zero;
-                    currentAttack = CreateAttack(state, 8, 10, 5);
+                    currentAttack = CreateAttack(state, 8, 10, 5, Location.Lower);
                     currentAttack.Start(gameTime);
                     break;
 
                 case CharacterState.BackFootSweep:
                     velocity = Vector2.Zero;
-                    currentAttack = CreateAttack(state, 7, 12, 5);
+                    currentAttack = CreateAttack(state, 7, 12, 5, Location.Lower);
                     currentAttack.Start(gameTime);
                     break;
 
                 case CharacterState.DuckingReversePunch:
                     velocity = Vector2.Zero;
-                    currentAttack = CreateAttack(state, 15, 12, 5);
+                    currentAttack = CreateAttack(state, 15, 12, 5, Location.Middle);
                     currentAttack.Start(gameTime);
                     break;
 
                 case CharacterState.FrontKick:
                     velocity = Vector2.Zero;
-                    currentAttack = CreateAttack(state, 2, 10, 5);
+                    currentAttack = CreateAttack(state, 2, 10, 5, Location.Middle);
                     currentAttack.Start(gameTime);
                     break;
 
                 case CharacterState.MiddleReversePunch:
                     velocity = Vector2.Zero;
-                    currentAttack = CreateAttack(state, 14, 7, 3);
+                    currentAttack = CreateAttack(state, 14, 7, 3, Location.Middle);
                     currentAttack.Start(gameTime);
                     break;
 
                 case CharacterState.LowKick:
                     velocity = Vector2.Zero;
-                    currentAttack = CreateAttack(state, 3, 11, 5);
+                    currentAttack = CreateAttack(state, 3, 11, 5, Location.Lower);
                     currentAttack.Start(gameTime);
                     break;
 
                 case CharacterState.RoundKick:
                     velocity = Vector2.Zero;
-                    currentAttack = CreateAttack(state, 1, 10, 4);
+                    currentAttack = CreateAttack(state, 1, 10, 4, Location.Upper);
                     currentAttack.Start(gameTime);
                     break;
 
                 case CharacterState.BackKick:
                     velocity = Vector2.Zero;
-                    currentAttack = CreateAttack(state, 5, 9, 4);
+                    currentAttack = CreateAttack(state, 5, 9, 4, Location.Middle);
                     currentAttack.Start(gameTime);
                     break;
             }
         }
         void StateMachine(GameTime gameTime, CharacterState input) {
             EvalInput(gameTime, input);
-            if (name == "p2")
+            if (name == "p1")
                 System.Diagnostics.Debug.WriteLine("State: " + input.ToString());
             switch (state) {
                 case CharacterState.ChangeDirection:
@@ -369,6 +394,10 @@ namespace KarateChamp {
                 case CharacterState.BackKick:
                     currentAttack.Execute(input, gameTime);
                     break;
+                case CharacterState.UpperBlock:
+                case CharacterState.MiddleBlock:
+                    currentBlock.Execute(input, gameTime);
+                    break;
             }
         }
 
@@ -378,10 +407,16 @@ namespace KarateChamp {
             UpdateCollisionPosition();
         }
 
-        public void TakeHit(CharacterState attackState, GameTime gameTime) {
+        public void TakeHit(Location attackLocation, GameTime gameTime) {
             System.Diagnostics.Debug.WriteLine("Take Hit!");
-            state = CharacterState.Fall;
-            OnEntry(gameTime);
+            if (currentBlock == null) {
+                state = CharacterState.Fall;
+                OnEntry(gameTime);
+            }
+            else if (currentBlock.HitLocation != attackLocation) {
+                state = CharacterState.Fall;
+                OnEntry(gameTime);
+            }
         }
 
         Animation GetFallingAnimation(CharacterState attackState) {
@@ -404,6 +439,53 @@ namespace KarateChamp {
             }
         }
 
+        protected Modifier CheckBlockModifier(CharacterState state) {
+            if (CanBlock() && Vector2.Distance(position, Opponent.position) < 70) {
+            //    System.Diagnostics.Debug.WriteLine("Distance: " + Vector2.Distance(position, Opponent.position));
+                switch (state) {
+                    default:
+                        return Modifier.None;
+
+                    case CharacterState.UpperLungePunch:
+                    case CharacterState.UpperPunch:
+                    case CharacterState.BackRoundKick:
+                    case CharacterState.JumpingSideKick:
+                    case CharacterState.JumpingBackKick:
+                    case CharacterState.RoundKick:
+                        return Modifier.IncomingUpperAttack;
+
+                    case CharacterState.MiddleLungePunch:
+                    case CharacterState.DuckingReversePunch:
+                    case CharacterState.FrontKick:
+                    case CharacterState.MiddleReversePunch:
+                    case CharacterState.BackKick:
+                        return Modifier.IncomingMiddleAttack;
+
+                    case CharacterState.FrontFootSweep:
+                    case CharacterState.BackFootSweep:
+                    case CharacterState.LowKick:
+                        return Modifier.None;
+                }
+            }
+            else
+                return Modifier.None;
+        }
+
+        bool CanBlock() {
+            if (position.X > Opponent.position.X) {
+                if (orientation == GameObject.Orientation.Left)
+                    return true;
+                else
+                    return false;
+            }
+            else {
+                if (orientation == GameObject.Orientation.Right)
+                    return true;
+                else
+                    return false;
+            }
+        }
+
         public bool IsGrounded() {
             float characterFeet = position.Y + uvRect.Height;
             return (characterFeet >= floor);
@@ -419,9 +501,9 @@ namespace KarateChamp {
             position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
-        Attack CreateAttack(CharacterState state, int offset_Y, int size, int hitFrame) {
+        Attack CreateAttack(CharacterState state, int offset_Y, int size, int hitFrame, Location location) {
             Animation animation = new Animation(new Point(uvRect.Width, uvRect.Height * offset_Y), 0, size, 0.10f);
-            return new Attack(state, animation, hitFrame, this);
+            return new Attack(state, animation, hitFrame, location, this);
         }
     }
 }

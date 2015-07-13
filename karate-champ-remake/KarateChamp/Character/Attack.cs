@@ -7,6 +7,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace KarateChamp {
+
+    public enum Location {
+        Upper,
+        Middle,
+        Lower
+    }
+
     class Attack {
         public Animator animator = new Animator();
         public CharacterState State { get; private set; }
@@ -15,10 +22,10 @@ namespace KarateChamp {
         public CollisionBox CollisionRight { get; private set; }
         public Animation Animation { get; private set; }
         public BaseCharacter Owner { get; private set; }
+        public bool Locked { get; private set; }
+        public Location HitLocation { get; private set; }
 
         int lockFrame;
-        public bool Locked { get; private set; }
-
         int HitFrame;
         bool hitChecked = false;
 
@@ -29,11 +36,12 @@ namespace KarateChamp {
         Vector2 hitbox_offset_right;
         Vector2 hitbox_offset_left;
 
-        public Attack(CharacterState state, Animation animation, int hitFrame, BaseCharacter owner) {
+        public Attack(CharacterState state, Animation animation, int hitFrame, Location hitLocation, BaseCharacter owner) {
             State = state;
             HitFrame = hitFrame;
             Owner = owner;
             Animation = animation;
+            HitLocation = hitLocation;
 
             if (state == CharacterState.JumpingSideKick) {
                 lockFrame = 2;
@@ -133,7 +141,7 @@ namespace KarateChamp {
         }
 
         void Hit(BaseCharacter character, GameTime gameTime) {
-            character.TakeHit(State, gameTime);
+            character.TakeHit(HitLocation, gameTime);
             MainGame.scoreboard.AddScore(Owner.name, 1);
             System.Diagnostics.Debug.WriteLine("Hit! " + Owner.Opponent);
         }

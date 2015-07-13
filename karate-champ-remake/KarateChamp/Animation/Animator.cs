@@ -60,7 +60,7 @@ namespace KarateChamp {
 
         void StateMachine() {
             if (currentGameObject != null)
-                if (currentGameObject.name == "p2") {
+                if (currentGameObject.name == "p1") {
                     System.Diagnostics.Debug.WriteLine(state + " Index " + FrameIndex);
                 }
             switch (state) {

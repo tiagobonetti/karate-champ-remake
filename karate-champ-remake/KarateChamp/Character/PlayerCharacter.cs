@@ -24,17 +24,13 @@ namespace KarateChamp {
 
         public void Update(GameTime gameTime) {
             CharacterState input;
-            if (state == CharacterState.Fall)
-                input = CharacterState.Fall;
-            else {
-                if (PlayerInput == null) {
-                    input = CharacterState.Idle;
-                }
-                else {
-                    input = PlayerInput.GetMove(Modifier.None, orientation);
-                }
+            if (PlayerInput == null) {
+                input = CharacterState.Idle;
             }
-            
+            else {
+                input = PlayerInput.GetMove(CheckBlockModifier(Opponent.state), orientation);
+            }
+
             BaseUpdate(gameTime, input);
         }
 
