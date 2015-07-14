@@ -9,9 +9,8 @@ namespace KarateChamp {
     class Animator {
         public int FrameIndex { get; private set; }
         public bool PlayedToFrame { get; private set; }
-
+        public Animation currentAnimation { get; private set; }
         public State state = State.Stop;
-        public Animation currentAnimation;
         GameObject currentGameObject;
         GameTime gameTime;
         public float elapsedTime = 9999999;
@@ -61,7 +60,7 @@ namespace KarateChamp {
         void StateMachine() {
             if (currentGameObject != null)
                 if (currentGameObject.name == "p1") {
-                    System.Diagnostics.Debug.WriteLine(state + " Index " + FrameIndex);
+                    System.Diagnostics.Debug.WriteLine(state + " Index " + FrameIndex + " Size " + currentAnimation.size);
                 }
             switch (state) {
                 case State.Play:
@@ -83,6 +82,17 @@ namespace KarateChamp {
 
         public void Update() {
             StateMachine();
+        }
+
+        Animation CurrentAnimation {
+            get {
+                return currentAnimation;
+            }
+            set {
+                FrameIndex = startFrame;
+                elapsedTime = 9999999;
+                currentAnimation = value;
+            }
         }
 
         public void Play(Animation animation, GameObject gameObject, GameTime gameTime) {
