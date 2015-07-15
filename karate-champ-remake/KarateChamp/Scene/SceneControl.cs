@@ -11,9 +11,11 @@ namespace KarateChamp {
 
         Scene currentScene;
         Scene_Fight fight;
+        Scene_MainMenu mainMenu;
 
         public SceneControl(ContentManager content) {
             fight = new Scene_Fight(content);
+            mainMenu = new Scene_MainMenu(content);
             currentScene = Scene.Fight;
         }
 
@@ -27,6 +29,8 @@ namespace KarateChamp {
             switch (currentScene) {
                 default:
                 case Scene.MainMenu:
+                    mainMenu.Update(gameTime);
+                    break;
                 case Scene.Fight:
                     fight.Update(gameTime);
                     break;
@@ -39,6 +43,8 @@ namespace KarateChamp {
             switch (currentScene) {
                 default:
                 case Scene.MainMenu:
+                    mainMenu.Draw(spriteBatch, content, graphics);
+                    break;
                 case Scene.Fight:
                     fight.Draw(spriteBatch, content, graphics);
                     break;

@@ -24,6 +24,9 @@ namespace KarateChamp {
         public MainGame() {
 
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 580; //774
+            graphics.PreferredBackBufferHeight = 768; //1024
+
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             //debugCollision = new DEBUG_Collision();  Now in Scene_Fight.cs
