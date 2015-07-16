@@ -17,12 +17,14 @@ namespace KarateChamp {
             this.orientation = orientation;
             this.PlayerInput = null;
             this.name = name;
-            collisionOffset = new Vector2(20f, 0);
-            collision = new CollisionBox(this, new Vector2(uvRect.Center.X, uvRect.Center.Y) * collisionOffset, new Vector2(25, 53));
+            collisionOffset = new Vector2(80f, 9);
+            collision = new CollisionBox(this, new Vector2(uvRect.Center.X, uvRect.Center.Y) * collisionOffset, ScaleAdjust(new Vector2(13, 48)));
             DEBUG_Collision.bodyCollisionList.Add(collision);
         }
 
         public void Update(GameTime gameTime) {
+            if (name == "p1")
+                System.Diagnostics.Debug.WriteLine("Position " + position);
             CharacterState input;
             if (PlayerInput == null) {
                 input = CharacterState.Idle;
@@ -38,7 +40,7 @@ namespace KarateChamp {
 
             Vector2 origin = new Vector2(uvRect.Width * 0.5f, uvRect.Height * 0.5f);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
-            spriteBatch.Draw(spriteSheet, position, null, uvRect, Vector2.One, 0f, Vector2.One, Color.White, FlipWithOrientation(), 0f);
+            spriteBatch.Draw(spriteSheet, position, null, uvRect, Vector2.One, 0f, ScaleAdjust(Vector2.One), Color.White, FlipWithOrientation(), 0f);
             if (PlayerInput != null) {
                 PlayerInput.DrawDebug(spriteBatch, orientation);
             }

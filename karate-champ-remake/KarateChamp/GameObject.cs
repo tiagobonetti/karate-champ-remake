@@ -45,11 +45,11 @@ namespace KarateChamp {
 
             if (orientation == Orientation.Right) {
                 collision.rect.X = (int)(position.X + collisionOffset.X);
-                collision.rect.Y = (int)position.Y;
+                collision.rect.Y = (int)(position.Y + collisionOffset.Y);
             }
             else {
                 collision.rect.X = (int)(position.X + collisionOffset.X);
-                collision.rect.Y = (int)position.Y;
+                collision.rect.Y = (int)(position.Y + collisionOffset.Y);
             }
         }
     }

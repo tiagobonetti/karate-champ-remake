@@ -16,34 +16,38 @@ namespace KarateChamp {
         DEBUG_Collision debugCollision;
         Texture2D spritesheet;        
         Texture2D bg;
+        MainGame game;
 
-        public Scene_Fight(ContentManager content) {
-            Init(content);
+        public Scene_Fight(MainGame game) {
+            this.game = game;
+            Init();
         }
         
         public void Update(GameTime gameTime) {
             whiteCharacter.Update(gameTime);
             redCharacter.Update(gameTime);
+            debugCollision.Update(gameTime);
+            Debug.Update();
         }
 
-        public void Draw(SpriteBatch spriteBatch, ContentManager content, GraphicsDeviceManager graphics) {
-            Background(spriteBatch, content, graphics);
-            whiteCharacter.Draw(spriteBatch);
-            redCharacter.Draw(spriteBatch);
-            debugCollision.Draw(spriteBatch);
+        public void Draw() {
+            Background();
+            whiteCharacter.Draw(game.spriteBatch);
+            redCharacter.Draw(game.spriteBatch);
+            debugCollision.Draw(game.spriteBatch);
         }
 
-        void Init(ContentManager content) {
+        public virtual void Init() {
 
             debugCollision = new DEBUG_Collision();
-            colSprite = content.Load<Texture2D>("KarateChampCollision");
-            spritesheet = content.Load<Texture2D>("KarateChampAligned");
-            bg = content.Load<Texture2D>("Sprites/Background/Bg");
+            colSprite = game.Content.Load<Texture2D>("KarateChampCollision");
+            spritesheet = game.Content.Load<Texture2D>("KarateChampAligned");
+            bg = game.Content.Load<Texture2D>("Sprites/Background/Bg");
 
-            whiteCharacter = new PlayerCharacter(spritesheet, MainGame.Tag.PlayerOne, 300.0f, BaseCharacter.Orientation.Right, "p1");
+            whiteCharacter = new PlayerCharacter(spritesheet, MainGame.Tag.PlayerOne, game.graphics.PreferredBackBufferWidth / 2 - 210, BaseCharacter.Orientation.Right, "p1");
             whiteCharacter.PlayerInput = new KeyboardInput();
 
-            redCharacter = new PlayerCharacter(spritesheet, MainGame.Tag.PlayerOne, 400.0f, BaseCharacter.Orientation.Left, "p2");
+            redCharacter = new PlayerCharacter(spritesheet, MainGame.Tag.PlayerOne, game.graphics.PreferredBackBufferWidth / 2 + 10, BaseCharacter.Orientation.Left, "p2");
             redCharacter.PlayerInput = new GamePadInput(PlayerIndex.One);
             redCharacter.PlayerInput.Position = new Vector2(600.0f, 0.0f);
 
@@ -51,12 +55,16 @@ namespace KarateChamp {
             redCharacter.Opponent = whiteCharacter;
         }
 
-        void Background(SpriteBatch spriteBatch, ContentManager content, GraphicsDeviceManager graphics) {
+        void Background() {
             
-            Vector2 bgPos = new Vector2(graphics.PreferredBackBufferWidth * 0.5f, graphics.PreferredBackBufferHeight * 0.5f);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
-            spriteBatch.Draw(bg, bgPos, null, null, new Vector2(bg.Width * 0.5f, bg.Height * 0.5f), 0f, Vector2.One * 0.75f, Color.White, SpriteEffects.None, 0f);
-            spriteBatch.End();
+            Vector2 bgPos = new Vector2(game.graphics.PreferredBackBufferWidth * 0.5f, game.graphics.PreferredBackBufferHeight * 0.5f);
+            game.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
+            game.spriteBatch.Draw(bg, bgPos, null, null, new Vector2(bg.Width * 0.5f, bg.Height * 0.5f), 0f, Vector2.One * 0.75f, Color.White, SpriteEffects.None, 0f);
+            game.spriteBatch.End();
+        }
+
+        void Restart() {
+
         }
     }
 }

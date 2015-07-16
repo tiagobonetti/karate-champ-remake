@@ -149,9 +149,9 @@ namespace KarateChamp {
         public void CalcHibox(Texture2D sprite, int hitFrame) {
             // Now thats a workaround
             if (State == CharacterState.JumpingSideKick) {
-                hitbox_size = new Vector2(7.0f, 5.0f);
-                hitbox_offset_right = new Vector2(105.0f, 5f);
-                hitbox_offset_left = new Vector2(-0.35f * Owner.uvRect.Width, 5f);
+                hitbox_size = Owner.ScaleAdjust(new Vector2(7.0f, 5.0f));
+                hitbox_offset_right = Owner.ScaleAdjust(new Vector2(105.0f, 5f));
+                hitbox_offset_left = Owner.ScaleAdjust(new Vector2(-0.35f * Owner.uvRect.Width, 5f));
             }
             // This is the normal hitbox calc
             else {
@@ -173,8 +173,9 @@ namespace KarateChamp {
                     }
                 }
                 hitbox_size = new Vector2(rectEndPosition.X - rectStartPosition.X, rectEndPosition.Y - rectStartPosition.Y);
-                hitbox_offset_right = new Vector2(rectStartPosition.X, rectStartPosition.Y);
-                hitbox_offset_left = new Vector2(83 - rectStartPosition.X - hitbox_size.X, rectStartPosition.Y);
+                hitbox_offset_right = Owner.ScaleAdjust(new Vector2(rectStartPosition.X, rectStartPosition.Y));
+                hitbox_offset_left = Owner.ScaleAdjust(new Vector2(82 - rectStartPosition.X - hitbox_size.X, rectStartPosition.Y));
+                hitbox_size = Owner.ScaleAdjust(hitbox_size);
             }
         }
 

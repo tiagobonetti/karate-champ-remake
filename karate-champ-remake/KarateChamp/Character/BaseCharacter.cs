@@ -37,11 +37,14 @@ namespace KarateChamp {
     }
 
     public class BaseCharacter : GameObject {
-        public const float speedWalk = 70f;
-        public const float speedSomersault = 260f;
-        public const float speedJump = 200f;
-        public const float gravityPull = 12f;
-        public const float floor = 330;
+        const float scaleAdjust = 2.5f;
+        public const float speedWalk = 70f * scaleAdjust;
+        public const float speedSomersault = 260f * scaleAdjust;
+        public const float speedWalkSideKick = 60 * scaleAdjust;
+        public const float speedJumpSideKick = 210f * scaleAdjust;
+        public const float speedJump = 200f * scaleAdjust;
+        public const float gravityPull = 12f * scaleAdjust;
+        public const float floor = 430;
 
         public BaseCharacter Opponent { get; set; }
         public CharacterState state = CharacterState.Idle;
@@ -406,9 +409,9 @@ namespace KarateChamp {
                 case CharacterState.JumpingSideKick:
                     if (currentAttack.animator.FrameIndex == 3) {
                         if (orientation == Orientation.Right)
-                            velocity = new Vector2(60, -210);
+                            velocity = new Vector2(speedWalk, -speedJumpSideKick);
                         else
-                            velocity = new Vector2(-60, -210);
+                            velocity = new Vector2(-speedWalk, -speedJumpSideKick);
                     }
                     if (currentAttack.animator.state == Animator.State.Stop)
                         if (IsGrounded()) {
@@ -550,6 +553,14 @@ namespace KarateChamp {
         Attack CreateAttack(CharacterState state, int startFrame, int offset_Y, int size, int hitFrame, Location location) {
             Animation animation = new Animation(new Point(uvRect.Width, uvRect.Height * offset_Y), startFrame, size, 0.10f);
             return new Attack(state, animation, hitFrame, location, this);
+        }
+
+        public Vector2 ScaleAdjust(Vector2 value) {
+            return value * 2.5f;
+        }
+
+        public float ScaleAdjust(float value) {
+            return value * scaleAdjust;
         }
     }
 }
