@@ -71,27 +71,12 @@ namespace KarateChamp {
 
         Block currentBlock;
         Attack currentAttack;
-        /*
-        Attack upperLungePunch;
-        Attack middleLungePunch;
-        Attack upperPunch;
-        Attack backRoundKick;
-        Attack jumpingSideKick;
-        Attack jumpingBackKick;
-        Attack frontFootSweep;
-        Attack backFootSweep;
-        Attack duckingReversePunch;
-        Attack frontKick;
-        Attack middleReversePunch;
-        Attack lowKick;
-        Attack roundKick;
-        Attack backKick;*/
 
         public BaseCharacter(Texture2D spriteSheet, MainGame.Tag tag, Vector2 position, Orientation orientation, string name, MainGame game)
             : base(spriteSheet, tag, position, orientation, name, game) {
 
             uvRect = new Rectangle(0, 0, 83, 53);
-            idle = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 6, 1, 0.10f);
+            idle = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 6, 1, 0.00f);
             forwardFar = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 1, 7, 0.07f);
             withdrawFar = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 11, 5, 0.07f);
             forwardClose = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 12, 15, 0.13f);
@@ -110,7 +95,6 @@ namespace KarateChamp {
 
         void EvalInput(GameTime gameTime, CharacterState input) {
             //System.Diagnostics.Debug.WriteLine("State: " + state.ToString() + " Input: " + input.ToString());
-            //previousState = state;
             if (state == CharacterState.Fall)
                 input = CharacterState.Fall;
 
@@ -142,11 +126,10 @@ namespace KarateChamp {
                 case CharacterState.Jump:
                 case CharacterState.ForwardSomersault:
                 case CharacterState.BackwardSomersault:
-                    if (IsGrounded()) {
+                    if (animator.state == Animator.State.Stop && IsGrounded()) {
                         ChangeState(input, gameTime);
                     }
                     break;
-
                 case CharacterState.UpperLungePunch:
                 case CharacterState.MiddleLungePunch:
                 case CharacterState.UpperPunch:
@@ -177,7 +160,6 @@ namespace KarateChamp {
                         ChangeState(input, gameTime);
                     }
                     break;
-
                 case CharacterState.Fall:
                     ChangeState(input, gameTime);
                     break;
@@ -270,15 +252,13 @@ namespace KarateChamp {
                 case CharacterState.Squat:
                     velocity = Vector2.Zero;
 
-                    /*
                     if (previousState == CharacterState.BackFootSweep || previousState == CharacterState.FrontFootSweep) {
                         Animation fastSquat = new Animation(new Point(uvRect.Width, uvRect.Height * 18), 2, 1, 0.10f);
                         animator.Play(fastSquat, this, gameTime);
                     }
                     else {
-                    */
-                    animator.Play(squat, this, gameTime);
-                    //}
+                        animator.Play(squat, this, gameTime);
+                    }
                     break;
 
                 case CharacterState.UpperLungePunch:
@@ -374,7 +354,7 @@ namespace KarateChamp {
         void StateMachine(GameTime gameTime, CharacterState input) {
             EvalInput(gameTime, input);
             if (name == "p1") {
-//                System.Diagnostics.Debug.WriteLine("State: " + input.ToString());
+                //System.Diagnostics.Debug.WriteLine("State: " + input.ToString());
             }
             switch (state) {
                 case CharacterState.ChangeDirection:
@@ -392,13 +372,9 @@ namespace KarateChamp {
                     break;
 
                 case CharacterState.Jump:
-                    if (animator.FrameIndex == 3)
+                    if (animator.FrameIndex == 3) {
                         velocity = new Vector2(0, -speedJump);
-                    if (animator.state == Animator.State.Stop)
-                        if (IsGrounded()) {
-                            velocity = Vector2.Zero;
-                            ChangeState(state, gameTime);
-                        }
+                    }
                     animator.Update();
                     break;
 

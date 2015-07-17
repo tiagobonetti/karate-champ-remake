@@ -9,7 +9,8 @@ namespace KarateChamp {
     class Animator {
         public int FrameIndex { get; private set; }
         public bool PlayedToFrame { get; private set; }
-        public Animation currentAnimation { get; private set; }
+
+        Animation currentAnimation;
         public State state = State.Stop;
         GameObject currentGameObject;
         GameTime gameTime;
@@ -97,7 +98,7 @@ namespace KarateChamp {
 
         public void Play(Animation animation, GameObject gameObject, GameTime gameTime) {
             currentGameObject = gameObject;
-            currentAnimation = animation;
+            CurrentAnimation = animation;
             this.gameTime = gameTime;
             startFrame = animation.startIndex;
             EnterState(State.Play);
@@ -105,7 +106,7 @@ namespace KarateChamp {
 
         public void PlayLoop(Animation animation, GameObject gameObject, GameTime gameTime) {
             currentGameObject = gameObject;
-            currentAnimation = animation;
+            CurrentAnimation = animation;
             this.gameTime = gameTime;
             startFrame = animation.startIndex;
             EnterState(State.PlayLoop);
@@ -134,9 +135,9 @@ namespace KarateChamp {
             }
             else {
                 elapsedTime = 0;
-                currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex, 
-                                                         currentAnimation.spriteRectPosition.Y, 
-                                                         currentGameObject.uvRect.Width, 
+                currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex,
+                                                         currentAnimation.spriteRectPosition.Y,
+                                                         currentGameObject.uvRect.Width,
                                                          currentGameObject.uvRect.Height);
                 FrameIndex++;
             }
@@ -144,7 +145,7 @@ namespace KarateChamp {
                 EnterState(State.Stop);
             }
 
-       //     System.Diagnostics.Debug.WriteLine("PlayAnimation Index " + FrameIndex);
+            // System.Diagnostics.Debug.WriteLine("PlayAnimation Index " + FrameIndex);
         }
 
         void PlayLoopAnimation() {
@@ -173,7 +174,7 @@ namespace KarateChamp {
             }
             else {
                 elapsedTime = 0;
-         //       System.Diagnostics.Debug.WriteLine("PlayLoopAnimationBackwards Index " + FrameIndex);
+                // System.Diagnostics.Debug.WriteLine("PlayLoopAnimationBackwards Index " + FrameIndex);
                 currentGameObject.uvRect = new Rectangle(currentAnimation.spriteRectPosition.X * FrameIndex,
                                                          currentAnimation.spriteRectPosition.Y,
                                                          currentGameObject.uvRect.Width,
@@ -202,7 +203,7 @@ namespace KarateChamp {
             if (FrameIndex <= 0) {
                 EnterState(State.Stop);
             }
-      //     System.Diagnostics.Debug.WriteLine("Rollback Index " + FrameIndex);
+            // System.Diagnostics.Debug.WriteLine("Rollback Index " + FrameIndex);
         }
     }
 }

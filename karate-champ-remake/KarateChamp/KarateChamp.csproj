@@ -48,7 +48,7 @@
     <Compile Include="Animation\Animator.cs" />
     <Compile Include="Character\BaseCharacter.cs" />
     <Compile Include="Collision\CollisionBox.cs" />
-    <Compile Include="Character\CpuCharacter.cs" />
+    <None Include="Character\CpuCharacter.cs" />
     <Compile Include="Collision\DEBUG_Collision.cs" />
     <Compile Include="Input\GamePadInput.cs" />
     <Compile Include="Input\InputDictionary.cs" />

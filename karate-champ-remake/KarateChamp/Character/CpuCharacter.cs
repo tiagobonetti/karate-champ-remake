@@ -7,6 +7,11 @@ using System.Linq;
 using System.Text;
 
 namespace KarateChamp {
+    //COMPILATION DISABLED
+    //COMPILATION DISABLED
+    //COMPILATION DISABLED
+    //COMPILATION DISABLED
+    //COMPILATION DISABLED
     class CpuCharacter : BaseCharacter {
 
         public CpuCharacter (Texture2D spriteSheet, MainGame.Tag tag, Vector2 position, Orientation orientation, string name, MainGame game)
