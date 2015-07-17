@@ -65,6 +65,7 @@ namespace KarateChamp {
             animator.Play(Animation, Owner, gameTime);
             UpdateCollision();
             hitChecked = false;
+            Locked = true;
         }
 
         public void Execute(CharacterState input, GameTime gameTime) {
@@ -81,7 +82,7 @@ namespace KarateChamp {
                     }
                     else {
                         // Animation is now locked and will run to the end
-                       Locked = true;
+                       //Locked = true;
                     }
                     // If we are on the hit frame for the first time aplly hit detection
                     if (!hitChecked && animator.FrameIndex > HitFrame) {
