@@ -7,7 +7,7 @@ using System.Text;
 
 namespace KarateChamp {
     public class BaseAnimation {
-
+        /*
         public Texture2D[] Sprites { get; private set; }
         public float animationLength { get; private set; }
         public int HitFrame { get; private set; }
@@ -25,6 +25,6 @@ namespace KarateChamp {
             animationLength = length;
             HitFrame = hitFrame;
             CollisionRect = collisionRect;
-        }
+        }*/
     }
 }

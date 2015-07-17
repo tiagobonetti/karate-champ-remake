@@ -16,9 +16,16 @@ namespace KarateChamp {
         public CollisionBox collision;
         public Vector2 collisionOffset;
         public Vector2 position;
+        public MainGame game;
 
-        public GameObject() {
-            MainGame.gameObjectList.Add(this);
+        public GameObject(Texture2D spriteSheet, MainGame.Tag tag, Vector2 position, Orientation orientation, string name, MainGame game) {
+            this.game = game;
+            this.name = name;
+            this.spriteSheet = spriteSheet;
+            this.tag = tag;
+            this.position = position; // new Vector2(positionX, floor - uvRect.Height);
+            this.orientation = orientation;
+            game.sceneControl.GetScene().gameObjectList.Add(this);
         }
 
         public enum Orientation {

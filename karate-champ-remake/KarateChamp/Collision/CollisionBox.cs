@@ -19,7 +19,7 @@ namespace KarateChamp {
 
         public bool OnCollision(out GameObject objHit) {
 
-            foreach (GameObject obj in MainGame.gameObjectList) {
+            foreach (GameObject obj in owner.game.sceneControl.GetScene().gameObjectList) {
                 if (rect.Intersects(obj.collision.rect)) {
                     objHit = obj;
                     return true;
@@ -27,10 +27,6 @@ namespace KarateChamp {
             }
             objHit = null;
             return false;
-        }
-
-        void DestroyOnTime(float time) {
-
         }
     }
 }

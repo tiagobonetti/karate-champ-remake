@@ -13,11 +13,12 @@ namespace KarateChamp {
             Score[1] = 0;
         }
 
-        public void AddScore(string name, float score) {
+        public void AddScore(string name, float score, CharacterState attackState) {
             if (name == "p1")
                 this.Score[0] += score;
             else
                 this.Score[1] += score;
+            System.Diagnostics.Debug.WriteLine("Score!");
         }
     }
 }

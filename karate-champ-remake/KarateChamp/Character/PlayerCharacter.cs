@@ -10,21 +10,15 @@ namespace KarateChamp {
     class PlayerCharacter : BaseCharacter {
         public IPlayerInput PlayerInput { get; set; }
 
-        public PlayerCharacter(Texture2D spriteSheet, MainGame.Tag tag, float positionX, Orientation orientation, string name) {
-            this.spriteSheet = spriteSheet;
-            this.tag = tag;
-            this.position = new Vector2(positionX, floor - uvRect.Height);
-            this.orientation = orientation;
+        public PlayerCharacter(Texture2D spriteSheet, MainGame.Tag tag, Vector2 position, Orientation orientation, string name, MainGame game)
+            : base(spriteSheet, tag, position, orientation, name, game) {
             this.PlayerInput = null;
-            this.name = name;
             collisionOffset = new Vector2(80f, 9);
             collision = new CollisionBox(this, new Vector2(uvRect.Center.X, uvRect.Center.Y) * collisionOffset, ScaleAdjust(new Vector2(13, 48)));
             DEBUG_Collision.bodyCollisionList.Add(collision);
         }
 
         public void Update(GameTime gameTime) {
-            if (name == "p1")
-                System.Diagnostics.Debug.WriteLine("Position " + position);
             CharacterState input;
             if (PlayerInput == null) {
                 input = CharacterState.Idle;

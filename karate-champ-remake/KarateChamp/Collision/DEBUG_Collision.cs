@@ -13,11 +13,10 @@ namespace KarateChamp {
         public static CollisionBox p1AttackCollisionLeft;
         public static CollisionBox p1AttackCollisionRight;
         KeyboardState previousButtonState;
-        bool enabled = true;
+        bool enabled = false;
 
         public void Update(GameTime gameTime){
             if (Keyboard.GetState().IsKeyDown(Keys.F2) && previousButtonState != Keyboard.GetState()) {
-                System.Diagnostics.Debug.WriteLine("asdasdasdasdasdasdasdasdasd");
                 if (enabled)
                     enabled = false;
                 else
@@ -27,11 +26,9 @@ namespace KarateChamp {
         }
 
         public void Draw(SpriteBatch spriteBatch) {
-
             if (enabled) {
                 if (bodyCollisionList.Count > 0) {
                     foreach (CollisionBox col in bodyCollisionList) {
-                        //System.Diagnostics.Debug.WriteLine(bodyCollisionList.Count);
                         Rectangle rect = col.rect;
                         Texture2D rectTexture = new Texture2D(spriteBatch.GraphicsDevice, rect.Width, rect.Height);
 

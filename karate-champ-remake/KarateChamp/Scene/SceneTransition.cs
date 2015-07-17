@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 
 namespace KarateChamp {
-    public class Scene_Transition {
+    public class SceneTransition {
         MainGame game;
         Texture2D bg;
         float length = 1.5f;
         float elapsedTime = 0f;
         float alpha;
         Type type;
-        Scene targetScene;
+        SceneType targetScene;
 
         public enum Type {
             FadeIn,
@@ -22,12 +22,12 @@ namespace KarateChamp {
             None
         }
 
-        public Scene_Transition(MainGame game) {
+        public SceneTransition(MainGame game) {
             this.game = game;
             Init();
         }
 
-        public void StartFade(Type type, Scene scene, float length) {
+        public void StartFade(Type type, SceneType scene, float length) {
             this.targetScene = scene;
             this.length = length;
             this.elapsedTime = 0;
@@ -84,7 +84,7 @@ namespace KarateChamp {
                 ended = false;
                 elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 alpha = 1 - (((elapsedTime * 100) / length) / 100);
-                System.Diagnostics.Debug.WriteLine("FadeIn - Alpha: " + alpha + " Elapsed Time " + elapsedTime);
+          //      System.Diagnostics.Debug.WriteLine("FadeIn - Alpha: " + alpha + " Elapsed Time " + elapsedTime);
             }
             else {
                 ended = true;
@@ -97,23 +97,11 @@ namespace KarateChamp {
                 ended = false;
                 elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 alpha = ((elapsedTime * 100) / length) / 100;
-                System.Diagnostics.Debug.WriteLine("FadeOut - Alpha: " + alpha + " Elapsed Time " + elapsedTime);
+           //     System.Diagnostics.Debug.WriteLine("FadeOut - Alpha: " + alpha + " Elapsed Time " + elapsedTime);
             }
             else {
                 ended = true;
             }
-        }
-
-        void Timer(GameTime gameTime, out bool ended) {
-
-            if (elapsedTime < length) {
-                elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                ended =  false;
-            }
-            else {
-                ended = true;
-            }
-            System.Diagnostics.Debug.WriteLine("Timer: " + elapsedTime);
         }
 
         public virtual void Init() {

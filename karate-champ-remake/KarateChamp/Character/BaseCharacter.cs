@@ -45,6 +45,7 @@ namespace KarateChamp {
         public const float speedJump = 200f * scaleAdjust;
         public const float gravityPull = 12f * scaleAdjust;
         public const float floor = 430;
+        public bool canControl = true;
 
         public BaseCharacter Opponent { get; set; }
         public CharacterState state = CharacterState.Idle;
@@ -86,9 +87,10 @@ namespace KarateChamp {
         Attack roundKick;
         Attack backKick;*/
 
-        public BaseCharacter() {
-            uvRect = new Rectangle(0, 0, 83, 53);
+        public BaseCharacter(Texture2D spriteSheet, MainGame.Tag tag, Vector2 position, Orientation orientation, string name, MainGame game)
+            : base(spriteSheet, tag, position, orientation, name, game) {
 
+            uvRect = new Rectangle(0, 0, 83, 53);
             idle = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 6, 1, 0.10f);
             forwardFar = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 1, 7, 0.07f);
             withdrawFar = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 11, 5, 0.07f);
@@ -348,8 +350,9 @@ namespace KarateChamp {
         }
         void StateMachine(GameTime gameTime, CharacterState input) {
             EvalInput(gameTime, input);
-            if (name == "p1")
-                System.Diagnostics.Debug.WriteLine("State: " + input.ToString());
+            if (name == "p1") {
+//                System.Diagnostics.Debug.WriteLine("State: " + input.ToString());
+            }
             switch (state) {
                 case CharacterState.ChangeDirection:
                     break;
@@ -444,22 +447,28 @@ namespace KarateChamp {
         }
 
         protected void BaseUpdate(GameTime gameTime, CharacterState input) {
-            StateMachine(gameTime, input);
+            if (canControl)
+                StateMachine(gameTime, input);
             ApplyPhysics(gameTime);
             UpdateCollisionPosition();
         }
 
-        public void TakeHit(Location attackLocation, GameTime gameTime) {
+        public bool TakeHit(Location attackLocation, GameTime gameTime) {
             System.Diagnostics.Debug.WriteLine("Take Hit!");
             if (currentBlock == null) {
                 previousState = state;
                 state = CharacterState.Fall;
                 OnEntry(gameTime);
+                return true;
             }
             else if (currentBlock.HitLocation != attackLocation) {
                 previousState = state;
                 state = CharacterState.Fall;
                 OnEntry(gameTime);
+                return true;
+            }
+            else {
+                return false;
             }
         }
 

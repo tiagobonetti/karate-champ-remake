@@ -50,8 +50,8 @@ namespace KarateChamp {
             else {
                 lockFrame = hitFrame;
             }
-
-            CalcHibox(Scene_Fight.colSprite, hitFrame);
+            Texture2D colisionSheet = Owner.game.Content.Load<Texture2D>("KarateChampCollision");
+            CalcHibox(colisionSheet, hitFrame);
         }
 
         public CollisionBox GetCollision() {
@@ -141,9 +141,10 @@ namespace KarateChamp {
         }
 
         void Hit(BaseCharacter character, GameTime gameTime) {
-            character.TakeHit(HitLocation, gameTime);
-            MainGame.scoreboard.AddScore(Owner.name, 1);
-            System.Diagnostics.Debug.WriteLine("Hit! " + Owner.Opponent);
+            if (character.TakeHit(HitLocation, gameTime)) {
+                Owner.game.sceneControl.fight.ScoreThisRound(gameTime, Owner.name, State);
+                System.Diagnostics.Debug.WriteLine("Hit! " + Owner.Opponent);
+            }
         }
 
         public void CalcHibox(Texture2D sprite, int hitFrame) {

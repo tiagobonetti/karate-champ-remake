@@ -6,9 +6,8 @@ using System.Collections.Generic;
 namespace KarateChamp {
     public class MainGame : Game {
 
-        public static IList<GameObject> gameObjectList;
+        public static Texture2D colSprite;
         public KeyboardState previousKeyboardState;
-        public static Scoreboard scoreboard;
 
         public GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
@@ -19,21 +18,20 @@ namespace KarateChamp {
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 580; //774
             graphics.PreferredBackBufferHeight = 768; //1024
-
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            gameObjectList = new List<GameObject>();
-            scoreboard = new Scoreboard();
         }
 
         protected override void Initialize() {
+            sceneControl = new SceneControl(this);
             base.Initialize();
         }
 
         protected override void LoadContent() {
             Debug.LoadContent(Content);
+            colSprite = Content.Load<Texture2D>("KarateChampCollision");
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            sceneControl = new SceneControl(this);
+            sceneControl.EnterScene(SceneType.FBI, SceneTransition.Type.FadeIn, 1.5f);
         }
 
         protected override void UnloadContent() {

@@ -7,54 +7,54 @@ using System.Linq;
 using System.Text;
 
 namespace KarateChamp {
-    public enum Scene {
+    public enum SceneType {
         MainMenu,
         Fight,
+        FBI,
         Options,
-        Transition
+        Transition,
+        None
     }
 
     public class SceneControl {
 
-        public Scene currentScene { get; private set; }
-        public bool transitioning;
-        Scene previousScene;
-        MainGame game;
+        public SceneType currentScene { get; private set; }
+        public Scene_Fight fight { get; set; }
+        public Scene_MainMenu mainMenu { get; set; }
+        public Scene_FBI fbi { get; set; }
+        public SceneTransition transition { get; set; }
 
-        Scene_Fight fight;
-        Scene_MainMenu mainMenu;
-        Scene_Transition transition;
+        public bool transitioning;
+        SceneType previousScene;
+        MainGame game;
 
         public SceneControl(MainGame game) {
             this.game = game;
-            fight = new Scene_Fight(game);
             mainMenu = new Scene_MainMenu(game);
-            transition = new Scene_Transition(game);
-            EnterScene(Scene.MainMenu);
+            fight = new Scene_Fight(game);
+            fbi = new Scene_FBI(game);
+            currentScene = SceneType.None;
         }
 
-        public void EnterScene(Scene scene, Scene_Transition.Type transitionType, float length) {
-            
-            if (transitionType != Scene_Transition.Type.None) {
-                transitioning = true;
-                transition.StartFade(transitionType, scene, length);
-            }
-            else {
-                previousScene = currentScene;
-                currentScene = scene;
-            }
+        public void EnterScene(SceneType scene, SceneTransition.Type transitionType, float length) {
+            transitioning = true;
+            transition = new SceneTransition(game);
+            transition.StartFade(transitionType, scene, length);
         }
 
-        public void EnterScene(Scene scene) {
+        public void EnterScene(SceneType scene) {
             previousScene = currentScene;
             currentScene = scene;
             switch (currentScene) {
                 default:
-                case Scene.MainMenu:
                     break;
-                case Scene.Fight:
+                case SceneType.MainMenu:
                     break;
-                case Scene.Options:
+                case SceneType.Fight:
+                    break;
+                case SceneType.FBI:
+                    break;
+                case SceneType.Options:
                     break;
             }
         }
@@ -63,13 +63,17 @@ namespace KarateChamp {
 
             switch (currentScene) {
                 default:
-                case Scene.MainMenu:
+                    break;
+                case SceneType.MainMenu:
                     mainMenu.Update(gameTime);
                     break;
-                case Scene.Fight:
+                case SceneType.Fight:
                     fight.Update(gameTime);
                     break;
-                case Scene.Options:
+                case SceneType.FBI:
+                    fbi.Update(gameTime);
+                    break;
+                case SceneType.Options:
                     break;
             }
             if (transitioning)
@@ -80,17 +84,31 @@ namespace KarateChamp {
 
             switch (currentScene) {
                 default:
-                case Scene.MainMenu:
+                    break;
+                case SceneType.MainMenu:
                     mainMenu.Draw();
                     break;
-                case Scene.Fight:
+                case SceneType.Fight:
                     fight.Draw();
                     break;
-                case Scene.Options:
+                case SceneType.FBI:
+                    fbi.Draw();
+                    break;
+                case SceneType.Options:
                     break;
             }
             if (transitioning)
                 transition.Draw();
+        }
+
+        public Scene GetScene() {
+            switch (currentScene) {
+                default: return null;
+                case SceneType.MainMenu: return (Scene)mainMenu;
+                case SceneType.Fight: return (Scene)fight;
+                case SceneType.FBI: return (Scene)fbi;
+                case SceneType.Options: return null;
+            }
         }
     }
 }

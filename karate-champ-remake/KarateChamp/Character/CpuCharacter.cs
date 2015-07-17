@@ -9,16 +9,11 @@ using System.Text;
 namespace KarateChamp {
     class CpuCharacter : BaseCharacter {
 
-        public CpuCharacter(Texture2D[] spriteList, MainGame.Tag tag, Vector2 position, Orientation orientation) {
+        public CpuCharacter (Texture2D spriteSheet, MainGame.Tag tag, Vector2 position, Orientation orientation, string name, MainGame game)
+            : base(spriteSheet, tag, position, orientation, name, game) {
 
-            this.spriteSheet = spriteSheet;
-            this.tag = tag;
-            this.position = position;
-            this.orientation = orientation;
             collisionOffset = new Vector2(20f, 0);
-            uvRect = new Rectangle(0, 0, 83, 53);
             collision = new CollisionBox(this, new Vector2(uvRect.Center.X, uvRect.Center.Y) * collisionOffset, new Vector2(25, 53));
-            DEBUG_Collision.bodyCollisionList.Add(collision);
         }
 
         public void Update(GameTime gameTime) {

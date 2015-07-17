@@ -8,9 +8,8 @@ using System.Linq;
 using System.Text;
 
 namespace KarateChamp {
-    class Scene_MainMenu {
+    public class Scene_MainMenu : Scene {
         public Texture2D coverImage;
-        MainGame game;
         SpriteFont arial20;
 
         public Scene_MainMenu(MainGame game) {
@@ -34,7 +33,7 @@ namespace KarateChamp {
 
         void StartGame() {
             if (Keyboard.GetState().IsKeyDown(Keys.Enter) && game.previousKeyboardState != Keyboard.GetState()) {
-                game.sceneControl.EnterScene(Scene.Fight, Scene_Transition.Type.FadeOutIn, 0.5f);
+                game.sceneControl.EnterScene(SceneType.Fight, SceneTransition.Type.FadeOutIn, 0.5f);
             }
             game.previousKeyboardState = Keyboard.GetState();
         }
