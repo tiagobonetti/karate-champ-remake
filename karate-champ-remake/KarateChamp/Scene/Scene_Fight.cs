@@ -179,15 +179,17 @@ namespace KarateChamp {
         }
 
         void BuildGameObjects() {
-            whiteStartingPosition = new Vector2(game.graphics.PreferredBackBufferWidth / 2 - 210, floor - 53);
-            redStartingPosition = new Vector2(game.graphics.PreferredBackBufferWidth / 2 + 10, floor - 53);
+            whiteStartingPosition = new Vector2(game.graphics.PreferredBackBufferWidth / 2 - 280, floor - 53);
+            redStartingPosition = new Vector2(game.graphics.PreferredBackBufferWidth / 2 - 70, floor - 53);
 
             whiteCharacter = new PlayerCharacter(spritesheet, MainGame.Tag.PlayerOne, whiteStartingPosition, BaseCharacter.Orientation.Right, "p1", game);
             whiteCharacter.PlayerInput = new KeyboardInput();
+            whiteCharacter.velocity = Vector2.Zero;
 
             redCharacter = new PlayerCharacter(spritesheet, MainGame.Tag.PlayerOne, redStartingPosition, BaseCharacter.Orientation.Left, "p2", game);
             redCharacter.PlayerInput = new GamePadInput(PlayerIndex.One);
             redCharacter.PlayerInput.Position = new Vector2(600.0f, 0.0f);
+            whiteCharacter.velocity = Vector2.Zero;
 
             whiteCharacter.Opponent = redCharacter;
             redCharacter.Opponent = whiteCharacter;
@@ -195,8 +197,8 @@ namespace KarateChamp {
         }
 
         public virtual void Init() {
-            colSprite = game.Content.Load<Texture2D>("KarateChampCollision");
-            spritesheet = game.Content.Load<Texture2D>("KarateChampAligned");
+            colSprite = game.Content.Load<Texture2D>("Sprites/Main Character/AttackCollision");
+            spritesheet = game.Content.Load<Texture2D>("Sprites/Main Character/CharacterSpritesheet");
             bg = game.Content.Load<Texture2D>("Sprites/Background/Bg");
             fightText = game.Content.Load<Texture2D>("GUI/Fight");
             koText = game.Content.Load<Texture2D>("GUI/KO");

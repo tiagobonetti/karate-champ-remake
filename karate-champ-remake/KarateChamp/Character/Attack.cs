@@ -50,8 +50,12 @@ namespace KarateChamp {
             else {
                 lockFrame = hitFrame;
             }
-            Texture2D colisionSheet = Owner.game.Content.Load<Texture2D>("KarateChampCollision");
-            CalcHibox(colisionSheet, hitFrame);
+            Texture2D colisionSheet = Owner.game.Content.Load<Texture2D>("Sprites/Main Character/AttackCollision");
+
+            if (state == CharacterState.Hadouken || state == CharacterState.CheckCheckTchugen)
+                colisionSheet = Owner.game.Content.Load<Texture2D>("Sprites/Main Character/SuperMovesCollision");
+
+            CalcHitbox(colisionSheet, hitFrame);
         }
 
         public CollisionBox GetCollision() {
@@ -148,17 +152,17 @@ namespace KarateChamp {
             }
         }
 
-        public void CalcHibox(Texture2D sprite, int hitFrame) {
+        public void CalcHitbox(Texture2D sprite, int hitFrame) {
             // Now thats a workaround
             if (State == CharacterState.JumpingSideKick) {
                 hitbox_size = Owner.ScaleAdjust(new Vector2(7.0f, 5.0f));
-                hitbox_offset_right = Owner.ScaleAdjust(new Vector2(105.0f, 5f));
-                hitbox_offset_left = Owner.ScaleAdjust(new Vector2(-0.35f * Owner.uvRect.Width, 5f));
+                hitbox_offset_right = Owner.ScaleAdjust(new Vector2(120.0f, 5f));
+                hitbox_offset_left = Owner.ScaleAdjust(new Vector2(Owner.uvRect.Width / 2 - 58f, 5f));
             }
             // This is the normal hitbox calc
             else {
                 Point rectSize = new Point(Owner.uvRect.Width, Owner.uvRect.Height);
-                Rectangle uvRect = new Rectangle(83 * hitFrame, Animation.spriteRectPosition.Y, rectSize.X, rectSize.Y);
+                Rectangle uvRect = new Rectangle(Owner.uvRect.Width * hitFrame, Animation.spriteRectPosition.Y, rectSize.X, rectSize.Y);
 
                 Point rectStartPosition = Point.Zero;
                 Point rectEndPosition = Point.Zero;
@@ -176,7 +180,7 @@ namespace KarateChamp {
                 }
                 hitbox_size = new Vector2(rectEndPosition.X - rectStartPosition.X, rectEndPosition.Y - rectStartPosition.Y);
                 hitbox_offset_right = Owner.ScaleAdjust(new Vector2(rectStartPosition.X, rectStartPosition.Y));
-                hitbox_offset_left = Owner.ScaleAdjust(new Vector2(82 - rectStartPosition.X - hitbox_size.X, rectStartPosition.Y));
+                hitbox_offset_left = Owner.ScaleAdjust(new Vector2((Owner.uvRect.Width - 2) - rectStartPosition.X - hitbox_size.X, rectStartPosition.Y));
                 hitbox_size = Owner.ScaleAdjust(hitbox_size);
             }
         }
