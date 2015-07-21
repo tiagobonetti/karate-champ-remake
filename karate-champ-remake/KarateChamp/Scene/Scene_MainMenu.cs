@@ -44,7 +44,6 @@ namespace KarateChamp {
             game.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
             game.spriteBatch.Draw(coverImage, bgPos, null, null, new Vector2(coverImage.Width * 0.5f, coverImage.Height * 0.5f), 0f, Vector2.One * 0.6f, Color.White, SpriteEffects.None, 0f);
         Vector2 next_option = new Vector2(0.0f, 2.2f);
-        Vector2 next_option = new Vector2(0.0f, 2.2f);
             game.spriteBatch.End();
         }
 

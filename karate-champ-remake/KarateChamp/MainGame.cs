@@ -31,7 +31,7 @@ namespace KarateChamp {
             Debug.LoadContent(Content);
             colSprite = Content.Load<Texture2D>("KarateChampCollision");
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            sceneControl.EnterScene(SceneType.FBI, SceneTransition.Type.FadeIn, 1.5f);
+            sceneControl.EnterScene(SceneType.Fight, SceneTransition.Type.FadeIn, 1.5f);
         }
 
         protected override void UnloadContent() {

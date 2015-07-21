@@ -13,7 +13,7 @@ namespace KarateChamp {
         public static CollisionBox p1AttackCollisionLeft;
         public static CollisionBox p1AttackCollisionRight;
         KeyboardState previousButtonState;
-        bool enabled = false;
+        bool enabled = true;
 
         public void Update(GameTime gameTime){
             if (Keyboard.GetState().IsKeyDown(Keys.F2) && previousButtonState != Keyboard.GetState()) {
