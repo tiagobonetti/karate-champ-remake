@@ -32,6 +32,11 @@ namespace KarateChamp {
 
         public void Draw(SpriteBatch spriteBatch) {
 
+            if (state == CharacterState.Hadouken || state == CharacterState.CheckCheckTchugen)
+                spriteSheet = game.Content.Load<Texture2D>("Sprites/Main Character/SuperMoves");
+            else
+                spriteSheet = game.Content.Load<Texture2D>("Sprites/Main Character/CharacterSpritesheet");
+
             System.Diagnostics.Debug.WriteLine("uv: " + uvRect.Location.X / 83 + "," + uvRect.Location.Y / 53);
             Vector2 origin = new Vector2(uvRect.Width * 0.5f, uvRect.Height * 0.5f);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
