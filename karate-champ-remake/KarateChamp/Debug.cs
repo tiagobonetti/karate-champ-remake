@@ -19,7 +19,7 @@ namespace KarateChamp {
 
         public static void DrawText(SpriteBatch sb, Vector2 pos, string text) {
             if (enabled)
-                sb.DrawString(arial20, text, pos, Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 1.0f);
+                sb.DrawString(arial20, text, pos, Color.Cyan, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 1.0f);
         }
 
         public static void Update() {

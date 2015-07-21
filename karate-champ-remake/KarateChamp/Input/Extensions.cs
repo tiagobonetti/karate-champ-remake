@@ -37,5 +37,33 @@ namespace KarateChamp {
             }
             return input;
         }
+       // We assume Rigth to Left as the default character oriantation
+        public static MenuInput ToMenuInput(this Keys state) {
+            MenuInput input;
+            switch (state) {
+                case Keys.Up:
+                case Keys.W:
+                    input = MenuInput.Up;
+                    break;
+                case Keys.Down:
+                case Keys.S:
+                    input = MenuInput.Down;
+                    break;
+                case Keys.Enter:
+                    input = MenuInput.Ok;
+                    break;
+                case Keys.Escape:
+                    input = MenuInput.Cancel;
+                    break;
+                case Keys.None:
+                    input = MenuInput.None;
+                    break;
+                default:
+                    System.Diagnostics.Debug.Assert(false, "This is not a valid JoyStick State");
+                    input = MenuInput.None;
+                    break;
+            }
+            return input;
+        }
     }
 }

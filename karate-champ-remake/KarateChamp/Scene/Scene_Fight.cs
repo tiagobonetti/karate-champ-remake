@@ -187,7 +187,7 @@ namespace KarateChamp {
 
             redCharacter = new PlayerCharacter(spritesheet, MainGame.Tag.PlayerOne, redStartingPosition, BaseCharacter.Orientation.Left, "p2", game);
             redCharacter.PlayerInput = new GamePadInput(PlayerIndex.One);
-            redCharacter.PlayerInput.Position = new Vector2(600.0f, 0.0f);
+            redCharacter.PlayerInput.DebugPosition = new Vector2(game.graphics.PreferredBackBufferWidth / 2.0f , 0.0f);
 
             whiteCharacter.Opponent = redCharacter;
             redCharacter.Opponent = whiteCharacter;

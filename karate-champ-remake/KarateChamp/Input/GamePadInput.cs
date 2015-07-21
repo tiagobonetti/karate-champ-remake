@@ -12,12 +12,12 @@ namespace KarateChamp {
     using Orientation = GameObject.Orientation;
 
     class GamePadInput : IPlayerInput {
-        public Vector2 Position { get; set; }
+        public Vector2 DebugPosition { get; set; }
         const float threshold = 0.75f;
         PlayerIndex player;
 
         public GamePadInput(PlayerIndex player = PlayerIndex.One) {
-            this.Position = Vector2.Zero;
+            this.DebugPosition = Vector2.Zero;
             this.player = player;
         }
         public CharacterState GetMove(Modifier modifier, Orientation flipped) {
@@ -25,6 +25,24 @@ namespace KarateChamp {
             InputState left = GetStick(state.ThumbSticks.Left, flipped);
             InputState right = GetStick(state.ThumbSticks.Right, flipped);
             return InputDictionary.GetMove(left, right, modifier);
+        }
+        public MenuInput GetMenuInput() {
+            GamePadState state = GamePad.GetState(player, GamePadDeadZone.IndependentAxes);
+            if (state.ThumbSticks.Left.Y > threshold || state.DPad.Up == ButtonState.Pressed) {
+                return MenuInput.Up;
+            }
+            else if ( state.ThumbSticks.Left.Y < -threshold || state.DPad.Down == ButtonState.Pressed) {
+                return MenuInput.Down;
+            }
+            else if ( state.Buttons.A == ButtonState.Pressed ) {
+                return MenuInput.Ok;
+            }
+            else if ( state.Buttons.B == ButtonState.Pressed ) {
+                return MenuInput.Cancel;
+            }
+            else {
+                return MenuInput.None;
+            }
         }
         public InputState GetStick(Vector2 ThumbStick, Orientation flipped) {
             if (ThumbStick.X > threshold) {
@@ -45,9 +63,10 @@ namespace KarateChamp {
         }
         public void DrawDebug(SpriteBatch sb, Orientation orientation) {
             GamePadState state = GamePad.GetState(player, GamePadDeadZone.IndependentAxes);
-            Vector2 pos = Position;
+            Vector2 pos = DebugPosition;
             InputState left = GetStick(state.ThumbSticks.Left, orientation);
             InputState right = GetStick(state.ThumbSticks.Right, orientation);
+            MenuInput menu = GetMenuInput();
 
             Debug.DrawText(sb, pos, "P " + player.ToString() + " : " + state.IsConnected.ToString());
             pos.Y += 30.0f;
@@ -64,6 +83,8 @@ namespace KarateChamp {
             Debug.DrawText(sb, pos, "R: " + right.ToString());
             pos.Y += 30.0f;
             Debug.DrawText(sb, pos, "Move: " + InputDictionary.GetMove(left, right, Modifier.None).ToString());
+            pos.Y += 30.0f;
+            Debug.DrawText(sb, pos, "Menu: " + menu);
         }
     }
 }
