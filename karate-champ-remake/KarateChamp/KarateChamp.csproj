@@ -43,6 +43,7 @@
     <Compile Include="Character\Attack.cs" />
     <Compile Include="Character\Block.cs" />
     <Compile Include="Debug.cs" />
+    <Compile Include="HitboxCalculator.cs" />
     <Compile Include="Input\IPlayerInput.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Animation\Animator.cs" />

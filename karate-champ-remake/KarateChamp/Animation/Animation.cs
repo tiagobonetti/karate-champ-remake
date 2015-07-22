@@ -7,7 +7,7 @@ using System.Text;
 namespace KarateChamp {
     public class Animation {
 
-        public float animationLength { get; private set; }
+        public float animationLength;
         public Point spriteRectPosition;
         public int startIndex;
         public int size;

@@ -9,12 +9,11 @@ namespace KarateChamp {
     class Animator {
         public int FrameIndex { get; private set; }
         public bool PlayedToFrame { get; private set; }
-
-        Animation currentAnimation;
+        public Animation currentAnimation;
         public State state = State.Stop;
+        public float elapsedTime = 9999999;
         GameObject currentGameObject;
         GameTime gameTime;
-        public float elapsedTime = 9999999;
         int startFrame;
 
         public Animator() {
