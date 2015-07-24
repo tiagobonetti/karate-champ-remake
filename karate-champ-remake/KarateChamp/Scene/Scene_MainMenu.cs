@@ -10,7 +10,7 @@ using System.Text;
 namespace KarateChamp {
     public class Scene_MainMenu : Scene {
         public Texture2D coverImage;
-        SpriteFont arial20;
+        Menu main_menu;
 
         public Scene_MainMenu(MainGame game) {
             this.game = game;
@@ -19,6 +19,13 @@ namespace KarateChamp {
 
         void Init() {
             coverImage = game.Content.Load<Texture2D>("GUI/Title");
+            main_menu = new Menu();
+
+            main_menu.font = game.Content.Load<SpriteFont>("Arial20");
+            main_menu.Position = new Vector2(game.graphics.PreferredBackBufferWidth * 0.5f, game.graphics.PreferredBackBufferHeight * 0.5f + 150f);
+
+            main_menu.Add("Start Classic");
+            main_menu.Add("Start");
         }
 
         public void Update(GameTime gameTime) {
@@ -50,11 +57,15 @@ namespace KarateChamp {
         List<string> options = new List<string>() { "Start Game", "Options" };
 
 
+
         void DrawStartText() {
+            game.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
+            main_menu.Draw(game.spriteBatch);
+            game.spriteBatch.End();
+
+            /*
             arial20 = game.Content.Load<SpriteFont>("Arial20");
-
             Vector2 position = new Vector2(game.graphics.PreferredBackBufferWidth * 0.5f, game.graphics.PreferredBackBufferHeight * 0.5f + 150f);
-
             game.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
             uint count = 0;
             Vector2 next = new Vector2(0.0f, 2.2f);
@@ -65,6 +76,7 @@ namespace KarateChamp {
                 count++;
             }
             game.spriteBatch.End();
+            */
         }
     }
 }
