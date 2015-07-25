@@ -7,18 +7,29 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace KarateChamp {
-    public class MenuAction : IMenuEntry {
+    public class MenuEntry {
         public Menu Owner { get; set; }
         public string Name { get; set; }
         public Vector2 Position { get; set; }
-        public bool Selected { get; set; }
+        public int Index { get; set; }
 
         //Action
-        delegate void Action();
-        Action action {get; set;}
-
+        MenuEntryAction Action { get; set; }
+        public MenuEntry(Menu owner, int index, string name, Vector2 position, MenuEntryAction action = null) {
+            Owner = owner;
+            Index = index;
+            Name = name;
+            Position = position;
+            Action = action;
+        }
 
         public void Update(GameTime gametime) {
+            if (Action != null) {
+                string ret = Action();
+                if (ret.Count() > 0) {
+                    Name = ret;
+                }
+            }
         }
 
         public void Draw(SpriteBatch sprite_batch) {
@@ -27,7 +38,7 @@ namespace KarateChamp {
             sprite_batch.DrawString(font,
                                     Name,
                                     Owner.Position + this.Position,
-                                    Selected ? Color.Red : Color.White,
+                                    Owner.Selected == Index ? Color.Red : Color.White,
                                     0.0f,
                                     origin,
                                     1.0f,

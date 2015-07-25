@@ -22,8 +22,10 @@ namespace KarateChamp {
         PlayerCharacter redCharacter;
         Vector2 whiteStartingPosition;
         Vector2 redStartingPosition;
-        
-        Texture2D spritesheet;        
+        public IPlayerInput WhiteInput { get; set; }
+        public IPlayerInput RedInput { get; set; }
+
+        Texture2D spritesheet;
         Texture2D bg;
         Texture2D fightText;
         Texture2D koText;
@@ -147,7 +149,7 @@ namespace KarateChamp {
 
         bool GameEnded() {
             for (int i = 0; i < scoreboard.Score.Length; i++)
-                if(scoreboard.Score[i] >= 2)
+                if (scoreboard.Score[i] >= 2)
                     return true;
             return false;
         }
@@ -183,13 +185,25 @@ namespace KarateChamp {
             redStartingPosition = new Vector2(game.graphics.PreferredBackBufferWidth / 2 - 70, floor - 53);
 
             whiteCharacter = new PlayerCharacter(spritesheet, MainGame.Tag.PlayerOne, whiteStartingPosition, BaseCharacter.Orientation.Right, "p1", game);
-            whiteCharacter.PlayerInput = new KeyboardInput();
-            whiteCharacter.velocity = Vector2.Zero;
-
             redCharacter = new PlayerCharacter(spritesheet, MainGame.Tag.PlayerOne, redStartingPosition, BaseCharacter.Orientation.Left, "p2", game);
-            redCharacter.PlayerInput = new GamePadInput(PlayerIndex.One);
-            redCharacter.PlayerInput.DebugPosition = new Vector2(game.graphics.PreferredBackBufferWidth / 2.0f , 0.0f);
+
+            switch (game.sceneControl.mainMenu.InputOption) {
+                default:
+                case Scene_MainMenu.InputOptions.Keyboard:
+                    whiteCharacter.PlayerInput = InputDictionary.Keyboard;
+                    redCharacter.PlayerInput = InputDictionary.GamePadOne;
+                    break;
+                case Scene_MainMenu.InputOptions.GamePad:
+                    whiteCharacter.PlayerInput = InputDictionary.GamePadOne;
+                    redCharacter.PlayerInput = InputDictionary.GamePadTwo;
+                    break;
+            }
+           
             whiteCharacter.velocity = Vector2.Zero;
+            redCharacter.velocity = Vector2.Zero;
+
+            whiteCharacter.PlayerInput.DebugPosition = new Vector2(0.0f, 0.0f);
+            redCharacter.PlayerInput.DebugPosition = new Vector2(game.graphics.PreferredBackBufferWidth / 2.0f, 0.0f);
 
             whiteCharacter.Opponent = redCharacter;
             redCharacter.Opponent = whiteCharacter;

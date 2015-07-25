@@ -59,10 +59,8 @@
     <Compile Include="Character\PlayerCharacter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scene\Menus\IMenuEntry.cs" />
     <Compile Include="Scene\Menus\Menu.cs" />
-    <Compile Include="Scene\Menus\MenuAction.cs" />
-    <Compile Include="Scene\Menus\MenuToggle.cs" />
+    <Compile Include="Scene\Menus\MenuEntry.cs" />
     <Compile Include="Scene\RoundData.cs" />
     <Compile Include="Scene\Scene.cs" />
     <Compile Include="Scene\SceneControl.cs" />

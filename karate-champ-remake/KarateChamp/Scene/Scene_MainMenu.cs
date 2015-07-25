@@ -17,6 +17,43 @@ namespace KarateChamp {
             Init();
         }
 
+        string StartGame() {
+            game.sceneControl.EnterScene(SceneType.Fight, SceneTransition.Type.FadeOutIn, 0.5f);
+            return "";
+        }
+
+        public InputOptions InputOption { get; private set; }
+        public enum InputOptions {
+            Keyboard,
+            GamePad
+        }
+        string OptionString(InputOptions option) {
+            switch (option) {
+                default:
+                case InputOptions.Keyboard:
+                    return "Controller: Keyboard vs GamePad One";
+                case InputOptions.GamePad:
+                    return "Controller: Gamepad One vs GamePad Two";
+            }
+        }
+        string Option() {
+            switch (InputOption) {
+                default:
+                case InputOptions.Keyboard:
+                    InputOption = InputOptions.GamePad;
+                    break;
+                case InputOptions.GamePad:
+                    InputOption = InputOptions.Keyboard;
+                    break;
+            }
+            return OptionString(InputOption);
+        }
+
+        string GameExit() {
+            game.Exit();
+            return "";
+        }
+
         void Init() {
             coverImage = game.Content.Load<Texture2D>("GUI/Title");
             main_menu = new Menu();
@@ -24,59 +61,38 @@ namespace KarateChamp {
             main_menu.font = game.Content.Load<SpriteFont>("Arial20");
             main_menu.Position = new Vector2(game.graphics.PreferredBackBufferWidth * 0.5f, game.graphics.PreferredBackBufferHeight * 0.5f + 150f);
 
-            main_menu.Add("Start Classic");
-            main_menu.Add("Start");
+            main_menu.Add("Start Classic", StartGame);
+            main_menu.Add(OptionString(InputOption), Option);
+            main_menu.Add("Credits", null);
+            main_menu.Add("Exit", GameExit);
+
+
         }
 
         public void Update(GameTime gameTime) {
-            StartGame();
+            main_menu.Update(gameTime);
         }
 
         public void Draw() {
             game.GraphicsDevice.Clear(Color.Black);
-            Background();
-            DrawStartText();
+            DrawBackground();
+            DrawMenu();
         }
 
-        void StartGame() {
-            if (Keyboard.GetState().IsKeyDown(Keys.Enter) && game.previousKeyboardState != Keyboard.GetState()) {
-                game.sceneControl.EnterScene(SceneType.Fight, SceneTransition.Type.FadeOutIn, 0.5f);
-            }
-            game.previousKeyboardState = Keyboard.GetState();
-        }
-
-        void Background() {
+        void DrawBackground() {
 
             Vector2 bgPos = new Vector2(game.graphics.PreferredBackBufferWidth * 0.5f + 15f, game.graphics.PreferredBackBufferHeight * 0.5f - 100f);
             game.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
             game.spriteBatch.Draw(coverImage, bgPos, null, null, new Vector2(coverImage.Width * 0.5f, coverImage.Height * 0.5f), 0f, Vector2.One * 0.6f, Color.White, SpriteEffects.None, 0f);
-        Vector2 next_option = new Vector2(0.0f, 2.2f);
+            Vector2 next_option = new Vector2(0.0f, 2.2f);
             game.spriteBatch.End();
         }
 
-        List<string> options = new List<string>() { "Start Game", "Options" };
-
-
-
-        void DrawStartText() {
+        void DrawMenu() {
             game.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
             main_menu.Draw(game.spriteBatch);
             game.spriteBatch.End();
 
-            /*
-            arial20 = game.Content.Load<SpriteFont>("Arial20");
-            Vector2 position = new Vector2(game.graphics.PreferredBackBufferWidth * 0.5f, game.graphics.PreferredBackBufferHeight * 0.5f + 150f);
-            game.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
-            uint count = 0;
-            Vector2 next = new Vector2(0.0f, 2.2f);
-            foreach (string name in options) {
-                Vector2 origin = arial20.MeasureString(name) / 2;
-                game.spriteBatch.DrawString(arial20, name, position, Color.White, 0.0f, origin, 1.0f, SpriteEffects.None, 1.0f);
-                position += origin * next;
-                count++;
-            }
-            game.spriteBatch.End();
-            */
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace KarateChamp {
 
@@ -10,6 +11,10 @@ namespace KarateChamp {
             Add(new Tuple<InputState, InputState>(left, right), move);
         }
         static InputDictionary dictionary;
+        static public IPlayerInput Keyboard { get; private set; }
+        static public IPlayerInput GamePadOne { get; private set; }
+        static public IPlayerInput GamePadTwo { get; private set; }
+
         static InputDictionary() {
             InputDictionary.dictionary = new InputDictionary {
                {InputState.None,  InputState.Back,  CharacterState.BackKick           },
@@ -42,7 +47,11 @@ namespace KarateChamp {
                {InputState.Down,  InputState.Front, CharacterState.FrontFootSweep     },
                {InputState.Down,  InputState.Up,    CharacterState.DuckingReversePunch},
                {InputState.Down,  InputState.Down,  CharacterState.FrontFootSweep     }
-          };
+            };
+            Keyboard = new KeyboardInput();
+            GamePadOne = new GamePadInput(PlayerIndex.One);
+            GamePadTwo = new GamePadInput(PlayerIndex.Two);
+
         }
         public static CharacterState GetMove(InputState left, InputState rigth, Modifier modifier) {
             CharacterState move;
