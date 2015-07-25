@@ -14,6 +14,8 @@ namespace KarateChamp {
         public SceneControl sceneControl;
         public Rectangle[,] bodyCollisionRight = new Rectangle[12, 21];
         public Rectangle[,] bodyCollisionLeft = new Rectangle[12, 21];
+        HitboxCalculator hitboxCalc;
+        Texture2D spritesheet;
 
         public MainGame() {
 
@@ -26,14 +28,16 @@ namespace KarateChamp {
 
         protected override void Initialize() {
 
-        //    StoreCharacterHitbox();
             sceneControl = new SceneControl(this);
             base.Initialize();
         }
 
         protected override void LoadContent() {
             Debug.LoadContent(Content);
+            hitboxCalc = new HitboxCalculator();
+            spritesheet = Content.Load<Texture2D>("Sprites/Main Character/BodyCollision");
             colSprite = Content.Load<Texture2D>("KarateChampCollision");
+       //     StoreCharacterHitbox();
             spriteBatch = new SpriteBatch(GraphicsDevice);
             sceneControl.EnterScene(SceneType.MainMenu, SceneTransition.Type.FadeIn, 1.5f);
         }
@@ -52,7 +56,7 @@ namespace KarateChamp {
 
         protected override void Draw(GameTime gameTime) {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            
+
             sceneControl.Draw(spriteBatch, Content, graphics);
             base.Draw(gameTime);
         }
@@ -64,20 +68,20 @@ namespace KarateChamp {
         }
 
         void StoreCharacterHitbox() {
-            HitboxCalculator hitboxCalc = new HitboxCalculator();
-            Texture2D spritesheet = Content.Load<Texture2D>("Sprites/Main Character/BodyCollision");
+            
 
-            for (int i = 0; i < bodyCollisionRight.Length; i++) {
-                for (int j = 0; j < bodyCollisionRight.Length; j++) {
+            for (int i = 0; i < bodyCollisionRight.GetLength(0); i++) {
+                for (int j = 0; j < bodyCollisionRight.GetLength(1); j++) {
+                    System.Diagnostics.Debug.WriteLine("index " + i + " " + j);
                     bodyCollisionRight[i, j] = hitboxCalc.CalcHitbox(spritesheet, new Rectangle(i * 140, j * 53, 140, 53));
                 }
             }
-
-            for (int i = 0; i < bodyCollisionLeft.Length; i++) {
-                for (int j = 0; j < bodyCollisionLeft.Length; j++) {
+            /*
+            for (int i = 0; i < bodyCollisionLeft.GetLength(0); i++) {
+                for (int j = 0; j < bodyCollisionLeft.GetLength(1); j++) {
                     bodyCollisionLeft[i, j] = bodyCollisionRight[i, j];
                 }
-            }
+            }*/
         }
     }
 }
