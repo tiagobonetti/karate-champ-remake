@@ -11,7 +11,7 @@ namespace KarateChamp {
         Vector2 hitbox_size;
         Vector2 hitbox_offset_right;
         Vector2 hitbox_offset_left;
-        Color[] tst;
+     //   Color[] tst;
 
         public Rectangle CalcHitbox(Texture2D spritesheet, Rectangle charRect) {
             Point rectSize = new Point(charRect.Width, charRect.Height);
@@ -53,9 +53,11 @@ namespace KarateChamp {
             hitbox_offset_right = BaseCharacter.ScaleAdjust(new Vector2(rectStartPosition.X, rectStartPosition.Y));
             hitbox_offset_left = BaseCharacter.ScaleAdjust(new Vector2((charRect.Width - 2) - rectStartPosition.X - hitbox_size.X, rectStartPosition.Y));
             hitbox_size = BaseCharacter.ScaleAdjust(hitbox_size);
-
+            rectStartPosition.X = (int)BaseCharacter.ScaleAdjust(rectStartPosition.X);
+            rectStartPosition.Y = (int)BaseCharacter.ScaleAdjust(rectStartPosition.Y);
+            return new Rectangle(rectStartPosition.X, rectStartPosition.Y, (int)hitbox_size.X, (int)hitbox_size.Y);
+            //return new Rectangle(uvRect.X + (int)hitbox_offset_left.X, uvRect.Y + (int)hitbox_offset_left.Y, (int)hitbox_size.X, (int)hitbox_size.Y);
             //CollisionBox collisionLeft = new CollisionBox(Owner, Owner.position + hitbox_offset_left, hitbox_size);
-            return new Rectangle(uvRect.X + (int)hitbox_offset_left.X, uvRect.Y + (int)hitbox_offset_left.Y, (int)hitbox_size.X, (int)hitbox_size.Y);
             //   return new Rectangle(1,1,1,1);
         }
     }

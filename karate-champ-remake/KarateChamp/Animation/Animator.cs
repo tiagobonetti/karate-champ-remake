@@ -60,7 +60,7 @@ namespace KarateChamp {
         void StateMachine() {
             if (currentGameObject != null)
                 if (currentGameObject.name == "p1") {
-                    System.Diagnostics.Debug.WriteLine(state + " Index " + FrameIndex + " Size " + currentAnimation.size);
+            //        System.Diagnostics.Debug.WriteLine(state + " Index " + FrameIndex + " Size " + currentAnimation.size);
                 }
             switch (state) {
                 case State.Play:

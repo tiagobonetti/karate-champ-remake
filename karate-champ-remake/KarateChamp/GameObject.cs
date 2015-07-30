@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 
 namespace KarateChamp {
-        public class GameObject {
+    public class GameObject {
 
         public Texture2D spriteSheet;
         public Rectangle uvRect;
@@ -33,7 +33,7 @@ namespace KarateChamp {
             Right
         }
 
-        public void Flip(){
+        public void Flip() {
             if (orientation == Orientation.Left)
                 orientation = Orientation.Right;
             else
@@ -49,7 +49,21 @@ namespace KarateChamp {
         }
 
         protected void UpdateCollisionPosition() {
+            int i = uvRect.X / uvRect.Width;
+            int j = uvRect.Y / uvRect.Height;
 
+            if (orientation == Orientation.Right) {
+                collision.rect = game.bodyCollisionRight[i, j];
+                collision.rect.X = (int)position.X + game.bodyCollisionRight[i, j].X;
+                collision.rect.Y = (int)position.Y + game.bodyCollisionRight[i, j].Y;
+            }
+            else {
+                collision.rect = game.bodyCollisionLeft[i, j];
+                collision.rect.X = (int)position.X + game.bodyCollisionLeft[i, j].X;
+                collision.rect.Y = (int)position.Y + game.bodyCollisionLeft[i, j].Y;
+            }
+
+            /*
             if (orientation == Orientation.Right) {
                 collision.rect.X = (int)(position.X + collisionOffset.X);
                 collision.rect.Y = (int)(position.Y + collisionOffset.Y);
@@ -57,7 +71,7 @@ namespace KarateChamp {
             else {
                 collision.rect.X = (int)(position.X + collisionOffset.X);
                 collision.rect.Y = (int)(position.Y + collisionOffset.Y);
-            }
+            }*/
         }
     }
 }

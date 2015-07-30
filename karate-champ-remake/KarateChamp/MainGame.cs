@@ -37,9 +37,9 @@ namespace KarateChamp {
             hitboxCalc = new HitboxCalculator();
             spritesheet = Content.Load<Texture2D>("Sprites/Main Character/BodyCollision");
             colSprite = Content.Load<Texture2D>("KarateChampCollision");
-       //     StoreCharacterHitbox();
+            StoreCharacterHitbox();
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            sceneControl.EnterScene(SceneType.MainMenu, SceneTransition.Type.FadeIn, 1.5f);
+            sceneControl.EnterScene(SceneType.Fight, SceneTransition.Type.FadeIn, 1.5f);
         }
 
         protected override void UnloadContent() {
@@ -68,20 +68,20 @@ namespace KarateChamp {
         }
 
         void StoreCharacterHitbox() {
-            
 
             for (int i = 0; i < bodyCollisionRight.GetLength(0); i++) {
                 for (int j = 0; j < bodyCollisionRight.GetLength(1); j++) {
-                    System.Diagnostics.Debug.WriteLine("index " + i + " " + j);
                     bodyCollisionRight[i, j] = hitboxCalc.CalcHitbox(spritesheet, new Rectangle(i * 140, j * 53, 140, 53));
                 }
             }
-            /*
+
             for (int i = 0; i < bodyCollisionLeft.GetLength(0); i++) {
                 for (int j = 0; j < bodyCollisionLeft.GetLength(1); j++) {
                     bodyCollisionLeft[i, j] = bodyCollisionRight[i, j];
+                    bodyCollisionLeft[i, j].X = bodyCollisionLeft[i, j].X + (int)(2.5f * bodyCollisionLeft[i, j].Width);
+                    System.Diagnostics.Debug.WriteLine("index " + i + " " + j + " Rect " + bodyCollisionLeft[i, j]);
                 }
-            }*/
+            }
         }
     }
 }
