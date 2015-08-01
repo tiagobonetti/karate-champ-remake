@@ -64,7 +64,8 @@ namespace KarateChamp {
         public enum Tag {
             PlayerOne,
             PlayerTwo,
-            Computer
+            Computer,
+            Fireball
         }
 
         void StoreCharacterHitbox() {

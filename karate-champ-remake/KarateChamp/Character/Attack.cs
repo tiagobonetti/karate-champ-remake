@@ -92,6 +92,9 @@ namespace KarateChamp {
                     }
                     // If we are on the hit frame for the first time aplly hit detection
                     if (!hitChecked && animator.FrameIndex > HitFrame) {
+                        if (State == CharacterState.Hadouken) {
+                            Owner.ThrowFireball();
+                        }
                         CheckIfHit(gameTime);
                         hitChecked = true;
                         // When the attack hit animation is put on hold if holdable

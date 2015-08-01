@@ -45,6 +45,7 @@ namespace KarateChamp {
                 PlayerInput.DrawDebug(spriteBatch, orientation);
             }
             spriteBatch.End();
+            BaseDraw(spriteBatch);
         }
     }
 }

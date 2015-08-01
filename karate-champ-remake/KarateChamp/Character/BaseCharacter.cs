@@ -55,6 +55,7 @@ namespace KarateChamp {
         public CharacterState state = CharacterState.Idle;
         public Vector2 velocity = Vector2.Zero;
         CharacterState previousState;
+        IList<Fireball> fireballList = new List<Fireball>();
 
         Animator animator = new Animator();
 
@@ -474,6 +475,27 @@ namespace KarateChamp {
                 StateMachine(gameTime, input);
             ApplyPhysics(gameTime);
             UpdateCollisionPosition();
+
+            if (fireballList.Count > 0) {
+                foreach(Fireball fb in fireballList){
+                    fb.Update(gameTime);
+                }
+            }
+        }
+
+        protected void BaseDraw(SpriteBatch spriteBatch) {
+            if (fireballList.Count > 0) {
+                foreach (Fireball fb in fireballList) {
+                    fb.Draw(spriteBatch);
+                }
+            }
+        }
+
+        public void ThrowFireball() {
+            Texture2D spriteSheet = game.Content.Load<Texture2D>("Sprites/Main Character/SuperMoves");
+            Vector2 fbPosition = new Vector2(position.X, position.Y);
+            Fireball fireball = new Fireball(spriteSheet, MainGame.Tag.Fireball, fbPosition, orientation, "hadouken", game, 50f, this);
+            fireballList.Add(fireball);
         }
 
         public bool TakeHit(Location attackLocation, GameTime gameTime) {
