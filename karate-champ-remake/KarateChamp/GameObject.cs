@@ -62,16 +62,6 @@ namespace KarateChamp {
                 collision.rect.X = (int)position.X + game.bodyCollisionLeft[i, j].X;
                 collision.rect.Y = (int)position.Y + game.bodyCollisionLeft[i, j].Y;
             }
-
-            /*
-            if (orientation == Orientation.Right) {
-                collision.rect.X = (int)(position.X + collisionOffset.X);
-                collision.rect.Y = (int)(position.Y + collisionOffset.Y);
-            }
-            else {
-                collision.rect.X = (int)(position.X + collisionOffset.X);
-                collision.rect.Y = (int)(position.Y + collisionOffset.Y);
-            }*/
         }
     }
 }

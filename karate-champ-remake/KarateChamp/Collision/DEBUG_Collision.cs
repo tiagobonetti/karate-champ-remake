@@ -29,21 +29,24 @@ namespace KarateChamp {
             if (enabled) {
                 if (bodyCollisionList.Count > 0) {
                     foreach (CollisionBox col in bodyCollisionList) {
-                        Rectangle rect = col.rect;
-                        Texture2D rectTexture = new Texture2D(spriteBatch.GraphicsDevice, rect.Width, rect.Height);
+                        if (col.rect.Width > 0 && col.rect.Height > 0) {
+                            Rectangle rect = col.rect;
+                            System.Diagnostics.Debug.WriteLine(col.owner.name);
+                            Texture2D rectTexture = new Texture2D(spriteBatch.GraphicsDevice, rect.Width, rect.Height);
 
-                        Color[] data = new Color[rectTexture.Width * rectTexture.Height];
-                        for (int i = 0; i < data.Length; ++i) {
-                            if (col.owner.tag == MainGame.Tag.PlayerOne)
-                                data[i] = new Color(0, 0, 255, 1);
-                            else if (col.owner.tag == MainGame.Tag.Computer)
-                                data[i] = new Color(0, 0, 255, 1);
+                            Color[] data = new Color[rectTexture.Width * rectTexture.Height];
+                            for (int i = 0; i < data.Length; ++i) {
+                                if (col.owner.tag == MainGame.Tag.PlayerOne)
+                                    data[i] = new Color(0, 0, 255, 1);
+                                else if (col.owner.tag == MainGame.Tag.Computer)
+                                    data[i] = new Color(0, 0, 255, 1);
+                            }
+                            rectTexture.SetData(data);
+
+                            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
+                            spriteBatch.Draw(rectTexture, new Vector2(rect.X, rect.Y), Color.White);
+                            spriteBatch.End();
                         }
-                        rectTexture.SetData(data);
-
-                        spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
-                        spriteBatch.Draw(rectTexture, new Vector2(rect.X, rect.Y), Color.White);
-                        spriteBatch.End();
                     }
                 }
 

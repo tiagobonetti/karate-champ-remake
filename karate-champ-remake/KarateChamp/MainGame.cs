@@ -79,8 +79,9 @@ namespace KarateChamp {
             for (int i = 0; i < bodyCollisionLeft.GetLength(0); i++) {
                 for (int j = 0; j < bodyCollisionLeft.GetLength(1); j++) {
                     bodyCollisionLeft[i, j] = bodyCollisionRight[i, j];
-                    bodyCollisionLeft[i, j].X = bodyCollisionLeft[i, j].X + (int)(2.5f * bodyCollisionLeft[i, j].Width);
-                    System.Diagnostics.Debug.WriteLine("index " + i + " " + j + " Rect " + bodyCollisionLeft[i, j]);
+                    bodyCollisionLeft[i, j].X = (int)(BaseCharacter.ScaleAdjust(140) - (bodyCollisionLeft[i, j].X + bodyCollisionLeft[i, j].Width) - 5);
+                    if (bodyCollisionLeft[i, j].Width == 52)
+                        System.Diagnostics.Debug.WriteLine(i + " " + j + " " + bodyCollisionLeft[i,j]);
                 }
             }
         }
