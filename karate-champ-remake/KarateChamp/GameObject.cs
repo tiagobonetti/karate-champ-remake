@@ -23,7 +23,7 @@ namespace KarateChamp {
             this.name = name;
             this.spriteSheet = spriteSheet;
             this.tag = tag;
-            this.position = position; // new Vector2(positionX, floor - uvRect.Height);
+            this.position = position;
             this.orientation = orientation;
             game.sceneControl.GetScene().gameObjectList.Add(this);
         }
@@ -48,10 +48,38 @@ namespace KarateChamp {
                 return SpriteEffects.None;
         }
 
+        protected void StayInsideScreen() {
+            position.X = MathHelper.Clamp(position.X, -(uvRect.Width * 0.5f + 20f), (game.graphics.PreferredBackBufferWidth - 255f));
+        }
+
         protected void UpdateCollisionPosition() {
             int i = uvRect.X / uvRect.Width;
             int j = uvRect.Y / uvRect.Height;
-
+            Rectangle[,] collisionArray;
+            System.Diagnostics.Debug.WriteLine(spriteSheet);
+            if (spriteSheet.Name == "Sprites/Main Character/CharacterSpritesheet") {
+                if (orientation == Orientation.Right) {
+                    collisionArray = game.bodyCollisionRight;
+                }
+                else {
+                    collisionArray = game.bodyCollisionLeft;
+                }
+            }
+            else if (spriteSheet.Name == "Sprites/Main Character/SuperMoves") {
+                if (orientation == Orientation.Right) {
+                    collisionArray = game.SuperMovesBodyCollisionRight;
+                }
+                else {
+                    collisionArray = game.SuperMovesBodyCollisionLeft;
+                }
+            }
+            else {
+                throw new Exception("Specify a new collision array here.");
+            }
+            collision.rect = collisionArray[i, j];
+            collision.rect.X = (int)position.X + collisionArray[i, j].X;
+            collision.rect.Y = (int)position.Y + collisionArray[i, j].Y;
+            /*
             if (orientation == Orientation.Right) {
                 collision.rect = game.bodyCollisionRight[i, j];
                 collision.rect.X = (int)position.X + game.bodyCollisionRight[i, j].X;
@@ -61,7 +89,7 @@ namespace KarateChamp {
                 collision.rect = game.bodyCollisionLeft[i, j];
                 collision.rect.X = (int)position.X + game.bodyCollisionLeft[i, j].X;
                 collision.rect.Y = (int)position.Y + game.bodyCollisionLeft[i, j].Y;
-            }
+            }*/
         }
     }
 }

@@ -12,7 +12,7 @@ namespace KarateChamp {
         Vector2 hitbox_offset_right;
         Vector2 hitbox_offset_left;
 
-        public Rectangle CalcHitbox(Texture2D spritesheet, Rectangle charRect) {
+        public Rectangle CalcHitbox(Texture2D spritesheet, Rectangle charRect, Color color) {
             Point rectSize = new Point(charRect.Width, charRect.Height);
             Rectangle uvRect = new Rectangle(charRect.Width, charRect.Y, rectSize.X, rectSize.Y);
 
@@ -23,7 +23,7 @@ namespace KarateChamp {
             spritesheet.GetData<Color>(0, charRect, colorData, 0, rectSize.X * rectSize.Y);
             int d = 0;
             for (int i = 0; i < colorData.Length; i++) {
-                if (colorData[i] == Color.Blue) {
+                if (colorData[i] == color) {
                     if (rectStartPosition == Point.Zero) {
                         rectStartPosition = new Point(i % rectSize.X, ((int)Math.Ceiling((double)i / (double)rectSize.X)) - 1);
                         d = i;

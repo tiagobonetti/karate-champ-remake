@@ -20,9 +20,11 @@ namespace KarateChamp {
         public bool OnCollision(out GameObject objHit) {
 
             foreach (GameObject obj in owner.game.sceneControl.GetScene().gameObjectList) {
-                if (rect.Intersects(obj.collision.rect)) {
-                    objHit = obj;
-                    return true;
+                if (obj.name != owner.name) {
+                    if (rect.Intersects(obj.collision.rect)) {
+                        objHit = obj;
+                        return true;
+                    }
                 }
             }
             objHit = null;

@@ -31,7 +31,6 @@ namespace KarateChamp {
                     foreach (CollisionBox col in bodyCollisionList) {
                         if (col.rect.Width > 0 && col.rect.Height > 0) {
                             Rectangle rect = col.rect;
-                            System.Diagnostics.Debug.WriteLine(col.owner.name);
                             Texture2D rectTexture = new Texture2D(spriteBatch.GraphicsDevice, rect.Width, rect.Height);
 
                             Color[] data = new Color[rectTexture.Width * rectTexture.Height];

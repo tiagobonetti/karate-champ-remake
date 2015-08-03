@@ -119,7 +119,10 @@
     <Content Include="Content\Sprites\Main Character\SuperMoves.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Sprites\Main Character\SuperMovesCollision.png">
+    <Content Include="Content\Sprites\Main Character\SuperMovesAttackCollision.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Sprites\Main Character\SuperMovesBodyCollision.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />

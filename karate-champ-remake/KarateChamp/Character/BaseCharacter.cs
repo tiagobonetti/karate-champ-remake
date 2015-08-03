@@ -54,8 +54,9 @@ namespace KarateChamp {
         public BaseCharacter Opponent { get; set; }
         public CharacterState state = CharacterState.Idle;
         public Vector2 velocity = Vector2.Zero;
+        public IList<Fireball> fireballList = new List<Fireball>();
+        public IList<Fireball> fireballKillList = new List<Fireball>();
         CharacterState previousState;
-        IList<Fireball> fireballList = new List<Fireball>();
 
         Animator animator = new Animator();
 
@@ -350,13 +351,13 @@ namespace KarateChamp {
 
                 case CharacterState.Hadouken:
                     velocity = Vector2.Zero;
-                    currentAttack = CreateAttack(state, 1, 9, 4, 0.08f, Location.Middle);
+                    currentAttack = CreateAttack(state, 1, 9, 4, 0.12f, Location.Middle);
                     currentAttack.Start(gameTime);
                     break;
 
                 case CharacterState.CheckCheckTchugen:
                     velocity = Vector2.Zero;
-                    currentAttack = CreateAttack(state, 2, 12, 3, 0.06f, Location.Upper);
+                    currentAttack = CreateAttack(state, 2, 12, 3, 0.08f, Location.Upper);
                     currentAttack.Start(gameTime);
                     currentAttack.repeat = true;
                     break;
@@ -471,10 +472,20 @@ namespace KarateChamp {
         }
 
         protected void BaseUpdate(GameTime gameTime, CharacterState input) {
+            StayInsideScreen();
             if (canControl)
                 StateMachine(gameTime, input);
+            else
+                StateMachine(gameTime, CharacterState.Idle);
+
             ApplyPhysics(gameTime);
             UpdateCollisionPosition();
+
+
+            foreach (Fireball fb in fireballKillList) {
+                fireballList.Remove(fb);
+                game.sceneControl.GetScene().gameObjectList.Remove(fb);
+            }
 
             if (fireballList.Count > 0) {
                 foreach(Fireball fb in fireballList){
@@ -493,19 +504,27 @@ namespace KarateChamp {
 
         public void ThrowFireball() {
             Texture2D spriteSheet = game.Content.Load<Texture2D>("Sprites/Main Character/SuperMoves");
-            Vector2 fbPosition = new Vector2(position.X, position.Y);
-            Fireball fireball = new Fireball(spriteSheet, MainGame.Tag.Fireball, fbPosition, orientation, "hadouken", game, 50f, this);
+            Vector2 fbPosition;
+            if (orientation == Orientation.Right) {
+                fbPosition = new Vector2(position.X + 110, position.Y - 10);
+            }
+            else {
+                fbPosition = new Vector2(position.X - 110, position.Y - 10);
+            }
+            Fireball fireball = new Fireball(spriteSheet, MainGame.Tag.Fireball, fbPosition, orientation, "hadouken", game, this);
             fireballList.Add(fireball);
         }
 
-        public bool TakeHit(Location attackLocation, GameTime gameTime) {
+        public bool TakeHit(Location attackLocation, BaseCharacter hitter, CharacterState state, GameTime gameTime) {
             System.Diagnostics.Debug.WriteLine("Take Hit!");
             if (currentBlock == null) {
                 ChangeState(CharacterState.Fall, gameTime);
+                hitter.game.sceneControl.fight.ScoreThisRound(gameTime, hitter.name, state);
                 return true;
             }
             else if (currentBlock.HitLocation != attackLocation) {
                 ChangeState(CharacterState.Fall, gameTime);
+                hitter.game.sceneControl.fight.ScoreThisRound(gameTime, hitter.name, state);
                 return true;
             }
             else {

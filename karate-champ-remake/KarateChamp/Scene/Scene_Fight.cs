@@ -12,7 +12,6 @@ namespace KarateChamp {
 
         public const float floor = 430;
         public int roundNumber = 0;
-        public Texture2D colSprite;
         Scoreboard scoreboard = new Scoreboard();
         DEBUG_Collision debugCollision = new DEBUG_Collision();
         Timer timer = new Timer();
@@ -71,8 +70,8 @@ namespace KarateChamp {
                     redCharacter.canControl = true;
                     break;
                 case State.EndRound:
-                    whiteCharacter.canControl = true;
-                    redCharacter.canControl = true;
+                    whiteCharacter.canControl = false;
+                    redCharacter.canControl = false;
                     EndRound(gameTime);
                     break;
             }
@@ -89,24 +88,24 @@ namespace KarateChamp {
                     break;
                 case State.PreFight:
                     DrawBackground();
-                    whiteCharacter.Draw(game.spriteBatch);
                     redCharacter.Draw(game.spriteBatch);
+                    whiteCharacter.Draw(game.spriteBatch);
                     break;
                 case State.JudgeStart:
                     DrawBackground();
-                    whiteCharacter.Draw(game.spriteBatch);
                     redCharacter.Draw(game.spriteBatch);
+                    whiteCharacter.Draw(game.spriteBatch);
                     DrawFightText();
                     break;
                 case State.Play:
                     DrawBackground();
-                    whiteCharacter.Draw(game.spriteBatch);
                     redCharacter.Draw(game.spriteBatch);
+                    whiteCharacter.Draw(game.spriteBatch);
                     break;
                 case State.EndRound:
                     DrawBackground();
-                    whiteCharacter.Draw(game.spriteBatch);
                     redCharacter.Draw(game.spriteBatch);
+                    whiteCharacter.Draw(game.spriteBatch);
                     DrawKOText();
                     break;
             }
@@ -211,7 +210,6 @@ namespace KarateChamp {
         }
 
         public virtual void Init() {
-            colSprite = game.Content.Load<Texture2D>("Sprites/Main Character/AttackCollision");
             spritesheet = game.Content.Load<Texture2D>("Sprites/Main Character/CharacterSpritesheet");
             bg = game.Content.Load<Texture2D>("Sprites/Background/Bg");
             fightText = game.Content.Load<Texture2D>("GUI/Fight");

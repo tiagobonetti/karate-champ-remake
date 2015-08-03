@@ -17,7 +17,6 @@ namespace KarateChamp {
     class Attack {
         public Animator animator = new Animator();
         public CharacterState State { get; private set; }
-
         public CollisionBox CollisionLeft { get; private set; }
         public CollisionBox CollisionRight { get; private set; }
         public Animation Animation { get; private set; }
@@ -44,8 +43,8 @@ namespace KarateChamp {
             Animation = animation;
             HitLocation = hitLocation;
 
-            if (state == CharacterState.JumpingSideKick || 
-                state == CharacterState.Hadouken || 
+            if (state == CharacterState.JumpingSideKick ||
+                state == CharacterState.Hadouken ||
                 state == CharacterState.CheckCheckTchugen) {
                 lockFrame = 2;
                 holdable = false;
@@ -55,7 +54,7 @@ namespace KarateChamp {
             }
             Texture2D colisionSheet = Owner.game.Content.Load<Texture2D>("Sprites/Main Character/AttackCollision");
             if (state == CharacterState.Hadouken || state == CharacterState.CheckCheckTchugen)
-                colisionSheet = Owner.game.Content.Load<Texture2D>("Sprites/Main Character/SuperMovesCollision");
+                colisionSheet = Owner.game.Content.Load<Texture2D>("Sprites/Main Character/SuperMovesAttackCollision");
 
             CalcHitbox(colisionSheet, hitFrame);
         }
@@ -88,14 +87,16 @@ namespace KarateChamp {
                     }
                     else {
                         // Animation is now locked and will run to the end
-                       //Locked = true;
+                        //Locked = true;
                     }
                     // If we are on the hit frame for the first time aplly hit detection
                     if (!hitChecked && animator.FrameIndex > HitFrame) {
                         if (State == CharacterState.Hadouken) {
                             Owner.ThrowFireball();
                         }
-                        CheckIfHit(gameTime);
+                        else {
+                            CheckIfHit(gameTime);
+                        }
                         hitChecked = true;
                         // When the attack hit animation is put on hold if holdable
                         onHold = holdable;
@@ -151,10 +152,8 @@ namespace KarateChamp {
         }
 
         void Hit(BaseCharacter character, GameTime gameTime) {
-            if (character.TakeHit(HitLocation, gameTime)) {
-                Owner.game.sceneControl.fight.ScoreThisRound(gameTime, Owner.name, State);
-                System.Diagnostics.Debug.WriteLine("Hit! " + Owner.Opponent);
-            }
+            character.TakeHit(HitLocation, Owner, State, gameTime);
+            System.Diagnostics.Debug.WriteLine("Hit! " + Owner.Opponent + " with " + State);
         }
 
         public void CalcHitbox(Texture2D sprite, int hitFrame) {
