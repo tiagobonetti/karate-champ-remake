@@ -1,0 +1,25 @@
+;Ver. 2002
+[Info]
+name="orochi iori"
+DisplayName="OROCHI IORI"
+mugenversion =04,14,2002 
+author ="HIro=hiRO"     
+pal.defaults=1,2,3,4
+versiondate=29/07/2009
+
+[Files]
+cmd =orochi_iori.cmd
+cns =orochi_iori.cns
+st  =orochi_iori.cns
+stcommon =common_SNK.cns
+sprite  =orochi_iori.sff
+anim   =orochi_iori.air
+sound  =orochi_iori.snd
+pal5=act/yagami04.act
+pal1=act/yagami01.act
+pal2=act/yagami02.act
+pal3=act/yagami03.act
+pal4=act/yagami04.act
+[Arcade]
+intro.storyboard=
+ending.storyboard=

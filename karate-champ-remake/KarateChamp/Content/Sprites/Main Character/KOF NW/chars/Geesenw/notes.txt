@@ -1,0 +1,84 @@
+     ---- Geese Howard ----
+      --- Version Final ---
+       --- By Rolento ---
+----------------------------------------------
+ATTENTION:
+I have decided to stop work on Geese due to time restraints and loss of interest.
+The only place given permission to host this is RandomSelect, and there is no
+permission to use either the sprites or code within.
+----------------------------------------------
+Gameplay system:
+c - Heat Mode activation
+
+tap U - Short Jump
+tap D,U - High Jump
+x+a - Forward Roll
+B, x+a - Back Roll
+
+y+a - Max mode activation (1 stock)(R-Mode only)
+x+a (after s/c basic) - Move Cancel
+x+a (blocking) - GC Emergency Evade Back (1 stock)
+F, x+a (blocking) - GC Emergency Evade forward (1 stock)
+y+b (blocking) - GC Counter Attack (1 stock)
+----------------------------------------------
+Commands:
+Standing:
+F + y - Throw
+F + a - Double kick
+
+Crouching:
+DF + x - Rising Palm
+DF + a - Slide
+
+Specials:
+QCF + x or y - Reppuken
+F,D,DF + x or y - Hishou Nichirin Zan
+HCF + a - Explosion Ball
+
+DM:
+QCB, F + x or y - Deadly Rave (1 Stock)
+
+SDM:
+DB, HCB, DF + x or y - Raising Storm (2 Stocks)
+
+"R-Mode" - Only active in palettes 7-12. 
+- Reppuken & Hishou Nichirin Zan are 96 era.
+- Shippuken & Raising Storm are SvC era.
+- Explosion Ball is disabled. Heat Mode is disabled.
+
+Specials:
+QCF + x - Reppuken
+QCF + y - Double Reppuken
+F,D,DF + x or y - Hishou Nichirin Zan
+HCB + a - Joudan Atemi Nage
+HCB + b - Chuudan Atemi Nage
+HCF + a or b - Jaei Ken
+
+In Air
+QCB + x or y - Shippuken
+
+DM:
+QCB, F + x or y - Deadly Rave (1 Stock)
+DB, HCB, DF + x or y - Raising Storm (1 Stock)
+
+SDM:
+DB, HCB, DF + x+y - Thunder Break (MaxMode + 1 Stock)
+----------------------------------------------
+Known Issues/details:
+- Unresolved juggling issues. This angers me. (Resolved as best as possible)
+- More clsn fixes as deemed needed. (Resolved for most part to knowledge)
+----------------------------------------------
+What's Next:
+- This project is discontinued.
+----------------------------------------------
+Thanks:
+- Orochi, XGarg, Sander: Help with the template used.
+  Also, Oro for betatesting/sys data/Throw limiter/Heat mode/too many things at this point.
+- Cad: For an absurd amount of things related to this.
+- Helios: Revised Jump code, betatesting.
+- ComboKyo, D Saviour, Iron, S.Dio, KFM: Betatesting, and missing frames in Iron's case.
+- Vans: Use of commons sounds from NGBC, and bug-finding.
+- Rikard, Walt, Judas: Sprite edits used in Geese.
+----------------------------------------------
+In Rolento We Trust
+----------------------------------------------

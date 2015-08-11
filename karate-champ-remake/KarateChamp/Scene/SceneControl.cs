@@ -10,6 +10,8 @@ namespace KarateChamp {
     public enum SceneType {
         MainMenu,
         Fight,
+        FightTurbo,
+        CharacterSelect,
         FBI,
         Options,
         Transition,
@@ -20,6 +22,8 @@ namespace KarateChamp {
 
         public SceneType currentScene { get; private set; }
         public Scene_Fight fight { get; set; }
+        public Scene_FightTurbo fightTurbo { get; set; }
+        public Scene_CharacterSelect charSelect { get; set; }
         public Scene_MainMenu mainMenu { get; set; }
         public Scene_FBI fbi { get; set; }
         public SceneTransition transition { get; set; }
@@ -32,6 +36,8 @@ namespace KarateChamp {
             this.game = game;
             mainMenu = new Scene_MainMenu(game);
             fight = new Scene_Fight(game);
+            fightTurbo = new Scene_FightTurbo(game);
+            charSelect = new Scene_CharacterSelect(game);
             fbi = new Scene_FBI(game);
             currentScene = SceneType.None;
         }
@@ -52,6 +58,10 @@ namespace KarateChamp {
                     break;
                 case SceneType.Fight:
                     break;
+                case SceneType.FightTurbo:
+                    break;
+                case SceneType.CharacterSelect:
+                    break;
                 case SceneType.FBI:
                     break;
                 case SceneType.Options:
@@ -69,6 +79,12 @@ namespace KarateChamp {
                     break;
                 case SceneType.Fight:
                     fight.Update(gameTime);
+                    break;
+                case SceneType.FightTurbo:
+                    fightTurbo.Update(gameTime);
+                    break;
+                case SceneType.CharacterSelect:
+                    charSelect.Update(gameTime);
                     break;
                 case SceneType.FBI:
                     fbi.Update(gameTime);
@@ -91,6 +107,12 @@ namespace KarateChamp {
                 case SceneType.Fight:
                     fight.Draw();
                     break;
+                case SceneType.FightTurbo:
+                    fightTurbo.Draw();
+                    break;
+                case SceneType.CharacterSelect:
+                    charSelect.Draw();
+                    break;
                 case SceneType.FBI:
                     fbi.Draw();
                     break;
@@ -106,6 +128,8 @@ namespace KarateChamp {
                 default: return null;
                 case SceneType.MainMenu: return (Scene)mainMenu;
                 case SceneType.Fight: return (Scene)fight;
+                case SceneType.FightTurbo: return (Scene)fightTurbo;
+                case SceneType.CharacterSelect: return (Scene)charSelect;
                 case SceneType.FBI: return (Scene)fbi;
                 case SceneType.Options: return null;
             }

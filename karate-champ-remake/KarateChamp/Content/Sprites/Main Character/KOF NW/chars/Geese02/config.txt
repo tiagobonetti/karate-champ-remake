@@ -1,0 +1,218 @@
+;イントロ
+[Statedef 190]
+type = S
+physics = S
+anim = 190
+velset = 0
+;----------------------------------------
+;----------------------------------------
+;config
+;
+[State 190,bar pos y]
+type = VarSet
+trigger1 = Time = 0
+var(6) = 0
+;
+;MAX時・EXTRA時のバー位置は、デフォルトでは画面上部です。
+;上の数値を変えることによって、位置調節が出来ます。
+
+;----------------------------------------
+
+
+[State 190,score pos x]
+type = VarSet
+trigger1 = Time = 0
+var(29) = 0
+
+[State 190,score pos y]
+type = VarSet
+trigger1 = Time = 0
+var(30) = 0
+
+
+;var(30)は点数のX軸
+;var(31)は点数のY軸
+
+
+[State 190,score];1 on , 2 off
+type = VarSet
+trigger1 = Time = 0
+var(33) = 1
+
+[State 190,?];  0 or 4
+type = VarSet
+trigger1 = Time = 0
+var(36) = 0
+
+
+[State 190, 1]
+type = ChangeState
+trigger1 = P2Name = "Terry Bogard"
+value = 193
+
+
+;---------------------------------------
+;---------------------------------------
+
+
+
+[State 190,AI]
+type = VarSet
+trigger1 = Time = 0
+var(14) = 0
+
+;0---AI ON
+;2---AI OFF
+
+
+[State 190];握りつぶす
+type = Explod
+trigger1 = AnimElem = 9
+anim = 702
+pos = 34,-95
+postype = p1
+sprpriority = -3
+bindtime = -1
+
+[State 190, セリフ]
+type = PlaySnd
+trigger1 = animelem = 5
+value = 3,9
+
+[State 3101]
+type = PlaySnd
+trigger1 = AnimElem = 9
+value = 3, 10
+
+[State 3101]
+type = PlaySnd
+trigger1 = AnimElem = 9
+value = 4, 1
+
+;---------------------------
+[State 190]
+type = varset
+trigger1 = time = 0
+v = 4
+value = 1
+
+[State 190]
+type = varset
+trigger1 = Pos X < 0
+trigger1 = time = 0
+v = 2
+value = 1
+
+[State 190]
+type = varset
+trigger1 = Pos X < 0
+trigger1 = time = 0
+v = 3
+value = 1
+
+[State 190,1]
+type = VarRandom
+trigger1 = Pos X >= 0
+trigger1 = time = 0
+v = 2
+range = 1,4
+
+[State 190,1]
+type = VarRandom
+trigger1 = Pos X >= 0
+trigger1 = time = 0
+v = 3
+range = 1,4
+
+[State 190];type
+type = Explod
+trigger1 = NumExplod(1) = 0
+trigger1 = time = 0
+anim = 733
+pos = ifelse(teamside = 1,-30,30),-146
+postype = p1
+sprpriority = -3
+bindtime = -1
+removetime = -1
+id = 1
+facing = ifelse(teamside = 1,1,-1)
+
+[State 190];mode
+type = Explod
+trigger1 = NumExplod(2) = 0
+trigger1 = time = 0
+anim = 734
+pos = ifelse(teamside = 1,-30,30),-129
+postype = p1
+sprpriority = -3
+bindtime = -1
+removetime = -1
+id = 2
+facing = ifelse(teamside = 1,1,-1)
+
+[State 190];モード
+type = Helper
+triggerall = numhelper(196) = 0
+;trigger1 = teamside = 1
+trigger1 = time = 0
+helpertype = normal
+stateno = 196
+name = "intro"
+id      = 196
+postype = p1
+pos = ifelse(teamside = 1,10,-10), -147
+keyctrl = 0
+ownpal = 1
+facing = ifelse(teamside = 1,1,-1)
+
+[State 190];システム
+type = Helper
+triggerall = numhelper(197) = 0
+;trigger1 = teamside = 1
+trigger1 = time = 0
+helpertype = normal
+stateno = 197
+name = "intro"
+id      = 197
+postype = p1
+pos = ifelse(teamside = 1,10,-10), -130
+keyctrl = 0
+ownpal = 1
+facing = ifelse(teamside = 1,1,-1)
+
+;---------------------------------------
+;-----------------------------------
+
+[State 190 ,1] 
+type = AssertSpecial
+trigger1 = 1
+flag = intro
+
+[State 190, セリフ]
+type = PlaySnd
+trigger1 = time = 100
+value = 1,1
+
+[State 190, 2] 
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+
+
+;---------------------------------------------------------------------------
+; Initialize (at the start of the round)
+[Statedef 5900]
+type = S
+
+[State 5900, 3] ;Intro
+type = ChangeState
+trigger1 = roundno = 1
+value = 190
+
+;----------------
+[State 5900]
+type = ChangeState
+trigger1 = RoundNo > 1
+trigger1 = RoundsExisted <= 0
+trigger1 = Roundstate = 0
+value = 191

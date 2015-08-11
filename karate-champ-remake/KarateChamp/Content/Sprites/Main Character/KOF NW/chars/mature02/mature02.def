@@ -1,0 +1,25 @@
+;LAST UP DATA- 2006.10.07	Version=I-2 .thank you Chloe
+[Info]
+Name="MATURE"
+DisplayName="MATURE"
+VersionDate=04,14,2001
+MugenVersion=04,14,2001
+Author="zzzasd" ;"zzzasd13@yahoo.co.kr" "www.neo-eye.com" "http://conversion.wo.to/"
+Pal.Defaults=1,2,3,4,5,6,7,8,9,10,11,12
+
+[Files]
+cmd=mature.cmd
+cns=mature.cns
+st=mature.cns
+st1= matureb.cns
+st2= maturec.cns
+stcommon=maturea.cns
+sprite=mature.sff
+anim=mature.air
+sound=mature.snd
+pal1=mature2002-B.act
+pal2=mature2002-D.act
+pal3=mature1998-B.act
+pal4=mature2002-A.act
+pal5=mature2002-C.act
+pal6=mature-og-Dark.act

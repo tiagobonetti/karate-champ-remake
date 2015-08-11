@@ -1,0 +1,86 @@
+;============================================================================================================================
+; CLARK STEEL (KOF 2002)
+;============================================================================================================================
+; CONVERTED BY OROCHIKOF97
+;============================================================================================================================
+; VERSION 1.0c (APRIL 5TH 2005)
+;============================================================================================================================
+
+;============================================================================================================================
+; GENERAL INFO
+;============================================================================================================================
+
+[Info]
+
+name ="clark steel"
+displayname ="CLARK"    
+versiondate =04.05.2005 
+author ="OrochiKOF97"   
+pal.defaults =1,2,3,4
+mugenversion=
+
+;============================================================================================================================
+; FILES
+;============================================================================================================================
+
+[Files]
+
+cns =cns/ultrarox_clark_N.cns
+cmd =cns/ultrarox_clark.cmd
+stcommon =common1.cns
+sprite =sff/ultrarox_clark.sff
+anim =cns/ultrarox_clark.air
+st  =cns/ultrarox_clark_N.cns
+;sound = snd/ultrarox_clark_kof02.snd      ; KOF'02 Sound
+sound =snd/ultrarox_clark_kof03.snd
+pal1=pal/ultrarox_clark_01.act
+pal2=pal/ultrarox_clark_02.act
+pal3=pal/ultrarox_clark_03.act
+pal4=pal/ultrarox_clark_04.act
+pal5=pal/ultrarox_clark_05.act
+pal6=pal/ultrarox_clark_06.act
+pal7=pal/ultrarox_clark_07.act
+pal8=pal/ultrarox_clark_08.act
+pal9=pal/ultrarox_clark_09.act
+pal10=pal/ultrarox_clark_10.act
+pal11=pal/ultrarox_clark_11.act
+pal12=pal/ultrarox_clark_12.act
+st1=cns/ultrarox_clark_S.st
+st2=cns/ultrarox_clark_H.st
+st3=cns/ultrarox_clark_O.st
+st4=cns/ultrarox_clark_O.st
+;sound = snd/ultrarox_clark_kofMI.snd     ; KOF : MI Sound (USA)
+;sound = snd/ultrarox_clark_kofMI_J.snd   ; KOF : MI Sound (Japan)
+
+;============================================================================================================================
+; PALETTES
+;============================================================================================================================
+; THE REGULAR KOF 2002 PALETTES + NEW PALETTES USING OTHER KOF CHARACTERS COLORS.
+;============================================================================================================================
+
+
+;============================================================================================================================
+; EXTRA PALETTES
+;============================================================================================================================
+; USE THEM IF YOU WANT TO ADD SOME ORIGINALITY OR FUN TO THE STANDARD ONES. 
+; BE ADVISED THAT SOME OF THEM (IF NOT ALL) ARE FUNKY !
+;============================================================================================================================
+
+;pal1 = pal/other/ultrarox_clark_13.act   ; SHADOW
+;pal2 = pal/other/ultrarox_clark_14.act   ; DARK BLUE
+;pal3 = pal/other/ultrarox_clark_15.act   ; YELLOW
+;pal4 = pal/other/ultrarox_clark_16.act   ; BROWN
+;pal5 = pal/other/ultrarox_clark_17.act   ; GREEN
+;pal6 = pal/other/ultrarox_clark_18.act   ; PINK
+;pal1 = pal/other/ultrarox_clark_19.act   ; GREY
+;pal8 = pal/other/ultrarox_clark_20.act   ; DARK BLUE II
+;pal9 = pal/other/ultrarox_clark_21.act   ; LIGHT BLUE II
+;pal10 = pal/other/ultrarox_clark_22.act  ; MECH-CLARK
+;pal11 = pal/other/ultrarox_clark_23.act  ; MECH-CLARK II
+;pal12 = pal/other/ultrarox_clark_24.act  ; CHERRY
+
+Arcade mode
+[Arcade]
+intro.storyboard = 
+ending.storyboard =
+

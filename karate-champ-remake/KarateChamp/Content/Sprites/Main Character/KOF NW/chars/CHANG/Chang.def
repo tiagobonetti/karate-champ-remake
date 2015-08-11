@@ -1,0 +1,40 @@
+;=====================================================================
+;  DEF File For "Chang Koehan"                          Made By M.M.R.
+;                                       Ver. 1.0           2000.Nov.10
+;=====================================================================
+; Player Information
+[Info]
+name="Chang Koehan"
+displayname="CHANG"
+versiondate=11,12,2000
+mugenversion=07,31,2000
+author="M.M.R."
+pal.defaults=1,2,3,4,5
+
+; Files for the Player
+[Files]
+cmd=Chang.cmd
+cns=Chang.cns
+st=Chang.cns
+;cns=Chang2.cns     ;Constants  For 0627
+;st=Chang2.cns     ;States For 0627
+stcommon=common1.cns
+sprite=Chang.sff
+anim=Chang.air
+sound=Chang.snd
+pal1=Chang1.act
+pal2=Chang2.act
+pal3=Chang3.act
+pal4=Chang4.act
+pal5=Chang5.act
+pal6=Chang6.act
+pal7=Chang7.act
+pal8=Chang8.act
+pal9=Chang9.act
+pal10=Chang10.act
+pal11=Chang11.act
+pal12=Chang13.act
+[Arcade]
+
+intro.storyboard=
+ending.storyboard=

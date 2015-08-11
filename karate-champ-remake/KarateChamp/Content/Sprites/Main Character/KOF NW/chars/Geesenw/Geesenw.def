@@ -1,0 +1,35 @@
+;=======================================;
+;            NW-Geese by .\/.           ;
+;=======================================;
+
+[Info]
+name ="NW-Geese"
+displayname ="GEESE HOWARD"
+versiondate = 
+mugenversion = 
+author =".\/."
+pal.defaults =1,2,3,4,5,6,7,8,9,10,11,12
+
+[Files]
+cns =Geese.cns
+cmd =Geese.cmd
+stcommon =common1.cns
+sprite =Geese.sff
+anim =Geese.air
+st =Geese.st
+sound =Geese.snd
+pal1=Geese01.act
+pal2=Geese02.act
+pal3=Geese03.act
+pal4=Geese04.act
+pal5=Geese05.act
+pal6=Geese06.act
+pal7=Geese07.act
+pal8=Geese08.act
+pal9=Geese09.act
+pal10=Geese10.act
+pal11=Geese11.act
+pal12=Geese12.act
+st1=specials.st
+st2=dms.st
+st3=proj.st

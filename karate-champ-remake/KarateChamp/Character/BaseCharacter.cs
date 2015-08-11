@@ -48,7 +48,6 @@ namespace KarateChamp {
         public const float speedJumpSideKick = 210f * scaleAdjust;
         public const float speedJump = 200f * scaleAdjust;
         public const float gravityPull = 12f * scaleAdjust;
-        public const float floor = 430;
         public bool canControl = true;
 
         public BaseCharacter Opponent { get; set; }
@@ -57,6 +56,7 @@ namespace KarateChamp {
         public IList<Fireball> fireballList = new List<Fireball>();
         public IList<Fireball> fireballKillList = new List<Fireball>();
         CharacterState previousState;
+        CharacterState stateOverride;
 
         Animator animator = new Animator();
 
@@ -473,10 +473,16 @@ namespace KarateChamp {
 
         protected void BaseUpdate(GameTime gameTime, CharacterState input) {
             StayInsideScreen();
-            if (canControl)
+            
+            if (stateOverride != CharacterState.Idle) {
+                StateMachine(gameTime, stateOverride);
+            }
+            else if (canControl) {
                 StateMachine(gameTime, input);
-            else
+            }
+            else {
                 StateMachine(gameTime, CharacterState.Idle);
+            }
 
             ApplyPhysics(gameTime);
             UpdateCollisionPosition();
@@ -601,12 +607,12 @@ namespace KarateChamp {
 
         public bool IsGrounded() {
             float characterFeet = position.Y + uvRect.Height;
-            return (characterFeet >= floor);
+            return (characterFeet >= game.sceneControl.GetScene().floor);
         }
 
         protected void ApplyPhysics(GameTime gameTime) {
             if (IsGrounded()) {
-                position.Y = floor - uvRect.Height;
+                position.Y = game.sceneControl.GetScene().floor - uvRect.Height;
             }
             else {
                 velocity.Y += gravityPull;
@@ -624,7 +630,7 @@ namespace KarateChamp {
             return new Attack(state, animation, hitFrame, location, this);
         }
 
-        float AdjustedSpeed(Animator animator){
+        float AdjustedSpeed(Animator animator) {
             float speed = speedTurbo;
             if (!game.turboMode) {
                 if (Vector2.Distance(position, Opponent.position) < 200) {
@@ -645,6 +651,11 @@ namespace KarateChamp {
 
         public static float ScaleAdjust(float value) {
             return value * scaleAdjust;
+        }
+
+        public void OverrideState(CharacterState state) {
+            stateOverride = state;
+            this.state = stateOverride;
         }
     }
 }

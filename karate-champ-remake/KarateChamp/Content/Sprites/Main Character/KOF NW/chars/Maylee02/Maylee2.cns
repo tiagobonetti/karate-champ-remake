@@ -1,0 +1,1495 @@
+;\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;超必殺技
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+; ゴッズテイルティンカーベル
+[Statedef 2000]
+type    = S
+movetype= A
+physics = N
+velset = 0,0
+juggle = 8
+poweradd= 0
+anim = 2000
+ctrl = 0
+
+
+;---------------------[残像]
+[state -2, a];消去
+type = afterimagetime
+trigger1 = time = 0
+time = 0
+
+;---------------------[パワーゲージ減少,MAX関係]
+[state a];パワー減少
+type = poweradd
+trigger1 = time = 0
+trigger1 = var(8) = 0
+value = -1000
+
+[state a];スパキャン時のゲージ減少
+type = poweradd
+triggerall = time = 0
+trigger1 = prevstateno = 1010
+value = -1000
+
+[State -2, a];どこキャン時の点滅(失敗)
+type = palfx
+triggerall = gametime %2
+triggerall = time <= 10
+trigger1 = prevstateno = 1010
+time = 1
+add = 248,248,248
+;mul = 248,248,248
+color = 1
+ignorehitpause = 1
+
+
+[state a];MAX発動初期化
+type = varset
+trigger1 = time = 0
+v = 8
+value = 0
+
+
+;---------------------[スパキャン]
+[state a];スパキャンMAXゲージ減少
+type = varadd
+trigger1 = time = 0
+trigger1 = var(11) = 1
+v = 8
+value = -128
+
+[state a];スパキャンゲージ減少
+type = poweradd
+trigger1 = time = 0
+trigger1 = var(11) = 1
+value = -1000
+
+[state a];スパキャンコマンド判定初期化
+type = varset
+trigger1 = time = 1
+v = 11
+value = 0
+
+;---------------------[超必殺技演出]
+[State 1];無敵の状態を作る
+type = NotHitBy
+trigger1 = time <=19 
+trigger2 = animelem = 3,>=0
+trigger2 = animelem = 9,<=0
+value = SCA
+
+[State 2000, 2]
+type = SuperPause
+trigger1 = time = 0
+time = 28
+movetime = 28
+anim = -1
+
+[State 1000, 5]
+type = Explod
+trigger1 = time = 0
+anim = 6000
+sprpriority = -1
+postype = p1
+pos = -6,-46
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+
+[State 1000, 5]
+type = Explod
+trigger1 = Time = 10
+anim = 6001
+sprpriority = 1
+postype = p1
+pos = -6,-46
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+
+[State 3040, 7]
+type = EnvColor
+trigger1 = time = 0
+persistent = 0
+ignorehitpause = 1
+time = 3
+value = 255,255,255
+under = 2
+
+[State 3040, 7]
+type = EnvColor
+trigger1 = time = 3
+persistent = 0
+ignorehitpause = 1
+time = 25
+value = 0,0,0
+under = 2
+
+[State 2000, 6]
+type = PlaySnd
+trigger1 = Time = 0
+value = 3000,0
+
+
+;---------------------[効果音]
+[State 2000, 6];逃がしません
+type = PlaySnd
+trigger1 = Time = 0
+value = 2000,0
+
+;---------------------[画面効果]
+[State 3040, 7];画面フラッシュ
+type = EnvColor
+trigger1 = movehit = 1
+persistent = 0
+ignorehitpause = 1
+time = 1
+value = 255,255,255
+under = 1
+
+;---------------------[ステート判定]
+[state a]
+type = statetypeset
+trigger1 = animelem = 3
+value = A
+
+;---------------------[速度]
+[state a]
+type = velset
+trigger1 = animelem = 3
+x = 2.5
+y = -4
+
+[state a]
+type = veladd
+trigger1 = animelem = 3,>=0
+y = 0.3
+
+[state a]
+type = posadd
+trigger1 = animelem = 10
+trigger2 = animelem = 11
+x = 7
+
+
+;---------------------[攻撃判定]
+[State 240, 2]
+type = HitDef
+trigger1 = Time = 0
+attr = A, HA
+animtype  = high
+damage    = 0,0
+getpower = 0,0
+guardflag = HA
+pausetime = 0,0
+sparkno = s7002
+sparkxy = -15,-53
+hitsound   = s225,0
+guard.sparkno = s7012
+guardsound = s121,0
+ground.type = high
+ground.slidetime = 17
+ground.hittime  = 17
+ground.velocity = -10,0
+air.velocity = -3,-4.8
+air.fall = 0
+fall.recover = 0
+p2facing = 1
+
+;---------------------[ステートの終了]
+[state a]
+type = changestate
+trigger1 = movehit
+value = 2001
+
+[state a] 
+type = changestate
+triggerall = Vel Y > 0
+trigger1 = Pos Y >= 0
+value = 52
+
+
+
+
+;:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+; ゴッズテイルティンカーベル・攻撃
+[Statedef 2001]
+type    = S
+movetype= A
+physics = S
+juggle  = 0
+poweradd= 0
+velset = 0,0
+anim = 2001
+ctrl = 0
+
+;---------------------[効果音]
+[state a];掴み
+type = playsnd
+trigger1 = time = 0
+value = 800,1
+
+;---------------------[画面効果]
+[State 3040, 7];画面フラッシュ
+type = EnvColor
+trigger1 = movehit = 1
+persistent = 0
+ignorehitpause = 1
+time = 1
+value = 255,255,255
+under = 1
+
+[State 3040, 7];画面フラッシュ
+type = EnvColor
+trigger1 = animelem >= 14
+trigger1 = movehit
+persistent = 0
+ignorehitpause = 1
+time = 1
+value = 255,255,255
+under = 1
+
+;---------------------[位置設定]
+[state a]
+type = posset
+trigger1 = time = 0
+y = 0
+
+;---------------------[速度]
+[state a]
+type = posadd
+trigger1 = animelem = 15
+trigger2 = animelem = 16
+x = -12
+
+[state a]
+type = posadd
+trigger1 = animelem = 26
+trigger2 = animelem = 27
+trigger3 = animelem = 28
+x = -5
+
+;---------------------[相手の制御]
+[State 801, 2]
+type = TargetBind
+trigger1 = time = 0
+pos = 56,0
+
+[State 801, 2]
+type = Targetstate
+trigger1 = time = 0
+value = 2005
+
+;---------------------[カメラ、距離関係]
+[State 1];カメラ固定
+type = null;screenbound
+trigger1 = 1
+value = 1
+movecamera = 1
+
+[State 210, Width];画面端の押し戻し判定
+type = Width
+trigger1 = animelem = 1
+edge = 70,0
+
+
+;---------------------[攻撃判定]
+[State 240, 2]
+type = HitDef
+trigger1 = Time = 0
+attr = S, HA
+animtype  = high
+damage    = 157,10
+getpower = 0,0
+guardflag = MA
+pausetime = 0,0
+sparkno = s7002
+sparkxy = -15,-63
+hitsound   = s225,0
+guard.sparkno = s7011
+guardsound = s121,0
+ground.type = high
+ground.slidetime = 17
+ground.hittime  = 17
+ground.velocity = 0,0
+air.velocity = 0,0
+air.fall = 0
+fall.recover = 0
+p2stateno = 2006
+kill = 0
+
+[State 240, 2]
+type = HitDef
+trigger1 = animelem = 14
+attr = S, HA
+animtype  = up
+damage    = 69,10
+getpower = 0,0
+guardflag = MA
+pausetime = 28,29
+sparkno = s7002
+sparkxy = -15,-59
+hitsound   = s225,1
+guard.sparkno = s7011
+guardsound = s121,0
+ground.type = high
+ground.slidetime = 17
+ground.hittime  = 17
+ground.velocity = -7,-2
+air.velocity = -7,-2
+fall = 1
+air.fall = 1
+fall.recover = 0
+envshake.time = 15
+envshake.ampl = -8
+envshake.freq = 92
+envshake.phase = 92
+
+;---------------------[ステートの終了]
+[state a]
+type = changestate
+trigger1 = animtime = 0
+value = 0
+ctrl = 1
+
+
+;---------------------------------------------------------------------------
+;投げられている相手
+[Statedef 2005]
+type    = A
+movetype= H
+physics = N
+velset = 0,0
+sprpriority = 1
+
+[state a]
+type = posset
+trigger1 = time = 0
+y = 0
+
+[State 820, 1]
+type = ChangeAnim2
+Trigger1 = Time = 0
+value = 2005
+
+[State 1];カメラ固定
+type = screenbound
+trigger1 = 1
+value = 1
+movecamera = 1
+
+
+[state a]
+type = selfstate
+trigger1 = animtime = 0
+value = 5000
+
+;---------------------------------------------------------------------------
+;投げられている相手2
+[Statedef 2006]
+type    = S
+movetype= H
+physics = S
+velset = 0,0
+sprpriority = 1
+
+[state a]
+type = posset
+trigger1 = time = 0
+y = 0
+
+[State 820, 1]
+type = ChangeAnim2
+Trigger1 = Time = 0
+value = 2006
+
+[State 1];カメラ固定
+type = screenbound
+trigger1 = 1
+value = 1
+movecamera = 1
+
+[state a]
+type = velset
+trigger1 = time = 0
+x = 5
+
+
+[state a]
+type = selfstate
+trigger1 = time = 50
+value = 5000
+
+
+
+;\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+; ディスポジションフロッグ
+[Statedef 2100]
+type    = S
+movetype= A
+physics = N
+velset = 0,0
+juggle = 8
+poweradd= -1000
+anim = 2100
+ctrl = 0
+
+;---------------------[残像]
+[state -2, a];消去
+type = afterimagetime
+trigger1 = time = 0
+time = 0
+;---------------------[パワーゲージ減少,MAX関係]
+[state a];パワー減少
+type = poweradd
+trigger1 = time = 0
+trigger1 = var(8) = 0
+value = -1000
+
+[state a];スパキャン時のゲージ減少
+type = poweradd
+triggerall = time = 0
+trigger1 = prevstateno = 1000
+trigger2 = prevstateno = 1006
+value = -1000
+
+[State -2, a];どこキャン時の点滅(失敗)
+type = palfx
+triggerall = gametime %2
+triggerall = time <= 10
+trigger1 = prevstateno = 1000
+trigger2 = prevstateno = 1006
+time = 1
+add = 248,248,248
+;mul = 248,248,248
+color = 1
+ignorehitpause = 1
+
+
+[state a];MAX発動初期化
+type = varset
+trigger1 = time = 0
+v = 8
+value = 0
+
+
+;---------------------[スパキャン]
+[state a];スパキャンMAXゲージ減少
+type = varadd
+trigger1 = time = 0
+trigger1 = var(11) = 1
+v = 8
+value = -128
+
+[state a];スパキャンゲージ減少
+type = poweradd
+trigger1 = time = 0
+trigger1 = var(11) = 1
+value = -1000
+
+[state a];スパキャンコマンド判定初期化
+type = varset
+trigger1 = time = 1
+v = 11
+value = 0
+
+;---------------------[超必殺技演出]
+[State 1];無敵の状態を作る
+type = null;NotHitBy
+trigger1 = animelem = 7,<=0
+value = SCA
+
+[State 2000, 2]
+type = SuperPause
+trigger1 = time = 1
+time = 28
+movetime = 28
+anim = -1
+
+[State 1000, 5]
+type = Explod
+trigger1 = time = 10
+anim = 6010
+sprpriority = -1
+postype = p1
+pos = -16,-81
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+
+[State 1000, 5]
+type = Explod
+trigger1 = Time = 20
+anim = 6011
+sprpriority = 1
+postype = p1
+pos = -16,-81
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+
+[State 3040, 7]
+type = EnvColor
+trigger1 = time = 1
+persistent = 0
+ignorehitpause = 1
+time = 3
+value = 255,255,255
+under = 2
+
+[State 3040, 7]
+type = EnvColor
+trigger1 = time = 4
+persistent = 0
+ignorehitpause = 1
+time = 25
+value = 0,0,0
+under = 2
+
+[State 2000, 6]
+type = PlaySnd
+trigger1 = Time = 1
+value = 3000,1
+
+
+;---------------------[効果音]
+[State 2000, 6];ヘヘヘ
+type = PlaySnd
+trigger1 = animelem = 5
+value = 195,0
+
+[State 2000, 6];トウッ
+type = PlaySnd
+trigger1 = animelem = 9
+value = 2100,0
+
+;---------------------[画面効果]
+[State 3040, 7];画面フラッシュ
+type = EnvColor
+trigger1 = movehit = 1
+persistent = 0
+ignorehitpause = 1
+time = 1
+value = 255,255,255
+under = 1
+
+
+;---------------------[攻撃判定]
+[State 240, 2]
+type = HitDef
+trigger1 = Time = 0
+attr = S, HA
+animtype  = high
+damage    = 0,0
+getpower = 0,0
+guardflag = HA
+pausetime = 9,9
+sparkno = s7002
+sparkxy = -15,-53
+hitsound   = s2100,4
+guard.sparkno = s7012
+guardsound = s121,0
+ground.type = high
+ground.slidetime = 17
+ground.hittime  = 17
+ground.velocity = -6,-6
+air.velocity = -6,-6
+fall = 1
+fall.recover = 0
+kill = 0
+p2facing = 1
+
+
+;---------------------[相手制御]
+[state a]
+type = targetbind
+trigger1 = movehit = 1
+pos = 20,0
+
+;---------------------[ステートの終了]
+[state a]
+type = changestate
+trigger1 = movehit
+value = 2101
+
+[state a]
+type = changestate
+trigger1 = animtime = 0
+value = 0
+ctrl = 1
+
+
+
+
+;:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;  ディスポジションフロッグ・ジャンプ
+[Statedef 2101]
+type    = A
+movetype= A
+physics = N
+juggle  = 0
+poweradd= 0
+velset = 4.5,-4
+anim = 2101
+sprpriority = 2
+ctrl = 0
+
+;---------------------[効果音]
+[state a];テエィ
+type = playsnd
+trigger1 = animelem = 4
+value = 210,0
+
+[state a];ワープ
+type = playsnd
+trigger1 = animelem = 15
+value = 2100,1
+
+[state a];移動
+type = playsnd
+trigger1 = animelem = 17
+value = 2100,5
+
+;---------------------[エフェクト]
+
+;---------------------[画面効果]
+[State 3040, 7];画面フラッシュ
+type = EnvColor
+trigger1 = movehit = 1
+persistent = 0
+ignorehitpause = 1
+time = 1
+value = 255,255,255
+under = 1
+
+[State 3040, 7];画面フラッシュ
+type = EnvColor
+trigger1 = movehit = 1
+trigger1 = animelem = 6,>=0
+persistent = 0
+ignorehitpause = 1
+time = 1
+value = 255,255,255
+under = 1
+
+;---------------------[移動]
+[state a]
+type = velset
+trigger1 = animelem = 4
+y = -3
+
+[state a]
+type = velset
+trigger1 = animelem = 8
+y = -2
+
+[state a]
+type = velset
+trigger1 = animelem = 11
+y = -1
+
+[state a]
+type = velset
+trigger1 = animelem = 15
+x = 0
+y = 0
+
+
+[state a]
+type = bindtotarget
+trigger1 = animtime = 0
+time = 0
+pos = -32,0,head
+
+[state a]
+type = posset
+trigger1 = animtime = 0
+y = 0
+
+[state a]
+type = null;bindtotarget
+trigger1 = animtime = 0
+x = 20
+;---------------------[相手の制御]
+[State 801, 2]
+type = Targetstate
+trigger1 = animelem = 15
+trigger1 = movehit
+value = 2150
+
+;---------------------[攻撃判定]
+[State 240, 2]
+type = HitDef
+trigger1 = Time = 0
+attr = A, HA
+animtype  = high
+damage    = 59,10
+getpower = 0,0
+guardflag = HA
+pausetime = 11,11
+sparkno = s7002
+sparkxy = -15,-53
+hitsound   = s2100,4
+guard.sparkno = s7012
+guardsound = s121,0
+ground.type = high
+ground.slidetime = 17
+ground.hittime  = 17
+ground.velocity = -6,-5
+air.velocity = -6,-5
+fall = 1
+fall.recover = 0
+kill = 0
+
+[State 240, 2]
+type = HitDef
+trigger1 = animelem = 14
+attr = A, HA
+animtype  = high
+damage    = 20,10
+getpower = 0,0
+guardflag = HA
+pausetime = 10,10
+sparkno = s7002
+sparkxy = -15,-53
+hitsound   = s2100,4
+guard.sparkno = s7012
+guardsound = s121,0
+ground.type = high
+ground.slidetime = 17
+ground.hittime  = 17
+ground.velocity = 0,4
+air.velocity = 0,4
+fall = 1
+fall.recover = 0
+kill = 0
+
+;---------------------[カメラ、距離関係]
+[State 1];カメラ固定
+type = screenbound
+trigger1 = 1
+value = 1
+movecamera = 1
+
+;---------------------[ステートの終了]
+[state a]
+type = changestate
+trigger1 = animtime = 0
+value = 2102
+
+;:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;  ディスポジションフロッグ・アッパー
+[Statedef 2102]
+type    = S
+movetype= A
+physics = N
+juggle  = 0
+poweradd= 0
+velset = 0,0
+anim = 2102
+sprpriority = 2
+ctrl = 0
+
+;---------------------[効果音]
+[state a];ぶっとべー
+type = playsnd
+trigger1 = animelem = 14
+value = 2100,2
+
+;---------------------[エフェクト]
+
+;---------------------[画面効果]
+[State 3040, 7];画面フラッシュ
+type = EnvColor
+trigger1 = movehit = 1
+persistent = 0
+ignorehitpause = 1
+time = 1
+value = 255,255,255
+under = 1
+
+;---------------------[移動]
+[state a]
+type = null;posadd
+trigger1 = time = 0
+x = 173
+
+;---------------------[画面端の判定]
+[State 210, Width];画面端の押し戻し判定
+type = Width
+trigger1 = animelem = 1
+edge = 20,20
+
+
+;---------------------[振り向き]
+[state a]
+type = turn
+trigger1 = time = 0
+
+
+;---------------------[相手の制御]
+[State 801, 2]
+type = Targetstate
+trigger1 = movehit
+value = 2152
+
+;---------------------[攻撃判定]
+[State 240, 2]
+type = HitDef
+trigger1 = Time = 0
+attr = A, HA
+animtype  = high
+damage    = 10,10
+getpower = 0,0
+guardflag = HA
+pausetime = 11,11
+sparkno = s7002
+sparkxy = -15,-53
+hitsound   = s2100,4
+guard.sparkno = s7012
+guardsound = s121,0
+ground.type = high
+ground.slidetime = 17
+ground.hittime  = 17
+ground.velocity = 0,-5
+air.velocity = 0,-5
+fall = 1
+fall.recover = 0
+kill = 0
+
+;---------------------[カメラ、距離関係]
+[State 1];カメラ固定
+type = null;screenbound
+trigger1 = 1
+value = 1
+movecamera = 1
+
+;---------------------[ステートの終了]
+[state a]
+type = changestate
+trigger1 = animtime = 0
+value = 2103
+
+
+;:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;  ディスポジションフロッグ・上昇
+[Statedef 2103]
+type    = A
+movetype= A
+physics = N
+juggle  = 0
+poweradd= 0
+velset = 0,-7.2
+anim = 2103
+sprpriority = 2
+ctrl = 0
+
+;---------------------[効果音]
+;---------------------[エフェクト]
+[State 1000, 5]
+type = Explod
+trigger1 = animelem = 5
+anim = 2120
+sprpriority = 1
+postype = p1
+pos = 0,0
+bindtime = -1
+supermove = 1
+under = 0
+ownpal = 1
+
+;---------------------[移動]
+[state a]
+type = veladd
+trigger1 = 1
+y = 0.3
+
+;---------------------[振り向き]
+;---------------------[攻撃判定]
+;---------------------[カメラ、距離関係]
+[State 1];カメラ固定
+type = screenbound
+trigger1 = 1
+value = 1
+movecamera = 1
+
+;---------------------[ステートの終了]
+[state a]
+type = changestate
+trigger1 = animtime = 0
+value = 2104
+
+
+;:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;  ディスポジションフロッグ・変な衝撃波
+[Statedef 2104]
+type    = A
+movetype= A
+physics = N
+juggle  = 0
+poweradd= 0
+velset = 0,0
+anim = 2104
+sprpriority = 2
+ctrl = 0
+
+;---------------------[効果音]
+[state a];はああああ
+type = playsnd
+trigger1 = time = 0
+value = 2100,3
+
+[state a];ヒット音
+type = playsnd
+triggerall = time != 1
+triggerall = time != 7
+trigger1 = animelem = 2
+trigger2 = animelem = 5
+value = 2100,4
+
+
+;---------------------[ヒット数操作]
+[state a]
+type = hitadd
+triggerall = time != 6
+trigger1 = animelem = 3
+trigger2 = animelem = 6
+value = 1
+
+;---------------------[エフェクト]
+[State 1000, 5]
+type = Explod
+trigger1 = time = 4
+trigger2 = animelem = 2
+trigger3 = animelem = 5
+anim = 7003
+sprpriority = 3
+postype = p2
+pos = 0,-20
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+
+
+[State 3040, 7];画面フラッシュ
+type = EnvColor
+triggerall = time != 1
+triggerall = time != 7
+trigger1 = animelem = 2
+trigger2 = animelem = 5
+time = 1
+value = 255,255,255
+under = 2
+
+[State 1000, 5];変な衝撃波
+type = Explod
+trigger1 = time = 0
+anim = 2121
+id = 2121
+sprpriority = 5
+postype = p1
+pos = 0,0
+bindtime = 1
+supermove = 1
+removetime = -1
+under = 0
+ownpal = 1
+
+
+;---------------------[移動]
+[state a]
+type = posset
+trigger1 = time = 0
+y = -61
+;---------------------[振り向き]
+;---------------------[相手の制御]
+[State 801, 2]
+type = Targetstate
+trigger1 = time = 5
+value = 2153
+
+[state a]
+type = targetlifeadd
+triggerall = time != 1
+triggerall = time != 7
+trigger1 = animelem = 2
+trigger2 = animelem = 5
+value = -1
+kill = 0
+
+;---------------------[カメラ、距離関係]
+[State 1];カメラ固定
+type = screenbound
+trigger1 = 1
+value = 1
+movecamera = 1
+
+;---------------------[ステートの終了]
+[state a]
+type = changestate
+trigger1 = time = 200
+value = 2105
+
+
+
+;:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;  ディスポジションフロッグ・変な衝撃波終了
+[Statedef 2105]
+type    = A
+movetype= A
+physics = N
+juggle  = 0
+poweradd= 0
+velset = 0,0
+anim = 2105
+sprpriority = 3
+ctrl = 0
+
+;---------------------[効果音]
+[state a];ヒット音
+type = playsnd
+trigger1 = animelemtime(3) = 1
+value = 2100,4
+
+
+;---------------------[ヒット数操作]
+[state a]
+type = hitadd
+trigger1 = animelemtime(3) = 1
+value = 1
+
+;---------------------[エフェクト]
+[State a]
+type = removeexplod
+trigger1 = animelem = 3
+id = 2121
+
+
+[State 3040, 7];画面フラッシュ
+type = EnvColor
+trigger1 = animelemtime(3) = 1
+time = 1
+value = 255,255,255
+under = 2
+
+
+;---------------------[移動]
+[state a]
+type = velset
+trigger1 = animelem = 4
+y = 3
+
+[state a]
+type = veladd
+trigger1 = animelem = 4,>=0
+y = 0.3
+;---------------------[振り向き]
+;---------------------[相手の制御]
+[State 801, 2]
+type = Targetstate
+trigger1 = animelemtime(4) = 3
+value = 2154
+
+[state a]
+type = targetlifeadd
+trigger1 = animelemtime(3) = 1
+value = -1
+kill = 0
+
+;---------------------[カメラ、距離関係]
+[State 1];カメラ固定
+type = null;screenbound
+trigger1 = 1
+value = 1
+movecamera = 1
+
+;---------------------[ステートの終了]
+[state a]
+type = changestate
+trigger1 = animtime = 0
+value = 2106
+
+
+;:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;  ディスポジションフロッグ・フィニッシュ
+[Statedef 2106]
+type    = A
+movetype= A
+physics = N
+juggle  = 0
+poweradd= 0
+velset = 0,0
+anim = 2106
+sprpriority = 3
+ctrl = 0
+
+;---------------------[効果音]
+[state a];着地
+type = playsnd
+trigger1 = animelem = 1
+value = 40,0
+
+[state a];天に代わって
+type = playsnd
+trigger1 = animelem = 4
+value = 192,0
+
+[state a];お仕置き完了
+type = playsnd
+trigger1 = animelem = 50
+trigger1 = var(2) = 0
+value = 3181,0
+
+[state a];成敗
+type = playsnd
+trigger1 = animelem = 53
+trigger1 = var(2) = 1
+value = 192,1
+
+
+
+[state a];ドカーン
+type = playsnd
+trigger1 = animelemtime(60) = 42
+value = 2100,6
+
+
+;---------------------[変数セット]
+[state a];変身用
+type = varset
+trigger1 = time = 0
+v = 7
+value = 1
+
+[state a];スロー処理
+type = varset
+trigger1 = animelemtime(60) = 42
+v = 4
+value = 30
+
+[State 180, 1];ランダムボイス
+type = VarRandom
+trigger1 = Time = 0
+v = 2
+range = 0,1
+
+
+
+;---------------------[エフェクト]
+
+[State 3040, 7];画面フラッシュ
+type = EnvColor
+trigger1 = animelemtime(60) = 42
+time = 1
+value = 255,255,255
+under = 2
+
+
+[State 1020, 4];画面揺れ
+type = EnvShake
+trigger1 = animelemtime(60) = 42
+time = 20
+ampl = -12
+freq = 95
+phase = 95
+
+[State 1000, 5]
+type = Explod
+trigger1 = animelemtime(60) = 42
+anim = 2199
+sprpriority = 5
+postype = p2
+pos = 0,0
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+
+;---------------------[移動]
+[state a]
+type = posset
+trigger1 = time = 0
+y = 0
+
+;---------------------[振り向き]
+;---------------------[相手の制御]
+[State 801, 2]
+type = Targetstate
+trigger1 = time = 0
+value = 2155
+
+[state a]
+type = targetlifeadd
+trigger1 = animelemtime(60) = 42
+value = -303
+
+
+;---------------------[カメラ、距離関係]
+[State 1];カメラ固定
+type = screenbound
+trigger1 = 1
+value = 1
+movecamera = 1
+
+;---------------------[ステートの終了]
+[state a]
+type = changestate
+trigger1 = animtime = 0
+value = 0
+ctrl = 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;---------------------------------------------------------------------------
+;投げられている相手
+[Statedef 2150]
+type    = A
+movetype= H
+physics = N
+velset = 0,0
+sprpriority = 1
+
+[State 820, 1]
+type = ChangeAnim2
+Trigger1 = Time = 0
+value = 2150
+
+[State 1];カメラ固定
+type = screenbound
+trigger1 = 1
+value = 1
+movecamera = 1
+
+[state a]
+type = velset
+trigger1 = animelem = 1
+y = 7
+
+[State 821, 1] ;これは重力これは毎フレーム事に0.4の力が加わります
+type = null;VelAdd
+Trigger1 = animelem = 1,>= 0
+y = .4
+
+[State 821, 3] 
+type = changeState
+triggerall = Vel Y > 0
+trigger1 = Pos Y >= 0
+value = 2151
+
+
+;---------------------------------------------------------------------------
+;投げられている相手2
+[Statedef 2151]
+type    = A
+movetype= H
+physics = N
+velset = 0,0
+sprpriority = 1
+
+[State 820, 1]
+type = ChangeAnim2
+Trigger1 = Time = 0
+value = 2151
+
+[State 1027, 音を鳴らす]
+type = PlaySnd
+trigger1 = Time = 0
+value = F7,2
+
+
+[State 1020, 4]
+type = EnvShake
+trigger1 = time = 0
+time = 15
+ampl = -8
+freq = 95
+phase = 95
+
+[State 1];カメラ固定
+type = screenbound
+trigger1 = 1
+value = 1
+movecamera = 1
+
+[state a]
+type = velset
+trigger1 = time = 0
+y = 0
+
+[state a]
+type = velset
+trigger1 = animelem = 2
+y = -6
+
+[State 821, 1] ;これは重力これは毎フレーム事に0.4の力が加わります
+type = VelAdd
+Trigger1 = animelem = 2,>= 0
+y = 0.4
+
+[State 821, 3] 
+type = SelfState
+triggerall = Vel Y > 0
+trigger1 = Pos Y >= 0
+value = 5100 
+
+;---------------------------------------------------------------------------
+;投げられている相手3
+[Statedef 2152]
+type    = A
+movetype= H
+physics = N
+velset = 0,0
+sprpriority = 1
+
+[State 820, 1]
+type = ChangeAnim2
+Trigger1 = Time = 0
+value = 2152
+
+[State 1];カメラ固定
+type = screenbound
+trigger1 = 1
+value = 1
+movecamera = 1
+
+[state a]
+type = velset
+trigger1 = time = 0
+y = -7
+
+
+[State 821, 1] ;これは重力これは毎フレーム事に0.4の力が加わります
+type = VelAdd
+Trigger1 = 1
+y = 0.4
+
+[State 821, 3] 
+type = SelfState
+triggerall = Vel Y > 0
+trigger1 = Pos Y >= 0
+value = 5100 
+
+;---------------------------------------------------------------------------
+;投げられている相手4
+[Statedef 2153]
+type    = A
+movetype= H
+physics = N
+velset = 0,0
+sprpriority = 1
+
+[state a]
+type = posset
+trigger1 = time = 0
+y = 0
+
+[State 820, 1]
+type = ChangeAnim2
+Trigger1 = Time = 0
+value = 2153
+
+[State 1];カメラ固定
+type = null;screenbound
+trigger1 = 1
+value = 1
+movecamera = 1
+
+
+;---------------------------------------------------------------------------
+;投げられている相手5
+[Statedef 2154]
+type    = A
+movetype= H
+physics = N
+velset = 0,0
+sprpriority = 1
+
+[state a]
+type = posset
+trigger1 = time = 0
+y = 0
+
+[State 820, 1]
+type = ChangeAnim2
+Trigger1 = Time = 0
+value = 2154
+
+[State 1];カメラ固定
+type = null;screenbound
+trigger1 = 1
+value = 1
+movecamera = 1
+
+;---------------------------------------------------------------------------
+;投げられている相手6
+[Statedef 2155]
+type    = A
+movetype= H
+physics = N
+velset = 0,0
+sprpriority = 1
+
+[State 1000, 0]
+type = PalFX
+trigger1 = Animelem = 6
+time = 38
+add = 230,180,124
+mul = 240,200,100
+sinadd = 63,65,68,18
+;invertall = 1
+color = 1
+
+[State 820, 1]
+type = ChangeAnim2
+Trigger1 = Time = 0
+value = 2155
+
+[State 1];カメラ固定
+type = null;screenbound
+trigger1 = 1
+value = 1
+movecamera = 1
+
+[state a]
+type = velset
+trigger1 = animelem = 6
+x = 8
+y = -8
+
+[State 821, 1] ;これは重力これは毎フレーム事に0.4の力が加わります
+type = VelAdd
+Trigger1 = animelem = 6,>= 0
+y = .4
+
+[State 821, 3] 
+type = SelfState
+triggerall = Vel Y > 0
+trigger1 = Pos Y >= 0
+value = 5100
+
+
+

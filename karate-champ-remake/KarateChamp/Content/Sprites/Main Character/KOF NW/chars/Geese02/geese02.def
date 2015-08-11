@@ -1,0 +1,29 @@
+[Info]
+name = "Geese Howard"
+displayname = "GEESE"
+versiondate = 08,01,2005
+mugenversion = 04,14,2001
+author = "minmeisyobou"
+pal.defaults=1,2,3,4
+
+; Files for the player
+[Files]
+cmd     = geese.cmd   ;Command set;
+;cmd     = geeseFIX.cmd   ;Command set
+cns     = geese.cns   ;Constants
+st      = geese.cns   ;States
+st2     = config.txt
+stcommon = common1.cns ;Common states
+sprite  = geese.sff   ;Sprite
+anim    = geese.air   ;Animation
+sound   = geese.snd   ;Sound
+pal1    = geese1.act  ;Palettes (can have up to 12)
+pal2    = geese2.act  ;Palettes (can have up to 12)
+pal3    = geese3.act  ;Palettes (can have up to 12)
+pal4    = geese4.act  ;Palettes (can have up to 12)
+pal5    = geese5.act  ;Palettes (can have up to 12)
+
+
+[Arcade]
+;intro.storyboard = 
+ending.storyboard = 

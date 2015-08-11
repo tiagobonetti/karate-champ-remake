@@ -48,7 +48,7 @@ namespace KarateChamp {
         }
         
         public void Update(GameTime gameTime) {
-            System.Diagnostics.Debug.WriteLine(type);
+       //     System.Diagnostics.Debug.WriteLine(type);
             bool fadeEnded;
             switch (type) {
                 case Type.FadeIn:
@@ -97,7 +97,7 @@ namespace KarateChamp {
                 ended = false;
                 elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 alpha = ((elapsedTime * 100) / length) / 100;
-           //     System.Diagnostics.Debug.WriteLine("FadeOut - Alpha: " + alpha + " Elapsed Time " + elapsedTime);
+                System.Diagnostics.Debug.WriteLine("FadeOut - Alpha: " + alpha + " Elapsed Time " + elapsedTime);
             }
             else {
                 ended = true;

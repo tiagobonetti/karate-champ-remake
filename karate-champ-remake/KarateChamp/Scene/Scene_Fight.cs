@@ -10,9 +10,11 @@ using System.Text;
 namespace KarateChamp {
     public class Scene_Fight : Scene {
 
-        public const float floor = 430;
+        public IPlayerInput WhiteInput { get; set; }
+        public IPlayerInput RedInput { get; set; }
         public int roundNumber = 0;
-        Scoreboard scoreboard = new Scoreboard();
+        Scoreboard scoreboard;
+        int maxScore = 4;
         DEBUG_Collision debugCollision = new DEBUG_Collision();
         Timer timer = new Timer();
         State state;
@@ -21,12 +23,12 @@ namespace KarateChamp {
         PlayerCharacter redCharacter;
         Vector2 whiteStartingPosition;
         Vector2 redStartingPosition;
-        public IPlayerInput WhiteInput { get; set; }
-        public IPlayerInput RedInput { get; set; }
 
         Texture2D spritesheet;
         Texture2D bg;
         Texture2D fightText;
+        Texture2D whiteText;
+        Texture2D redText;
         Texture2D koText;
 
         public Scene_Fight(MainGame game) {
@@ -38,7 +40,7 @@ namespace KarateChamp {
             this.game = game;
             this.roundNumber = roundNumber;
             this.scoreboard = scoreBoard;
-            System.Diagnostics.Debug.WriteLine("-------------Round " + roundNumber + " Score " + scoreboard.Score[0]);
+            System.Diagnostics.Debug.WriteLine("-------------Round " + roundNumber + " Score p1: " + scoreboard.Score[0] + " p2: " + scoreboard.Score[1]);
             Init();
         }
 
@@ -82,28 +84,33 @@ namespace KarateChamp {
         }
 
         public void Draw() {
+            game.graphics.GraphicsDevice.Clear(Color.Black);
             switch (state) {
                 case State.BuildGameObjects:
                     DrawBackground();
                     break;
                 case State.PreFight:
                     DrawBackground();
+                    scoreboard.Draw(game.spriteBatch);
                     redCharacter.Draw(game.spriteBatch);
                     whiteCharacter.Draw(game.spriteBatch);
                     break;
                 case State.JudgeStart:
                     DrawBackground();
+                    scoreboard.Draw(game.spriteBatch);
                     redCharacter.Draw(game.spriteBatch);
                     whiteCharacter.Draw(game.spriteBatch);
                     DrawFightText();
                     break;
                 case State.Play:
                     DrawBackground();
+                    scoreboard.Draw(game.spriteBatch);
                     redCharacter.Draw(game.spriteBatch);
                     whiteCharacter.Draw(game.spriteBatch);
                     break;
                 case State.EndRound:
                     DrawBackground();
+                    scoreboard.Draw(game.spriteBatch);
                     redCharacter.Draw(game.spriteBatch);
                     whiteCharacter.Draw(game.spriteBatch);
                     DrawKOText();
@@ -128,8 +135,13 @@ namespace KarateChamp {
         }
 
         public void ScoreThisRound(GameTime gameTime, string name, CharacterState attackState) {
-            System.Diagnostics.Debug.WriteLine("-------------------Round " + roundNumber + " Score " + scoreboard.Score[0]);
             scoreboard.AddScore(name, 1, attackState);
+            if (name == "p1") {
+                koText = whiteText;
+            }
+            else {
+                koText = redText;
+            }
             state = State.EndRound;
         }
 
@@ -148,14 +160,14 @@ namespace KarateChamp {
 
         bool GameEnded() {
             for (int i = 0; i < scoreboard.Score.Length; i++)
-                if (scoreboard.Score[i] >= 2)
+                if (scoreboard.Score[i] >= maxScore)
                     return true;
             return false;
         }
 
         void Restart() {
             game.sceneControl.fight = new Scene_Fight(game, roundNumber + 1, scoreboard);
-            game.sceneControl.EnterScene(SceneType.Fight);
+            game.sceneControl.EnterScene(SceneType.Fight, SceneTransition.Type.FadeIn, 1.2f);
         }
 
         void DrawBackground() {
@@ -166,20 +178,31 @@ namespace KarateChamp {
         }
 
         void DrawFightText() {
-            Vector2 position = new Vector2(game.graphics.PreferredBackBufferWidth * 0.5f, game.graphics.PreferredBackBufferHeight * 0.5f - 70f);
+            Vector2 position = new Vector2(game.graphics.PreferredBackBufferWidth * 0.6f, game.graphics.PreferredBackBufferHeight * 0.2f);
             game.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
             game.spriteBatch.Draw(fightText, position, null, null, new Vector2(fightText.Width * 0.5f, fightText.Height * 0.5f), 0f, Vector2.One, Color.White, SpriteEffects.None, 0f);
             game.spriteBatch.End();
         }
 
         void DrawKOText() {
-            Vector2 position = new Vector2(game.graphics.PreferredBackBufferWidth * 0.5f, game.graphics.PreferredBackBufferHeight * 0.5f - 70f);
+            Vector2 position;
             game.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
-            game.spriteBatch.Draw(koText, position, null, null, new Vector2(koText.Width * 0.5f, koText.Height * 0.5f), 0f, Vector2.One * 0.5f, Color.White, SpriteEffects.None, 0f);
+            if (koText == whiteText) {
+                position = new Vector2(game.graphics.PreferredBackBufferWidth * 0.4f, game.graphics.PreferredBackBufferHeight * 0.2f);
+            }
+            else {
+                position = new Vector2(game.graphics.PreferredBackBufferWidth * 0.6f, game.graphics.PreferredBackBufferHeight * 0.2f);
+            }
+            game.spriteBatch.Draw(koText, position, null, null, new Vector2(koText.Width * 0.5f, koText.Height * 0.5f), 0f, Vector2.One, Color.White, SpriteEffects.None, 0f);
             game.spriteBatch.End();
         }
 
         void BuildGameObjects() {
+            floor = 450f;
+            if (scoreboard == null) {
+                scoreboard = new Scoreboard(game);
+            }
+
             whiteStartingPosition = new Vector2(game.graphics.PreferredBackBufferWidth / 2 - 280, floor - 53);
             redStartingPosition = new Vector2(game.graphics.PreferredBackBufferWidth / 2 - 70, floor - 53);
 
@@ -212,7 +235,9 @@ namespace KarateChamp {
         public virtual void Init() {
             spritesheet = game.Content.Load<Texture2D>("Sprites/Main Character/CharacterSpritesheet");
             bg = game.Content.Load<Texture2D>("Sprites/Background/Bg");
-            fightText = game.Content.Load<Texture2D>("GUI/Fight");
+            fightText = game.Content.Load<Texture2D>("GUI/BEGIN");
+            whiteText = game.Content.Load<Texture2D>("GUI/WHITE");
+            redText = game.Content.Load<Texture2D>("GUI/RED");
             koText = game.Content.Load<Texture2D>("GUI/KO");
             state = State.BuildGameObjects;
         }

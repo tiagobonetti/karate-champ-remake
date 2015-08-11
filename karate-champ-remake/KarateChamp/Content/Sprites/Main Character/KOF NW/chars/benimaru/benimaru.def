@@ -1,0 +1,52 @@
+;---------------------------
+; BENIMARU NIKAIDO
+; Version 1.0
+;---------------------------
+
+
+; Character information
+[Info]
+name         ="Benimaru Nikaido"
+displayname  ="BENIMARU"
+author       ="Deuce"
+updated by   = "Sander71113"
+versiondate  =08,23,2004
+mugenversion =04,14,2001
+pal.defaults =10,1,3,2
+
+; Files for the character
+[Files]
+cmd     =benimaru.cmd
+;cmd      = benimedai.cmd   ;Medium-Ai
+;cmd     = beninoai.cmd     ;No-Ai
+cns      =benimaru.cns
+st       =benimaru.cns
+stcommon =common1.cns
+sprite   =benimaru.sff
+anim     =benimaru.air
+sound    =benimaru.snd
+pal1=beni96d.act
+pal2=beni97d.act
+pal3=beni99d.act
+pal4=beni99a.act
+pal5=beni94d.act
+pal6=beni95d.act
+pal7=beni98b.act
+pal8=beni98c.act
+pal9=beni98d.act
+pal10=beni2ka.act
+pal11=beni2kb.act
+pal12=extra.act
+st1=benimarua.cns
+st2=benimarub.cns
+
+[Arcade]
+intro.storyboard=
+ending.storyboard=
+;ending.storyboard = beniend.def
+
+
+;Product of Sander71113 and Deuce
+;http://go.to/sander71113
+;http://sander71113.mgbr.net
+;sander71113@yahoo.com

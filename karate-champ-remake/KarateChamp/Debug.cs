@@ -9,8 +9,8 @@ using Microsoft.Xna.Framework.Input;
 
 namespace KarateChamp {
     public static class Debug {
+        public static bool enabled = false;
         static SpriteFont arial20;
-        static bool enabled = true;
         static KeyboardState previousButtonState;
 
         public static void LoadContent(ContentManager content) {

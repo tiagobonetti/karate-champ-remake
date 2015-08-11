@@ -1,0 +1,32 @@
+;LAST UP DATA- 2006.10.07	Version=I-2 .thank you Chloe .thank you Maria-Azul
+[Info]
+Name="Kula Diamond"
+DisplayName="KULA "
+VersionDate=04,14,2001
+MugenVersion=04,14,2001
+Author="zzzasd"
+Pal.Defaults=1,2,3,4,5,6,7,8,9,10,11,12
+
+[Files]
+cmd=Kula.cmd
+cns=Kula.cns
+st=Kula.cns
+stcommon=Kulaa.cns
+sprite=Kula.sff
+anim=Kula.air
+sound=Kula.snd
+pal1=Kula2k2-B.act
+pal2=Kula2k2-D.act
+pal3=Kula2KOFXI(Maria-Azul).act
+pal4=Kula2k2-A.act
+pal5=Kula2k2-C.act
+pal6=KulaKOFXI(Maria-Azul).act
+pal7=Kula3KOFXI(Maria-Azul).act
+pal8=Kula3KOFXI(Maria-Azul).act
+pal9=Kula2KOFXI(Maria-Azul).act
+pal10=Kula4KOFXI(Maria-Azul).act
+pal11=Kula4KOFXI(Maria-Azul).act
+pal12=KulaKOFXI(Maria-Azul).act
+st1=Kulab.cns
+st2=Kulac.cns
+

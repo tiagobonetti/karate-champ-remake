@@ -1,0 +1,984 @@
+;----------------------------------------------------------------------------
+; Char = "Blue Mary"  
+; Criado por = "ActJapan" 
+; URL= http://www.mzp.com.br 
+; 
+; ## Nós não Temos Nenhuma Responsabilidade por esse char ##             
+;----------------------------------------------------------------------------
+;		http://www.mzp.com.br
+;----------------------------------------------------------------------------
+; Divulgue seu Char em nosso Site Gratuitamente !!!!!!!!!!!
+; Mais Informações www.mzp.com.br  ou www.mugenzpower.hpg.com.br
+;----------------------------------------------------------------------------
+;		http://www.mzp.com.br
+;----------------------------------------------------------------------------
+; Esse Char foi pego no Site MugenZPower www.mugenzpower.rg3.net
+; Se você pegou esse char em outro site com o nosso link, porfavor nos avise.
+;----------------------------------------------------------------------------
+;		http://www.mzp.com.br
+;----------------------------------------------------------------------------
+; Tire todas Suas Duvidas sobre Mugen no nosso Fòrum
+; http://www.mzp.com.br/forum
+;----------------------------------------------------------------------------
+;		http://www.mzp.com.br
+:=============================================================================================
+;Distribuido pela = "MugenZPower"							      
+;URL  = WWW.mzp.com.br     OU   WWW.MUGENZPOWER.RG3.NET   OU  WWW.MUGENZPOWER.HPG.COM.BR  
+;=============================================================================================
+;=====================================================================
+;MUGEN CharData (01.04.14)
+;"MaryAct3nd"                                                 ActJapan
+;=====================================================================
+
+;---------------------------------------------------------------------
+; Šî–{İ’è
+[Data]
+life = 1000          ; ‘Ì—ÍƒQ[ƒWAãŒÀ’liƒfƒtƒHƒ‹ƒgF1000j
+attack = 100         ; UŒ‚—Íi“j
+defence = 100        ; –hŒä—Íi“j
+fall.defence_up = 50 ; ‹ó’†ƒRƒ“ƒ{C³—¦i“j
+liedown.time = 40    ; ƒ_ƒEƒ“ŠÔ
+airjuggle = 9        ; ‹ó’†ƒRƒ“ƒ{
+sparkno = 2        ; ‰ŠúƒqƒbƒgƒXƒp[ƒN”Ô†
+guard.sparkno = 40 ; ‰ŠúƒK[ƒhƒXƒp[ƒN”Ô†
+KO.echo = 0          ; ‚j‚nƒ{ƒCƒXƒGƒR[i0:OFFA1:ONj
+volume = -5          ; ƒLƒƒƒ‰ƒ{ƒCƒXƒ{ƒŠƒ…[ƒ€’l
+Power = 5000
+IntPersistIndex = 8,30,36
+
+[Size]
+xscale = 1           ; …•½ƒTƒCƒY”{—¦
+yscale = 1           ; ‚’¼ƒTƒCƒY”{—¦
+ground.back = 18     ; ƒLƒƒƒ‰•i’nãAŒã‚ë‘¤j
+ground.front = 17    ; ƒLƒƒƒ‰•i’nãA‘O‘¤j
+air.back = 15        ; ƒLƒƒƒ‰•i‹ó’†AŒã‚ë‘¤j
+air.front = 15       ; ƒLƒƒƒ‰•i‹ó’†A‘O‘¤j
+z.width = 10         ; ƒLƒƒƒ‰•i‚š²j
+height = 60	     ; ƒLƒƒƒ‰‚Ì‚‚³iƒWƒƒƒ“ƒv‚Å”ò‚Ñ‰z‚¹‚é‚‚³j
+attack.width = 4,4   ;Default attack width: back, front
+attack.dist = 160    ;Default attack distance
+proj.attack.dist = 90;Default attack distance for projectiles
+proj.doscale = 0     ;Set to 1 to scale projectiles too   
+head.pos = -5,-88    ; “ª•”À•W
+mid.pos = -4,-57     ; ‘Ì’†S•”À•W
+shadowoffset = 2     ; ƒLƒƒƒ‰‚Ì‰eEƒIƒtƒZƒbƒg’l
+
+[Velocity]
+walk.fwd  = 2.65		; ‘Oi‘¬“x
+walk.back = -2.43		; Œã‘Ş‘¬“x
+run.fwd  = 5.52, 0		; ‘Oƒ_ƒbƒVƒ…‘¬“xiy<0‚Ìê‡AƒzƒbƒvƒXƒeƒbƒvj
+run.back = -6.60,-3.8		; ƒoƒbƒNƒXƒeƒbƒv‘¬“xiy=0‚Ìê‡A‘–‚èj
+jump.neu = 0,-8.0		; ‚’¼ƒWƒƒƒ“ƒv‘¬“x
+jump.back = -3.08		; Œã•ûƒWƒƒƒ“ƒv‘¬“x
+jump.fwd = 3.50			; ‘O•ûƒWƒƒƒ“ƒv‘¬“x
+runjump.back = -4.70,-5.9	; Œã•ûƒWƒƒƒ“ƒv‘¬“xiƒ_ƒbƒVƒ…’†j
+runjump.fwd = 4.90,-5.9		; ‘O•ûƒWƒƒƒ“ƒv‘¬“xiƒ_ƒbƒVƒ…’†j
+;airjump.neu = 0,-9.1		; ‹ó’†‚’¼ƒWƒƒƒ“ƒv‘¬“x
+;airjump.back = -2.55,-8.1	; ‹ó’†Œã•ûƒWƒƒƒ“ƒv‘¬“x
+;airjump.fwd = 2.5,-8.1		; ‹ó’†‘O•ûƒWƒƒƒ“ƒv‘¬“x
+
+[Movement]
+airjump.num = 0       ; ‹ó’†ƒWƒƒƒ“ƒv‰ñ”
+;airjump.height = 35  ; ‹ó’†ƒWƒƒƒ“ƒvÅ’á‚“x
+yaccel = .43          ; ƒLƒƒƒ‰d—Í‰Á‘¬“x
+stand.friction = .87  ; –€CŒW”i—§‚¿ó‘Ôj
+crouch.friction = .84 ; –€CŒW”i‚µ‚á‚ª‚İó‘Ôj
+
+;=====================================================================
+; Stuff to do
+;=====================================================================
+
+[Statedef -2]
+
+[State -2, AI]
+type = Helper
+trigger1 = !NumHelper(7999) && RoundState = 2
+name = "AI"
+id = 7999
+pos = 500,500
+stateno = 7999
+keyctrl = 1
+sprpriority = -2
+
+;++++++++++++++++++++++++++++++++
+; STŒÄ‚Ño‚µStateNoƒNƒŠƒA
+[State -2,VarSet]
+type = VarSet
+trigger1 = StateNo != Var(37)
+v = 37
+value = 0
+
+;++++++++++++++++++++++++++
+; STƒqƒbƒgŒã’ÇŒ‚•â³ƒNƒŠƒA
+[State -2,VarSet]
+type = VarSet
+trigger1 = P2MoveType != H
+trigger1 = fVar(38)!=1
+fv = 38
+value = 1
+
+[State -2,VarSet]
+type = VarSet
+triggerall = NumHelper(7100)=1
+trigger1 = Helper(7100),MoveHit=1
+trigger1 = P2MoveType = H
+fv = 38
+value = IfElse(NumHelper(7100)+NumHelper(7200)+NumHelper(7300)=1,0.65,IfElse(NumHelper(7100)+NumHelper(7200)+NumHelper(7300)=2,0.75,0.85))
+
+[State -2,VarSet]
+type = VarSet
+triggerall = NumHelper(7300)=1
+trigger1 = Helper(7300),MoveHit=1
+trigger1 = P2MoveType = H
+fv = 38
+value = IfElse(NumHelper(7100)+NumHelper(7200)+NumHelper(7300)=1,0.65,IfElse(NumHelper(7100)+NumHelper(7200)+NumHelper(7300)=2,0.75,0.85))
+
+[State -2,VarSet]
+type = VarSet
+triggerall = NumHelper(7200)=1
+;trigger1 = (Helper(7200),MoveHit=1) || (Helper(7200),ProjHit7900 = 1,<=30)
+trigger1 = P2MoveType = H
+fv = 38
+value = IfElse(NumHelper(7100)+NumHelper(7200)+NumHelper(7300)=1,0.65,IfElse(NumHelper(7100)+NumHelper(7200)+NumHelper(7300)=2,0.75,0.85))
+
+;++++++++++++++++++++++++++++++++
+; ’ÇŒ‚•s‰Âƒtƒ‰ƒO A
+[State -2,VarSet]
+type = VarSet
+triggerall = Var(29)!=0
+trigger1 = P2MoveType != H
+trigger2 = MoveType = H
+v = 29
+value = 0
+
+; ’ÇŒ‚•s‰Âƒtƒ‰ƒO B
+[State -2,VarSet]
+type = VarSet
+triggerall = Var(15)!=0
+trigger1 = P2MoveType != H
+trigger2 = MoveType = H
+v = 15
+value = 0
+
+;@’Êí‹Z
+[State -2,VarSet]
+type = VarSet
+triggerall = Var(29)=0
+triggerall = MoveType != H
+trigger1 = StateNo=[3000,3999]
+trigger2 = StateNo=1300 && MoveHit && Var(32)=0
+trigger3 = StateNo=1310 && MoveHit && Var(32)=0
+trigger4 = StateNo=1350 && MoveHit && Var(32)=0
+trigger5 = StateNo=1360 && MoveHit && Var(32)=0
+trigger6 = StateNo=1212 && MoveHit && Var(32)=0
+trigger7 = StateNo=1232 && MoveHit && Var(32)=0
+v = 29
+value = 1
+
+;
+[State -2,VarSet]
+type = VarSet
+triggerall = Var(15)=0
+triggerall = MoveType != H
+trigger1 = StateNo=[3000,3099]
+trigger2 = StateNo=[3200,3399]
+trigger3 = StateNo=[3400,3699]
+trigger4 = StateNo=[3800,3999]
+v = 15
+value = 1
+
+;---------------------------------------------------------------------
+; ƒJƒEƒ“ƒ^[ƒqƒbƒgŠÖ˜A
+[State -2,VarSet]
+type = VarSet
+triggerall = P2StateNo = [200,2999]
+triggerall = P2Movetype = A
+trigger1 = movetype = A
+trigger1 = movetype != H
+var(13) = 1
+ignorehitpause = 1
+
+[State -2,Envcolor]
+type = Envcolor
+triggerall = NumEnemy
+triggerall = Var(13) != 0
+triggerall = enemy,movetype = H
+trigger1 = HitPauseTime = 1
+value = 255, 255, 255
+persistent = 0
+ignorehitpause = 1
+time = 1
+under = 1
+
+[State -2,VarSet]
+type = VarSet
+triggerall = NumEnemy
+triggerall = var(13) != 0
+triggerall = var(48) = 0
+trigger1 = movetype = A
+trigger1 = movehit
+var(48) = IfElse((Stateno=600),40,0)
+ignorehitpause = 1
+
+[State -2,VarAdd]
+type = VarAdd
+triggerall = NumEnemy
+triggerall = var(48) != 0
+trigger1 = enemy,movetype = H
+v = 48
+value = -1
+ignorehitpause = 1
+
+[State -2,VarSet]
+type = VarSet
+triggerall = NumEnemy
+triggerall = var(13) = 0
+triggerall = var(48) != 0
+trigger1 = enemy,movetype != H
+trigger2 = movetype = H
+v = 48
+value = 0
+ignorehitpause = 1
+
+[State -2,VarSet]
+type = VarSet
+triggerall = NumEnemy
+triggerall = var(13) != 0
+trigger1 = enemy,movetype != A
+trigger2 = enemy,movetype = H && enemy,Time = 1
+trigger3 = movetype != A
+trigger4 = movetype = H
+var(13) = 0
+ignorehitpause = 1
+
+;-------------------------------------------
+
+'juggle§Œä1
+[State -2,VarSet]
+type = VarSet
+triggerall = Var(44)=0
+triggerall = Var(36)=2
+trigger1 = 1
+v = 44
+value = 1
+
+[State -2,VarSet]
+type = VarSet
+triggerall = Var(44)=0
+triggerall = Var(36)!=2
+trigger1 = 1
+v = 44
+value = 0
+
+'juggle§Œä2
+[State -2,VarSet]
+type = VarSet
+triggerall = Var(45)=0
+triggerall = Var(36)=2
+trigger1 = 1
+v = 45
+value = 2
+
+[State -2,VarSet]
+type = VarSet
+triggerall = Var(45)!=0
+triggerall = Var(36)!=2
+triggerall = Var(32)!=0
+trigger1 = 1
+v = 45
+value = 1
+
+[State -2,VarSet]
+type = VarSet
+triggerall = Var(45)!=0
+triggerall = Var(36)!=2
+triggerall = Var(32)=0
+trigger1 = 1
+v = 45
+value = 0
+
+;---------------------------------------------------------------------
+;ƒ_ƒ[ƒWƒpƒ[ƒQ[ƒW‘‰Á
+[State -2,PowerAdd]
+type = PowerAdd
+trigger1 = GetHitVar(damage) > 0
+trigger1 = GetHitVar(hitcount) > 0
+value = Ceil(GetHitVar(damage)/GetHitVar(hitcount))
+
+[State -2,PowerAdd]
+type = PowerAdd
+trigger1 = GetHitVar(damage) > 0
+trigger1 = GetHitVar(hitcount) = 0
+value = Ceil(GetHitVar(damage))
+
+;---------------------------------------------------------------------
+; ƒ_ƒ[ƒW‚Ì“ÁêƒGƒtƒFƒNƒgÁ‹
+[State -2,AfterImageTime]
+type = AfterImageTime
+trigger1 = MoveType = H
+time = 0
+
+[State -2,RemoveExplod]
+type = RemoveExplod
+trigger1 = MoveType = H && !NumExplod(1045) = 0
+ID = 1045
+
+[State -2,RemoveExplod]
+type = RemoveExplod
+trigger1 = MoveType = H && !NumExplod(4010) = 0
+ID = 4010
+
+[State -2,RemoveExplod]
+type = RemoveExplod
+trigger1 = MoveType = H && !NumExplod(4020) = 0
+ID = 4020
+
+;---------------------------------------------------------------------
+; ‹N‚«ã‚ª‚è”½Œ‚
+[State 3000,PalFx]
+type = PalFx
+triggerall = Time = 1
+triggerall = PrevStateNo = 5120
+triggerall = MoveType != H
+trigger1 = StateNo = [1000,1999]
+trigger2 = StateNo = [3000,3999]
+add = 63,63,93
+sinadd = 63,63,93,10
+time = 5
+
+;---------------------------------------------------------------------
+; ƒK[ƒhƒLƒƒƒ“ƒZƒ‹‹Ù‹}‰ñ”ğ“®ì”»’è
+[State -2,2]
+type = VarSet
+trigger1 = Time = 0 && (StateNo = 150 || StateNo = 152 || StateNo = 154)
+v = 4
+value = 1
+
+[State -2,3]
+type = VarSet
+trigger1 = Var(4)  = 1 && Time = 15
+v = 4
+value = 0
+
+;---------------------------------------------------------------------
+; Sound Fix
+[State -2,4]
+type = PlaySnd
+trigger1 = Time = 1 && StateNo = 52
+value = 47, 0
+
+[State -2,PlaySnd]
+type = PlaySnd
+triggerall = Time = 1 && Alive && Random < 333
+triggerall = StateNo = 5000 || StateNo = 5010
+trigger1 = Anim = 5000 || Anim = 5010 || Anim = 5020
+value = 5000, 0
+
+[State -2,PlaySnd]
+type = PlaySnd
+triggerall = Time = 1 && Alive && Random < 333
+triggerall = StateNo = 5000 || StateNo = 5010
+trigger1 = Anim = 5001 || Anim = 5011 || Anim = 5021
+value = 5000, 1
+
+[State -2,PlaySnd]
+type = PlaySnd
+triggerall = Time = 1 && Alive && Random < 333
+triggerall = StateNo = 5000 || StateNo = 5010
+trigger1 = Anim = 5002 || Anim = 5012 || Anim = 5022
+value = 5000, 2
+
+[State -2,PlaySnd]
+type = PlaySnd
+triggerall = !MoveType = H && Time = 1
+trigger1 = StateNo = 200 || StateNo = 205 || StateNo = 220 || StateNo = 225
+trigger2 = StateNo = 400 || StateNo = 420
+trigger3 = StateNo = 500 || StateNo = 520
+value = 200, 0
+
+[State -2,PlaySnd]
+type = PlaySnd
+triggerall = !MoveType = H && Time = 1
+trigger1 = StateNo = 210 || StateNo = 215 || StateNo = 230 || StateNo = 235
+trigger2 = StateNo = 410 || StateNo = 430 || StateNo = 700 || StateNo = 720
+trigger3 = StateNo = 510 || StateNo = 530 || StateNo = 710 || StateNo = 750
+value = 200, 1
+
+[State -2,PlaySnd]
+type = PlaySnd
+triggerall = !MoveType = H
+trigger1 = StateNo = 730 && AnimElem = 3
+trigger2 = StateNo = 730 && AnimElem = 9
+value = 200, 1
+
+[State -2,PlaySnd]
+type = PlaySnd
+triggerall = !MoveType = H && Time = 1
+trigger1 = StateNo = 610
+value = 200, 2
+
+[State -2,PlaySnd]
+type = PlaySnd
+triggerall = !MoveType = H && Time = 1 && Random < 600
+trigger1 = StateNo = 200 || StateNo = 210 || StateNo = 400 || StateNo = 410
+trigger2 = StateNo = 500 || StateNo = 510 || StateNo = 515
+trigger3 = StateNo = 215 
+value = 500, 0
+
+[State -2,PlaySnd]
+type = PlaySnd
+triggerall = !MoveType = H && Time = 1 && Random < 600
+trigger1 = StateNo = 220 || StateNo = 230 || StateNo = 225 || StateNo = 235
+trigger2 = StateNo = 420 || StateNo = 430 || StateNo = 700 || StateNo = 710
+trigger3 = StateNo = 520 || StateNo = 530 || StateNo = 720 || StateNo = 730
+value = 500, 1
+
+[State -2,PlaySnd]
+type = PlaySnd
+triggerall = !MoveType = H && Time = 5
+trigger1 = StateNo = 970
+value = 500, 1
+
+[State -2,PlaySnd]
+type = PlaySnd
+triggerall = !MoveType = H && Time = 1 && Random < 600
+trigger1 = StateNo = 600 || StateNo = 610
+value = 500, 2
+
+;-----------------------------------------------------------
+; MAXg—pƒtƒ‰ƒOƒZƒbƒg
+[State -2,3]
+type = VarSet
+triggerall = fVar(32)=0
+triggerall = Var(32)!=0
+trigger1 = !MoveContact
+trigger1 = (Stateno = 225 || Stateno = 420 || Stateno = 430 || Stateno = 600)
+fv = 32
+value = 1
+
+; MAXg—pƒtƒ‰ƒOƒŠƒZƒbƒg
+[State -2,3]
+type = VarSet
+triggerall = fVar(32)!=0
+trigger1 = MoveType!=A
+trigger2 = Var(32)=0
+trigger3 = MoveContact
+trigger3 = (Stateno = 225 || Stateno = 420 || Stateno = 430 || Stateno = 600)
+fv = 32
+value = 0
+
+
+;”ò‚Ñ‚İƒtƒ‰ƒOƒŠƒZƒbƒg
+[State -2,3]
+type = VarSet
+trigger1 = Var(11)=1
+trigger1 = P2MoveType!=H
+v = 11
+value = 0
+
+;‹­ƒRƒ“ƒ{ƒtƒ‰ƒOƒŠƒZƒbƒg
+[State -2,3]
+type = VarSet
+triggerall = Var(31)!=0
+trigger1 = P2MoveType!=H
+trigger1 = !(Var(32)=0 && (Stateno = [200,420]))
+v = 31
+value = 0
+
+;---------------------------------------------------------------------
+; ŠeíƒWƒƒƒ“ƒv—pƒtƒ‰ƒO
+[State -2,VarSet]
+type = VarSet
+trigger1 = Time = 0 && Command = "holddown"
+persistent = 0
+v = 28
+value = 1
+
+[State -2,VarSet]
+type = VarSet
+trigger1 = Var(28) != 0 && Time = 5
+v = 28
+value = 0
+
+[State -2,VarSet]
+type = VarSet
+trigger1 = Var(25) != 0 && (StateType != A || MoveType = H)
+v = 25
+value = 0
+
+[State -2,VarSet]
+type = VarSet
+trigger1 = Var(26) != 0 && (StateType = A || MoveType = H)
+v = 26
+value = 0
+
+;---------------------------------------------------------------------
+; ¬”š”­ƒGƒtƒFƒNƒg—p
+; 
+[State -2,VarSet]
+type = VarSet
+triggerall = NumTarget
+trigger1 = Stateno = 3040 || Stateno = 3090
+trigger2 = Stateno = 3245 || Stateno = 3145
+trigger3 = MoveHit
+trigger3 = Stateno = 1400 || Stateno = 1450
+v = 49
+value = Target,ID
+ignorehitpause = 1
+
+;---------------------------------------------------------------------
+; UŒ‚—Í•â³EƒqƒbƒgƒJƒEƒ“ƒg”ƒZƒbƒg
+[State -2,VarAdd]
+type = VarAdd
+trigger1 = HitPauseTime = 1
+v = 3
+value = 1
+ignorehitpause = 1
+
+[State -2,VarSet]
+type = VarSet
+triggerall = Var(3) != 0
+trigger1 = !P2MoveType = H || (P2StateNo = [150,155]) || (P2StateNo = [5200,5201])
+v = 3
+value = 0
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Var(23)!=0
+trigger1 = P2MoveType!=H
+trigger2 = P2StateType=L
+v = 23
+value = 0
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Var(23)=0
+trigger1 = P2MoveType=H
+trigger1 = HitCount =1
+v = 23
+value = 5
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Var(23)=0
+trigger1 = P2MoveType=H
+trigger1 = HitCount =2
+v = 23
+value = 7
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Var(23)=0
+trigger1 = P2MoveType=H
+trigger1 = HitCount =3
+v = 23
+value = 9
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Var(23)=0
+trigger1 = P2MoveType=H
+trigger1 = HitCount =4
+v = 23
+value = 13
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Var(23)=0
+trigger1 = P2MoveType=H
+trigger1 = HitCount >=5
+v = 23
+value = 20
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Var(22)!=0
+trigger1 = P2MoveType!=H
+trigger2 = P2StateType=L
+v = 22
+value = 0
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Var(22)=0
+trigger1 = P2MoveType=H
+trigger1 = HitCount =1
+v = 22
+value = 2
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Var(22)=0
+trigger1 = P2MoveType=H
+trigger1 = HitCount =2
+v = 22
+value = 3
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Var(22)=0
+trigger1 = P2MoveType=H
+trigger1 = HitCount >=3
+v = 22
+value = 4
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Var(21)!=0
+trigger1 = fVar(33)=0
+v = 21
+value = 0
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Var(21)=0
+trigger1 = fVar(33)!=0
+v = 21
+value = 12
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Var(20)!=0
+trigger1 = fVar(33)=0
+v = 20
+value = 0
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Var(20)=0
+trigger1 = fVar(33)!=0
+v = 20
+value = 5
+
+[State -2,13]
+type = VarSet
+trigger1 = Var(32)!=0
+trigger1 = fVar(2)=0
+fv = 2
+value = 1000
+
+[State -2,13]
+type = VarSet
+trigger1 = Var(32)=0
+trigger1 = fVar(2)!=0
+fv = 2
+value = 0
+
+;[State 3000,AssertSpecial]
+;type = AssertSpecial
+;triggerall = Var(32)!=0
+;trigger1 = 1
+;flag = nojugglecheck
+
+[State -2,test]
+type=DisplayToClipboard
+trigger1=1
+text="PrevStateno:%d,DistX=%.3f,DistY=%.3f,P2StateNo=%d,Var(30):%d"
+params=PrevStateno,P2BodyDist X,P2BodyDist Y,P2Stateno,Var(30)
+
+;-----------------------------------
+;‚l‚`‚wƒ‚[ƒh TIMER
+
+[State -2,TIMER]
+type = Explod
+trigger1 = RoundState = 2
+trigger1 = NumExplod(8500)=0
+trigger1 = Var(32)=1
+anim = IfElse(TeamSide=1,2820,2840)
+ID = 8500
+pos = IfElse(TeamSide=1,31,286), 235-Var(1)*180
+postype = Left
+sprpriority = 7
+ontop = 1
+supermove = 1
+ownpal = 1
+bindtime = -1
+removetime = -1
+
+[State -2,TIMER]
+type = Explod
+trigger1 = RoundState = 2
+trigger1 = NumExplod(8501)=0
+trigger1 = Var(32)=1
+anim = IfElse(TeamSide=1,2830,2850)
+ID = 8501
+pos = IfElse(TeamSide=1,31,286), 235-Var(1)*180
+postype = Left
+sprpriority = 7
+ontop = 1
+supermove = 1
+ownpal = 1
+bindtime = -1
+removetime = -1
+;scale = 0.5, 0.5
+
+[State -2,TIMER]
+type = Explod
+trigger1 = RoundState = 2
+trigger1 = NumHelper(8888)!=0
+trigger1 = NumExplod(8520)=0
+;trigger1 = Var(32)=1
+anim = IfElse(TeamSide=1,2810,2860)
+ID = 8520
+pos = IfElse(TeamSide=1,31,286), 235-Var(1)*180
+postype = Left
+sprpriority = 7
+ontop = 1
+supermove = 1
+ownpal = 1
+bindtime = -1
+removetime = 8
+
+;-----------------------------------
+;TIMERŒ¸­
+[State -2, VarAdd]
+type = VarAdd
+trigger1 = RoundState = 2
+trigger1 = NumHelper(8888)=0
+trigger1 = NumExplod(8500)!=0 || NumExplod(8600)!=0
+trigger1 = Var(32)!=0
+trigger1 = 1
+fv = 33
+value = -1
+
+[State -2, VarSet]
+type = VarSet
+trigger1 = RoundState = 2
+trigger1 = NumHelper(8888)=0
+trigger1 = NumExplod(8500)!=0 || NumExplod(8600)!=0
+trigger1 = fVar(33)<0
+fv = 33
+value = 0
+
+;-----------------------------------
+;TIMER•`‰æ
+[State -2,ModifyExplod]
+type = ModifyExplod
+trigger1 = timemod = 2,1
+trigger1 = RoundState = 2
+trigger1 = NumExplod(8500)!=0
+trigger1 = Var(32)=1
+ID = 8501
+scale = (fVar(33)/1000),1
+
+[State -2]
+type = VarSet
+trigger1 = NumHelper(8888)=0
+trigger1 = Var(32)=2
+trigger1 = fVar(33)<=1000
+v = 32
+value = 1
+
+[State -2]
+type = VarSet
+trigger1 = NumHelper(8888)=0
+trigger1 = Var(32)!=0
+trigger1 = fVar(33)=0
+v = 32
+value = 0
+
+[State -2,RemoveExplod]
+type = RemoveExplod
+trigger1 = NumHelper(8888)=0
+trigger1 = NumExplod(8500)!=0
+trigger1 = Var(32)!=1
+ID = 8500
+
+[State -2,RemoveExplod]
+type = RemoveExplod
+trigger1 = NumHelper(8888)=0
+trigger1 = NumExplod(8501)!=0
+trigger1 = Var(32)!=1
+ID = 8501
+
+[State -2,RemoveExplod]
+type = RemoveExplod
+trigger1 = NumHelper(8888)=0
+trigger1 = NumExplod(8600)!=0
+trigger1 = Var(32)!=2
+ID = 8600
+
+[State -2,RemoveExplod]
+type = RemoveExplod
+trigger1 = NumHelper(8888)=0
+trigger1 = NumExplod(8601)!=0
+trigger1 = Var(32)!=2
+ID = 8601
+
+[State 3000,PalFx]
+type = PalFx
+triggerall = NumHelper(8888)=1
+trigger1 = Var(32)=1
+add = 55,55,55
+sinadd = 125,125,55,10
+time = 20
+
+[State 3000,PalFx]
+type = PalFx
+triggerall = NumHelper(8888)=1
+trigger1 = Var(32)=1
+add = 55,55,55
+sinadd = 175,125,55,10
+time = 20
+
+[State 3000,PalFx]
+type = PalFx
+trigger1 = NumHelper(8990)=1
+add = 55,55,55
+sinadd = 55,55,125,10
+time = 20
+
+[State -2,PalFx]
+type = PalFx
+triggerall = NumHelper(8888)=0
+triggerall = GameTime%19=0
+trigger1 = Var(32)=1 && Life > Var(7)
+add = 35,35,15
+sinadd = 35,35,15,20
+time = 20
+ignorehitpause = 1
+
+[State -2,PalFx]
+type = PalFx
+triggerall = NumHelper(8888)=0
+triggerall = GameTime%14=0
+trigger1 = Var(32)=1 && Life <= Var(7)
+trigger2 = Var(32)=2 && Life > Var(7)
+add = 75,35,15
+sinadd = 55,35,15,15
+time = 15
+ignorehitpause = 1
+
+[State -2,PalFx]
+type = PalFx
+triggerall = NumHelper(8888)=0
+triggerall = GameTime%14=0
+trigger1 = Var(32)=2 && Life <= Var(7)
+add = 125,35,15
+sinadd = 75,35,15,15
+time = 15
+ignorehitpause = 1
+
+;********************************************************
+;========================================================
+;@ƒ†[ƒU[İ’è’l
+;========================================================
+; ’Êí
+; ‚l‚`‚w‚QƒŠƒ~ƒbƒ^[(value = Life)
+[State -2, Var(7)]
+type = VarSet
+triggerall = RoundState = 2
+triggerall = Var(7)=0
+triggerall = Palno = [0,6]
+trigger1 = Stateno=0
+V = 7
+value = 250
+
+; ƒXƒ^[ƒgƒ{ƒ^ƒ“
+; ‚l‚`‚w‚QƒŠƒ~ƒbƒ^[(value = Life)
+[State -2, Var(7)]
+type = VarSet
+triggerall = RoundState = 2
+triggerall = Var(7)=0
+triggerall = Palno >= 7
+trigger1 = Stateno=0
+V = 7
+value = 500
+
+
+;-----------------------
+; ŠJnƒ‚[ƒh‘I‘ğ
+; value = 0 :ƒm[ƒ}ƒ‹
+; value = 1 :ƒAƒŒƒ“ƒW‚P
+[State -2, Var(36)]
+type = VarSet
+trigger1 = Stateno=[187,194]
+trigger1 = Palno=[0,6]
+persitent = 0
+v = 36
+value = 0
+
+[State -2, Var(36)]
+type = VarSet
+trigger1 = Stateno=[187,194]
+trigger1 = Palno=[7,9]
+persitent = 0
+v = 36
+value = 1
+
+[State -2, Var(36)]
+type = VarSet
+trigger1 = Stateno=[187,194]
+trigger1 = Palno=[10,12]
+persitent = 0
+v = 36
+value = 1
+
+;-----------------------
+; PowerAdd’è”
+; ƒm[ƒ}ƒ‹/ƒAƒŒƒ“ƒW‚P
+[State -2,VarSet]
+type = VarSet
+triggerall = Var(43)!=0
+triggerall = Var(36)!=2
+trigger1 = 1
+v = 43
+value = 0
+
+; ƒAƒŒƒ“ƒW‚P/ƒAƒŒƒ“ƒW‚Q
+; value = 0 :‰ÁZ’n
+[State -2,VarSet]
+type = VarSet
+triggerall = Var(43)=0
+triggerall = Var(36)=2
+trigger1 = 1
+v = 43
+value = 40
+
+;-----------------------
+; ƒXƒgƒ‰ƒCƒJ[Á”ïƒŠƒ~ƒbƒg
+; value = 0`1000 Œ¸Z’l
+; ƒm[ƒ}ƒ‹
+[State -2,13]
+type = VarSet
+trigger1 = Palno = [0,6]
+persitent = 0
+fv = 31
+value = 0
+
+; ƒAƒŒƒ“ƒW‚Q
+[State -2,13]
+type = VarSet
+trigger1 = Palno >= 7
+persitent = 0
+fv = 31
+value = 0
+
+;============================
+;ƒRƒ“ƒsƒ…[ƒ^“ïˆÕ“xİ’è ‚ ‚Ü‚è•Ï‰»‚È‚µH
+; value = 0 :‹­
+; value = 1 :«(‹­:ÈPower)
+; value = 2 :’†
+; value = 3 :«
+; value = 4 :ã
+
+[State -2,VarSet]
+type = VarSet
+triggerall = RoundState = 2
+trigger1 = 1
+persitent = 0
+v = 12
+value = 1
+;============================
+
+;============================
+; “ÁêƒQ[ƒWˆÊ’u (0:Bottom 1:Top)
+[State -2,VarSet]
+type = VarSet
+trigger1 = Stateno=[187,194]
+v = 1
+value = 1
+;============================
+
+;========================================================
+;********************************************************

@@ -1,0 +1,53 @@
+;==========================================================
+; Definition file for CCI Shermie
+; For Winmugen
+; Ironmugen
+;==========================================================
+
+; Player information
+[Info]
+name ="Shermie"
+displayname ="SHERMIE"
+versiondate =26,11,2006
+mugenversion =04,01,2001
+author ="David Demianoff"
+pal.defaults =1,2,3,4
+
+; Files for the player
+[Files]
+cmd      =shermie.cmd
+cns      =shermie.cns
+st       =shermie.cns
+stcommon =common1.cns
+sprite   =shermie.sff
+anim     =shermie.air
+sound    =shermie.snd
+pal1=pals/shermie.act
+pal2=pals/shermie01.act
+pal3=pals/shermie_A01.act
+pal4=pals/shermie_G01.act
+pal5=pals/shermie_A02.act
+pal6=pals/shermie05.act
+pal7=pals/shermie06.act
+pal8=pals/shermie07.act
+pal9=pals/shermie_98_01.act
+pal10=pals/shermie_98_02.act
+pal11=pals/shermie_G02.act
+pal12=pals/shermie_JJ.act
+st1=attacks.cns
+st2=specials.cns
+st3=hypers.cns
+st4=misc.cns
+
+;Other palettes
+;(replace those by the ones above)
+
+;pal3     = pals/shermie02.act      ;Third palette (Kof2002)
+;pal4     = pals/shermie03.act      ;Fourth palette (Kof2002)
+;pal5     = pals/shermie04.act      ;O.Shermie 3rd palette (Kof2002)
+;pal6     = pals/shermie_NGBC.act   ;NGBC default pal by Maria-Azul
+;pal7     = pals/shermiefromBRo_o.act ;Palette by Maria-Azul :P
+
+[Arcade]
+intro.storyboard=
+ending.storyboard=

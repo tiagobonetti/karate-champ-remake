@@ -1,0 +1,33 @@
+;LAST UP DATA- 2006.10.07	Version=I-2
+[Info]
+Name="KUSANAGI"
+DisplayName="KUSANAGI"
+VersionDate=05,11,2005
+MugenVersion=04,14,2001
+Author="zzzasd" ;"zzzasd13@yahoo.co.kr" "www.neo-eye.com" "http://conversion.wo.to/"
+Pal.Defaults=1,2,3,4,5,6,7,8,9,10,11,12
+
+[Files]
+cmd=kusanagi.cmd
+cns=kusanagi.cns
+st=kusanagi.cns
+st1= kusanagib.cns
+st2= kusanagic.cns
+stcommon=kusanagia.cns
+sprite=kusanagi.sff
+anim=kusanagi.air
+sound=kusanagi.snd
+pal1=kusanagi2002-B.act
+pal2=kusanagi2002-D.act
+pal3=kusanagi-violet.act
+pal4=kusanagi2002.act
+pal5=kusanagi2002-C.act
+pal6=kusanagiSVC-B.act
+pal7=kusanagi2002-B.act
+pal8=kusanagi2002-D.act
+pal9=kusanagi-violet.act
+pal10=kusanagi2002.act
+pal11=kusanagi2002-C.act
+pal12=kusanagiSVC-B.act
+
+

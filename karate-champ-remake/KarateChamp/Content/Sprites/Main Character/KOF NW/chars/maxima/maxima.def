@@ -1,0 +1,26 @@
+;맥시마 설정 파일
+;가고일이 작성
+
+[Info]
+name = "maxima"      
+displayname = "MAXIMA" 
+versiondate = 08,012,2002
+mugenversion = 04,14,2001   
+author = "Gargoyle"         
+pal.defaults = 1,2,3,4,5,6     
+
+
+[Files]
+cmd     = maxima.cmd
+cns     = maxima.cns
+st      = maxima.cns
+stcommon = common1.cns
+sprite  = maxima.sff
+anim    = maxima.air
+sound   = maxima.snd
+pal1    = maxima.act  
+pal2    = maxima2.act
+pal3    = maxima3.act  
+pal4    = maxima4.act  
+pal5    = maxima5.act  
+pal6    = maxima6.act  

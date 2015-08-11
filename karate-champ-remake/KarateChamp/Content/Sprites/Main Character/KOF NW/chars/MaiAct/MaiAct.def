@@ -1,0 +1,39 @@
+;=====================================================================
+;MUGEN CharData (01.04.14)
+;"Mai 2K2"                                                    ActJapan
+;=====================================================================
+; Player Information
+[Info]
+name    ="Shiranui Mai"
+displayname ="MAI"
+versiondate =01,23,2004
+mugenversion =04,14,2001
+author ="ActJapan"
+pal.defaults=1,2,3,4,5
+
+; Files for the Player
+[Files]
+cmd     =MaiAct.cmd
+cns     =MaiAct_Public.cns
+st      =MaiAct_Public.cns    
+stcommon =common1.cns
+sprite  =MaiAct.sff
+anim    =MaiAct.air
+sound   =MaiAct.snd
+pal1=MaiAct01.act
+pal2=MaiAct02.act
+pal3=MaiAct03.act
+pal4=MaiAct04.act
+pal5=MaiAct05.act
+pal6=MaiAct06.act
+pal7=MaiAct07.act
+pal8=MaiAct08.act
+pal9=MaiAct09.act
+pal10=MaiAct10.act
+pal11=MaiAct11.act
+pal12=MaiAct12.act
+st1=MaiAct_N.cns
+st2=MaiAct_S.cns
+st3=MaiAct_H.cns
+st4=MaiAct_AI.cns
+

@@ -1,0 +1,1126 @@
+;----------------------------------------------------------------------------
+; Char = "Blue Mary"  
+; Criado por = "ActJapan" 
+; URL= http://www.mzp.com.br 
+; 
+; ## Nós não Temos Nenhuma Responsabilidade por esse char ##             
+;----------------------------------------------------------------------------
+;		http://www.mzp.com.br
+;----------------------------------------------------------------------------
+; Divulgue seu Char em nosso Site Gratuitamente !!!!!!!!!!!
+; Mais Informações www.mzp.com.br  ou www.mugenzpower.hpg.com.br
+;----------------------------------------------------------------------------
+;		http://www.mzp.com.br
+;----------------------------------------------------------------------------
+; Esse Char foi pego no Site MugenZPower www.mugenzpower.rg3.net
+; Se você pegou esse char em outro site com o nosso link, porfavor nos avise.
+;----------------------------------------------------------------------------
+;		http://www.mzp.com.br
+;----------------------------------------------------------------------------
+; Tire todas Suas Duvidas sobre Mugen no nosso Fòrum
+; http://www.mzp.com.br/forum
+;----------------------------------------------------------------------------
+;		http://www.mzp.com.br
+:=============================================================================================
+;Distribuido pela = "MugenZPower"							      
+;URL  = WWW.mzp.com.br     OU   WWW.MUGENZPOWER.RG3.NET   OU  WWW.MUGENZPOWER.HPG.COM.BR  
+;=============================================================================================
+
+
+;=====================================================================
+; Stuff to do
+;=====================================================================
+
+[Statedef -3]
+
+;============================
+;ƒRƒ“ƒsƒ…[ƒ^“ïˆÕ“xİ’è
+[State -3,VarSet]
+type = VarSet
+triggerall = RoundState = 2
+trigger1 = Var(12)=0
+persitent = 0
+fv = 12
+value = 1.0
+
+[State -3,VarSet]
+type = VarSet
+triggerall = RoundState = 2
+trigger1 = Var(12)=1
+persitent = 0
+fv = 12
+value = 1.0
+
+[State -3,VarSet]
+type = VarSet
+triggerall = RoundState = 2
+trigger1 = Var(12)=2
+persitent = 0
+fv = 12
+value = IfElse(Palno>=7,0.8,0.7)
+
+[State -3,VarSet]
+type = VarSet
+triggerall = RoundState = 2
+trigger1 = Var(12)=3
+persitent = 0
+fv = 12
+value = IfElse(Palno>=7,0.6,0.4)
+
+[State -3,VarSet]
+type = VarSet
+triggerall = RoundState = 2
+trigger1 = Var(12)=4
+persitent = 0
+fv = 12
+value = IfElse(Palno>=7,0.4,0.2)
+
+;-----------’´•KE—p
+[State -3,VarSet]
+type = VarSet
+triggerall = RoundState = 2
+trigger1 = Var(12)=0
+persitent = 0
+fv = 0
+value = 1.0
+
+[State -3,VarSet]
+type = VarSet
+triggerall = RoundState = 2
+trigger1 = Var(12)=1
+persitent = 0
+fv = 0
+value = IfElse(Palno>=7,0.30,0.20)
+
+[State -3,VarSet]
+type = VarSet
+triggerall = RoundState = 2
+trigger1 = Var(12)=2
+persitent = 0
+fv = 0
+value = IfElse(Palno>=7,0.4,0.3)
+
+[State -3,VarSet]
+type = VarSet
+triggerall = RoundState = 2
+trigger1 = Var(12)=3
+persitent = 0
+fv = 0
+value = IfElse(Palno>=7,0.35,0.25)
+
+[State -3,VarSet]
+type = VarSet
+triggerall = RoundState = 2
+trigger1 = Var(12)=4
+persitent = 0
+fv = 0
+value = IfElse(Palno>=7,0.25,0.15)
+
+
+;---------------------------------------------------------
+[State -3,VarSet]
+type = VarSet
+triggerall = RoundState = 2
+trigger1 = fVar(30)!=0
+trigger1 = Stateno = 0
+fv = 30
+value = 0
+
+;---------------------------------------------------------
+; ”ò‚Ñ‚İŒã
+
+
+; ‹­ƒLƒbƒN/‹­ƒpƒ“ƒ`
+[State -3,230]
+type = ChangeState
+value = IfElse(Random<350,230,220)
+triggerall = RoundState = 2
+triggerall = Enemy,Statetype!=L
+triggerall = Enemy,Stateno!=[5100,5120]
+triggerall = var(30)!=0 && var(11)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = (P2Statetype = S)||(P2Statetype = C)
+triggerall = (StateType = S)|| (StateType = C)
+trigger1 = P2MoveType = H
+trigger1 = ((Stateno = [0,153]) && Ctrl = 1)|| (Stateno = 100)
+trigger1 = P2BodyDist X = [0,20]
+
+; ‹­ƒpƒ“ƒ`
+[State -3,220]
+type = ChangeState
+value = 220
+triggerall = RoundState = 2
+triggerall = Enemy,Statetype!=L
+triggerall = Enemy,Stateno!=[5100,5120]
+triggerall = var(30)!=0 && var(11)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = (P2Statetype = S)||(P2Statetype = C)
+triggerall = (StateType = S)|| (StateType = C)
+trigger1 = P2MoveType = H
+trigger1 = ((Stateno = [0,153]) && Ctrl = 1)|| (Stateno = 100)
+trigger1 = P2BodyDist X = [0,20]
+
+; ‹­ƒpƒ“ƒ`
+[State -3,220]
+type = ChangeState
+value = 225
+triggerall = RoundState = 2
+triggerall = Enemy,Statetype!=L
+triggerall = Enemy,Stateno!=[5100,5120]
+triggerall = var(30)!=0 && var(11)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = (P2Statetype = S)||(P2Statetype = C)
+triggerall = (StateType = S)|| (StateType = C)
+trigger1 = Random < Ceil(750*fVar(12))
+trigger1 = P2MoveType = H
+trigger1 = ((Stateno = [0,153]) && Ctrl = 1)|| (Stateno = 100)
+trigger1 = P2BodyDist X = [21,28]
+
+; ‚µ‚á‚ª‚İ‹­ƒpƒ“ƒ`
+[State -3,420]
+type = ChangeState
+value = 420
+triggerall = RoundState = 2
+triggerall = Enemy,Statetype!=L
+triggerall = Enemy,Stateno!=[5100,5120]
+triggerall = var(30)!=0 && var(11)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = (P2Statetype = S)||(P2Statetype = C)
+triggerall = (StateType = S)|| (StateType = C)
+triggerall = Random<250
+trigger1 = P2MoveType = H
+trigger1 = ((Stateno = [0,153]) && Ctrl = 1)|| (Stateno = 100)
+trigger1 = P2BodyDist X = [0,25]
+
+; ‚µ‚á‚ª‚İ‹­ƒLƒbƒN
+[State -3,430]
+type = ChangeState
+value = 430
+triggerall = !(var(30)!=0 && var(31)!=0 && var(32)!=0)
+triggerall = RoundState = 2
+triggerall = Enemy,Statetype!=L
+triggerall = Enemy,Stateno!=[5100,5120]
+triggerall = var(30)!=0 && var(11)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = (P2Statetype = S)||(P2Statetype = C)
+triggerall = (StateType = S)|| (StateType = C)
+triggerall = Random<250
+trigger1 = P2MoveType = H
+trigger1 = ((Stateno = [0,153]) && Ctrl = 1)|| (Stateno = 100)
+trigger1 = P2BodyDist X = [29,45]
+
+; ---- ‹­ƒRƒ“ƒ{ -------------------
+; ‘–‚é
+[State 965,100]
+type = ChangeState
+value = 100
+triggerall = PrevStateno=965
+triggerall = var(30)!=0 && var(31)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1)
+trigger1 = P2Statetype != A && P2Movetype = H
+trigger1 = ((Stateno = [0,153]) && Ctrl = 1)
+trigger1 = Random < Ceil(950*fVar(12))
+; ---- ‹­ƒRƒ“ƒ{ -------------------
+
+; -------------------------------------
+; •sŠm’èƒRƒ“ƒ{
+
+; ‹­ƒLƒbƒN/‹­ƒpƒ“ƒ`
+[State -3,230]
+type = ChangeState
+value = IfElse(Random<350,230,220)
+triggerall = RoundState = 2
+triggerall = Enemy,Statetype!=L
+triggerall = Enemy,Stateno!=[5100,5120]
+triggerall = var(30)!=0 && Ctrl = 1 && var(36)=2 && fvar(30)=2
+triggerall = (P2Statetype = S)||(P2Statetype = C)
+triggerall = Alive = 1 && (enemy,Alive = 1)
+triggerall = (StateType = S)|| (StateType = C)
+triggerall = (Stateno = 52 && Ctrl = 1)
+triggerall = P2BodyDist X = [0,20]
+trigger1 = Random<=100 && Power >= 1000-fVar(2)
+trigger2 = Random<=250 && Power < 1000-fVar(2)
+
+; ‹­ƒLƒbƒN/‹­ƒpƒ“ƒ`
+[State -3,230]
+type = ChangeState
+value = 225
+triggerall = RoundState = 2
+triggerall = Enemy,Statetype!=L
+triggerall = Enemy,Stateno!=[5100,5120]
+triggerall = var(30)!=0 && Ctrl = 1 && var(36)=2 && fvar(30)=2
+triggerall = (P2Statetype = S)||(P2Statetype = C)
+triggerall = Alive = 1 && (enemy,Alive = 1)
+triggerall = (StateType = S)|| (StateType = C)
+triggerall = (Stateno = 52 && Ctrl = 1)
+triggerall = P2BodyDist X = [21,35]
+trigger1 = Random<=100 && Power >= 1000-fVar(2)
+trigger2 = Random<=250 && Power < 1000-fVar(2)
+
+; -------------------------------------
+; ‚lEƒ^ƒCƒt[ƒ“ MAX2
+[State -3,3500]
+type = ChangeState
+value = 3400
+triggerall = RoundState = 2
+triggerall = Enemy,Statetype!=L
+triggerall = Enemy,Stateno!=[5100,5120]
+triggerall = var(30)!=0 && Ctrl = 1 && var(32)!=0 && Life <= Var(7)
+triggerall = var(32)!=0 && Power >= 2000-fVar(2)
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = (P2Statetype = S)||(P2Statetype = C)
+triggerall = (StateType = S)|| (StateType = C)
+triggerall = ((Stateno = [0,153]) && Ctrl = 1)|| (Stateno = 100)
+triggerall = Random<=IfElse(fvar(33)<=500,950,650)
+trigger1 = P2Movetype != A
+trigger1 = P2BodyDist X = [0,2]
+trigger1 = Random < Ceil(120*fVar(12))
+trigger2 = P2BodyDist X = [3,8]
+trigger2 = Random < Ceil(50*fVar(12))
+trigger3 = P2BodyDist X = [9,12]
+trigger3 = Random < Ceil(30*fVar(12))
+
+; ƒoƒbƒNƒhƒƒbƒvEƒŠƒAƒ‹ ‚X‚W
+[State -3,1500]
+type = ChangeState
+value = 1000
+triggerall = RoundState = 2
+triggerall = Enemy,Statetype!=L
+triggerall = Enemy,Stateno!=[5100,5120]
+triggerall = var(30)!=0 && Ctrl = 1 && var(36)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = (P2Statetype = S)||(P2Statetype = C)
+triggerall = (StateType = S)|| (StateType = C)
+triggerall = ((Stateno = [0,153]) && Ctrl = 1)|| (Stateno = 100)
+trigger1 = P2Movetype != A
+trigger1 = P2BodyDist X = [0,2]
+trigger1 = Random < Ceil(450*fVar(12))
+trigger2 = P2BodyDist X = [3,8]
+trigger2 = Random < Ceil(200*fVar(12))
+trigger3 = P2BodyDist X = [9,12]
+trigger3 = Random < Ceil(150*fVar(12))
+
+; Ú‹ßs“® ‚o’Êí“Š‚°
+; i‚o’Êí“Š‚°j
+[State -3,800]
+type = ChangeState
+value = 800
+triggerall = RoundState = 2
+triggerall = Enemy,Statetype!=L
+triggerall = Enemy,Stateno!=[5100,5120]
+triggerall = BackEdgeBodyDist >20
+triggerall = P2MoveType != H 
+triggerall = var(30)!=0 && Ctrl = 1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = (P2Statetype = S)||(P2Statetype = C)
+triggerall = (StateType = S)|| (StateType = C)
+triggerall = ((Stateno = [0,153]) && Ctrl = 1)|| (Stateno = 100)
+trigger1 = P2Movetype != A
+trigger1 = P2BodyDist X = [0,2]
+trigger1 = Random < Ceil(350*fVar(12))
+trigger2 = P2BodyDist X = [3,8]
+trigger2 = Random < Ceil(100*fVar(12))
+trigger3 = P2BodyDist X = [9,12]
+trigger3 = Random < Ceil(50*fVar(12))
+
+;i‚j’Êí“Š‚°j
+[State -3,850]
+type = ChangeState
+value = 850
+triggerall = RoundState = 2
+triggerall = Enemy,Statetype!=L
+triggerall = Enemy,Stateno!=[5100,5120]
+triggerall = BackEdgeBodyDist <=20
+triggerall = P2MoveType != H 
+triggerall = var(30)!=0 && Ctrl = 1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = (P2Statetype = S)||(P2Statetype = C)
+triggerall = (StateType = S)|| (StateType = C)
+triggerall = ((Stateno = [0,153]) && Ctrl = 1)|| (Stateno = 100)
+trigger1 = P2Movetype != A
+trigger1 = P2BodyDist X = [0,2]
+trigger1 = Random < Ceil(350*fVar(12))
+trigger2 = P2BodyDist X = [3,8]
+trigger2 = Random < Ceil(100*fVar(12))
+trigger3 = P2BodyDist X = [9,12]
+trigger3 = Random < Ceil(50*fVar(12))
+
+; ƒŠƒAƒ‹ƒJƒEƒ“ƒ^[
+[State -3,1400]
+type = ChangeState
+value = 970
+triggerall = RoundState = 2
+triggerall = var(30)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = P2Statetype != A
+triggerall = P2BodyDist X = [15,30]
+triggerall = ((Stateno = [0,153]) && Ctrl = 1) && ((Statetype = S)||(Statetype = C)) || (Stateno = 100)
+trigger1 = P2Movetype != A
+trigger1 = Random < Ceil(85*fVar(12))
+
+; ‚lEƒŠƒo[ƒXƒtƒFƒCƒXƒƒbƒN
+[State -3,1400]
+type = ChangeState
+value = 1400
+triggerall = RoundState = 2
+triggerall = var(30)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1) && StateType !=A
+triggerall = P2BodyDist Y = [-90,0]
+triggerall = ((Stateno = [0,153]) && Ctrl = 1)|| (Stateno = 100)
+triggerall = Random<=IfElse((Var(12)=[0,1]),999,IfElse((Var(12)=[2,3]),399,199))
+trigger1 = P2Movetype = A && P2BodyDist X = [0,70]
+trigger1 = Enemy,HitDefAttr=SC,SA,HA
+trigger1 = Random < Ceil(250*fVar(12))
+trigger2 = P2Movetype = A && P2BodyDist X = [0,70]
+trigger2 = Enemy,HitDefAttr=A,NA,SA,HA
+trigger2 = Random < Ceil(250*fVar(12))
+trigger3 = Enemy,Vel X >=8
+trigger3 = P2Movetype = A && P2BodyDist X = [71,100]
+trigger3 = Enemy,HitDefAttr=SC,SA,HA
+trigger3 = Random < Ceil(80*fVar(12))
+trigger4 = Enemy,Vel X >=8
+trigger4 = P2Movetype = A && P2BodyDist X = [71,100]
+trigger4 = Enemy,HitDefAttr=A,NA,SA,HA
+trigger4 = Random < Ceil(80*fVar(12))
+
+; ‚lEƒwƒbƒhƒoƒXƒ^[
+[State -3,1500]
+type = ChangeState
+value = 1500
+triggerall = RoundState = 2
+triggerall = var(30)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1) && StateType !=A
+triggerall = P2BodyDist Y = [-20,0]
+triggerall = ((Stateno = [0,153]) && Ctrl = 1)|| (Stateno = 100)
+triggerall = Random<=IfElse((Var(12)=[0,1]),999,IfElse((Var(12)=[2,3]),399,199))
+trigger1 = P2Movetype = A && P2BodyDist X = [0,70]
+trigger1 = Enemy,HitDefAttr=SC,NA
+trigger1 = Random < Ceil(300*fVar(12))
+trigger2 = P2Movetype = A && P2BodyDist X = [0,60]
+trigger2 = Enemy,HitDefAttr=SC,SA
+trigger2 = Random < Ceil(200*fVar(12))
+
+;-------------------------------------------------
+; ƒJƒEƒ“ƒ^[Œn1
+
+; ‚lEƒ_ƒCƒiƒ}ƒCƒgƒXƒEƒBƒ“ƒO MAX
+[State -3,3300]
+type = ChangeState
+value = 3300
+triggerall = RoundState = 2
+triggerall = var(30)!=0 && var(32)!=0 && Power >= 2000-fVar(2)
+triggerall = Alive = 1 && (enemy,Alive = 1) && StateType !=A
+triggerall = ((Stateno = [0,153]) && Ctrl = 1)|| (Stateno = 100)
+triggerall = (P2BodyDist X = [0,48]) && (P2BodyDist Y = [-120,-30])
+triggerall = P2Statetype = A && (enemy,Vel Y >0) && Var(29)=0
+triggerall = Random<=IfElse((Var(12)=[0,1]),999,IfElse((Var(12)=[2,3]),399,199))
+trigger1 = P2Movetype != A
+trigger1 = P2Movetype != H
+trigger1 = Random < Ceil(65*fVar(0))
+trigger2 = P2Movetype = H
+trigger2 = Random < Ceil(100*fVar(0))
+trigger3 = P2Movetype =A
+trigger3 = Random < Ceil(75*fVar(0))
+
+; ‚lEƒ_ƒCƒiƒ}ƒCƒgƒXƒEƒBƒ“ƒO
+[State -3,3100]
+type = ChangeState
+value = 3100
+triggerall = RoundState = 2
+triggerall = var(30)!=0 && Power >= 1000-fVar(2)
+triggerall = Alive = 1 && (enemy,Alive = 1) && StateType !=A
+triggerall = ((Stateno = [0,153]) && Ctrl = 1)|| (Stateno = 100)
+triggerall = (P2BodyDist X = [0,48]) && (P2BodyDist Y = [-120,-30])
+triggerall = P2Statetype = A && (enemy,Vel Y >0) && Var(29)=0
+triggerall = Random<=IfElse((Var(12)=[0,1]),999,IfElse((Var(12)=[2,3]),399,199))
+trigger1 = P2Movetype != A
+trigger1 = P2Movetype != H
+trigger1 = Random < Ceil(60*fVar(0))
+trigger2 = P2Movetype = H
+trigger2 = Random < Ceil(100*fVar(0))
+trigger3 = P2Movetype =A
+trigger3 = Random < Ceil(80*fVar(0))
+
+; 
+[State -3,3600]
+type = ChangeState
+value = 3600
+triggerall = RoundState = 2
+triggerall = var(30)!=0 && var(32)!=0 && Power >= 2000-fVar(2)
+triggerall = Alive = 1 && (enemy,Alive = 1) && StateType !=A
+triggerall = ((Stateno = [0,153]) && Ctrl = 1)|| (Stateno = 100)
+triggerall = (P2BodyDist X = [0,130]) && (P2BodyDist Y = [-100,-30])
+triggerall = P2Statetype = A && (enemy,Vel Y >0) && Var(29)=0
+triggerall = Random<=IfElse((Var(12)=[0,1]),999,IfElse((Var(12)=[2,3]),399,199))
+trigger1 = P2Movetype != A
+trigger1 = P2Movetype != H
+trigger1 = Random < Random < Ceil(60*fVar(0))
+trigger2 = P2Movetype = H
+trigger2 = Random < Random < Ceil(12*fVar(0))
+trigger3 = P2Movetype =A
+trigger3 = Random < Random < Ceil(31*fVar(0))
+
+; ‚lEƒXƒvƒ‰ƒbƒVƒ…ƒ[ƒY
+[State -3,3205]
+type = ChangeState
+value = 3205
+triggerall = RoundState = 2
+triggerall = var(30)!=0 && Power >= 1000-fVar(2)
+triggerall = Alive = 1 && (enemy,Alive = 1) && StateType !=A
+triggerall = ((Stateno = [0,153]) && Ctrl = 1)|| (Stateno = 100)
+triggerall = (P2BodyDist X = [0,130]) && (P2BodyDist Y = [-100,-30])
+triggerall = P2Statetype = A && (enemy,Vel Y >0) && Var(29)=0
+triggerall = Random<=IfElse((Var(12)=[0,1]),999,IfElse((Var(12)=[2,3]),399,199))
+trigger1 = P2Movetype != A
+trigger1 = P2Movetype != H
+trigger1 = Random < Random < Ceil(60*fVar(0))
+trigger2 = P2Movetype = H
+trigger2 = Random < Random < Ceil(12*fVar(0))
+trigger3 = P2Movetype =A
+trigger3 = Random < Random < Ceil(31*fVar(0))
+
+
+; ƒJƒEƒ“ƒ^[Œn2
+; ƒo[ƒ`ƒJƒ‹ƒAƒ[
+[State -3,1300]
+type = ChangeState
+value = 1300
+triggerall = RoundState = 2
+triggerall = var(30)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = P2BodyDist X = [10,50]
+triggerall = P2BodyDist Y = [-70,0]
+triggerall = ((Stateno = [0,153]) && Ctrl = 1) && ((Statetype = S)||(Statetype = C)) || (Stateno = 100)
+triggerall = Pos Y = 0
+triggerall = P2Movetype = A
+trigger1 = Enemy,HitDefAttr=SAC,NA
+trigger1 = Random < Ceil(45*fVar(12))
+trigger2 = Enemy,HitDefAttr=SAC,SA
+trigger2 = Random < Ceil(10*fVar(12))
+
+; ƒo[ƒ`ƒJƒ‹ƒAƒ[
+[State -3,1300]
+type = ChangeState
+value = 1300
+triggerall = RoundState = 2
+triggerall = var(30)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = P2BodyDist X = [0,40]
+triggerall = P2BodyDist Y = [-55,0]
+triggerall = ((Stateno = [0,153]) && Ctrl = 1) && ((Statetype = S)||(Statetype = C)) || (Stateno = 100)
+triggerall = P2Movetype = A
+triggerall = Pos Y = 0
+trigger1 = Enemy,HitDefAttr=SAC,NA
+trigger1 = Random < Ceil(35*fVar(12))
+trigger2 = Enemy,HitDefAttr=SAC,SA
+trigger2 = Random < Ceil(10*fVar(12))
+
+;-------------------------------------------------
+;‰ñ”ğ ‘OŒÀ’è
+[State -3,4050]
+type = ChangeState
+triggerall = RoundState = 2 && Random < 200
+triggerall = Var(30)!=0 && Ctrl = 1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = ((Stateno = [0,153]) && Ctrl = 1) && ((StateType = S)|| (StateType = C))
+triggerall = Enemy,Statetype!=L
+triggerall = P2StateType = S || P2StateType = C
+triggerall = (Var(36)=2 && Random <= 850) || (Var(36)!=2 && Random <= 350)
+triggerall = Random<=IfElse((Var(12)=[0,1]),999,IfElse((Var(12)=[2,3]),399,199))
+trigger1 = P2BodyDist X = [60,180]
+trigger1 = P2MoveType = A && P2Stateno < 2000
+trigger1 = Enemy,NumProj >=1
+trigger1 = Random < Ceil(500*fVar(12))
+trigger2 = Enemy,HitDefAttr=SCA,NA,SA,NP,SP
+trigger2 = P2BodyDist X = [20,70]
+trigger2 = P2MoveType = A && P2Stateno < 2000
+trigger2 = Random < Ceil(200*fVar(12))
+value = 4050
+ctrl = 0
+
+; —§‚¿ƒK[ƒh
+[State -3,120]
+type = ChangeState
+value = 120
+triggerall = RoundState = 2
+triggerall = var(30)!=0
+triggerall = (Facing = Enemy,Facing) || ((Facing != Enemy,Facing) && Random < 20)
+triggerall = Alive = 1&& (enemy,Alive = 1) && StateType !=A
+triggerall = ((Stateno = [0,153]) && Ctrl = 1)|| (Stateno = 100)
+triggerall = StateType !=A
+trigger1 = P2Movetype = A && P2BodyDist X <=100
+trigger1 = Enemy,HitDefAttr=S,NA,SA,HA
+trigger2 = P2Movetype = A && P2BodyDist X <=100
+trigger2 = Enemy,HitDefAttr=A,NA,SA,HA
+trigger3 = P2Movetype = A && P2BodyDist X <=100
+trigger3 = Enemy,HitDefAttr=S,NP,SP,HP
+trigger4 = P2Movetype = A && P2BodyDist X <=100
+trigger4 = Enemy,HitDefAttr=A,NP,SP,HP
+trigger5 = (Enemy,NumProj >=1) || (Enemy,NumHelper >=1)
+trigger5 = Enemy,HitDefAttr=S,NP,SP,HP
+trigger6 = (Enemy,NumProj >=1) || (Enemy,NumHelper >=1)
+trigger6 = Enemy,HitDefAttr=A,NP,SP,HP
+trigger7 = Enemy,NumProj >=1
+
+; ‚µ‚á‚ª‚İƒK[ƒh
+[State -3,121]
+type = ChangeState
+value = 121
+triggerall = RoundState = 2 && var(30)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1) && StateType !=A
+triggerall = ((Stateno = [0,153]) && Ctrl = 1)|| (Stateno = 100)
+triggerall = StateType !=A
+triggerall = (Facing = Enemy,Facing) || ((Facing != Enemy,Facing) && Random < 20)
+trigger1 = P2Movetype = A && P2BodyDist X <=100
+trigger1 = Enemy,HitDefAttr=C,NA,SA,HA
+trigger2 = (Enemy,NumProj >=1) || (Enemy,NumHelper >=1)
+trigger2 = Enemy,HitDefAttr=C,NP,SP,HP
+
+; —§‚¿ƒK[ƒh
+[State -3,120]
+type = ChangeState
+value = 120
+triggerall = RoundState = 2
+triggerall = var(30)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1) && StateType !=A
+triggerall = (Stateno = 120 || Stateno = 121 || Stateno = 130 || Stateno = 131)
+triggerall = StateType =C
+triggerall = (Facing = Enemy,Facing) || ((Facing != Enemy,Facing) && Random < 20)
+trigger1 = P2Movetype = A
+trigger1 = Enemy,HitDefAttr=S,NA,SA,HA
+trigger2 = P2Movetype = A
+trigger2 = Enemy,HitDefAttr=A,NA,SA,HA
+trigger3 = P2Movetype = A
+trigger3 = Enemy,HitDefAttr=S,NP,SP,HP
+trigger4 = P2Movetype = A
+trigger4 = Enemy,HitDefAttr=A,NP,SP,HP
+trigger5 = (Enemy,NumProj >=1) || (Enemy,NumHelper >=1)
+trigger5 = Enemy,HitDefAttr=S,NP,SP,HP
+trigger6 = (Enemy,NumProj >=1) || (Enemy,NumHelper >=1)
+trigger6 = Enemy,HitDefAttr=A,NP,SP,HP
+trigger7 = Enemy,NumProj >=1
+
+; ‚µ‚á‚ª‚İƒK[ƒh
+[State -3,121]
+type = ChangeState
+value = 121
+triggerall = RoundState = 2 && var(30)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1) && StateType !=A
+triggerall = (Stateno = 120 || Stateno = 121 || Stateno = 130 || Stateno = 131)
+triggerall = StateType =S
+triggerall = (Facing = Enemy,Facing) || ((Facing != Enemy,Facing) && Random < 20)
+trigger1 = P2Movetype = A
+trigger1 = Enemy,HitDefAttr=C,NA,SA,HA
+trigger2 = (Enemy,NumProj >=1) || (Enemy,NumHelper >=1)
+trigger2 = Enemy,HitDefAttr=C,NP,SP,HP
+
+; ‹ó’†ƒK[ƒh
+[State -3,122]
+type = ChangeState
+value = 122
+triggerall = RoundState = 2 && var(30)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1) && StateType !=A
+triggerall = StateType =A && Ctrl = 1
+triggerall = (Facing = Enemy,Facing) || ((Facing != Enemy,Facing) && Random < 20)
+trigger1 = P2Movetype = A && P2BodyDist X <=100
+trigger1 = Enemy,HitDefAttr=SC,NA,SA,HA
+trigger2 = P2Movetype = A && P2BodyDist X <=100
+trigger2 = Enemy,HitDefAttr=A,NA,SA,HA
+trigger3 = P2Movetype = A && P2BodyDist X <=100
+trigger3 = Enemy,HitDefAttr=SC,NP,SP,HP
+trigger4 = P2Movetype = A && P2BodyDist X <=100
+trigger4 = Enemy,HitDefAttr=A,NP,SP,HP
+trigger5 = (Enemy,NumProj >=1) || (Enemy,NumHelper >=1)
+trigger5 = Enemy,HitDefAttr=SC,NP,SP,HP
+trigger6 = (Enemy,NumProj >=1) || (Enemy,NumHelper >=1)
+trigger6 = Enemy,HitDefAttr=A,NP,SP,HP
+trigger7 = Enemy,NumProj >=1
+
+; —§‚¿ƒK[ƒh Œp‘±
+[State -3,130]
+type = ChangeState
+value = 130
+triggerall = RoundState = 2
+triggerall = var(30)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1) && StateType !=A
+triggerall = Stateno = 140 && Time = 0
+triggerall = StateType =S
+triggerall = (Facing = Enemy,Facing) || ((Facing != Enemy,Facing) && Random < 20)
+trigger1 = P2Movetype = A
+trigger1 = Enemy,HitDefAttr=S,NA,SA,HA
+trigger2 = P2Movetype = A
+trigger2 = Enemy,HitDefAttr=A,NA,SA,HA
+trigger3 = P2Movetype = A
+trigger3 = Enemy,HitDefAttr=S,NP,SP,HP
+trigger4 = P2Movetype = A
+trigger4 = Enemy,HitDefAttr=A,NP,SP,HP
+trigger5 = (Enemy,NumProj >=1) || (Enemy,NumHelper >=1)
+trigger5 = Enemy,HitDefAttr=S,NP,SP,HP
+trigger6 = (Enemy,NumProj >=1) || (Enemy,NumHelper >=1)
+trigger6 = Enemy,HitDefAttr=A,NP,SP,HP
+trigger7 = Enemy,NumProj >=1
+
+; ‚µ‚á‚ª‚İƒK[ƒh Œp‘±
+[State -3,131]
+type = ChangeState
+value = 131
+triggerall = RoundState = 2 && var(30)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1) && StateType !=A
+triggerall = Stateno = 140 && Time = 0
+triggerall = StateType =C
+triggerall = (Facing = Enemy,Facing) || ((Facing != Enemy,Facing) && Random < 20)
+trigger1 = P2Movetype = A
+trigger1 = Enemy,HitDefAttr=C,NA,SA,HA
+trigger2 = (Enemy,NumProj >=1) || (Enemy,NumHelper >=1)
+trigger2 = Enemy,HitDefAttr=C,NP,SP,HP
+
+; -------------------------------------
+; Ú‹ßs“®
+
+; ‹­ƒpƒ“ƒ`
+[State -3,220]
+type = ChangeState
+value = 220
+triggerall = RoundState = 2
+triggerall = Enemy,Statetype!=L
+triggerall = Enemy,Stateno!=[5100,5120]
+triggerall = var(30)!=0 && Ctrl = 1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = (P2Statetype = S)||(P2Statetype = C)
+triggerall = (StateType = S)|| (StateType = C)
+trigger1 = !(var(30)!=0 && var(31)!=0 && var(32)!=0 && Stateno = 100)
+trigger1 = P2Movetype != A
+trigger1 = (Stateno = [0,153])|| (Stateno = 100)
+trigger1 = P2BodyDist X = [0,20]
+trigger1 = Random < Ceil(450*fVar(12))
+
+; ‹­ƒpƒ“ƒ`
+[State -3,220]
+type = ChangeState
+value = 225
+triggerall = RoundState = 2
+triggerall = Enemy,Statetype!=L
+triggerall = Enemy,Stateno!=[5100,5120]
+triggerall = var(30)!=0 && Ctrl = 1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = (P2Statetype = S)||(P2Statetype = C)
+triggerall = (StateType = S)|| (StateType = C)
+trigger1 = !(var(30)!=0 && var(31)!=0 && var(32)!=0 && Stateno = 100)
+trigger1 = P2Movetype != A
+trigger1 = (Stateno = [0,153])|| (Stateno = 100)
+trigger1 = P2BodyDist X = [21,28]
+trigger1 = Random < Ceil(150*fVar(12))
+
+; ‹­ƒLƒbƒN
+[State -3,220]
+type = ChangeState
+value = 230
+triggerall = RoundState = 2
+triggerall = Enemy,Statetype!=L
+triggerall = Enemy,Stateno!=[5100,5120]
+triggerall = var(30)!=0 && Ctrl = 1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = (P2Statetype = S)
+triggerall = (StateType = S)
+trigger1 = !(var(30)!=0 && var(31)!=0 && var(32)!=0 && Stateno = 100)
+trigger1 = P2Movetype != A
+trigger1 = (Stateno = [0,153])|| (Stateno = 100)
+trigger1 = P2BodyDist X = [0,25]
+trigger1 = Random < Ceil(450*fVar(12))
+
+; ‚µ‚á‚ª‚İãƒpƒ“ƒ`
+[State -3,ChangeState]
+type = ChangeState
+value = 400
+triggerall = RoundState = 2
+triggerall = Enemy,Statetype!=L
+triggerall = Enemy,Stateno!=[5100,5120]
+triggerall = var(30)!=0 && Ctrl = 1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = (StateType = S) || (StateType = C)
+trigger1 = !(var(30)!=0 && var(31)!=0 && var(32)!=0 && Stateno = 100)
+trigger1 = (P2Statetype = S)
+trigger1 = ((Stateno = [0,153]) && Ctrl = 1)|| (Stateno = 100)
+trigger1 = P2BodyDist X = [0,10]
+trigger1 = Random < Ceil(380*fVar(12))
+
+; ‚µ‚á‚ª‚İ‹­ƒpƒ“ƒ`
+[State -3,ChangeState]
+type = ChangeState
+value = 420
+triggerall = RoundState = 2
+triggerall = Enemy,Statetype!=L
+triggerall = Enemy,Stateno!=[5100,5120]
+triggerall = var(30)!=0 && Ctrl = 1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = (P2Statetype = S)
+triggerall = (StateType = S)|| (StateType = C)
+trigger1 = !(var(30)!=0 && var(31)!=0 && var(32)!=0 && Stateno = 100)
+trigger1 = P2Movetype != A
+trigger1 = ((Stateno = [0,153]) && Ctrl = 1)|| (Stateno = 100)
+trigger1 = P2BodyDist X = [0,15]
+trigger1 = Random < Ceil(300*fVar(12))
+
+; ‚µ‚á‚ª‚İ‹­ƒLƒbƒN
+[State -3,ChangeState]
+type = ChangeState
+value = 430
+triggerall = RoundState = 2
+triggerall = Enemy,Statetype!=L
+triggerall = Enemy,Stateno!=[5100,5120]
+triggerall = var(30)!=0 && Ctrl = 1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = (P2Statetype = S)
+triggerall = (StateType = S)|| (StateType = C)
+trigger1 = !(var(30)!=0 && var(31)!=0 && var(32)!=0 && Stateno = 100)
+trigger1 = P2Movetype != A
+trigger1 = ((Stateno = [0,153]) && Ctrl = 1)|| (Stateno = 100)
+trigger1 = P2BodyDist X = [25,45]
+trigger1 = Random < Ceil(30*fVar(12))
+
+; ‹­ƒpƒ“ƒ`
+[State -3,220]
+type = ChangeState
+value = 225
+triggerall = RoundState = 2
+triggerall = Enemy,Statetype!=L
+triggerall = Enemy,Stateno!=[5100,5120]
+triggerall = var(30)!=0 && Ctrl = 1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = (P2Statetype = S)||(P2Statetype = C)
+triggerall = (StateType = S)|| (StateType = C)
+triggerall = P2Stateno = [0,106]
+trigger1 = !(var(30)!=0 && var(31)!=0 && var(32)!=0 && Stateno = 100)
+trigger1 = P2Movetype != A
+trigger1 = (Stateno = [0,153])|| (Stateno = 100)
+trigger1 = P2BodyDist X = [21,35]
+trigger1 = Random < Ceil(10*fVar(12))
+
+'ƒWƒƒƒ“ƒv
+[State -3,ChangeState]
+type = ChangeState
+value = 2040
+triggerall = RoundState = 2
+triggerall = Var(30)!=0 && Ctrl = 1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = ((Stateno = [0,153]) && Ctrl = 1) && ((StateType = S)|| (StateType = C))
+triggerall = Random<=IfElse((Var(12)=[0,1]),999,IfElse((Var(12)=[2,3]),499,199))
+trigger1 = Enemy,Statetype!=L
+trigger1 = P2BodyDist X = [65,100]
+trigger1 = P2StateType = C || P2StateType = S
+trigger1 = P2MoveType !=A && Random<Ceil(40*fVar(12))
+trigger2 = Enemy,Stateno= 5120
+trigger2 = P2BodyDist X = [80,120]
+trigger2 = P2StateType = C || P2StateType = S
+trigger2 = Random<Ceil(15*fVar(12))
+
+;‰ñ”ğ
+[State -3,4050]
+type = ChangeState
+triggerall = RoundState = 2 && Random < 200
+triggerall = Var(30)!=0 && Ctrl = 1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = ((Stateno = [0,153]) && Ctrl = 1) && ((StateType = S)|| (StateType = C))
+triggerall = Enemy,Statetype!=L
+triggerall = P2BodyDist X = [10,90]
+triggerall = P2StateType = S || P2StateType = C
+triggerall = Random<=IfElse((Var(12)=[0,1]),999,IfElse((Var(12)=[2,3]),499,199))
+trigger1 = Random<Ceil(500*fVar(12))
+trigger1 = !(var(30)!=0 && var(31)!=0 && var(32)!=0 && Stateno = 100)
+trigger1 = P2BodyDist X = [50,90]
+trigger1 = P2MoveType = A && P2Stateno = [200,499]
+trigger2 = !(var(30)!=0 && var(31)!=0 && var(32)!=0 && Stateno = 100)
+trigger2 = P2MoveType = A && P2Stateno >= 1000 
+trigger2 = Random<Ceil(100*fVar(12)) && P2BodyDist X = [10,70]
+value = IfElse(Random<Ceil(800*fVar(12)),4050,4150)
+ctrl = 0
+
+;‰ñ”ğ ‘OŒÀ’è
+[State -3,4050]
+type = ChangeState
+triggerall = RoundState = 2 && Random < 200
+triggerall = Var(30)!=0 && Ctrl = 1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = ((Stateno = [0,153]) && Ctrl = 1) && ((StateType = S)|| (StateType = C))
+triggerall = Enemy,Statetype!=L
+triggerall = P2StateType = S || P2StateType = C
+triggerall = !(var(30)!=0 && var(31)!=0 && var(32)!=0 && Stateno = 100)
+triggerall = Random<=IfElse((Var(12)=[0,1]),999,IfElse((Var(12)=[2,3]),499,199))
+trigger1 = P2BodyDist X = [10,120]
+trigger1 = P2MoveType = A && P2Stateno < 2000
+trigger1 = Enemy,NumProj >=1
+trigger1 = Random < Ceil(100*fVar(12))
+trigger2 = P2BodyDist X = [0,30]
+trigger2 = P2MoveType = A && P2Stateno >= 3000
+trigger2 = Random < Ceil(100*fVar(12))
+trigger3 = Enemy,HitDefAttr=SCA,AA,AP
+trigger3 = P2BodyDist X = [0,40]
+trigger3 = P2MoveType = A && P2Stateno < 2000
+trigger3 = Random < Ceil(100*fVar(12))
+value = 4050
+ctrl = 0
+
+;-------------------------------
+; ’†‹——£s“®
+;‘–‚é
+[State -3,ChangeState]
+type = ChangeState
+value = 100
+triggerall = RoundState = 2
+triggerall = Var(30)!=0 && Ctrl = 1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = ((Stateno = [0,153]) && Ctrl = 1) && ((StateType = S)|| (StateType = C))
+triggerall = Random<=IfElse((Var(12)=[0,1]),999,IfElse((Var(12)=[2,3]),699,199))
+trigger1 = Enemy,Statetype!=L
+trigger1 = P2BodyDist X = [130,320]
+trigger1 = P2StateType = C || P2StateType = S
+trigger1 = P2MoveType !=A && Random < 10
+trigger2 = Enemy,Stateno= 5120
+trigger2 = P2BodyDist X = [150,320]
+trigger2 = P2StateType = C || P2StateType = S
+trigger2 = P2MoveType !=A && Random < 1
+
+'ƒWƒƒƒ“ƒv
+[State -3,ChangeState]
+type = ChangeState
+value = 2040
+triggerall = RoundState = 2
+triggerall = Var(30)!=0 && Ctrl = 1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = ((Stateno = [0,153]) && Ctrl = 1) && ((StateType = S)|| (StateType = C))
+trigger1 = Enemy,Statetype!=L
+trigger1 = P2BodyDist X = [45,160]
+trigger1 = P2StateType = C || P2StateType = S
+trigger1 = P2MoveType !=A && Random < 20
+trigger2 = Enemy,Stateno= 5120
+trigger2 = P2BodyDist X = [40,150]
+trigger2 = P2StateType = C || P2StateType = S
+trigger2 = P2MoveType !=A && Random < 12
+
+'ƒoƒbƒNƒXƒeƒbƒv
+[State -3,ChangeState]
+type = ChangeState
+value = 105
+triggerall = RoundState = 2 && Random < Ceil(300*fVar(12))
+triggerall = Var(30)!=0 && Ctrl = 1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = ((Stateno = [0,153]) && Ctrl = 1) && ((StateType = S)|| (StateType = C))
+triggerall = Random<=IfElse((Var(12)=[0,1]),999,IfElse((Var(12)=[2,3]),699,199))
+triggerall = BackEdgeBodyDist > 70
+trigger1 = Enemy,Statetype=L
+trigger1 = P2BodyDist X = [0,5]
+
+;‰ñ”ğ
+[State -3,3]
+type = ChangeState
+triggerall = RoundState = 2 && Random < Ceil(200*fVar(12))
+triggerall = Var(30)!=0 && Ctrl = 1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = ((Stateno = [0,153]) && Ctrl = 1) && ((StateType = S)|| (StateType = C))
+triggerall = Random<=IfElse((Var(12)=[0,1]),999,IfElse((Var(12)=[2,3]),699,199))
+triggerall = Enemy,Statetype!=L
+triggerall = BackEdgeBodyDist <= 70
+trigger1 = P2BodyDist X = [0,5]
+value = 4150
+ctrl = 0
+
+; -------------------------------
+; ’†‹——£/‰“‹——£@•KE‹Z
+
+; ƒXƒgƒŒ[ƒgƒXƒ‰ƒCƒT[
+[State -3,1050]
+type = ChangeState
+value = 1200
+triggerall = RoundState = 2
+triggerall = var(30)!=0 && var(36)!=2
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = ((Stateno = [0,153]) && Ctrl = 1) && ((StateType = S)|| (StateType = C))
+triggerall = P2MoveType != A
+triggerall = Random<=IfElse((Var(12)=[0,1]),999,IfElse((Var(12)=[2,3]),699,199))
+trigger1 = P2StateType = S
+trigger1 = P2BodyDist X = [30,80]
+trigger1 = Random < Ceil(15*fVar(12))
+trigger2 = P2StateType = S
+trigger2 = P2BodyDist X = [81,120]
+trigger2 = Random < Ceil(11*fVar(12))
+trigger3 = P2StateType != A
+trigger3 = P2BodyDist X = [30,80]
+trigger3 = Random < Ceil(8*fVar(12))
+trigger4 = P2StateType != A
+trigger4 = P2BodyDist X = [81,120]
+trigger4 = Random < Ceil(5*fVar(12))
+
+; ƒXƒgƒŒ[ƒgƒXƒ‰ƒCƒT[
+[State -3,1050]
+type = ChangeState
+value = 1220
+triggerall = RoundState = 2
+triggerall = var(30)!=0 && var(36)!=2
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = ((Stateno = [0,153]) && Ctrl = 1) && ((StateType = S)|| (StateType = C))
+triggerall = P2MoveType != A
+triggerall = Random<=IfElse((Var(12)=[0,1]),999,IfElse((Var(12)=[2,3]),699,199))
+trigger1 = P2StateType = S
+trigger1 = P2BodyDist X = [80,130]
+trigger1 = Random < Ceil(15*fVar(12))
+trigger2 = P2StateType = S
+trigger2 = P2BodyDist X = [131,190]
+trigger2 = Random < Ceil(9*fVar(12))
+trigger3 = P2StateType != A
+trigger3 = P2BodyDist X = [80,130]
+trigger3 = Random < Ceil(5*fVar(12))
+trigger4 = P2StateType != A
+trigger4 = P2BodyDist X = [131,190]
+trigger4 = Random < Ceil(3*fVar(12))
+
+; ƒXƒsƒ“ƒtƒH[ƒ‹
+[State -3,1450]
+type = ChangeState
+value = 1100
+triggerall = RoundState = 2
+triggerall = var(30)!=0 && var(36)!=2
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = P2Statetype = A
+triggerall = ((Stateno = [0,153]) && Ctrl = 1) && ((Statetype = S)||(Statetype = C)) || (Stateno = 100)
+triggerall = P2BodyDist X = [70,155]
+triggerall = P2BodyDist Y = [-160,0]
+trigger1 = P2StateType = C
+trigger1 = P2Movetype = A
+trigger1 = Random < Ceil(50*fVar(12))
+trigger2 = P2StateType = C || P2StateType = S
+trigger2 = P2Movetype = H
+trigger2 = Random < Ceil(10*fVar(12))
+trigger3 = P2StateType = C
+trigger3 = P2Movetype = I
+trigger3 = Random < Ceil(12*fVar(12))
+trigger4 = P2StateType = S
+trigger4 = P2Movetype = I
+trigger4 = Random < Ceil(5*fVar(12))
+trigger5 = P2StateType = C
+trigger5 = P2Movetype = A
+trigger5 = Random < Ceil(5*fVar(12))
+
+
+;’Êí ‚l‚`‚wƒ‚[ƒh ”­“® AI—p
+[State -1]
+type = ChangeState
+value = 960
+triggerall = RoundState = 2
+triggerall = Var(30)!=0
+triggerall = NumHelper(8888)=0
+triggerall = Var(32)=0 && Power >= 1000
+triggerall = IfElse(Power>=2200,Random<10,Random<5)
+triggerall = P2BodyDist X >= 150
+trigger1 = StateType = S && (Ctrl = 1 || StateNo = 100)
+
+;’§”­ AI—p
+[State -1]
+type = ChangeState
+value = 195
+triggerall = RoundState = 2
+triggerall = Var(30)!=0
+triggerall = NumHelper(8880)=0
+triggerall = P2BodyDist X >= 120
+triggerall = Life >=450
+triggerall = StateType = S && (Ctrl = 1 || StateNo = 100)
+trigger1 = P2MoveType != A && Random<1
+trigger2 = P2StateType = L && Random<3
+
+;------------------------------
+
+; •sŠm’èƒRƒ“ƒ{
+; ƒWƒƒƒ“ƒv‹­
+[State -3,ChangeState]
+type = ChangeState
+value = 520
+triggerall = RoundState = 2
+triggerall = var(30)!=0 && fVar(30)=1 && Vel Y >-3 && Vel Y < 0
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = StateType = A && Ctrl = 1
+triggerall = P2StateType = A && P2MoveType != A
+trigger1 = Random < Ceil(650*fVar(12))
+
+; ‹ó’†s“®
+
+
+; ƒWƒƒƒ“ƒv‹­ƒpƒ“ƒ`
+[State -3,ChangeState]
+type = ChangeState
+value = 520
+triggerall = RoundState = 2
+triggerall = var(30)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = StateType = A && Ctrl = 1
+triggerall = P2StateType != A && P2StateType != L && Var(18)!=0
+triggerall = P2BodyDist X = [0,30]
+triggerall = P2BodyDist Y = [0,55]
+trigger1 = Random < Ceil(650*fVar(12))
+trigger1 = Vel Y >1
+trigger2 = Random < 10
+trigger2 = Vel Y <=1
+
+
+; ƒWƒƒƒ“ƒv‹­ƒLƒbƒN
+[State -3,ChangeState]
+type = ChangeState
+value = 530
+triggerall = RoundState = 2
+triggerall = var(30)!=0 && Vel Y > 1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = StateType = A && Ctrl = 1
+triggerall = P2StateType != A && P2StateType != L && Var(18)!=0
+triggerall = P2BodyDist X = [0,35]
+triggerall = P2BodyDist Y = [0,55]
+trigger1 = Random < Ceil(650*fVar(12))
+trigger1 = Vel Y >0
+trigger2 = Random < 10
+trigger2 = Vel Y <=0
+
+; ƒWƒƒƒ“ƒv‹­ƒLƒbƒN
+[State -3,ChangeState]
+type = ChangeState
+value = 530
+triggerall = RoundState = 2
+triggerall = var(30)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = StateType = A && Ctrl = 1
+triggerall = P2StateType = A || Var(18)=0
+triggerall = P2BodyDist X = [0,50]
+triggerall = P2BodyDist Y = [-10,75]
+trigger1 = Random < Ceil(400*fVar(12))
+trigger1 = Vel Y >1
+trigger2 = Random < Ceil(100*fVar(12))
+trigger2 = Vel Y <=1
+
+; ƒWƒƒƒ“ƒv‹­ƒpƒ“ƒ`
+[State -3,ChangeState]
+type = ChangeState
+value = 520
+triggerall = RoundState = 2
+triggerall = var(30)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = StateType = A && Ctrl = 1
+triggerall = P2StateType = A || Var(18)=0
+triggerall = P2BodyDist X = [0,40]
+triggerall = P2BodyDist Y = [-10,75]
+trigger1 = Random < Ceil(100*fVar(12))
+trigger1 = Vel Y >0
+trigger2 = Random < Ceil(60*fVar(12))
+trigger2 = Vel Y <=0
+
+; ƒWƒƒƒ“ƒvãƒpƒ“ƒ`
+[State -3,ChangeState]
+type = ChangeState
+value = 500
+triggerall = RoundState = 2
+triggerall = var(30)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = StateType = A && Ctrl = 1
+triggerall = P2StateType = A || Var(17)=1
+triggerall = P2BodyDist X = [0,50]
+triggerall = P2BodyDist Y = [-40,75]
+trigger1 = Random < Ceil(100*fVar(12))
+trigger1 = Vel Y >0
+trigger2 = Random < Ceil(60*fVar(12))
+trigger2 = Vel Y <=0
+

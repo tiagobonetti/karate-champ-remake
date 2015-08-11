@@ -1,0 +1,42 @@
+Benimaru Nikaido 100% updated.
+
+
+January 11, 2004
+Fixed/Updated:
+1. Added Win Mugen Patch, made by Winane
+
+
+November 22, 2002
+Fixed/Updated:
+1. Redone Cvs DM.. Thanks to KADDET for the awesome edits.
+2. Tweaked the iai geri follow up to match KOF2001.
+
+APRIL 22, 2002
+Fixed/Updated: 
+1. KOF2000 frames added
+2. Major Hitdefs and Juggle system overhaul.
+3. Raijiken/Raikouken fixes (use hitdef instead of proj...)
+4. Cvs2 sounds :)
+5. Cvs2 Dm/Sdm
+6. Hard/No Ai
+7. Optional KOF2000 style palette (purplish electric stuff)
+8. A lot of bugfixes.
+9. KOF2001 Super Cancel and Wire Damage system
+
+Note:
+- Press and hold start while selecting Benimaru to use the purplish electric effects (KOF2K-2K1    style).
+
+Additional Credits:
+Deuce - Ofcourse, he made this baby in the first place. 
+SMI   - For getting Benimaru's basic velocities.
+Tenshin/Shindio - Help in the sound ripping department. 
+Kaddet - For the great edits, as always.
+
+- Sander71113
+Report Bugs to me: sander71113@yahoo.com
+http://sander71113.mgbr.net
+
+
+
+
+

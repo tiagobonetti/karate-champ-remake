@@ -1,0 +1,41 @@
+;=====================================================================
+;MUGEN CharData (01.04.14)
+;"Kensou 2K1"                                                 ActJapan
+;=====================================================================
+; Player Information
+[Info]
+name    ="Sie Kensou"
+displayname ="KENSUO"
+versiondate =08,08,2003
+mugenversion =04,14,2001
+author ="ActJapan"
+pal.defaults=1,2,3,4,5
+
+; Files for the Player
+[Files]
+cmd     =KensouAct.cmd
+cns     =KensouAct_N.cns
+st      =KensouAct_N.cns
+stcommon =common1.cns
+sprite  =KensouAct.sff
+anim    =KensouAct.air
+sound   =KensouAct.snd
+pal1=KensouAct01.act
+pal2=KensouAct02.act
+pal3=KensouAct03.act
+pal4=KensouAct04.act
+pal5=KensouAct05.act
+pal6=KensouAct06.act
+pal7=KensouAct07.act
+pal8=KensouAct08.act
+pal9=KensouAct09.act
+pal10=KensouAct10.act
+pal11=KensouAct11.act
+pal12=KensouAct12.act
+st1=KensouAct_AI.cns
+st2=KensouAct_S.cns
+st3=KensouAct_H.cns
+st4=KensouAct_Helper.cns
+[Arcade]
+intro.storyboard=
+ending.storyboard=

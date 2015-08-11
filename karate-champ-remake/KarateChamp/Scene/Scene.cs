@@ -5,6 +5,7 @@ using System.Text;
 
 namespace KarateChamp {
     public class Scene {
+        public float floor;
         public IList<GameObject> gameObjectList = new List<GameObject>();
         public MainGame game;
     }

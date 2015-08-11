@@ -56,7 +56,6 @@ namespace KarateChamp {
             int i = uvRect.X / uvRect.Width;
             int j = uvRect.Y / uvRect.Height;
             Rectangle[,] collisionArray;
-            System.Diagnostics.Debug.WriteLine(spriteSheet);
             if (spriteSheet.Name == "Sprites/Main Character/CharacterSpritesheet") {
                 if (orientation == Orientation.Right) {
                     collisionArray = game.bodyCollisionRight;

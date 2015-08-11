@@ -1,0 +1,127 @@
+;---------------------------------------------------------------------------
+; 100 앞으로 달리기
+[Statedef 100]
+type    = S
+movetype = I
+physics = S
+anim = 102
+ctrl = 0
+
+[State 100, Playsnd]
+type = PlaySnd
+trigger1 = AnimElem = 3 && anim = 102
+value = 102,1
+
+[State 100, Playsnd]
+type = PlaySnd
+trigger1 = AnimTime = 0 && anim = 102
+value = 100,2
+channel = 5
+
+[State 195, 1]
+type = ChangeAnim
+trigger1 = AnimTime = 0 && anim = 102
+value = 103
+
+[State 100, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = NoWalk
+
+[State 100, VelSet]
+type = posadd;VelSet
+trigger1 = AnimElem = 3,>=0 && anim = 102
+trigger2 = AnimElem = 1,>=0 && anim = 103
+x = const(velocity.run.fwd.x)
+
+[State 100, 8]
+type = ChangeState
+trigger1 = AnimElem = 3,>=0 && anim = 102
+trigger2 = AnimElem = 1,>=0 && anim = 103
+triggerall = command = "holdfwd" && command = "holdup"
+value = 40
+ctrl = 0
+
+[State 100, 8]
+type = ChangeState
+trigger1 = command != "holdfwd" && Time = 13
+value = 104
+ctrl = 0
+
+[State 100, 8]
+type = ChangeState
+trigger1 = command != "holdfwd" && Time > 13
+value = 101
+ctrl = 0
+
+;----------------------------------------------------------------------------------
+
+;버튼유지소스
+[State -2]
+type = varadd
+trigger1 = command = "hold_a" || command = "hold_b" || command = "hold_x" || command = "hold_y"
+fvar(39) = 1
+ignorehitpause = 1
+
+[State -2]
+type = varset
+trigger1 = command != "hold_a" && command != "hold_b" && command != "hold_x" && command != "hold_y"
+trigger2 =(command="a"||command="b"||command="x"||command="y")&&(command!="hold_a"&&command!="hold_b"&&command!="hold_x"&&command!="hold_y")
+fvar(39) = 0
+ignorehitpause = 1
+
+[State -2]
+type = varset
+trigger1 = 1
+var(0) = fvar(39) <= 16	;14
+ignorehitpause = 1
+
+[State -2]
+type = varset
+trigger1 = (command="a"||command="b"||command="x"||command="y") && var(0)=0
+fvar(39) = 0
+ignorehitpause = 1
+
+;-----------------------------------------------------------------------------------
+
+;버튼유지소스
+[State -2]
+type = varadd
+trigger1 = command = "hold_x"
+fvar(0) = 1
+;ignorehitpause = 1
+
+[State -2]
+type = varadd
+trigger1 = command = "hold_y"
+fvar(39) = 1
+;ignorehitpause = 1
+
+[State -2]
+type = varset
+trigger1 = command != "hold_a" && command != "hold_b" && command != "hold_x" && command != "hold_y"
+fvar(0) = 0
+ignorehitpause = 1
+
+[State -2]
+type = varset
+trigger1 = command != "hold_a" && command != "hold_b" && command != "hold_x" && command != "hold_y"
+fvar(39) = 0
+ignorehitpause = 1
+
+[State -2]
+type = varset
+trigger1 = fvar(39) >= 6
+trigger2 = fvar(0) >= 6
+var(0) = 0
+ignorehitpause = 1
+
+[State -2]
+type = varset
+trigger1 = command != "hold_a" && command = "hold2_a"
+trigger2 = command != "hold_b" && command = "hold2_b"
+trigger3 = command != "hold_x" && command = "hold2_x"
+trigger4 = command != "hold_y" && command = "hold2_y"
+trigger5 = command != "hold_a" && command != "hold_b" && command != "hold_x" && command != "hold_y"
+var(0) = 1
+ignorehitpause = 1

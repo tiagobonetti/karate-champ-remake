@@ -1,0 +1,43 @@
+;---------------------------
+; GORO DAIMON X
+; Version 1.0
+; BY: SANDER 71113
+;---------------------------
+
+;General Information
+
+[Info]
+Name="Goro Daimon"
+DisplayName="GORO "
+Author="Sander71113"
+VersionDate=13,01,2009
+MugenVersion=14,04,2002
+Pal.Defaults=1,2,3,4,5,6,7,8,9,10,11,12
+
+;Files for the player
+[Files]
+cmd=Goro-Daimon.cmd
+cns=Goro-Daimon.cns
+stcommon=common1.cns
+st=Goro-Daimon.cns
+sprite=Goro-Daimon.sff
+anim=Goro-Daimon.air
+sound=Goro-Daimon.snd
+pal1=Pals/01.act
+pal2=Pals/02.act
+pal3=Pals/03.act
+pal4=Pals/04.act
+pal5=Pals/05.act
+pal6=Pals/06.act
+pal7=Pals/07.act
+pal8=Pals/010.act
+pal9=
+st1=Goro-Daimon-A.cns
+st2=Goro-Daimon-B.cns
+st3=Goro-Daimon-C.cns
+;st4=../../data/Strikers.st
+;st5=../../data/Screen-common.st
+
+[Arcade]
+intro.storyboard=
+ending.storyboard=

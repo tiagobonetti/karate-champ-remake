@@ -1,0 +1,5165 @@
+;=====================================================================
+;MUGEN CharData (01.04.14)
+;"Mai 2K2"                                                   ActJapan
+;=====================================================================
+;===============================================================================
+; Definition of the Special Arts
+;===============================================================================
+;-------------------------------------------------------------------------------
+;-------------------------------------------------------------------------------
+; 花蝶扇 X
+[Statedef 1000]
+type    = S
+movetype= A
+physics = N
+juggle  = 4-Var(45)
+poweradd= 70+Var(43)
+ctrl = 0
+velset = 0,0,0
+anim = 1000
+
+; ※※※※※※※※※※※※※※※※
+; TsMUGEN ストライカー用記述
+; 
+[State 960,Helper]
+type = VarSet
+triggerall = sysvar(4) = 0
+triggerall = roundstate = 2
+triggerall = NumPartner != 0
+triggerall = PrevStateno = 190195
+trigger1 = Partner, sysvar(4)
+trigger1 = Partner, Var(32)!=0
+trigger1 = Var(30)=0 && Var(36)=1
+trigger1 = time = 0
+v = 30
+value = 1
+
+[State 960,Helper]
+type = VarSet
+triggerall = sysvar(4) = 0
+triggerall = roundstate = 2
+triggerall = NumPartner != 0
+triggerall = PrevStateno = 190195
+trigger1 = Partner, sysvar(4)
+trigger1 = fVar(12)=0
+trigger1 = time = 0
+fv = 12
+value = 1.0
+
+[State 960,Helper]
+type = Helper
+triggerall = NumHelper(8888)=0
+triggerall = sysvar(4) = 0
+triggerall = roundstate = 2
+triggerall = NumPartner != 0
+triggerall = PrevStateno = 190195
+trigger1 = Partner, sysvar(4)
+trigger1 = Partner, Var(32)!=0
+trigger1 = Var(32)=0 && Var(36)=1
+trigger1 = time = 0
+name = "Timer"
+id = 8888
+stateno = 8808
+postype = p1
+pos = (-1*(BackEdgeBodyDist+20)),floor(0-(Pos Y))
+ownpal = 1
+
+; 指定ステートへ
+[State 1000,ChangeState]
+type = ChangeState
+triggerall = sysvar(4) = 0
+triggerall = roundstate = 2
+triggerall = NumPartner != 0
+triggerall = PrevStateno = 190195
+triggerall = Partner, sysvar(4)
+triggerall = Var(36)=0
+trigger1 = time = 0
+value = 1900
+
+; 指定ステートへ
+[State 1000,ChangeState]
+type = ChangeState
+triggerall = sysvar(4) = 0
+triggerall = roundstate = 2
+triggerall = NumPartner != 0
+triggerall = PrevStateno = 190195
+triggerall = Partner, sysvar(4)
+triggerall = Var(36)=1
+trigger1 = time = 0
+value = 1400
+
+; ※※※※※※※※※※※※※※※※
+
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+trigger1 = Var(32)=0
+trigger2 = Var(32)!=0
+trigger2 = PrevStateNo != 1000 && PrevStateNo != 1050
+trigger2 = PrevStateNo != 1100 && PrevStateNo != 1150
+trigger2 = PrevStateNo != 1200 && PrevStateNo != 1250
+trigger2 = PrevStateNo != 1400
+trigger2 = PrevStateNo != 1600 && PrevStateNo != 1650
+trigger2 = PrevStateNo != 1700 && PrevStateNo != 1750
+fv = 3
+value = 1
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger2 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger3 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger4 = PrevStateNo = 1400
+trigger4 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger5 = PrevStateNo = 1700 || PrevStateNo = 1750
+fv = 3
+value = fVar(3)*0.95
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = fVar(33)<200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = 0
+
+[State 3000,VarAdd]
+type = VarAdd
+triggerall = Time = 0
+triggerall = fVar(33)>=200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = -200
+
+[State 3000,PalFx]
+type = PalFx
+triggerall = Time = 1
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+add = 105,105,105
+sinadd = 125,125,125,10
+time = 3
+
+; MAX使用フラグリセット
+[State -2,3]
+type = VarSet
+triggerall = fVar(32)!=0
+trigger1 = Time = 2
+fv = 32
+value = 0
+
+[State 1300, 2]
+type = PosSet
+trigger1 = Pos Y !=0
+trigger1 = Time = 0
+y = 0
+
+[State 3000,VarSet]
+type = VarSet
+trigger1 = time = 0
+v = 16
+value = 0
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = time = 4
+value = 1000, 0
+channel = 0
+volume = 10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimElem = 5
+value = 200, 1
+
+[State 1000,2]
+type = PlaySnd
+triggerall = NumProjID(1050)!=0
+trigger1 = AnimElem = 5,=3
+value = 1000, 1
+
+[State 1000,Projectile]
+type = Projectile
+trigger1 = AnimElem = 5,=2
+projanim = 1010
+projID = 1050
+projhitanim = 1020
+projremanim = 1020
+projcancelanim = 1020
+projremovetime = 360
+projedgebound = 120
+remvelocity = -1.3, 0
+projpriority = 1
+projshadow = -1
+offset = 25,-53
+velocity = 3.8, 0
+attr = S, SP
+damage    = Ceil(91*fVar(38)), 8
+getpower = 85
+givepower = 36
+animtype = Hard
+guardflag = M
+hitflag = MAFP
+pausetime = 1,12
+hitsound   = S300, 2
+guardsound = S0, 0
+sparkno = S2020
+guard.sparkno = S2070
+sparkxy = 10, 0
+ground.type = High
+ground.slidetime = 14
+ground.hittime  = 18
+ground.velocity = -5.0
+air.velocity = -5.0,-3
+air.juggle = 4
+
+[State 3000,VarSet]
+type = VarSet
+trigger1 = ProjContact(1050) = 1
+v = 16
+value = 1
+
+[State 1000,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;++++++++++++++++++++
+;AI機能
+;++++++++++++++++++++
+
+; 超必殺忍蜂 MAX
+[State 220,3300]
+type = ChangeState
+value = 3300
+triggerall = var(30)!=0 && var(32)!=0 && Var(16) = 1 && Power >= 3000-fVar(2)
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(5) >= 3 && AnimElemTime(8) <= 3
+triggerall = P2Statetype != A && P2BodyDist X = [0,100]
+trigger1 = MoveHit && fVar(33)<250
+trigger1 = Random < Ceil(200*fVar(12))
+trigger2 = MoveHit && fVar(33)<450
+trigger2 = Random < Ceil(100*fVar(12))
+trigger3 = MoveHit && fVar(33)<650
+trigger3 = Random < Ceil(50*fVar(12))
+trigger4 = MoveHit && fVar(33)<450 && Var(31)!=0
+trigger4 = Random < Ceil(500*fVar(12))
+trigger5 = MoveHit && fVar(33)<650 && Var(31)!=0
+trigger5 = Random < Ceil(300*fVar(12))
+
+; 超必殺忍蜂 B
+[State 220,3050]
+type = ChangeState
+value = 3050
+triggerall = var(30)!=0 && Var(16) = 1 && Power >= 2000-fVar(2)
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(5) >= 3 && AnimElemTime(8) <= 3
+triggerall = P2Statetype != A && P2BodyDist X = [0,100]
+trigger1 = MoveHit && fVar(33)<250
+trigger1 = Random < Ceil(180*fVar(12))
+trigger2 = MoveHit && fVar(33)<450
+trigger2 = Random < Ceil(90*fVar(12))
+trigger3 = MoveHit && fVar(33)<650
+trigger3 = Random < Ceil(40*fVar(12))
+trigger4 = MoveHit && fVar(33)<450 && Var(31)!=0
+trigger4 = Random < Ceil(500*fVar(12))
+trigger5 = MoveHit && fVar(33)<650 && Var(31)!=0
+trigger5 = Random < Ceil(300*fVar(12))
+
+; 花嵐 A
+[State 220,3100]
+type = ChangeState
+value = 3100
+triggerall = var(30)!=0 && Var(36)=0 && Var(16) = 1 && Power >= 2000-fVar(2)
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(5) >= 3 && AnimElemTime(8) <= 3
+triggerall = P2Statetype != A && P2BodyDist X = [0,100]
+trigger1 = MoveHit && fVar(33)<250
+trigger1 = Random < Ceil(180*fVar(12))
+trigger2 = MoveHit && fVar(33)<450
+trigger2 = Random < Ceil(100*fVar(12))
+trigger3 = MoveHit && fVar(33)<650
+trigger3 = Random < Ceil(60*fVar(12))
+trigger4 = MoveHit && fVar(33)<450 && Var(31)!=0
+trigger4 = Random < Ceil(500*fVar(12))
+trigger5 = MoveHit && fVar(33)<650 && Var(31)!=0
+trigger5 = Random < Ceil(300*fVar(12))
+
+;-------------------------------------------------------------------------------
+; 花蝶扇 Y
+[Statedef 1050]
+type    = S
+movetype= A
+physics = N
+juggle  = 4-Var(45)
+poweradd= 70+Var(43)
+ctrl = 0
+velset = 0,0,0
+anim = 1050
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+trigger1 = Var(32)=0
+trigger2 = Var(32)!=0
+trigger2 = PrevStateNo != 1000 && PrevStateNo != 1050
+trigger2 = PrevStateNo != 1100 && PrevStateNo != 1150
+trigger2 = PrevStateNo != 1200 && PrevStateNo != 1250
+trigger2 = PrevStateNo != 1400
+trigger2 = PrevStateNo != 1600 && PrevStateNo != 1650
+trigger2 = PrevStateNo != 1700 && PrevStateNo != 1750
+fv = 3
+value = 1
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger2 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger3 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger4 = PrevStateNo = 1400
+trigger4 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger5 = PrevStateNo = 1700 || PrevStateNo = 1750
+fv = 3
+value = fVar(3)*0.95
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = fVar(33)<200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = 0
+
+[State 3000,VarAdd]
+type = VarAdd
+triggerall = Time = 0
+triggerall = fVar(33)>=200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = -200
+
+[State 3000,PalFx]
+type = PalFx
+triggerall = Time = 1
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+add = 105,105,105
+sinadd = 125,125,125,10
+time = 3
+
+; MAX使用フラグリセット
+[State -2,3]
+type = VarSet
+triggerall = fVar(32)!=0
+trigger1 = Time = 2
+fv = 32
+value = 0
+
+[State 1300, 2]
+type = PosSet
+trigger1 = Pos Y !=0
+trigger1 = Time = 0
+y = 0
+
+[State 3000,VarSet]
+type = VarSet
+trigger1 = time = 0
+v = 16
+value = 0
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = time = 4
+value = 1000, 0
+channel = 0
+volume = 10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimElem = 5
+value = 200, 1
+
+[State 1000,2]
+type = PlaySnd
+triggerall = NumProjID(1050)!=0
+trigger1 = AnimElem = 5,=3
+value = 1000, 1
+
+[State 1000,Projectile]
+type = Projectile
+trigger1 = AnimElem = 5,=2
+projanim = 1010
+projID = 1050
+projhitanim = 1020
+projremanim = 1020
+projcancelanim = 1020
+projremovetime = 360
+projedgebound = 120
+remvelocity = -1.8, 0
+projpriority = 1
+projshadow = -1
+offset = 25,-53
+velocity = 5.4, 0
+attr = S, SP
+damage    = Ceil(91*fVar(38)), 8
+getpower = 85
+givepower = 36
+animtype = Hard
+guardflag = M
+hitflag = MAFP
+pausetime = 1,12
+hitsound   = S300, 2
+guardsound = S0, 0
+sparkno = S2020
+guard.sparkno = S2070
+sparkxy = 10, 0
+ground.type = High
+ground.slidetime = 14
+ground.hittime  = 18
+ground.velocity = -5.0
+air.velocity = -5.0,-3
+air.juggle = 4
+
+[State 3000,VarSet]
+type = VarSet
+trigger1 = ProjContact(1050) = 1
+v = 16
+value = 1
+
+[State 1000,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;++++++++++++++++++++
+;AI機能
+;++++++++++++++++++++
+; 超必殺忍蜂 MAX
+[State 220,3300]
+type = ChangeState
+value = 3300
+triggerall = var(30)!=0 && var(32)!=0 && Var(16) = 1 && Power >= 3000-fVar(2)
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(5) >= 3 && AnimElemTime(8) <= 3
+triggerall = P2Statetype != A && P2BodyDist X = [0,100]
+trigger1 = MoveHit && fVar(33)<250
+trigger1 = Random < Ceil(200*fVar(12))
+trigger2 = MoveHit && fVar(33)<450
+trigger2 = Random < Ceil(100*fVar(12))
+trigger3 = MoveHit && fVar(33)<650
+trigger3 = Random < Ceil(50*fVar(12))
+trigger4 = MoveHit && fVar(33)<450 && Var(31)!=0
+trigger4 = Random < Ceil(500*fVar(12))
+trigger5 = MoveHit && fVar(33)<650 && Var(31)!=0
+trigger5 = Random < Ceil(300*fVar(12))
+
+; 超必殺忍蜂 B
+[State 220,3050]
+type = ChangeState
+value = 3050
+triggerall = var(30)!=0 && Var(16) = 1 && Power >= 2000-fVar(2)
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(5) >= 3 && AnimElemTime(8) <= 3
+triggerall = P2Statetype != A && P2BodyDist X = [0,100]
+trigger1 = MoveHit && fVar(33)<250
+trigger1 = Random < Ceil(180*fVar(12))
+trigger2 = MoveHit && fVar(33)<450
+trigger2 = Random < Ceil(90*fVar(12))
+trigger3 = MoveHit && fVar(33)<650
+trigger3 = Random < Ceil(40*fVar(12))
+trigger4 = MoveHit && fVar(33)<450 && Var(31)!=0
+trigger4 = Random < Ceil(500*fVar(12))
+trigger5 = MoveHit && fVar(33)<650 && Var(31)!=0
+trigger5 = Random < Ceil(300*fVar(12))
+
+; 花嵐 A
+[State 220,3100]
+type = ChangeState
+value = 3100
+triggerall = var(30)!=0 && Var(36)=0 && Var(16) = 1 && Power >= 2000-fVar(2)
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(5) >= 3 && AnimElemTime(8) <= 3
+triggerall = P2Statetype != A && P2BodyDist X = [0,100]
+trigger1 = MoveHit && fVar(33)<250
+trigger1 = Random < Ceil(180*fVar(12))
+trigger2 = MoveHit && fVar(33)<450
+trigger2 = Random < Ceil(100*fVar(12))
+trigger3 = MoveHit && fVar(33)<650
+trigger3 = Random < Ceil(60*fVar(12))
+trigger4 = MoveHit && fVar(33)<450 && Var(31)!=0
+trigger4 = Random < Ceil(500*fVar(12))
+trigger5 = MoveHit && fVar(33)<650 && Var(31)!=0
+trigger5 = Random < Ceil(300*fVar(12))
+
+;-------------------------------------------------------------------------------
+; 龍炎舞 X
+[Statedef 1100]
+type    = S
+movetype= A
+physics = N
+juggle  = 4-Var(45)
+poweradd= 70+Var(43)
+ctrl = 0
+velset = 0,0,0
+anim = 1100
+
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+trigger1 = Var(32)=0
+trigger2 = Var(32)!=0
+trigger2 = PrevStateNo != 1000 && PrevStateNo != 1050
+trigger2 = PrevStateNo != 1100 && PrevStateNo != 1150
+trigger2 = PrevStateNo != 1200 && PrevStateNo != 1250
+trigger2 = PrevStateNo != 1400
+trigger2 = PrevStateNo != 1600 && PrevStateNo != 1650
+trigger2 = PrevStateNo != 1700 && PrevStateNo != 1750
+fv = 3
+value = 1
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger2 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger3 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger4 = PrevStateNo = 1400
+trigger4 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger5 = PrevStateNo = 1700 || PrevStateNo = 1750
+fv = 3
+value = fVar(3)*0.95
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = fVar(33)<200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = 0
+
+[State 3000,VarAdd]
+type = VarAdd
+triggerall = Time = 0
+triggerall = fVar(33)>=200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = -200
+
+[State 3000,PalFx]
+type = PalFx
+triggerall = Time = 1
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+add = 105,105,105
+sinadd = 125,125,125,10
+time = 3
+
+; MAX使用フラグリセット
+[State -2,3]
+type = VarSet
+triggerall = fVar(32)!=0
+trigger1 = Time = 2
+fv = 32
+value = 0
+
+[State 1300, 2]
+type = PosSet
+trigger1 = Pos Y !=0
+trigger1 = Time = 0
+y = 0
+
+[State 1300, 2]
+type = PosAdd
+trigger1 = PrevStateno = 1200 || PrevStateno = 1250 || PrevStateno = 1400
+trigger1 = Time = 0
+x = 5
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = time = 4
+value = 1100, 0
+channel = 0
+volume = 10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimElem = 8
+value = 1100, 1
+volume = 10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimElem = 5
+value = 200, 2
+
+[State 1410,Explod]
+type = Explod
+trigger1 = AnimElem = 7
+anim = 1110
+ID = 1110
+pos = 0,0
+postype = P1
+sprpriority = 3
+supermove = 1
+ownpal = 1
+bindtime = 1
+vel = 0,0
+
+[State 1000,Projectile]
+type = Projectile
+trigger1 = AnimElem = 8
+projanim = 1165
+projID = 1150
+projhitanim = -1
+projremanim = -1
+projcancelanim = -1
+projremovetime = 10
+projedgebound = 60
+projpriority = 2
+projshadow = -1
+offset = 0,0
+velocity = 0, 0
+attr = S, SP
+damage    = Ceil(109*fVar(38)), 8
+getpower = 85
+givepower = 36
+animtype = Hard
+guardflag = M
+hitflag = MAFP
+pausetime = 0,10
+hitsound   = S1100, 2
+guardsound = S0, 0
+sparkno = S2020
+guard.sparkno = S2070
+sparkxy = 70, -65
+ground.type = High
+ground.slidetime = 27
+ground.hittime  = 15
+ground.velocity = -7.8
+air.velocity = -4.0,-4.5
+air.juggle = 4
+palfx.time = 30
+Palfx.add = 210,10,-200
+Palfx.mul = 180,170,160
+Palfx.sinadd = 60,40,50,20
+Palfx.color = 0
+palfx.invertall = 1
+
+[State 1000,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;-------------------------------------------------------------------------------
+; 龍炎舞 Y
+[Statedef 1150]
+type    = S
+movetype= A
+physics = N
+juggle  = 4-Var(45)
+poweradd= 70+Var(43)
+ctrl = 0
+velset = 0,0,0
+anim = 1150
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+trigger1 = Var(32)=0
+trigger2 = Var(32)!=0
+trigger2 = PrevStateNo != 1000 && PrevStateNo != 1050
+trigger2 = PrevStateNo != 1100 && PrevStateNo != 1150
+trigger2 = PrevStateNo != 1200 && PrevStateNo != 1250
+trigger2 = PrevStateNo != 1400
+trigger2 = PrevStateNo != 1600 && PrevStateNo != 1650
+trigger2 = PrevStateNo != 1700 && PrevStateNo != 1750
+fv = 3
+value = 1
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger2 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger3 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger4 = PrevStateNo = 1400
+trigger4 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger5 = PrevStateNo = 1700 || PrevStateNo = 1750
+fv = 3
+value = fVar(3)*0.95
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = fVar(33)<200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = 0
+
+[State 3000,VarAdd]
+type = VarAdd
+triggerall = Time = 0
+triggerall = fVar(33)>=200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = -200
+
+[State 3000,PalFx]
+type = PalFx
+triggerall = Time = 1
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+add = 105,105,105
+sinadd = 125,125,125,10
+time = 3
+
+; MAX使用フラグリセット
+[State -2,3]
+type = VarSet
+triggerall = fVar(32)!=0
+trigger1 = Time = 2
+fv = 32
+value = 0
+
+[State 1300, 2]
+type = PosSet
+trigger1 = Pos Y !=0
+trigger1 = Time = 0
+y = 0
+
+[State 1300, 2]
+type = PosAdd
+trigger1 = PrevStateno = 1200 || PrevStateno = 1250 || PrevStateno = 1400
+trigger1 = Time = 0
+x = 5
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = time = 4
+value = 1100, 0
+channel = 0
+volume = 10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimElem = 8
+value = 1100, 1
+volume = 10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimElem = 5
+value = 200, 2
+
+[State 1110,3]
+type = Hitdef
+trigger1 = AnimElem = 3
+attr = S, SA
+animtype = Hard
+damage    = Ceil(44*fVar(3)*fVar(38)), 4
+getpower = 40+Var(43)
+givepower = 10
+guardflag = M
+hitflag = MAF
+pausetime = 8,8
+sparkno = S2020
+guard.sparkno = S2070
+sparkxy = -25,-49
+hitsound = S300, 3
+guardsound = S0, 0
+ground.type = Low
+ground.slidetime = 24
+ground.hittime  = 19
+guard.pausetime = 9,9
+guard.slidetime = 24
+guard.hittime  = 18
+ground.velocity = -6.5
+air.velocity = -2.2,-4.5
+airguard.velocity = -2.7,-3.5
+guard.velocity = -6.7
+ground.cornerpush.veloff = -11.5
+fall = 0
+air.fall = 1
+fall.recover = 0
+
+[State 1410,Explod]
+type = Explod
+trigger1 = AnimElem = 7,=2
+anim = 1110
+ID = 1110
+pos = 0,0
+postype = P1
+sprpriority = 3
+supermove = 1
+ownpal = 1
+bindtime = 1
+vel = 0,0
+
+[State 1000,Projectile]
+type = Projectile
+trigger1 = AnimElem = 8
+projanim = 1165
+projID = 1150
+projhitanim = -1
+projremanim = -1
+projcancelanim = -1
+projremovetime = 10
+projedgebound = 60
+projpriority = 2
+projshadow = -1
+offset = 0,0
+velocity = 0, 0
+attr = S, SP
+damage    = Ceil(71*fVar(38)), 8
+getpower = 85
+givepower = 36
+animtype = Hard
+guardflag = M
+hitflag = MAFP
+pausetime = 0,12
+hitsound   = S1100, 2
+guardsound = S0, 0
+sparkno = S2020
+guard.sparkno = S2070
+sparkxy = 70, -65
+ground.type = High
+ground.slidetime = 27
+ground.hittime  = 14
+ground.velocity = -7.6
+air.velocity = -4.0,-4.5
+air.juggle = 4
+palfx.time = 30
+Palfx.add = 210,10,-200
+Palfx.mul = 180,170,160
+Palfx.sinadd = 60,40,50,20
+Palfx.color = 0
+palfx.invertall = 1
+
+[State 1000,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;++++++++++++++++++++
+;AI機能
+;++++++++++++++++++++
+; 超必殺忍蜂 MAX
+[State 220,3300]
+type = ChangeState
+value = 3300
+triggerall = var(30)!=0 && var(32)!=0 && Power >= 3000-fVar(2)
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(3) = [3,5]
+trigger1 = MoveHit && fVar(33)<250
+trigger1 = Random < Ceil(200*fVar(12))
+trigger2 = MoveHit && fVar(33)<450
+trigger2 = Random < Ceil(100*fVar(12))
+trigger3 = MoveHit && fVar(33)<650
+trigger3 = Random < Ceil(50*fVar(12))
+trigger4 = MoveHit && fVar(33)<450 && Var(31)!=0
+trigger4 = Random < Ceil(500*fVar(12))
+trigger5 = MoveHit && fVar(33)<650 && Var(31)!=0
+trigger5 = Random < Ceil(300*fVar(12))
+
+; 花嵐 MAX
+[State 220,3800]
+type = ChangeState
+value = 3800
+triggerall = var(30)!=0 && var(32)!=0 && var(36)=1 && Power >= 3000-fVar(2)
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(3) = [3,5]
+trigger1 = MoveHit && fVar(33)<250
+trigger1 = Random < Ceil(200*fVar(12))
+trigger2 = MoveHit && fVar(33)<450
+trigger2 = Random < Ceil(100*fVar(12))
+trigger3 = MoveHit && fVar(33)<650
+trigger3 = Random < Ceil(50*fVar(12))
+trigger4 = MoveHit && fVar(33)<450 && Var(31)!=0
+trigger4 = Random < Ceil(500*fVar(12))
+trigger5 = MoveHit && fVar(33)<650 && Var(31)!=0
+trigger5 = Random < Ceil(300*fVar(12))
+
+; 超必殺忍蜂 B
+[State 220,3050]
+type = ChangeState
+value = 3050
+triggerall = var(30)!=0 && Power >= 2000-fVar(2)
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(3) = [3,5]
+trigger1 = MoveHit && fVar(33)<250
+trigger1 = Random < Ceil(180*fVar(12))
+trigger2 = MoveHit && fVar(33)<450
+trigger2 = Random < Ceil(90*fVar(12))
+trigger3 = MoveHit && fVar(33)<650
+trigger3 = Random < Ceil(40*fVar(12))
+trigger4 = MoveHit && fVar(33)<450 && Var(31)!=0
+trigger4 = Random < Ceil(500*fVar(12))
+trigger5 = MoveHit && fVar(33)<650 && Var(31)!=0
+trigger5 = Random < Ceil(300*fVar(12))
+
+; 花嵐 A
+[State 220,3100]
+type = ChangeState
+value = 3100
+triggerall = var(30)!=0 && Var(36)=0 && Power >= 2000-fVar(2)
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(3) = [3,5]
+trigger1 = MoveHit && fVar(33)<250
+trigger1 = Random < Ceil(180*fVar(12))
+trigger2 = MoveHit && fVar(33)<450
+trigger2 = Random < Ceil(100*fVar(12))
+trigger3 = MoveHit && fVar(33)<650
+trigger3 = Random < Ceil(60*fVar(12))
+trigger4 = MoveHit && fVar(33)<450 && Var(31)!=0
+trigger4 = Random < Ceil(500*fVar(12))
+trigger5 = MoveHit && fVar(33)<650 && Var(31)!=0
+trigger5 = Random < Ceil(300*fVar(12))
+
+; 水鳥の舞 Y
+[State 220,3100]
+type = ChangeState
+value = 3750
+triggerall = var(30)!=0 && Var(36)=1 && Power >= 2000-fVar(2)
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(3) = [3,5]
+trigger1 = MoveHit && fVar(33)<250
+trigger1 = Random < Ceil(180*fVar(12))
+trigger2 = MoveHit && fVar(33)<450
+trigger2 = Random < Ceil(100*fVar(12))
+trigger3 = MoveHit && fVar(33)<650
+trigger3 = Random < Ceil(60*fVar(12))
+trigger4 = MoveHit && fVar(33)<450 && Var(31)!=0
+trigger4 = Random < Ceil(500*fVar(12))
+trigger5 = MoveHit && fVar(33)<650 && Var(31)!=0
+trigger5 = Random < Ceil(300*fVar(12))
+
+;-------------------------------------------------------------------------------
+; 小夜千鳥 A
+[Statedef 1200]
+type    = S
+movetype= A
+physics = N
+juggle  = 4-Var(45)
+poweradd= 70+Var(43)
+ctrl = 0
+velset = 0,0,0
+anim = 1200
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+trigger1 = Var(32)=0
+trigger2 = Var(32)!=0
+trigger2 = PrevStateNo != 1000 && PrevStateNo != 1050
+trigger2 = PrevStateNo != 1100 && PrevStateNo != 1150
+trigger2 = PrevStateNo != 1200 && PrevStateNo != 1250
+trigger2 = PrevStateNo != 1400
+trigger2 = PrevStateNo != 1600 && PrevStateNo != 1650
+trigger2 = PrevStateNo != 1700 && PrevStateNo != 1750
+fv = 3
+value = 1
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger2 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger3 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger4 = PrevStateNo = 1400
+trigger4 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger5 = PrevStateNo = 1700 || PrevStateNo = 1750
+fv = 3
+value = fVar(3)*0.95
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = fVar(33)<200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = 0
+
+[State 3000,VarAdd]
+type = VarAdd
+triggerall = Time = 0
+triggerall = fVar(33)>=200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = -200
+
+[State 3000,PalFx]
+type = PalFx
+triggerall = Time = 1
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+add = 105,105,105
+sinadd = 125,125,125,10
+time = 3
+
+; MAX使用フラグリセット
+[State -2,3]
+type = VarSet
+triggerall = fVar(32)!=0
+trigger1 = Time = 2
+fv = 32
+value = 0
+
+[State 1300, 2]
+type = PosSet
+trigger1 = Pos Y !=0
+trigger1 = Time = 0
+y = 0
+
+[State 1300, 2]
+type = PosAdd
+trigger1 = PrevStateno = 1400
+trigger1 = Time = 0
+x = 5
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = time = 5
+value = 1200, 0
+channel = 0
+volume = 10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimElem = 3
+value = 1200, 1
+volume = 10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimElem = 4
+value = 1000, 1
+
+[State 1110,3]
+type = Hitdef
+trigger1 = time = 0
+attr = S, SA
+animtype = Hard
+damage    = Ceil(94*fVar(3)*fVar(38)), 4
+getpower = 40+Var(43)
+givepower = 10
+guardflag = M
+hitflag = MAF
+pausetime = 8,8
+sparkno = S2020
+guard.sparkno = S2070
+sparkxy = -25,-49
+hitsound = S300, 3
+guardsound = S0, 0
+ground.type = High
+ground.slidetime = 22
+ground.hittime  = 21
+guard.pausetime = 10,10
+guard.slidetime = 24
+guard.hittime  = 18
+ground.velocity = -7.0
+air.velocity = -2.2,-4.5
+airguard.velocity = -2.7,-3.5
+guard.velocity = -6.7
+fall = 0
+air.fall = 1
+fall.recover = 0
+
+[State 1410,Explod]
+type = Explod
+trigger1 = AnimElem = 4,>=0
+trigger1 = AnimElem = 5,<0
+anim = 1210
+ID = 1210
+pos = 0,0
+postype = P1
+sprpriority = 3
+supermove = 1
+ownpal = 1
+bindtime = 1
+vel = 0,0
+ignorehitpause = 1
+
+[State 1410,Explod]
+type = Explod
+trigger1 = AnimElem = 5,>=0
+trigger1 = AnimElem = 6,<0
+anim = 1211
+ID = 1211
+pos = 0,0
+postype = P1
+sprpriority = 3
+supermove = 1
+ownpal = 1
+bindtime = 1
+vel = 0,0
+ignorehitpause = 1
+
+[State 1410,Explod]
+type = Explod
+trigger1 = AnimElem = 6,>=0
+trigger1 = AnimElem = 7,<0
+anim = 1212
+ID = 1212
+pos = 0,0
+postype = P1
+sprpriority = 3
+supermove = 1
+ownpal = 1
+bindtime = 1
+vel = 0,0
+ignorehitpause = 1
+
+[State 1410,Explod]
+type = Explod
+trigger1 = AnimElem = 7,>=0
+trigger1 = AnimElem = 7,<2
+anim = 1213
+ID = 1213
+pos = 0,0
+postype = P1
+sprpriority = 3
+supermove = 1
+ownpal = 1
+bindtime = 1
+vel = 0,0
+ignorehitpause = 1
+
+[State 1410,Explod]
+type = Explod
+trigger1 = AnimElem = 7,>=2
+trigger1 = AnimElem = 7,<4
+anim = 1214
+ID = 1214
+pos = 0,0
+postype = P1
+sprpriority = 3
+supermove = 1
+ownpal = 1
+bindtime = 1
+vel = 0,0
+ignorehitpause = 1
+
+[State 1410,Explod]
+type = Explod
+trigger1 = AnimElem = 8
+anim = 1215
+ID = 1215
+pos = 0,0
+postype = P1
+sprpriority = 3
+supermove = 1
+ownpal = 1
+bindtime = 1
+vel = 0,0
+ignorehitpause = 1
+
+[State 1000,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;++++++++++++++++++++
+;AI機能
+;++++++++++++++++++++
+
+; 龍炎舞 Y
+[State 220,1000]
+type = ChangeState
+value = 1150
+triggerall = var(30)!=0 && var(32)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(6) = [2,5]
+trigger1 = MoveHit
+trigger1 = Random < Ceil(600*fVar(12))
+trigger2 = MoveGuarded
+trigger2 = Random < Ceil(150*fVar(12))
+trigger3 = MoveHit && Var(31)!=0
+trigger3 = Random < Ceil(800*fVar(12))
+trigger4 = MoveGuarded && Var(31)!=0
+trigger4 = Random < Ceil(350*fVar(12))
+
+; 飛翔龍炎陣 B
+[State 220,1000]
+type = ChangeState
+value = 1750
+triggerall = var(30)!=0 && var(32)!=0 && var(36)=1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(6) = [2,5]
+trigger1 = MoveHit
+trigger1 = Random < Ceil(400*fVar(12))
+trigger2 = MoveGuarded
+trigger2 = Random < Ceil(110*fVar(12))
+trigger3 = MoveHit && Var(31)!=0
+trigger3 = Random < Ceil(400*fVar(12))
+trigger4 = MoveGuarded && Var(31)!=0
+trigger4 = Random < Ceil(150*fVar(12))
+
+;-------------------------------------------------------------------------------
+; 小夜千鳥 B
+[Statedef 1250]
+type    = S
+movetype= A
+physics = N
+juggle  = 4-Var(45)
+poweradd= 70+Var(43)
+ctrl = 0
+velset = 0,0,0
+anim = 1250
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+trigger1 = Var(32)=0
+trigger2 = Var(32)!=0
+trigger2 = PrevStateNo != 1000 && PrevStateNo != 1050
+trigger2 = PrevStateNo != 1100 && PrevStateNo != 1150
+trigger2 = PrevStateNo != 1200 && PrevStateNo != 1250
+trigger2 = PrevStateNo != 1400
+trigger2 = PrevStateNo != 1600 && PrevStateNo != 1650
+trigger2 = PrevStateNo != 1700 && PrevStateNo != 1750
+fv = 3
+value = 1
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger2 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger3 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger4 = PrevStateNo = 1400
+trigger4 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger5 = PrevStateNo = 1700 || PrevStateNo = 1750
+fv = 3
+value = fVar(3)*0.95
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = fVar(33)<200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = 0
+
+[State 3000,VarAdd]
+type = VarAdd
+triggerall = Time = 0
+triggerall = fVar(33)>=200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = -200
+
+[State 3000,PalFx]
+type = PalFx
+triggerall = Time = 1
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+add = 105,105,105
+sinadd = 125,125,125,10
+time = 3
+
+; MAX使用フラグリセット
+[State -2,3]
+type = VarSet
+triggerall = fVar(32)!=0
+trigger1 = Time = 2
+fv = 32
+value = 0
+
+[State 1300, 2]
+type = PosSet
+trigger1 = Pos Y !=0
+trigger1 = Time = 0
+y = 0
+
+[State 1300, 2]
+type = PosAdd
+trigger1 = PrevStateno = 1400
+trigger1 = Time = 0
+x = 5
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = time = 5
+value = 1200, 0
+channel = 0
+volume = 10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimElem = 3
+value = 1200, 1
+volume = 10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimElem = 4
+value = 1000, 1
+
+[State 1110,3]
+type = Hitdef
+trigger1 = time = 0
+attr = S, SA
+animtype = Hard
+damage    = Ceil(94*fVar(3)*fVar(38)), 4
+getpower = 40+Var(43)
+givepower = 10
+guardflag = M
+hitflag = MAF
+pausetime = 8,8
+sparkno = S2020
+guard.sparkno = S2070
+sparkxy = -25,-49
+hitsound = S300, 3
+guardsound = S0, 0
+ground.type = High
+ground.slidetime = 22
+ground.hittime  = 22
+guard.pausetime = 10,10
+guard.slidetime = 24
+guard.hittime  = 18
+ground.velocity = -7.2
+air.velocity = -2.2,-4.5
+airguard.velocity = -2.7,-3.5
+guard.velocity = -6.7
+fall = 0
+air.fall = 1
+fall.recover = 0
+
+[State 1410,Explod]
+type = Explod
+trigger1 = AnimElem = 4,>=0
+trigger1 = AnimElem = 5,<0
+anim = 1210
+ID = 1210
+pos = 0,0
+postype = P1
+sprpriority = 3
+supermove = 1
+ownpal = 1
+bindtime = 1
+vel = 0,0
+ignorehitpause = 1
+
+[State 1410,Explod]
+type = Explod
+trigger1 = AnimElem = 5,>=0
+trigger1 = AnimElem = 6,<0
+anim = 1211
+ID = 1211
+pos = 0,0
+postype = P1
+sprpriority = 3
+supermove = 1
+ownpal = 1
+bindtime = 1
+vel = 0,0
+ignorehitpause = 1
+
+[State 1410,Explod]
+type = Explod
+trigger1 = AnimElem = 6,>=0
+trigger1 = AnimElem = 7,<0
+anim = 1212
+ID = 1212
+pos = 0,0
+postype = P1
+sprpriority = 3
+supermove = 1
+ownpal = 1
+bindtime = 1
+vel = 0,0
+ignorehitpause = 1
+
+[State 1410,Explod]
+type = Explod
+trigger1 = AnimElem = 7,>=0
+trigger1 = AnimElem = 7,<2
+anim = 1213
+ID = 1213
+pos = 0,0
+postype = P1
+sprpriority = 3
+supermove = 1
+ownpal = 1
+bindtime = 1
+vel = 0,0
+ignorehitpause = 1
+
+[State 1410,Explod]
+type = Explod
+trigger1 = AnimElem = 7,>=2
+trigger1 = AnimElem = 7,<4
+anim = 1214
+ID = 1214
+pos = 0,0
+postype = P1
+sprpriority = 3
+supermove = 1
+ownpal = 1
+bindtime = 1
+vel = 0,0
+ignorehitpause = 1
+
+[State 1410,Explod]
+type = Explod
+trigger1 = AnimElem = 8
+anim = 1215
+ID = 1215
+pos = 0,0
+postype = P1
+sprpriority = 3
+supermove = 1
+ownpal = 1
+bindtime = 1
+vel = 0,0
+ignorehitpause = 1
+
+[State 1000,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;++++++++++++++++++++
+;AI機能
+;++++++++++++++++++++
+
+; 龍炎舞 Y
+[State 220,1000]
+type = ChangeState
+value = 1150
+triggerall = var(30)!=0 && var(32)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(6) = [2,5]
+trigger1 = MoveHit
+trigger1 = Random < Ceil(600*fVar(12))
+trigger2 = MoveGuarded
+trigger2 = Random < Ceil(150*fVar(12))
+trigger3 = MoveHit && Var(31)!=0
+trigger3 = Random < Ceil(800*fVar(12))
+trigger4 = MoveGuarded && Var(31)!=0
+trigger4 = Random < Ceil(350*fVar(12))
+
+; 飛翔龍炎陣 B
+[State 220,1000]
+type = ChangeState
+value = 1750
+triggerall = var(30)!=0 && var(32)!=0 && var(36)=1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(6) = [2,5]
+trigger1 = MoveHit
+trigger1 = Random < Ceil(400*fVar(12))
+trigger2 = MoveGuarded
+trigger2 = Random < Ceil(110*fVar(12))
+trigger3 = MoveHit && Var(31)!=0
+trigger3 = Random < Ceil(400*fVar(12))
+trigger4 = MoveGuarded && Var(31)!=0
+trigger4 = Random < Ceil(150*fVar(12))
+
+;-------------------------------------------------------------------------------
+; ムササビの舞 X
+[Statedef 1300]
+type    = S
+movetype= I
+physics = N
+poweradd= 20+Var(43)
+ctrl = 0
+velset = 0,0,0
+anim = 1300
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+trigger1 = Var(32)=0
+trigger2 = Var(32)!=0
+trigger2 = PrevStateNo != 1000 && PrevStateNo != 1050
+trigger2 = PrevStateNo != 1100 && PrevStateNo != 1150
+trigger2 = PrevStateNo != 1200 && PrevStateNo != 1250
+trigger2 = PrevStateNo != 1400
+trigger2 = PrevStateNo != 1600 && PrevStateNo != 1650
+trigger2 = PrevStateNo != 1700 && PrevStateNo != 1750
+fv = 3
+value = 1
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger2 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger3 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger4 = PrevStateNo = 1400
+trigger4 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger5 = PrevStateNo = 1700 || PrevStateNo = 1750
+fv = 3
+value = fVar(3)*0.95
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = fVar(33)<200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = 0
+
+[State 3000,VarAdd]
+type = VarAdd
+triggerall = Time = 0
+triggerall = fVar(33)>=200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = -200
+
+[State 3000,PalFx]
+type = PalFx
+triggerall = Time = 1
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+add = 105,105,105
+sinadd = 125,125,125,10
+time = 3
+
+; MAX使用フラグリセット
+[State -2,3]
+type = VarSet
+triggerall = fVar(32)!=0
+trigger1 = Time = 2
+fv = 32
+value = 0
+
+[State 1300, 2]
+type = PosSet
+trigger1 = Pos Y !=0
+trigger1 = Time = 0
+y = 0
+
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = time = 1
+value = 1300, 0
+channel = 0
+volume = 10
+
+[State 1000,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 1305
+ctrl = 0
+
+;------------------- A
+[Statedef 1305]
+type    = A
+movetype= I
+physics = N
+ctrl = 0
+velset = -7.8,-8.5,0
+anim = 1305
+
+[State 1300, 2]
+type = PosAdd
+trigger1 = Time = 0
+y = -10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = Time = 1
+value = 41, 0
+ignorehitpause = 1
+
+[State 1300, VelAdd]
+type = VelAdd
+trigger1 = Vel Y < 0
+y = 0.40
+
+[State 1300, VelAdd]
+type = VelSet
+trigger1 = Vel Y > 0
+y = 0
+
+[State 810, Width]
+type = Width
+trigger1 = 1
+edge = 10,0
+
+[State 1300, VarSet]
+type = VarSet
+trigger1 = time = 0
+v = 16
+value = 1
+
+[State 1300, VarSet]
+type = VarSet
+trigger1 = time >= 16
+trigger1 = !Command = "hold_x"
+v = 16
+value = 0
+
+[State 1310,4]
+type = ScreenBound
+trigger1 = 1
+value = 0
+
+[State 1000,4]
+type = VelSet
+trigger1 = Time <= 24
+trigger1 = BackEdgeDist <=5
+x = 0
+
+[State 1000,4]
+type = ChangeState
+trigger1 = Time >= 24
+trigger1 = BackEdgeDist <=5
+trigger2 = Time >= 35
+trigger2 = BackEdgeDist <=25
+trigger3 = Time >= 50
+value = 1310
+ctrl = 0
+
+;-------------------  A
+[Statedef 1310]
+type    = A
+movetype= I
+physics = N
+ctrl = 0
+velset = 0,0,0
+anim = 1310
+
+[State 1310,4]
+type = ScreenBound
+trigger1 = 1
+value = 0
+
+[State 1310,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+trigger1 = Var(16)!=1
+value = 1315
+ctrl = 0
+
+[State 1310,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+trigger1 = Var(16)=1
+value = 1320
+ctrl = 0
+
+;-------------------  A
+[Statedef 1315]
+type    = A
+movetype= I
+physics = N
+ctrl = 0
+velset = 7.2,-4.8,0
+anim = 1315
+
+[State 1315, VelAdd]
+type = PosAdd
+trigger1 = time = 0
+x = 10
+
+[State 1315, VelAdd]
+type = VelAdd
+trigger1 = 1
+y = 0.44
+
+[State 1315, Turn]
+type = VelMul
+trigger1 = time = 18
+trigger1 = P2Dist X <-50
+y = 0.8
+
+[State 1315, Turn]
+type = VelSet
+trigger1 = time = 18
+trigger1 = P2Dist X <-50
+x = Vel X * -1
+
+[State 1315, Turn]
+type = Turn
+trigger1 = time = 18
+trigger1 = P2Dist X <-50
+
+[State 1315, VelAdd]
+type = VelMul
+trigger1 = time >= 15
+x = 0.990
+
+[State 1315,4]
+type = ChangeState
+trigger1 = Vel Y > 0 && Pos Y >= 0
+value = 1317
+ctrl = 0
+
+;------------------- 着地
+[Statedef 1317]
+type    = C
+movetype= I
+physics = C
+juggle  = 0
+poweradd= 0
+ctrl = 0
+velset = 0,0,0
+anim = 47
+
+[State 1120,VelSet]
+type = VelSet
+trigger1 = time = 0
+y = 0
+
+[State 1120,PosSet]
+type = PosSet
+trigger1 = time = 0
+trigger1 = Pos Y != 0
+y = 0
+
+[State 1120,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;-------------------------------------------------------------------------------
+; ムササビの舞 X
+[Statedef 1320]
+type    = A
+movetype= A
+physics = N
+juggle  = 6-Var(45)
+poweradd= 70+Var(43)
+ctrl = 0
+velset = 5.2,5.2,0
+anim = 1320
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = time = 1
+value = 1300, 1
+volume = 10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = time = 1
+value = 1500, 0
+channel = 0
+volume = 10
+
+[State 1110,3]
+type = Hitdef
+trigger1 = time = 0
+attr = A, SA
+animtype = Hard
+damage    = Ceil(104*fVar(3)*fVar(38)), 4
+getpower = 40+Var(43)
+givepower = 10
+guardflag = MA
+hitflag = MAF
+pausetime = 10,10
+sparkno = S2020
+guard.sparkno = S2070
+sparkxy = -25,-49
+hitsound = S300, 3
+guardsound = S0, 0
+ground.type = High
+ground.slidetime = 25
+ground.hittime  = 19
+guard.pausetime = 11,11
+guard.slidetime = 24
+guard.hittime  = 18
+ground.velocity = -4.0,-6.5
+air.velocity = -4.2,-6.5
+airguard.velocity = -3.7,-4.5
+guard.velocity = -7.5
+fall = 1
+air.fall = 1
+fall.recover = 0
+
+[State 1315,4]
+type = ChangeState
+trigger1 = Vel Y > 0 && Pos Y >= 0
+value = 1325
+ctrl = 0
+
+;------------------- 着地
+[Statedef 1325]
+type    = C
+movetype= I
+physics = C
+juggle  = 0
+poweradd= 0
+ctrl = 0
+velset = 0,0,0
+anim = 1325
+
+[State 1120,VelSet]
+type = VelSet
+trigger1 = time = 0
+y = 0
+
+[State 1120,PosSet]
+type = PosSet
+trigger1 = time = 0
+trigger1 = Pos Y != 0
+y = 0
+
+[State 1120,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;-------------------------------------------------------------------------------
+; ムササビの舞 X
+[Statedef 1330]
+type    = A
+movetype= A
+physics = N
+juggle  = 6-Var(45)
+poweradd= 70+Var(43)
+ctrl = 0
+velset = 7.8,5.2,0
+anim = 1320
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = time = 1
+value = 1300, 1
+volume = 10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = time = 1
+value = 1500, 0
+channel = 0
+volume = 10
+
+[State 1110,3]
+type = Hitdef
+trigger1 = time = 0
+attr = A, SA
+animtype = Hard
+damage    = Ceil(104*fVar(3)*fVar(38)), 4
+getpower = 40+Var(43)
+givepower = 10
+guardflag = MA
+hitflag = MAF
+pausetime = 10,10
+sparkno = S2020
+guard.sparkno = S2070
+sparkxy = -25,-49
+hitsound = S300, 3
+guardsound = S0, 0
+ground.type = High
+ground.slidetime = 25
+ground.hittime  = 19
+guard.pausetime = 11,11
+guard.slidetime = 24
+guard.hittime  = 18
+ground.velocity = -4.0,-6.5
+air.velocity = -4.2,-6.5
+airguard.velocity = -3.7,-4.5
+guard.velocity = -7.5
+fall = 1
+air.fall = 1
+fall.recover = 0
+
+[State 1315,4]
+type = ChangeState
+trigger1 = Vel Y > 0 && Pos Y >= 0
+value = 1325
+ctrl = 0
+
+
+;-------------------------------------------------------------------------------
+; ムササビの舞 X
+[Statedef 1350]
+type    = S
+movetype= I
+physics = N
+poweradd= 20+Var(43)
+ctrl = 0
+velset = 0,0,0
+anim = 1300
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+trigger1 = Var(32)=0
+trigger2 = Var(32)!=0
+trigger2 = PrevStateNo != 1000 && PrevStateNo != 1050
+trigger2 = PrevStateNo != 1100 && PrevStateNo != 1150
+trigger2 = PrevStateNo != 1200 && PrevStateNo != 1250
+trigger2 = PrevStateNo != 1400
+trigger2 = PrevStateNo != 1600 && PrevStateNo != 1650
+trigger2 = PrevStateNo != 1700 && PrevStateNo != 1750
+fv = 3
+value = 1
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger2 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger3 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger4 = PrevStateNo = 1400
+trigger4 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger5 = PrevStateNo = 1700 || PrevStateNo = 1750
+fv = 3
+value = fVar(3)*0.95
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = fVar(33)<200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = 0
+
+[State 3000,VarAdd]
+type = VarAdd
+triggerall = Time = 0
+triggerall = fVar(33)>=200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = -200
+
+[State 3000,PalFx]
+type = PalFx
+triggerall = Time = 1
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+add = 105,105,105
+sinadd = 125,125,125,10
+time = 3
+
+; MAX使用フラグリセット
+[State -2,3]
+type = VarSet
+triggerall = fVar(32)!=0
+trigger1 = Time = 2
+fv = 32
+value = 0
+
+[State 1300, 2]
+type = PosSet
+trigger1 = Pos Y !=0
+trigger1 = Time = 0
+y = 0
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = time = 1
+value = 1300, 0
+channel = 0
+volume = 10
+
+[State 1000,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 1355
+ctrl = 0
+
+;------------------- 必殺忍蜂 A
+[Statedef 1355]
+type    = A
+movetype= I
+physics = N
+ctrl = 0
+velset = -7.8,-8.5,0
+anim = 1305
+
+[State 1300, 2]
+type = PosAdd
+trigger1 = Time = 0
+y = -10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = Time = 1
+value = 41, 0
+ignorehitpause = 1
+
+[State 1300, VelAdd]
+type = VelAdd
+trigger1 = Vel Y < 0
+y = 0.40
+
+[State 1300, VelAdd]
+type = VelSet
+trigger1 = Vel Y > 0
+y = 0
+
+[State 810, Width]
+type = Width
+trigger1 = 1
+edge = 10,0
+
+[State 1300, VarSet]
+type = VarSet
+trigger1 = time = 0
+v = 16
+value = 1
+
+[State 1300, VarSet]
+type = VarSet
+trigger1 = time >= 16
+trigger1 = !Command = "hold_y"
+v = 16
+value = 0
+
+[State 1310,4]
+type = ScreenBound
+trigger1 = 1
+value = 0
+
+[State 1000,4]
+type = VelSet
+trigger1 = Time <= 24
+trigger1 = BackEdgeDist <=5
+x = 0
+
+[State 1000,4]
+type = ChangeState
+trigger1 = Time >= 24
+trigger1 = BackEdgeDist <=5
+trigger2 = Time >= 35
+trigger2 = BackEdgeDist <=25
+trigger3 = Time >= 50
+value = 1360
+ctrl = 0
+
+hitdefpersist = 1
+;movehitpersist = 1
+
+;-------------------  A
+[Statedef 1360]
+type    = A
+movetype= I
+physics = N
+ctrl = 0
+velset = 0,0,0
+anim = 1310
+
+[State 1310,4]
+type = ScreenBound
+trigger1 = 1
+value = 0
+
+[State 1310,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+trigger1 = Var(16)!=1
+value = 1315
+ctrl = 0
+
+[State 1310,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+trigger1 = Var(16)=1
+value = 1330
+ctrl = 0
+
+;-------------------------------------------------------------------------------
+; 浮羽
+[Statedef 1370]
+type    = A
+movetype= A
+physics = N
+juggle  = 5
+poweradd= 20
+ctrl = 0
+anim = 1330
+velset = 1.8,-3.2
+
+[State 1315, Turn]
+type = VelSet
+trigger1 = time = 0
+trigger1 = P2Dist X <-20
+x = Vel X * -1
+
+[State 1315, Turn]
+type = Turn
+trigger1 = time = 0
+trigger1 = P2Dist X <-20
+
+[State 3000,VelAdd]
+type = VelAdd
+trigger1 = 1
+y = 0.22
+
+[State 3000,VelAdd]
+type = VelMul
+trigger1 = Vel Y >= -0.8
+x = 0.92
+
+[State 520,HitDef]
+type = HitDef
+trigger1 = Time = 0
+attr = A, SA
+animtype = Hard
+damage    = Ceil(81*fVar(38)*fVar(3))
+getpower = 90 
+givepower = 42
+hitflag = MAF
+guardflag = HA
+priority = 3
+pausetime = 12,13
+sparkno = S2020
+guard.sparkno = S2070
+sparkxy = -10,-60
+hitsound = S300, IfElse(Random<700,2,12)
+guardsound = S0, 0
+ground.type = High
+ground.slidetime = 18
+ground.hittime  = 15
+guard.pausetime = 12,12
+guard.slidetime = 20
+guard.hittime  = 20
+ground.velocity = -0.8, 5.2
+ground.cornerpush.veloff = -5.5
+air.velocity = -0.8, 5.2
+airguard.velocity = -2.0, 2.2
+fall = 1
+air.fall = 1
+fall.recover = 0
+
+[State 550,4]
+type = ChangeState
+trigger1 = Vel Y > 0 && Pos Y >= 0
+value = 1375
+ctrl = 0
+
+;------------------- 着地
+[Statedef 1375]
+type    = C
+movetype= I
+physics = C
+juggle  = 0
+poweradd= 0
+ctrl = 0
+velset = 0,0,0
+anim = 1335
+
+[State 1120,VelSet]
+type = VelSet
+trigger1 = time = 0
+y = 0
+
+[State 1120,PosSet]
+type = PosSet
+trigger1 = time = 0
+trigger1 = Pos Y != 0
+y = 0
+
+[State 1120,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;-------------------------------------------------------------------------------
+; 山桜桃
+[Statedef 1380]
+type    = A
+movetype= A
+physics = N
+juggle  = 5
+poweradd= 20
+ctrl = 0
+anim = 560
+velset = 4.4,-1.04
+
+[State 1315, Turn]
+type = VelSet
+trigger1 = time = 0
+trigger1 = P2Dist X <-20
+x = Vel X * -1
+
+[State 1315, Turn]
+type = Turn
+trigger1 = time = 0
+trigger1 = P2Dist X <-20
+
+[State 3000,VelAdd]
+type = VelAdd
+trigger1 = 1
+y = 0.26
+
+[State 520,HitDef]
+type = HitDef
+trigger1 = Time = 0
+attr = A, SA
+animtype = Hard
+damage    = Ceil(fVar(38)*fVar(3)*81)
+getpower = 90 
+givepower = 42
+hitflag = MAF
+guardflag = HA
+priority = 3
+pausetime = 11,11
+sparkno = S2010
+guard.sparkno = S2060
+sparkxy = -10,-60
+hitsound = S300, IfElse(Random<700,2,12)
+guardsound = S0, 0
+ground.type = High
+ground.slidetime = 18
+ground.hittime  = 15
+guard.pausetime = 11,11
+guard.slidetime = 23
+guard.hittime  = 20
+ground.velocity = -3.4, -4.2
+ground.cornerpush.veloff = -6.5
+air.velocity = -3.4, -4.2
+airguard.velocity = -3.0, -3.2
+fall = 1
+air.fall = 1
+fall.recover = 0
+
+[State 550,4]
+type = ChangeState
+trigger1 = Vel Y > 0 && Pos Y >= 0
+value = 1385
+ctrl = 0
+
+;------------------- 着地
+[Statedef 1385]
+type    = C
+movetype= I
+physics = C
+juggle  = 0
+poweradd= 0
+ctrl = 0
+velset = 0,0,0
+anim = 565
+
+[State 1120,VelSet]
+type = VelSet
+trigger1 = time = 0
+y = 0
+
+[State 1120,PosSet]
+type = PosSet
+trigger1 = time = 0
+trigger1 = Pos Y != 0
+y = 0
+
+[State 1120,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;-------------------------------------------------------------------------------
+; ムササビの舞 X
+[Statedef 1500]
+type    = A
+movetype= A
+physics = N
+juggle  = 5-Var(45)
+poweradd= 70+Var(43)
+ctrl = 0
+velset = 0,0,0
+anim = 1500
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+trigger1 = Var(32)=0
+trigger2 = Var(32)!=0
+trigger2 = PrevStateNo != 1410 && PrevStateNo != 1460
+trigger2 = PrevStateNo != 1700 && PrevStateNo != 1750
+fv = 3
+value = 1
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 1410 || PrevStateNo = 1460
+trigger2 = PrevStateNo = 1710 || PrevStateNo = 1760
+fv = 3
+value = fVar(3)*0.95
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = fVar(33)<200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 1410 || PrevStateNo = 1460
+trigger2 = PrevStateNo = 1710 || PrevStateNo = 1760
+fv = 33
+value = 0
+
+[State 3000,VarAdd]
+type = VarAdd
+triggerall = Time = 0
+triggerall = fVar(33)>=200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 1410 || PrevStateNo = 1460
+trigger2 = PrevStateNo = 1710 || PrevStateNo = 1760
+fv = 33
+value = -200
+
+[State 3000,PalFx]
+type = PalFx
+triggerall = Time = 1
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 1410 || PrevStateNo = 1460
+trigger2 = PrevStateNo = 1710 || PrevStateNo = 1760
+add = 105,105,105
+sinadd = 125,125,125,10
+time = 3
+
+; MAX使用フラグリセット
+[State -2,3]
+type = VarSet
+triggerall = fVar(32)!=0
+trigger1 = Time = 2
+fv = 32
+value = 0
+
+[State 1315,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 1320
+ctrl = 0
+
+;-------------------------------------------------------------------------------
+; ムササビの舞 Y
+[Statedef 1550]
+type    = A
+movetype= A
+physics = N
+juggle  = 5-Var(45)
+poweradd= 70+Var(43)
+ctrl = 0
+velset = 0,0,0
+anim = 1500
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+trigger1 = Var(32)=0
+trigger2 = Var(32)!=0
+trigger2 = PrevStateNo != 1410 && PrevStateNo != 1460
+trigger2 = PrevStateNo != 1710 && PrevStateNo != 1760
+fv = 3
+value = 1
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 1410 || PrevStateNo = 1460
+trigger2 = PrevStateNo = 1710 || PrevStateNo = 1760
+fv = 3
+value = fVar(3)*0.95
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = fVar(33)<200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 1410 || PrevStateNo = 1460
+trigger2 = PrevStateNo = 1710 || PrevStateNo = 1760
+fv = 33
+value = 0
+
+[State 3000,VarAdd]
+type = VarAdd
+triggerall = Time = 0
+triggerall = fVar(33)>=200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 1410 || PrevStateNo = 1460
+trigger2 = PrevStateNo = 1710 || PrevStateNo = 1760
+fv = 33
+value = -200
+
+[State 3000,PalFx]
+type = PalFx
+triggerall = Time = 1
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 1410 || PrevStateNo = 1460
+trigger2 = PrevStateNo = 1710 || PrevStateNo = 1760
+add = 105,105,105
+sinadd = 125,125,125,10
+time = 3
+
+; MAX使用フラグリセット
+[State -2,3]
+type = VarSet
+triggerall = fVar(32)!=0
+trigger1 = Time = 2
+fv = 32
+value = 0
+
+[State 1315,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 1330
+ctrl = 0
+
+
+;-------------------------------------------------------------------------------
+; 空中投げ
+[Statedef 1560]
+type = A
+movetype = A
+physics = N
+ctrl = 0
+anim = 1340
+velset = 0, 0
+juggle  = 8
+
+[State 850,Hitdef]
+type = Hitdef
+trigger1 = Time = 0
+attr = A, ST
+priority = 3,Miss
+getpower = 120
+givepower = 110
+hitflag = MA
+numhits = 0
+sparkno = -1
+p1facing = 1
+p2facing = 1
+p1stateno = 1565
+p2stateno = 1580
+p2getp1state = 1
+hitsound = S900, 0; -1
+fall = 1
+air.fall = 1
+fall.recover = 0
+snap = 15,0
+animtype = DigUp
+ground.velocity = -3.8,-4.0
+air.velocity = -3.8,-4.0
+
+[State 850,ChangeState]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 1370
+
+;-------------------------------------------------------------------------------
+; （成功）
+[Statedef 1565]
+type = A
+movetype = A
+physics = N
+anim = 1342
+velset = 0, 0
+poweradd = 0
+sprpriority = 2
+
+[State 810,Explod]
+type = Explod
+trigger1 = AnimElem = 1
+anim = 2150
+pos = 0,0
+postype = P1
+sprpriority = 2
+bindtime = 1
+ownpal = 1
+
+[State 860,NotHitBy]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+
+[State 860, PlayerPush]
+type = PlayerPush
+trigger1 = 1
+value = 0
+
+[State 860, VelSet]
+type = VelSet
+trigger1 = 1
+x = 0
+
+[State 1120,VelSet]
+type = VelAdd
+trigger1 = AnimElem = 5, >= 0
+y = 0.40
+
+[State 1060, PosAdd]
+type = PosAdd
+trigger1 = time = 0
+trigger1 = Pos Y +70 >= (Target,Const(Size.head.pos.Y))
+y = (Target,Const(Size.head.pos.Y))
+
+[State 860, TargetBind]
+type = TargetBind
+trigger1 = AnimElem = 4, < 0
+pos = 0, 0
+
+[State 860, TargetBind2]
+type = TargetBind
+trigger1 = AnimElem = 4, >= 0
+pos = 7, -30
+
+[State 1315,4]
+type = ChangeState
+trigger1 = Vel Y > 0 && Pos Y >= 0
+value = 1570
+ctrl = 0
+
+;------------------- 着地
+; （成功）
+[Statedef 1570]
+type = A
+movetype = A
+physics = N
+anim = 885
+velset = 0, 0
+poweradd = 0
+sprpriority = 2
+
+[State 810, TargetState]
+type = TargetState
+trigger1 = time = 0
+value = 1585
+
+[State 810, PlaySnd]
+type = PlaySnd
+trigger1 = time = 1
+value = 500,2
+
+[State 810, TargetLifeAdd] 
+type = TargetLifeAdd
+trigger1 = AnimElem = 1
+value = Ceil(-125)
+
+[State 810, Explod] ;落下時振動
+type = Explod
+trigger1 = AnimElem = 1
+anim = 2700
+pos = 20,0
+postype = p1
+sprpriority = -2
+supermove = 1
+bindtime = -1
+ownpal = 1
+
+[State 810, Explod] ;落下時振動
+type = Explod
+trigger1 = AnimElem = 1
+anim = 2705
+pos = 20,0
+postype = p1
+sprpriority = 2
+supermove = 1
+bindtime = -1
+ownpal = 1
+
+[State 810,EnvShake]
+type = EnvShake
+trigger1 = AnimElem = 1
+time = 13
+ampl = 6
+freq = 175
+
+[State 810, PlaySnd]
+type = PlaySnd
+Trigger1 = AnimElem = 1
+value = F5,3
+
+[State 850,ChangeState]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;-------------------------------------------------------------------------------
+; （投げられ側）
+[Statedef 1580]
+type = A
+movetype = H
+physics = N
+ctrl = 0
+sprpriority = 1
+
+[State 870, HitBy]
+type = HitBy
+Trigger1 = 1
+value = SCA
+time = 1
+
+[State 870,ChangeAnim2]
+type = ChangeAnim2
+triggerall = AuthorName = "ActJapan" && Name = "RyuKoAct"
+triggerall = Var(36)=0
+trigger1 = Time = 0
+value = 1370
+
+[State 870,ChangeAnim2]
+type = ChangeAnim2
+triggerall = AuthorName = "ActJapan" && Name = "RyuKoAct"
+triggerall = Var(36)=1
+trigger1 = Time = 0
+value = 1371
+
+[State 870,ChangeAnim2]
+type = ChangeAnim2
+triggerall = AuthorName = "ActJapan" && Name = "RyuKoAct"
+triggerall = Var(36)=2
+trigger1 = Time = 0
+value = 1372
+
+[State 870,ChangeAnim2]
+type = ChangeAnim2
+triggerall = AuthorName = "ActJapan" && Name = "RyuKoAct"
+triggerall = Var(36)=3
+trigger1 = Time = 0
+value = 1373
+
+[State 870,ChangeAnim2]
+type = ChangeAnim2
+triggerall = !(AuthorName = "ActJapan" && Name = "RyuKoAct")
+trigger1 = Time = 0
+value = 1370
+
+
+;-------------------------------------------------------------------------------
+; （投げられ側）
+[Statedef 1585]
+type = A
+movetype = H
+physics = N
+ctrl = 0
+sprpriority = 1
+velset = 0,0,0
+
+[State 1120,PosSet]
+type = PosSet
+trigger1 = time = 0
+trigger1 = Pos Y != 0
+y = 0
+
+[State 870, HitBy]
+type = HitBy
+Trigger1 = 1
+value = SCA
+time = 1
+
+[State 870,ChangeAnim2]
+type = ChangeAnim2
+triggerall = AuthorName = "ActJapan" && Name = "RyuKoAct"
+triggerall = Var(36)=0
+trigger1 = Time = 0
+value = 1375
+
+[State 870,ChangeAnim2]
+type = ChangeAnim2
+triggerall = AuthorName = "ActJapan" && Name = "RyuKoAct"
+triggerall = Var(36)=1
+trigger1 = Time = 0
+value = 1376
+
+[State 870,ChangeAnim2]
+type = ChangeAnim2
+triggerall = AuthorName = "ActJapan" && Name = "RyuKoAct"
+triggerall = Var(36)=2
+trigger1 = Time = 0
+value = 1377
+
+[State 870,ChangeAnim2]
+type = ChangeAnim2
+triggerall = AuthorName = "ActJapan" && Name = "RyuKoAct"
+triggerall = Var(36)=3
+trigger1 = Time = 0
+value = 1378
+
+[State 870,ChangeAnim2]
+type = ChangeAnim2
+triggerall = !(AuthorName = "ActJapan" && Name = "RyuKoAct")
+trigger1 = Time = 0
+value = 1375
+
+[State 5101, 6] ;Hit ground
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 1590
+
+;-------------------------------------------------------------------------------
+; （投げられ側）
+[Statedef 1590]
+type = A
+movetype = H
+physics = N
+ctrl = 0
+sprpriority = 1
+velset = -4.5,-4.6,0
+
+[State 5100, 2] ;Hit ground anim (normal)
+type = ChangeAnim
+triggerall = !(AuthorName = "ActJapan" && Name = "RyuKoAct")
+triggerall = time = 0
+trigger1 = !SelfAnimExist(5102)
+trigger1 = !SelfAnimExist(5101)
+value = 5100
+
+[State 5100, 3] ;Hit ground anim (for hit up)
+type = ChangeAnim
+triggerall = !(AuthorName = "ActJapan" && Name = "RyuKoAct")
+trigger1 = time = 0
+trigger1 = SelfAnimExist(5102)
+value = 5102
+
+[State 5100, 3] ;Hit ground anim (for hit up)
+type = ChangeAnim
+triggerall = !(AuthorName = "ActJapan" && Name = "RyuKoAct")
+trigger1 = time = 0
+trigger1 = !SelfAnimExist(5101)
+trigger1 = SelfAnimExist(5102)
+value = 5101
+
+[State 5100, 2] ;Hit ground anim (normal)
+type = ChangeAnim
+triggerall = !(AuthorName = "ActJapan" && Name = "RyuKoAct")
+triggerall = Anim = [5100,5102]
+triggerall = AnimTime = 0
+trigger1 = !SelfAnimExist(5162)
+trigger1 = !SelfAnimExist(5161)
+value = 5160
+
+[State 5100, 3] ;Hit ground anim (for hit up)
+type = ChangeAnim
+triggerall = !(AuthorName = "ActJapan" && Name = "RyuKoAct")
+triggerall = Anim = [5100,5102]
+triggerall = AnimTime = 0
+trigger1 = SelfAnimExist(5162)
+value = 5162
+
+[State 5100, 3] ;Hit ground anim (for hit up)
+type = ChangeAnim
+triggerall = !(AuthorName = "ActJapan" && Name = "RyuKoAct")
+triggerall = Anim = [5100,5102]
+triggerall = AnimTime = 0
+trigger1 = !SelfAnimExist(5161)
+trigger1 = SelfAnimExist(5162)
+value = 5161
+
+
+[State 5100, 2] ;Hit ground anim (normal)
+type = ChangeAnim
+triggerall = (AuthorName = "ActJapan" && Name = "RyuKoAct")
+triggerall = time = 0
+trigger1 = !SelfAnimExist(5102+Var(36)*10000)
+trigger1 = !SelfAnimExist(5101+Var(36)*10000)
+value = 5100+Var(36)*10000
+
+[State 5100, 3] ;Hit ground anim (for hit up)
+type = ChangeAnim
+triggerall = (AuthorName = "ActJapan" && Name = "RyuKoAct")
+trigger1 = time = 0
+trigger1 = SelfAnimExist(5102+Var(36)*10000)
+value = 5102+Var(36)*10000
+
+[State 5100, 3] ;Hit ground anim (for hit up)
+type = ChangeAnim
+triggerall = (AuthorName = "ActJapan" && Name = "RyuKoAct")
+trigger1 = time = 0
+trigger1 = !SelfAnimExist(5101+Var(36)*10000)
+trigger1 = SelfAnimExist(5102+Var(36)*10000)
+value = 5101+Var(36)*10000
+
+[State 5100, 2] ;Hit ground anim (normal)
+type = ChangeAnim
+triggerall = (AuthorName = "ActJapan" && Name = "RyuKoAct")
+triggerall = Anim = [5100+Var(36)*10000,5102+Var(36)*10000]
+triggerall = AnimTime = 0
+trigger1 = !SelfAnimExist(5162+Var(36)*10000)
+trigger1 = !SelfAnimExist(5161+Var(36)*10000)
+value = 5160+Var(36)*10000
+
+[State 5100, 3] ;Hit ground anim (for hit up)
+type = ChangeAnim
+triggerall = (AuthorName = "ActJapan" && Name = "RyuKoAct")
+triggerall = Anim = [5100+Var(36)*10000,5102+Var(36)*10000]
+triggerall = AnimTime = 0
+trigger1 = SelfAnimExist(5162+Var(36)*10000)
+value = 5162+Var(36)*10000
+
+[State 5100, 3] ;Hit ground anim (for hit up)
+type = ChangeAnim
+triggerall = (AuthorName = "ActJapan" && Name = "RyuKoAct")
+triggerall = Anim = [5100+Var(36)*10000,5102+Var(36)*10000]
+triggerall = AnimTime = 0
+trigger1 = !SelfAnimExist(5161+Var(36)*10000)
+trigger1 = SelfAnimExist(5162+Var(36)*10000)
+value = 5161+Var(36)*10000
+
+[State 1120,VelSet]
+type = VelAdd
+trigger1 = 1
+y = 0.43
+
+[State 5101, 6] ;Hit ground
+type = SelfState
+trigger1 = Vel Y > 0 && Pos Y >= 5
+value = 5110
+ctrl = 1
+
+;-------------------  A
+[Statedef 1510]
+type    = A
+movetype= I
+physics = N
+ctrl = 0
+velset = 0,0,0
+anim = 1510
+
+[State 1310,4]
+type = ScreenBound
+trigger1 = 1
+value = 0
+
+[State 40,1]
+type = VarSet
+trigger1 = Time = 0
+v = 18
+value = 0
+
+;前方向
+[State 40,2]
+type = VarSet
+trigger1 = Time = 0
+v = 27
+value = 1
+
+'通常ジャンプ
+[State 40,VelSet]
+type = VelSet
+trigger1 = AnimTime = 0
+x = Const(velocity.jump.fwd.x)
+y = Const(velocity.jump.y)
+
+[State 1310,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 50
+ctrl = 1
+
+;-------------------------------------------------------------------------------
+; 必殺忍蜂 A
+[Statedef 1400]
+type    = S
+movetype= A
+physics = N
+juggle  = 4-Var(45)
+poweradd= 70+Var(43)
+ctrl = 0
+velset = 4.0,0,0
+anim = 1400
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+trigger1 = Var(32)=0
+trigger2 = Var(32)!=0
+trigger2 = PrevStateNo != 1000 && PrevStateNo != 1050
+trigger2 = PrevStateNo != 1100 && PrevStateNo != 1150
+trigger2 = PrevStateNo != 1200 && PrevStateNo != 1250
+trigger2 = PrevStateNo != 1400
+trigger2 = PrevStateNo != 1600 && PrevStateNo != 1650
+trigger2 = PrevStateNo != 1700 && PrevStateNo != 1750
+fv = 3
+value = 1
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger2 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger3 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger4 = PrevStateNo = 1400
+trigger4 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger5 = PrevStateNo = 1700 || PrevStateNo = 1750
+fv = 3
+value = fVar(3)*0.95
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = fVar(33)<200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = 0
+
+[State 3000,VarAdd]
+type = VarAdd
+triggerall = Time = 0
+triggerall = fVar(33)>=200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = -200
+
+[State 3000,PalFx]
+type = PalFx
+triggerall = Time = 1
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+add = 105,105,105
+sinadd = 125,125,125,10
+time = 3
+
+; MAX使用フラグリセット
+[State -2,3]
+type = VarSet
+triggerall = fVar(32)!=0
+trigger1 = Time = 2
+fv = 32
+value = 0
+
+[State 1300, 2]
+type = PosSet
+trigger1 = Pos Y !=0
+trigger1 = Time = 0
+y = 0
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = time = 1
+value = 1400, 0
+channel = 0
+volume = 10
+
+[State 1110,3]
+type = Hitdef
+trigger1 = time = 0
+attr = S, SA
+animtype = Hard
+damage    = Ceil(44*fVar(3)*fVar(38)), 4
+getpower = 40+Var(43)
+givepower = 10
+guardflag = M
+hitflag = MAF
+pausetime = 10,10
+sparkno = S2020
+guard.sparkno = S2070
+sparkxy = -25,-49
+hitsound = S300, 3
+guardsound = S0, 0
+ground.type = High
+ground.slidetime = 22
+ground.hittime  = 22
+guard.pausetime = 11,11
+guard.slidetime = 24
+guard.hittime  = 20
+ground.velocity = -6.5
+air.velocity = -3.2,-5.5
+airguard.velocity = -3.7,-3.5
+guard.velocity = -6.5
+fall = 0
+air.fall = 1
+fall.recover = 0
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimTime = 0
+value = 1400, 1
+volume = 10
+
+[State 1000,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 1410
+ctrl = 0
+
+;++++++++++++++++++++
+;AI機能
+;++++++++++++++++++++
+
+; 白鷺の舞 Y
+[State 220,1200]
+type = ChangeState
+value = 1650
+triggerall = var(30)!=0 && var(32)!=0 && var(36)=1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(7) = [0,2]
+trigger1 = MoveHit
+trigger1 = Random < Ceil(600*fVar(12))
+trigger2 = MoveGuarded
+trigger2 = Random < Ceil(150*fVar(12))
+trigger3 = MoveHit && Var(31)!=0
+trigger3 = Random < Ceil(800*fVar(12))
+trigger4 = MoveGuarded && Var(31)!=0
+trigger4 = Random < Ceil(350*fVar(12))
+
+; 小夜千鳥 A
+[State 220,1200]
+type = ChangeState
+value = 1200
+triggerall = var(30)!=0 && var(32)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(7) = [0,2]
+trigger1 = MoveHit
+trigger1 = Random < Ceil(600*fVar(12))
+trigger2 = MoveGuarded
+trigger2 = Random < Ceil(150*fVar(12))
+trigger3 = MoveHit && Var(31)!=0
+trigger3 = Random < Ceil(800*fVar(12))
+trigger4 = MoveGuarded && Var(31)!=0
+trigger4 = Random < Ceil(350*fVar(12))
+
+; 龍炎舞 Y
+[State 220,1000]
+type = ChangeState
+value = 1150
+triggerall = var(30)!=0 && var(32)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(7) = [0,2]
+trigger1 = MoveHit
+trigger1 = Random < Ceil(400*fVar(12))
+trigger2 = MoveGuarded
+trigger2 = Random < Ceil(110*fVar(12))
+trigger3 = MoveHit && Var(31)!=0
+trigger3 = Random < Ceil(400*fVar(12))
+trigger4 = MoveGuarded && Var(31)!=0
+trigger4 = Random < Ceil(150*fVar(12))
+
+; 飛翔龍炎陣 B
+[State 220,1000]
+type = ChangeState
+value = 1750
+triggerall = var(30)!=0 && var(32)!=0 && var(36)=1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(7) = [0,2]
+trigger1 = MoveHit
+trigger1 = Random < Ceil(400*fVar(12))
+trigger2 = MoveGuarded
+trigger2 = Random < Ceil(110*fVar(12))
+trigger3 = MoveHit && Var(31)!=0
+trigger3 = Random < Ceil(400*fVar(12))
+trigger4 = MoveGuarded && Var(31)!=0
+trigger4 = Random < Ceil(150*fVar(12))
+
+;------------------- 必殺忍蜂 A
+[Statedef 1410]
+type    = A
+movetype= A
+physics = N
+ctrl = 0
+velset = 4.8,-5.5,0
+juggle  = 5-Var(45)
+anim = 1410
+;hitdefpersist = 1
+;movehitpersist = 1
+
+[State 1300, 2]
+type = PosAdd
+trigger1 = Time = 0
+y = -10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = Time = 17
+value = 1400, 2
+ignorehitpause = 1
+
+[State 1110,3]
+type = Hitdef
+trigger1 = time = 0
+attr = A, SA
+animtype = Hard
+damage    = Ceil(74*fVar(3)*fVar(38)), 4
+getpower = 40+Var(43)
+givepower = 10
+guardflag = M
+hitflag = MAF
+pausetime = 12,12
+sparkno = S2020
+guard.sparkno = S2070
+sparkxy = -25,-49
+hitsound = S300, 3
+guardsound = S0, 0
+ground.type = High
+ground.slidetime = 25
+ground.hittime  = 19
+guard.pausetime = 13,13
+guard.slidetime = 24
+guard.hittime  = 18
+ground.velocity = -4.6,-5.5
+air.velocity = -4.2,-5.5
+airguard.velocity = -3.7,-3.5
+guard.velocity = -7.0
+fall = 1
+air.fall = 1
+fall.recover = 0
+
+[State 1300, VelAdd]
+type = VelAdd
+trigger1 = 1
+y = 0.43
+
+[State 1000,4]
+type = ChangeState
+trigger1 = Time >= 28
+value = 1420
+ctrl = 0
+
+;------------------- 着地
+[Statedef 1420]
+type    = C
+movetype= I
+physics = C
+ctrl = 0
+velset = 0,0,0
+anim = 1420
+
+[State 1300, 2]
+type = PosSet
+trigger1 = Pos Y !=0
+trigger1 = Time = 0
+y = 0
+
+[State 1000,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;-------------------------------------------------------------------------------
+; 必殺忍蜂 A
+[Statedef 1450]
+type    = S
+movetype= A
+physics = N
+juggle  = 5-Var(45)
+poweradd= 70+Var(43)
+ctrl = 0
+velset = 4.8,0,0
+anim = 1450
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+trigger1 = Var(32)=0
+trigger2 = Var(32)!=0
+trigger2 = PrevStateNo != 1000 && PrevStateNo != 1050
+trigger2 = PrevStateNo != 1100 && PrevStateNo != 1150
+trigger2 = PrevStateNo != 1200 && PrevStateNo != 1250
+trigger2 = PrevStateNo != 1400
+trigger2 = PrevStateNo != 1600 && PrevStateNo != 1650
+trigger2 = PrevStateNo != 1700 && PrevStateNo != 1750
+fv = 3
+value = 1
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger2 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger3 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger4 = PrevStateNo = 1400
+trigger4 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger5 = PrevStateNo = 1700 || PrevStateNo = 1750
+fv = 3
+value = fVar(3)*0.95
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = fVar(33)<200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = 0
+
+[State 3000,VarAdd]
+type = VarAdd
+triggerall = Time = 0
+triggerall = fVar(33)>=200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = -200
+
+[State 3000,PalFx]
+type = PalFx
+triggerall = Time = 1
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+add = 105,105,105
+sinadd = 125,125,125,10
+time = 3
+
+; MAX使用フラグリセット
+[State -2,3]
+type = VarSet
+triggerall = fVar(32)!=0
+trigger1 = Time = 2
+fv = 32
+value = 0
+
+[State 1300, 2]
+type = PosSet
+trigger1 = Pos Y !=0
+trigger1 = Time = 0
+y = 0
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = time = 1
+value = 1400, 0
+channel = 0
+volume = 10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimTime = 0
+value = 1400, 1
+volume = 10
+
+[State 1000,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 1460
+ctrl = 0
+
+;------------------- 必殺忍蜂 A
+[Statedef 1460]
+type    = A
+movetype= A
+physics = N
+ctrl = 0
+velset = 5.5,-5.5,0
+anim = 1460
+hitdefpersist = 1
+;movehitpersist = 1
+
+[State 1300, 2]
+type = PosAdd
+trigger1 = Time = 0
+y = -10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = Time = 12
+value = 1400, 2
+ignorehitpause = 1
+
+[State 1110,3]
+type = Hitdef
+trigger1 = time = 0
+attr = A, SA
+animtype = Hard
+damage    = Ceil(118*fVar(3)*fVar(38)), 8
+getpower = 40+Var(43)
+givepower = 10
+guardflag = M
+hitflag = MAF
+pausetime = 12,12
+sparkno = S2020
+guard.sparkno = S2070
+sparkxy = -25,-49
+hitsound = S300, 3
+guardsound = S0, 0
+ground.type = High
+ground.slidetime = 25
+ground.hittime  = 19
+guard.pausetime = 13,13
+guard.slidetime = 24
+guard.hittime  = 18
+ground.velocity = -4.6,-5.5
+air.velocity = -4.2,-5.5
+airguard.velocity = -3.7,-3.5
+guard.velocity = -7.0
+fall = 1
+air.fall = 1
+fall.recover = 0
+
+[State 1300, VelAdd]
+type = VelAdd
+trigger1 = 1
+y = 0.43
+
+[State 1000,4]
+type = ChangeState
+trigger1 = Time >= 28
+value = 1470
+ctrl = 0
+
+;------------------- 着地
+[Statedef 1470]
+type    = C
+movetype= I
+physics = C
+ctrl = 0
+velset = 0,0,0
+anim = 1470
+
+[State 1300, 2]
+type = PosSet
+trigger1 = Pos Y !=0
+trigger1 = Time = 0
+y = 0
+
+[State 1000,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+
+;-------------------------------------------------------------------------------
+; 白鷺の舞 X
+[Statedef 1600]
+type    = S
+movetype= A
+physics = N
+juggle  = 5-Var(45)
+poweradd= 70+Var(43)
+ctrl = 0
+velset = 0,0,0
+anim = 1600
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+trigger1 = Var(32)=0
+trigger2 = Var(32)!=0
+trigger2 = PrevStateNo != 1000 && PrevStateNo != 1050
+trigger2 = PrevStateNo != 1100 && PrevStateNo != 1150
+trigger2 = PrevStateNo != 1200 && PrevStateNo != 1250
+trigger2 = PrevStateNo != 1400
+trigger2 = PrevStateNo != 1600 && PrevStateNo != 1650
+trigger2 = PrevStateNo != 1700 && PrevStateNo != 1750
+fv = 3
+value = 1
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger2 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger3 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger4 = PrevStateNo = 1400
+trigger4 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger5 = PrevStateNo = 1700 || PrevStateNo = 1750
+fv = 3
+value = fVar(3)*0.95
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = fVar(33)<200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = 0
+
+[State 3000,VarAdd]
+type = VarAdd
+triggerall = Time = 0
+triggerall = fVar(33)>=200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = -200
+
+[State 3000,PalFx]
+type = PalFx
+triggerall = Time = 1
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+add = 105,105,105
+sinadd = 125,125,125,10
+time = 3
+
+; MAX使用フラグリセット
+[State -2,3]
+type = VarSet
+triggerall = fVar(32)!=0
+trigger1 = Time = 2
+fv = 32
+value = 0
+
+[State 1300, 2]
+type = PosSet
+trigger1 = Pos Y !=0
+trigger1 = Time = 0
+y = 0
+
+[State 1300, 2]
+type = VelSet
+trigger1 = AnimElem = 3
+x = 2.3
+
+[State 1300, 2]
+type = VelSet
+trigger1 = AnimElem = 14
+x = 0
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = time = 1
+value = 1600, 0
+channel = 0
+volume = 10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimElem = 4
+trigger2 = AnimElem = 7
+trigger3 = AnimElem = 12
+value = 200, 1
+volume = 10
+
+[State 1110,3]
+type = Hitdef
+trigger1 = AnimElem = 6
+attr = S, SA
+animtype = Hard
+damage    = Ceil(34*fVar(3)*fVar(38)), 4
+getpower = 40+Var(43)
+givepower = 15
+guardflag = M
+hitflag = MAF
+pausetime = 6,7
+sparkno = S2020
+guard.sparkno = S2070
+sparkxy = -20,-70
+hitsound = S300, 3
+guardsound = S0, 0
+ground.type = High
+ground.slidetime = 22
+ground.hittime  = 22
+guard.pausetime = 7,7
+guard.slidetime = 24
+guard.hittime  = 20
+ground.velocity = -3.8
+air.velocity = -3.2,-5.5
+airguard.velocity = -3.7,-3.5
+guard.velocity = -4.2
+fall = 0
+air.fall = 1
+fall.recover = 0
+
+[State 1110,3]
+type = Hitdef
+trigger1 = AnimElem = 9
+attr = S, SA
+animtype = Hard
+damage    = Ceil(34*fVar(3)*fVar(38)), 4
+getpower = 40+Var(43)
+givepower = 15
+guardflag = M
+hitflag = MAF
+pausetime = 6,7
+sparkno = S2020
+guard.sparkno = S2070
+sparkxy = -15,-49
+hitsound = S300, 3
+guardsound = S0, 0
+ground.type = High
+ground.slidetime = 22
+ground.hittime  = 22
+guard.pausetime = 7,7
+guard.slidetime = 24
+guard.hittime  = 20
+ground.velocity = -3.8
+air.velocity = -3.2,-5.5
+airguard.velocity = -3.7,-3.5
+guard.velocity = -4.2
+fall = 0
+air.fall = 1
+fall.recover = 0
+
+[State 1110,3]
+type = Hitdef
+trigger1 = AnimElem = 14
+attr = S, SA
+animtype = Hard
+damage    = Ceil(44*fVar(3)*fVar(38)), 4
+getpower = 40+Var(43)
+givepower = 15
+guardflag = M
+hitflag = MAF
+pausetime = 10,10
+sparkno = S2020
+guard.sparkno = S2070
+sparkxy = -25,-55
+hitsound = S300, 3
+guardsound = S0, 0
+ground.type = High
+ground.slidetime = 22
+ground.hittime  = 22
+guard.pausetime = 11,11
+guard.slidetime = 24
+guard.hittime  = 20
+ground.velocity = -4.2,-6.5
+air.velocity = -4.2,-6.5
+airguard.velocity = -3.7,-3.5
+guard.velocity = -6.5
+fall = 1
+air.fall = 1
+fall.recover = 0
+
+[State 1000,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;++++++++++++++++++++
+;AI機能
+;++++++++++++++++++++
+
+; 小夜千鳥 A
+[State 220,1200]
+type = ChangeState
+value = 1200
+triggerall = var(30)!=0 && var(32)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(9) = [1,3]
+trigger1 = MoveHit
+trigger1 = Random < Ceil(600*fVar(12))
+trigger2 = MoveGuarded
+trigger2 = Random < Ceil(150*fVar(12))
+trigger3 = MoveHit && Var(31)!=0
+trigger3 = Random < Ceil(800*fVar(12))
+trigger4 = MoveGuarded && Var(31)!=0
+trigger4 = Random < Ceil(350*fVar(12))
+
+; 龍炎舞 Y
+[State 220,1000]
+type = ChangeState
+value = 1150
+triggerall = var(30)!=0 && var(32)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(9) = [1,3]
+trigger1 = MoveHit
+trigger1 = Random < Ceil(400*fVar(12))
+trigger2 = MoveGuarded
+trigger2 = Random < Ceil(110*fVar(12))
+trigger3 = MoveHit && Var(31)!=0
+trigger3 = Random < Ceil(400*fVar(12))
+trigger4 = MoveGuarded && Var(31)!=0
+trigger4 = Random < Ceil(150*fVar(12))
+
+; 飛翔龍炎陣 B
+[State 220,1000]
+type = ChangeState
+value = 1750
+triggerall = var(30)!=0 && var(32)!=0 && var(36)=1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(9) = [1,3]
+trigger1 = MoveHit
+trigger1 = Random < Ceil(400*fVar(12))
+trigger2 = MoveGuarded
+trigger2 = Random < Ceil(110*fVar(12))
+trigger3 = MoveHit && Var(31)!=0
+trigger3 = Random < Ceil(400*fVar(12))
+trigger4 = MoveGuarded && Var(31)!=0
+trigger4 = Random < Ceil(150*fVar(12))
+
+;-------------------------------------------------------------------------------
+; 白鷺の舞 Y
+[Statedef 1650]
+type    = S
+movetype= A
+physics = N
+juggle  = 5-Var(45)
+poweradd= 70+Var(43)
+ctrl = 0
+velset = 0,0,0
+anim = 1650
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+trigger1 = Var(32)=0
+trigger2 = Var(32)!=0
+trigger2 = PrevStateNo != 1000 && PrevStateNo != 1050
+trigger2 = PrevStateNo != 1100 && PrevStateNo != 1150
+trigger2 = PrevStateNo != 1200 && PrevStateNo != 1250
+trigger2 = PrevStateNo != 1400
+trigger2 = PrevStateNo != 1600 && PrevStateNo != 1650
+trigger2 = PrevStateNo != 1700 && PrevStateNo != 1750
+fv = 3
+value = 1
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger2 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger3 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger4 = PrevStateNo = 1400
+trigger4 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger5 = PrevStateNo = 1700 || PrevStateNo = 1750
+fv = 3
+value = fVar(3)*0.95
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = fVar(33)<200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = 0
+
+[State 3000,VarAdd]
+type = VarAdd
+triggerall = Time = 0
+triggerall = fVar(33)>=200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = -200
+
+[State 3000,PalFx]
+type = PalFx
+triggerall = Time = 1
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+add = 105,105,105
+sinadd = 125,125,125,10
+time = 3
+
+; MAX使用フラグリセット
+[State -2,3]
+type = VarSet
+triggerall = fVar(32)!=0
+trigger1 = Time = 2
+fv = 32
+value = 0
+
+[State 1300, 2]
+type = PosSet
+trigger1 = Pos Y !=0
+trigger1 = Time = 0
+y = 0
+
+[State 1300, 2]
+type = VelSet
+trigger1 = AnimElem = 3
+x = 2.6
+
+[State 1300, 2]
+type = VelSet
+trigger1 = AnimElem = 22
+x = 0
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = time = 1
+value = 1600, 0
+channel = 0
+volume = 10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimElem = 4
+trigger2 = AnimElem = 7
+trigger3 = AnimElem = 12
+trigger4 = AnimElem = 15
+trigger5 = AnimElem = 22
+value = 200, 1
+volume = 10
+
+[State 1110,3]
+type = Hitdef
+trigger1 = AnimElem = 6
+trigger2 = AnimElem = 14
+attr = S, SA
+animtype = Hard
+damage    = Ceil(20*fVar(3)*fVar(38)), 4
+getpower = 20+Var(43)
+givepower = 10
+guardflag = M
+hitflag = MAF
+pausetime = 6,7
+sparkno = S2020
+guard.sparkno = S2070
+sparkxy = -20,-70
+hitsound = S300, 3
+guardsound = S0, 0
+ground.type = High
+ground.slidetime = 22
+ground.hittime  = 22
+guard.pausetime = 7,7
+guard.slidetime = 24
+guard.hittime  = 20
+ground.velocity = -3.8
+air.velocity = -3.2,-5.5
+airguard.velocity = -3.7,-3.5
+guard.velocity = -4.2
+fall = 0
+air.fall = 1
+fall.recover = 0
+
+[State 1110,3]
+type = Hitdef
+trigger1 = AnimElem = 9
+trigger2 = AnimElem = 17
+attr = S, SA
+animtype = Hard
+damage    = Ceil(20*fVar(3)*fVar(38)), 4
+getpower = 20+Var(43)
+givepower = 10
+guardflag = M
+hitflag = MAF
+pausetime = 6,7
+sparkno = S2020
+guard.sparkno = S2070
+sparkxy = -15,-49
+hitsound = S300, 3
+guardsound = S0, 0
+ground.type = High
+ground.slidetime = 22
+ground.hittime  = 22
+guard.pausetime = 7,7
+guard.slidetime = 24
+guard.hittime  = 20
+ground.velocity = -3.8
+air.velocity = -3.2,-5.5
+airguard.velocity = -3.7,-3.5
+guard.velocity = -4.2
+fall = 0
+air.fall = 1
+fall.recover = 0
+
+[State 1110,3]
+type = Hitdef
+trigger1 = AnimElem = 22
+attr = S, SA
+animtype = Hard
+damage    = Ceil(38*fVar(3)*fVar(38)), 4
+getpower = 30+Var(43)
+givepower = 15
+guardflag = M
+hitflag = MAF
+pausetime = 10,10
+sparkno = S2020
+guard.sparkno = S2070
+sparkxy = -25,-55
+hitsound = S300, 3
+guardsound = S0, 0
+ground.type = High
+ground.slidetime = 22
+ground.hittime  = 22
+guard.pausetime = 11,11
+guard.slidetime = 24
+guard.hittime  = 20
+ground.velocity = -4.2,-6.5
+air.velocity = -4.2,-6.5
+airguard.velocity = -3.7,-3.5
+guard.velocity = -6.5
+fall = 1
+air.fall = 1
+fall.recover = 0
+
+[State 1000,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+;++++++++++++++++++++
+;AI機能
+;++++++++++++++++++++
+
+; 小夜千鳥 A
+[State 220,1200]
+type = ChangeState
+value = 1200
+triggerall = var(30)!=0 && var(32)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(17) = [1,3]
+trigger1 = MoveHit
+trigger1 = Random < Ceil(600*fVar(12))
+trigger2 = MoveGuarded
+trigger2 = Random < Ceil(150*fVar(12))
+trigger3 = MoveHit && Var(31)!=0
+trigger3 = Random < Ceil(800*fVar(12))
+trigger4 = MoveGuarded && Var(31)!=0
+trigger4 = Random < Ceil(350*fVar(12))
+
+; 龍炎舞 Y
+[State 220,1000]
+type = ChangeState
+value = 1150
+triggerall = var(30)!=0 && var(32)!=0
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(17) = [1,3]
+trigger1 = MoveHit
+trigger1 = Random < Ceil(400*fVar(12))
+trigger2 = MoveGuarded
+trigger2 = Random < Ceil(110*fVar(12))
+trigger3 = MoveHit && Var(31)!=0
+trigger3 = Random < Ceil(400*fVar(12))
+trigger4 = MoveGuarded && Var(31)!=0
+trigger4 = Random < Ceil(150*fVar(12))
+
+; 飛翔龍炎陣 B
+[State 220,1000]
+type = ChangeState
+value = 1750
+triggerall = var(30)!=0 && var(32)!=0 && var(36)=1
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(17) = [1,3]
+trigger1 = MoveHit
+trigger1 = Random < Ceil(400*fVar(12))
+trigger2 = MoveGuarded
+trigger2 = Random < Ceil(110*fVar(12))
+trigger3 = MoveHit && Var(31)!=0
+trigger3 = Random < Ceil(400*fVar(12))
+trigger4 = MoveGuarded && Var(31)!=0
+trigger4 = Random < Ceil(150*fVar(12))
+
+;-------------------------------------------------------------------------------
+; 飛翔龍炎陣 A
+[Statedef 1700]
+type    = S
+movetype= A
+physics = N
+juggle  = 8
+poweradd= 70+Var(43)
+ctrl = 0
+velset = 0,0,0
+anim = 1700
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+trigger1 = Var(32)=0
+trigger2 = Var(32)!=0
+trigger2 = PrevStateNo != 1000 && PrevStateNo != 1050
+trigger2 = PrevStateNo != 1100 && PrevStateNo != 1150
+trigger2 = PrevStateNo != 1200 && PrevStateNo != 1250
+trigger2 = PrevStateNo != 1400
+trigger2 = PrevStateNo != 1600 && PrevStateNo != 1650
+trigger2 = PrevStateNo != 1700 && PrevStateNo != 1750
+fv = 3
+value = 1
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger2 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger3 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger4 = PrevStateNo = 1400
+trigger4 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger5 = PrevStateNo = 1700 || PrevStateNo = 1750
+fv = 3
+value = fVar(3)*0.95
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = fVar(33)<200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = 0
+
+[State 3000,VarAdd]
+type = VarAdd
+triggerall = Time = 0
+triggerall = fVar(33)>=200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = -200
+
+[State 3000,PalFx]
+type = PalFx
+triggerall = Time = 1
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+add = 105,105,105
+sinadd = 125,125,125,10
+time = 3
+
+; MAX使用フラグリセット
+[State -2,3]
+type = VarSet
+triggerall = fVar(32)!=0
+trigger1 = Time = 2
+fv = 32
+value = 0
+
+[State 1300, 2]
+type = PosSet
+trigger1 = Pos Y !=0
+trigger1 = Time = 0
+y = 0
+
+[State 1300, 2]
+type = PosAdd
+trigger1 = PrevStateno = 1200 || PrevStateno = 1250 || PrevStateno = 1400
+trigger1 = Time = 0
+x = 5
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = time = 4
+value = 1300, 0
+channel = 0
+volume = 10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimElem = 8
+value = 1100, 1
+volume = 10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimElem = 5
+value = 200, 2
+
+[State 1110,3]
+type = Hitdef
+trigger1 = AnimElem = 3
+attr = S, SA
+animtype = Hard
+damage    = Ceil(41*fVar(3)*fVar(38)), 4
+getpower = 50+Var(43)
+givepower = 10
+guardflag = M
+hitflag = MAF
+pausetime = 8,8
+sparkno = S2020
+guard.sparkno = S2070
+sparkxy = -25,-49
+hitsound = S300, 3
+guardsound = S0, 0
+ground.type = Low
+ground.slidetime = 24
+ground.hittime  = 19
+guard.pausetime = 9,9
+guard.slidetime = 24
+guard.hittime  = 18
+ground.velocity = -4.5
+air.velocity = -2.2,-4.5
+airguard.velocity = -2.7,-3.5
+guard.velocity = -4.8
+ground.cornerpush.veloff = -9.5
+fall = 0
+air.fall = 1
+fall.recover = 0
+
+[State 1000,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 1710
+ctrl = 0
+
+;++++++++++++++++++++
+;AI機能
+;++++++++++++++++++++
+; 超必殺忍蜂 MAX
+[State 220,3300]
+type = ChangeState
+value = 3300
+triggerall = var(30)!=0 && var(32)!=0 && Power >= 3000-fVar(2)
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(3) = [1,2]
+trigger1 = MoveHit && fVar(33)<250
+trigger1 = Random < Ceil(200*fVar(12))
+trigger2 = MoveHit && fVar(33)<450
+trigger2 = Random < Ceil(100*fVar(12))
+trigger3 = MoveHit && fVar(33)<650
+trigger3 = Random < Ceil(50*fVar(12))
+trigger4 = MoveHit && fVar(33)<450 && Var(31)!=0
+trigger4 = Random < Ceil(500*fVar(12))
+trigger5 = MoveHit && fVar(33)<650 && Var(31)!=0
+trigger5 = Random < Ceil(300*fVar(12))
+
+; 花嵐 MAX
+[State 220,3800]
+type = ChangeState
+value = 3800
+triggerall = var(30)!=0 && var(32)!=0 && var(36)=1 && Power >= 3000-fVar(2)
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(3) = [1,2]
+trigger1 = MoveHit && fVar(33)<250
+trigger1 = Random < Ceil(200*fVar(12))
+trigger2 = MoveHit && fVar(33)<450
+trigger2 = Random < Ceil(100*fVar(12))
+trigger3 = MoveHit && fVar(33)<650
+trigger3 = Random < Ceil(50*fVar(12))
+trigger4 = MoveHit && fVar(33)<450 && Var(31)!=0
+trigger4 = Random < Ceil(500*fVar(12))
+trigger5 = MoveHit && fVar(33)<650 && Var(31)!=0
+trigger5 = Random < Ceil(300*fVar(12))
+
+; 超必殺忍蜂 B
+[State 220,3050]
+type = ChangeState
+value = 3050
+triggerall = var(30)!=0 && Power >= 2000-fVar(2)
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(3) = [1,2]
+trigger1 = MoveHit && fVar(33)<250
+trigger1 = Random < Ceil(180*fVar(12))
+trigger2 = MoveHit && fVar(33)<450
+trigger2 = Random < Ceil(90*fVar(12))
+trigger3 = MoveHit && fVar(33)<650
+trigger3 = Random < Ceil(40*fVar(12))
+trigger4 = MoveHit && fVar(33)<450 && Var(31)!=0
+trigger4 = Random < Ceil(500*fVar(12))
+trigger5 = MoveHit && fVar(33)<650 && Var(31)!=0
+trigger5 = Random < Ceil(300*fVar(12))
+
+; 花嵐 A
+[State 220,3100]
+type = ChangeState
+value = 3100
+triggerall = var(30)!=0 && Var(36)=0 && Power >= 2000-fVar(2)
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(3) = [1,2]
+trigger1 = MoveHit && fVar(33)<250
+trigger1 = Random < Ceil(180*fVar(12))
+trigger2 = MoveHit && fVar(33)<450
+trigger2 = Random < Ceil(100*fVar(12))
+trigger3 = MoveHit && fVar(33)<650
+trigger3 = Random < Ceil(60*fVar(12))
+trigger4 = MoveHit && fVar(33)<450 && Var(31)!=0
+trigger4 = Random < Ceil(500*fVar(12))
+trigger5 = MoveHit && fVar(33)<650 && Var(31)!=0
+trigger5 = Random < Ceil(300*fVar(12))
+
+; 水鳥の舞 Y
+[State 220,3100]
+type = ChangeState
+value = 3750
+triggerall = var(30)!=0 && Var(36)=1 && Power >= 2000-fVar(2)
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(3) = [1,2]
+trigger1 = MoveHit && fVar(33)<250
+trigger1 = Random < Ceil(180*fVar(12))
+trigger2 = MoveHit && fVar(33)<450
+trigger2 = Random < Ceil(100*fVar(12))
+trigger3 = MoveHit && fVar(33)<650
+trigger3 = Random < Ceil(60*fVar(12))
+trigger4 = MoveHit && fVar(33)<450 && Var(31)!=0
+trigger4 = Random < Ceil(500*fVar(12))
+trigger5 = MoveHit && fVar(33)<650 && Var(31)!=0
+trigger5 = Random < Ceil(300*fVar(12))
+
+
+;------------------- 飛翔龍炎陣 A
+[Statedef 1710]
+type    = A
+movetype= A
+physics = N
+ctrl = 0
+velset = 1.8,-7.2,0
+anim = 1710
+hitdefpersist = 1
+;movehitpersist = 1
+
+[State 3000,VarSet]
+type = VarSet
+trigger1 = time = 0
+v = 16
+value = 0
+
+[State 1300, 2]
+type = PosAdd
+trigger1 = Time = 0
+x = 10
+y = -5
+
+[State 1300, 2]
+type = VelMul
+trigger1 = AnimElem = 5,<0
+x = 0.92
+y = 0.9
+
+[State 1300, 2]
+type = VelSet
+trigger1 = AnimElem = 5
+x = 0.9
+y = 0.86
+
+[State 1300, 2]
+type = VelAdd
+trigger1 = AnimElem = 5,>=0
+y = 0.43
+
+[State 1410,Explod]
+type = Explod
+trigger1 = AnimElem = 1
+anim = 1735
+ID = 1735
+pos = 0,0
+postype = P1
+sprpriority = 3
+supermove = 1
+ownpal = 1
+bindtime = 1
+vel = 0,0
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimElem = 1
+value = 1100, 1
+volume = 10
+
+[State 1000,Projectile]
+type = Projectile
+trigger1 = AnimElem = 1
+projanim = 1730
+projID = 1730
+projhitanim = -1
+projremanim = -1
+projcancelanim = -1
+projremovetime = 10
+projedgebound = 60
+projpriority = 2
+projshadow = -1
+offset = 0,0
+velocity = 0, 0
+attr = S, SP
+damage    = Ceil(62*fVar(38)), 8
+getpower = 85
+givepower = 36
+animtype = Hard
+guardflag = M
+hitflag = MAFP
+pausetime = 0,12
+hitsound   = S1100, 2
+guardsound = S0, 0
+sparkno = S2020
+guard.sparkno = S2070
+sparkxy = 70, -65
+ground.type = High
+ground.slidetime = 27
+ground.hittime  = 14
+ground.velocity = -2.6,-6.5
+air.velocity = -2.6,-6.5
+air.juggle = 8
+palfx.time = 45
+Palfx.add = 210,10,-200
+Palfx.mul = 180,170,160
+Palfx.sinadd = 60,40,50,20
+Palfx.color = 0
+palfx.invertall = 1
+fall = 1
+air.fall = 1
+fall.recover = 0
+
+[State 3000,VarSet]
+type = VarSet
+trigger1 = ProjContact(1730) = 1
+v = 16
+value = 1
+
+[State 1315,4]
+type = ChangeState
+trigger1 = Vel Y > 0 && Pos Y >= 0
+value = 1720
+ctrl = 0
+
+;++++++++++++++++++++
+;AI機能
+;++++++++++++++++++++
+
+;------------------- 着地
+[Statedef 1720]
+type    = C
+movetype= I
+physics = C
+juggle  = 0
+poweradd= 0
+ctrl = 0
+velset = 0,0,0
+anim = 1720
+
+[State 1120,VelSet]
+type = VelSet
+trigger1 = time = 0
+y = 0
+
+[State 1120,PosSet]
+type = PosSet
+trigger1 = time = 0
+trigger1 = Pos Y != 0
+y = 0
+
+[State 1120,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+
+;-------------------------------------------------------------------------------
+; 飛翔龍炎陣 A
+[Statedef 1750]
+type    = S
+movetype= A
+physics = N
+juggle  = 8
+poweradd= 70+Var(43)
+ctrl = 0
+velset = 0,0,0
+anim = 1700
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+trigger1 = Var(32)=0
+trigger2 = Var(32)!=0
+trigger2 = PrevStateNo != 1000 && PrevStateNo != 1050
+trigger2 = PrevStateNo != 1100 && PrevStateNo != 1150
+trigger2 = PrevStateNo != 1200 && PrevStateNo != 1250
+trigger2 = PrevStateNo != 1400
+trigger2 = PrevStateNo != 1600 && PrevStateNo != 1650
+trigger2 = PrevStateNo != 1700 && PrevStateNo != 1750
+fv = 3
+value = 1
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger2 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger3 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger4 = PrevStateNo = 1400
+trigger4 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger5 = PrevStateNo = 1700 || PrevStateNo = 1750
+fv = 3
+value = fVar(3)*0.95
+
+[State 3000,VarSet]
+type = VarSet
+triggerall = Time = 0
+triggerall = fVar(33)<200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = 0
+
+[State 3000,VarAdd]
+type = VarAdd
+triggerall = Time = 0
+triggerall = fVar(33)>=200
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+fv = 33
+value = -200
+
+[State 3000,PalFx]
+type = PalFx
+triggerall = Time = 1
+triggerall = Var(32)!=0
+trigger1 = PrevStateNo = 205 || PrevStateNo = 215
+trigger2 = PrevStateNo = 225 || PrevStateNo = 235 || PrevStateNo = 430
+trigger3 = PrevStateNo = 1000 || PrevStateNo = 1050
+trigger4 = PrevStateNo = 1100 || PrevStateNo = 1150
+trigger5 = PrevStateNo = 1200 || PrevStateNo = 1250
+trigger6 = PrevStateNo = 1400
+trigger7 = PrevStateNo = 1600 || PrevStateNo = 1650
+trigger8 = PrevStateNo = 1700 || PrevStateNo = 1750
+trigger9 = (PrevStateNo = 400 || PrevStateNo = 410 || PrevStateNo = 420 || PrevStateNo = 600) && fVar(32)!=0
+add = 105,105,105
+sinadd = 125,125,125,10
+time = 3
+
+; MAX使用フラグリセット
+[State -2,3]
+type = VarSet
+triggerall = fVar(32)!=0
+trigger1 = Time = 2
+fv = 32
+value = 0
+
+[State 1300, 2]
+type = PosSet
+trigger1 = Pos Y !=0
+trigger1 = Time = 0
+y = 0
+
+[State 1300, 2]
+type = PosAdd
+trigger1 = PrevStateno = 1200 || PrevStateno = 1250 || PrevStateno = 1400
+trigger1 = Time = 0
+x = 5
+
+[State 1300, 2]
+type = PosAdd
+trigger1 = AnimElem = 3
+x = 10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = time = 4
+value = 1300, 0
+channel = 0
+volume = 10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimElem = 8
+value = 1100, 1
+volume = 10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimElem = 5
+value = 200, 2
+
+[State 1110,3]
+type = Hitdef
+trigger1 = AnimElem = 3
+attr = S, SA
+animtype = Hard
+damage    = Ceil(41*fVar(3)*fVar(38)), 4
+getpower = 50+Var(43)
+givepower = 10
+guardflag = M
+hitflag = MAF
+pausetime = 8,8
+sparkno = S2020
+guard.sparkno = S2070
+sparkxy = -25,-49
+hitsound = S300, 3
+guardsound = S0, 0
+ground.type = Low
+ground.slidetime = 24
+ground.hittime  = 19
+guard.pausetime = 9,9
+guard.slidetime = 24
+guard.hittime  = 18
+ground.velocity = -4.5
+air.velocity = -2.2,-4.5
+airguard.velocity = -2.7,-3.5
+guard.velocity = -4.8
+ground.cornerpush.veloff = -9.5
+fall = 0
+air.fall = 1
+fall.recover = 0
+
+[State 1000,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 1760
+ctrl = 0
+
+;++++++++++++++++++++
+;AI機能
+;++++++++++++++++++++
+
+;------------------- 飛翔龍炎陣 A
+[Statedef 1760]
+type    = A
+movetype= A
+physics = N
+ctrl = 0
+velset = 2.4,-8.2,0
+anim = 1760
+hitdefpersist = 1
+;movehitpersist = 1
+
+[State 3000,VarSet]
+type = VarSet
+trigger1 = time = 0
+v = 16
+value = 0
+
+[State 1300, 2]
+type = PosAdd
+trigger1 = Time = 0
+x = 15
+y = -10
+
+[State 1300, 2]
+type = VelMul
+trigger1 = AnimElem = 5,<0
+x = 0.92
+y = 0.9
+
+[State 1300, 2]
+type = VelSet
+trigger1 = AnimElem = 5
+x = 0.9
+y = 0.86
+
+[State 1300, 2]
+type = VelAdd
+trigger1 = AnimElem = 5,>=0
+y = 0.43
+
+[State 1410,Explod]
+type = Explod
+trigger1 = AnimElem = 1
+anim = 1735
+ID = 1735
+pos = 0,0
+postype = P1
+sprpriority = 3
+supermove = 1
+ownpal = 1
+bindtime = 1
+vel = 0,0
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimElem = 1
+value = 1100, 1
+volume = 10
+
+[State 1000,Projectile]
+type = Projectile
+trigger1 = AnimElem = 1
+projanim = 1730
+projID = 1730
+projhitanim = -1
+projremanim = -1
+projcancelanim = -1
+projremovetime = 10
+projedgebound = 60
+projpriority = 2
+projshadow = -1
+offset = 0,0
+velocity = 0, 0
+attr = S, SP
+damage    = Ceil(62*fVar(38)), 8
+getpower = 85
+givepower = 36
+animtype = Hard
+guardflag = M
+hitflag = MAFP
+pausetime = 0,12
+hitsound   = S1100, 2
+guardsound = S0, 0
+sparkno = S2020
+guard.sparkno = S2070
+sparkxy = 70, -65
+ground.type = High
+ground.slidetime = 27
+ground.hittime  = 14
+ground.velocity = -2.8,-6.5
+air.velocity = -2.8,-6.5
+air.juggle = 8
+palfx.time = 45
+Palfx.add = 210,10,-200
+Palfx.mul = 180,170,160
+Palfx.sinadd = 60,40,50,20
+Palfx.color = 0
+palfx.invertall = 1
+fall = 1
+air.fall = 1
+fall.recover = 0
+
+[State 3000,VarSet]
+type = VarSet
+trigger1 = ProjContact(1730) = 1
+v = 16
+value = 1
+
+[State 1315,4]
+type = ChangeState
+trigger1 = Vel Y > 0 && Pos Y >= 0
+value = 1770
+ctrl = 0
+
+;++++++++++++++++++++
+;AI機能
+;++++++++++++++++++++
+; 超必殺忍蜂 MAX
+[State 220,3300]
+type = ChangeState
+value = 3300
+triggerall = var(30)!=0 && var(32)!=0 && Power >= 3000-fVar(2)
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(3) = [1,2]
+trigger1 = MoveHit && fVar(33)<250
+trigger1 = Random < Ceil(200*fVar(12))
+trigger2 = MoveHit && fVar(33)<450
+trigger2 = Random < Ceil(100*fVar(12))
+trigger3 = MoveHit && fVar(33)<650
+trigger3 = Random < Ceil(50*fVar(12))
+trigger4 = MoveHit && fVar(33)<450 && Var(31)!=0
+trigger4 = Random < Ceil(500*fVar(12))
+trigger5 = MoveHit && fVar(33)<650 && Var(31)!=0
+trigger5 = Random < Ceil(300*fVar(12))
+
+; 花嵐 MAX
+[State 220,3800]
+type = ChangeState
+value = 3800
+triggerall = var(30)!=0 && var(32)!=0 && var(36)=1 && Power >= 3000-fVar(2)
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(3) = [1,2]
+trigger1 = MoveHit && fVar(33)<250
+trigger1 = Random < Ceil(200*fVar(12))
+trigger2 = MoveHit && fVar(33)<450
+trigger2 = Random < Ceil(100*fVar(12))
+trigger3 = MoveHit && fVar(33)<650
+trigger3 = Random < Ceil(50*fVar(12))
+trigger4 = MoveHit && fVar(33)<450 && Var(31)!=0
+trigger4 = Random < Ceil(500*fVar(12))
+trigger5 = MoveHit && fVar(33)<650 && Var(31)!=0
+trigger5 = Random < Ceil(300*fVar(12))
+
+; 超必殺忍蜂 B
+[State 220,3050]
+type = ChangeState
+value = 3050
+triggerall = var(30)!=0 && Power >= 2000-fVar(2)
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(3) = [1,2]
+trigger1 = MoveHit && fVar(33)<250
+trigger1 = Random < Ceil(180*fVar(12))
+trigger2 = MoveHit && fVar(33)<450
+trigger2 = Random < Ceil(90*fVar(12))
+trigger3 = MoveHit && fVar(33)<650
+trigger3 = Random < Ceil(40*fVar(12))
+trigger4 = MoveHit && fVar(33)<450 && Var(31)!=0
+trigger4 = Random < Ceil(500*fVar(12))
+trigger5 = MoveHit && fVar(33)<650 && Var(31)!=0
+trigger5 = Random < Ceil(300*fVar(12))
+
+; 花嵐 A
+[State 220,3100]
+type = ChangeState
+value = 3100
+triggerall = var(30)!=0 && Var(36)=0 && Power >= 2000-fVar(2)
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(3) = [1,2]
+trigger1 = MoveHit && fVar(33)<250
+trigger1 = Random < Ceil(180*fVar(12))
+trigger2 = MoveHit && fVar(33)<450
+trigger2 = Random < Ceil(100*fVar(12))
+trigger3 = MoveHit && fVar(33)<650
+trigger3 = Random < Ceil(60*fVar(12))
+trigger4 = MoveHit && fVar(33)<450 && Var(31)!=0
+trigger4 = Random < Ceil(500*fVar(12))
+trigger5 = MoveHit && fVar(33)<650 && Var(31)!=0
+trigger5 = Random < Ceil(300*fVar(12))
+
+; 水鳥の舞 Y
+[State 220,3100]
+type = ChangeState
+value = 3750
+triggerall = var(30)!=0 && Var(36)=1 && Power >= 2000-fVar(2)
+triggerall = Alive = 1&& (enemy,Alive = 1)
+triggerall = AnimElemTime(3) = [1,2]
+trigger1 = MoveHit && fVar(33)<250
+trigger1 = Random < Ceil(180*fVar(12))
+trigger2 = MoveHit && fVar(33)<450
+trigger2 = Random < Ceil(100*fVar(12))
+trigger3 = MoveHit && fVar(33)<650
+trigger3 = Random < Ceil(60*fVar(12))
+trigger4 = MoveHit && fVar(33)<450 && Var(31)!=0
+trigger4 = Random < Ceil(500*fVar(12))
+trigger5 = MoveHit && fVar(33)<650 && Var(31)!=0
+trigger5 = Random < Ceil(300*fVar(12))
+
+
+;------------------- 着地
+[Statedef 1770]
+type    = C
+movetype= I
+physics = C
+juggle  = 0
+poweradd= 0
+ctrl = 0
+velset = 0,0,0
+anim = 1770
+
+[State 1120,VelSet]
+type = VelSet
+trigger1 = time = 0
+y = 0
+
+[State 1120,PosSet]
+type = PosSet
+trigger1 = time = 0
+trigger1 = Pos Y != 0
+y = 0
+
+[State 1120,4]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+
+
+;---------------------------------------------------------------------
+; ST水鳥の舞 X
+;------------------------ 超必殺技演出
+[Statedef 1900]
+type    = S
+movetype= A
+physics = N
+juggle  = 1
+poweradd= 0
+ctrl = 0
+velset = 0,0,0
+anim = 1900
+
+[State 3000,VarSet]
+type = VarSet
+trigger1 = time = 0
+v = 24
+value = 0
+
+[State 3000,PosSet]
+type = PosSet
+trigger1 = Time = 0
+y = 0
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimElem = 4
+value = 3700, 0
+channel = 0
+volume = 10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimElem = 7
+value = 3700, 1
+volume = 10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimElem = 13
+value = 3700, 2
+volume = 10
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimElem = 4
+trigger1 = AnimElem = 7
+value = 200, 1
+
+[State 1000,2]
+type = PlaySnd
+trigger1 = AnimElem = 12
+value = 200, 2
+
+[State 1000,2]
+type = PlaySnd
+triggerall = NumProjID(3750)!=0
+trigger1 = AnimElem = 5,=3
+trigger2 = AnimElem = 8,=3
+trigger3 = AnimElem = 15,=3
+value = 1000, 1
+
+[State 1000,Projectile]
+type = Projectile
+trigger1 = AnimElem = 5,=2
+projanim = 1910
+projID = 1910
+projhitanim = 1020
+projremanim = 1020
+projcancelanim = 1020
+projremovetime = 360
+projedgebound = 120
+remvelocity = -1.3, 0
+projpriority = 1
+projshadow = -1
+offset = 25,-53
+velocity = 3.8, 0
+attr = S, SP
+damage    = Ceil(81*fVar(38)), 8
+getpower = 0
+givepower = 46
+animtype = Hard
+guardflag = M
+hitflag = MAFP
+pausetime = 1,12
+hitsound   = S1100, 2
+guardsound = S0, 0
+sparkno = S2030
+guard.sparkno = S2070
+sparkxy = 10, 0
+ground.type = High
+ground.slidetime = 22
+ground.hittime  = 20
+ground.velocity = -7.0
+air.velocity = -5.0,-3.8
+air.juggle = 1
+fall = 0
+air.fall = 1
+fall.recover = 0
+
+[State 1000,Projectile]
+type = Projectile
+trigger1 = AnimElem = 8,=2
+projanim = 1910
+projID = 1910
+projhitanim = 1020
+projremanim = 1020
+projcancelanim = 1020
+projremovetime = 360
+projedgebound = 120
+remvelocity = -1.3, 0
+projpriority = 1
+projshadow = -1
+offset = 25,-33
+velocity = 3.8, 0
+attr = S, SP
+damage    = Ceil(81*fVar(38)), 8
+getpower = 85
+givepower = 36
+animtype = Hard
+guardflag = M
+hitflag = MAFP
+pausetime = 1,12
+hitsound   = S1100, 2
+guardsound = S0, 0
+sparkno = S2030
+guard.sparkno = S2070
+sparkxy = 10, 0
+ground.type = High
+ground.slidetime = 22
+ground.hittime  = 20
+ground.velocity = -7.0
+air.velocity = -5.0,-3.8
+air.juggle = 1
+fall = 0
+air.fall = 1
+fall.recover = 0
+
+[State 1000,Projectile]
+type = Projectile
+trigger1 = AnimElem = 15,=2
+projanim = 1910
+projID = 1910
+projhitanim = 1020
+projremanim = 1020
+projcancelanim = 1020
+projremovetime = 360
+projedgebound = 120
+remvelocity = -1.3, 0
+projpriority = 1
+projshadow = -1
+offset = 25,-63
+velocity = 4.0, 0
+attr = S, SP
+damage    = Ceil(91*fVar(38)), 8
+getpower = 85
+givepower = 36
+animtype = DiagUp
+guardflag = M
+hitflag = MAFP
+pausetime = 1,12
+hitsound   = S1100, 2
+guardsound = S0, 0
+sparkno = S2030
+guard.sparkno = S2070
+sparkxy = 10, 0
+ground.type = High
+ground.slidetime = 24
+ground.hittime  = 20
+ground.velocity = -5.0,-5.8
+air.velocity = -5.0,-3.8
+air.juggle = 1
+fall = 1
+air.fall = 1
+fall.recover = 0
+
+
+[State 3000,ChangeState]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 1910
+ctrl = 0
+
+;------------------------------------------------
+[Statedef 1910]
+type = S
+movetype = I
+physics = S
+anim = 195
+velset = 0, 0
+ctrl = 0
+
+[State 195,PlaySnd]
+type = PlaySnd
+trigger1 = AnimElem = 3
+value = 195, 0
+channel = 0
+
+[State 195,VarSet]
+type = VarSet
+trigger1 = Time = 0
+v = 30
+value = 0
+
+[State 195,2]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1

@@ -1,0 +1,37 @@
+; ‚±‚±‚ÉƒLƒƒƒ‰î•ñ‚ğ‘‚¢‚Ä‚­‚¾‚³‚¢
+[Info]
+name ="Maylee"
+displayname ="MAYLEE"
+versiondate =11,22,2000
+mugenversion =11,22,2000
+author ="ahuron"
+pal.defaults=1,2,3,4
+
+; Files for the player
+[Files]
+cmd     =Maylee.cmd
+cns     =Maylee.cns
+st      =Maylee.cns
+stcommon =common1.cns 
+sprite  =Maylee.sff
+anim    =Maylee.air
+sound   =Maylee.snd
+pal1=Maylee2.act
+pal2=Maylee4.act
+pal3=Maylee6.act
+pal4=Maylee.act
+pal5=Maylee3.act
+pal6=Maylee5.act
+st1=Maylee2.cns
+st2=Maylee3.cns
+st3=Maylee4.cns
+st4=Maylee4.cns
+;pal7    = Maylee.act
+;pal8    = Maylee.act
+;pal9    = Maylee.act
+;pal10   = Maylee.act
+;pal11   = Maylee.act
+;pal12   = Maylee.act
+[Arcade]
+intro.storyboard=
+ending.storyboard=

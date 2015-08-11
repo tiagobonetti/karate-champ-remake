@@ -1,0 +1,29 @@
+;LAST UP DATA- 2006.10.07	Version=I-2		.thank you Maria-Azul
+
+; Player information 
+[Info]
+name = "Kim Kaphwan"        ;Name of character
+displayname = "KIM" ;Name of character to display
+VersionDate=05,11,2005
+MugenVersion=04,14,2001
+Author="zzzasd" ;"zzzasd13@yahoo.co.kr" "www.neo-eye.com" "http://conversion.wo.to/"
+Pal.Defaults=1,2,3,4,5,6,7,8,9,10,11,12
+
+; Files for the player
+[Files]
+cmd     = KIM.cmd   ;Command set
+cns     = KIM.cns   ;Constants
+st      = KIM.cns   ;States
+st1= KIMb.cns
+st2= KIMc.cns
+stcommon=KIMa.cns
+sprite  = KIM.sff   ;Sprite
+anim    = KIM.air   ;Animation
+sound   = KIM.snd   ;Sound
+pal1=2002-B.act
+pal2=2002-D.act
+pal3=KimKOFXI(Maria-Azul).act
+pal4=2002-A.act
+pal5=2002-C.act
+pal6=Kim2KOFXI(Maria-Azul).act
+

@@ -1,0 +1,41 @@
+;=====================================================================
+;MUGEN CharData (01.04.14)
+;"Yashiro 2K2"                                                 ActJapan
+;=====================================================================
+; Player Information
+[Info]
+name    ="Yashiro"
+displayname ="Yashiro 2K2"
+versiondate =02,08,2004
+mugenversion =04,14,2001
+author ="ActJapan"
+pal.defaults=1,2,3,4,5
+
+; Files for the Player
+[Files]
+cmd     =YashiroAct.cmd
+cns     =YashiroAct_Public.cns
+st      =YashiroAct_Public.cns
+stcommon =common1.cns
+sprite  =YashiroAct.sff
+anim    =YashiroAct.air
+sound   =YashiroAct.snd
+pal1=YashiroAct01.act
+pal2=YashiroAct02.act
+pal3=YashiroAct03.act
+pal4=YashiroAct04.act
+pal5=YashiroAct01.act
+pal6=YashiroAct02.act
+pal7=YashiroAct07.act
+pal8=YashiroAct08.act
+pal9=YashiroAct09.act
+pal10=YashiroAct10.act
+pal11=YashiroAct07.act
+pal12=YashiroAct08.act
+st1=YashiroAct_N.cns
+st2=YashiroAct_S.cns
+st3=YashiroAct_H.cns
+st4=YashiroAct_AI.cns
+[Arcade]
+intro.storyboard=
+ending.storyboard=

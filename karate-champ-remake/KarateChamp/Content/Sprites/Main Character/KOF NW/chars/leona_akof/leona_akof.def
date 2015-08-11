@@ -1,0 +1,36 @@
+; Player information
+[Info]
+name    = "Leona"
+displayname = "LEONA"
+versiondate = 7,2,2004  
+mugenversion = 04,14,2001
+author = "NAO&M."
+pal.defaults = 1,4,7,10
+
+; Files for the player
+[Files]
+cmd     = leona.cmd  
+cns     = leona.cns       
+st      = leona.cns       
+stcommon = common1.cns
+sprite  = leona.sff
+anim    = leona.air       
+sound   = leona.snd       
+pal1    = leona01.act      
+pal2    = leona02.act       
+pal3    = leona03.act      
+pal4    = leona04.act        
+pal5    = leona05.act        
+pal6    = leona06.act      
+pal7    = leona07.act       
+pal8    = leona08.act       
+pal9    = leona09.act    
+pal10   = leona10.act     
+pal11   = leona11.act     
+pal12   = leona12.act       
+
+
+; Arcade mode
+;[Arcade]
+;intro.storyboard = end.def
+;ending.storyboard = end.def

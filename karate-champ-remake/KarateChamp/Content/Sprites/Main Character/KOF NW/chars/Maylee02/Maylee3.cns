@@ -1,0 +1,1335 @@
+;\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;ヘルパーあれこれ
+;---------------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+;---------------------------------------------------------------------------
+;///////////////////////////////////////////////////////////////////////////
+;---------------------------------------------------------------------------
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;ＭＡＸ発動１
+;↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+; 本体１
+[Statedef 8100]
+type    = S
+movetype= I
+physics = N
+juggle  = 1
+poweradd= 0
+velset = 0,0
+anim = 8100
+ctrl = 0
+sprpriority = 5
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 737
+trigger1 = numexplod(8110) = 0
+anim = 8110
+id = 8110
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 704
+id = 8110
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 704
+trigger1 = numexplod(8111) = 0
+anim = 8111
+id = 8111
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 672
+id = 8111
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 672
+trigger1 = numexplod(8112) = 0
+anim = 8112
+id = 8112
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 640
+id = 8112
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 640
+trigger1 = numexplod(8113) = 0
+anim = 8113
+id = 8113
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 608
+id = 8113
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 608
+trigger1 = numexplod(8114) = 0
+anim = 8114
+id = 8114
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 576
+id = 8114
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 576
+trigger1 = numexplod(8115) = 0
+anim = 8115
+id = 8115
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 544
+id = 8115
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 544
+trigger1 = numexplod(8116) = 0
+anim = 8116
+id = 8116
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 512
+id = 8116
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 512
+trigger1 = numexplod(8117) = 0
+anim = 8117
+id = 8117
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 480
+id = 8117
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 480
+trigger1 = numexplod(8118) = 0
+anim = 8118
+id = 8118
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 448
+id = 8118
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 448
+trigger1 = numexplod(8119) = 0
+anim = 8119
+id = 8119
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 416
+id = 8119
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 416
+trigger1 = numexplod(8120) = 0
+anim = 8120
+id = 8120
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 384
+id = 8120
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 384
+trigger1 = numexplod(8121) = 0
+anim = 8121
+id = 8121
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 352
+id = 8121
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 352
+trigger1 = numexplod(8122) = 0
+anim = 8122
+id = 8122
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 320
+id = 8122
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 320
+trigger1 = numexplod(8123) = 0
+anim = 8123
+id = 8123
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 288
+id = 8123
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 288
+trigger1 = numexplod(8124) = 0
+anim = 8124
+id = 8124
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 256
+id = 8124
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 256
+trigger1 = numexplod(8125) = 0
+anim = 8125
+id = 8125
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 224
+id = 8125
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 224
+trigger1 = numexplod(8126) = 0
+anim = 8126
+id = 8126
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 192
+id = 8126
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 192
+trigger1 = numexplod(8127) = 0
+anim = 8127
+id = 8127
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 160
+id = 8127
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 160
+trigger1 = numexplod(8128) = 0
+anim = 8128
+id = 8128
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 128
+id = 8128
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 128
+trigger1 = numexplod(8129) = 0
+anim = 8129
+id = 8129
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 96
+id = 8129
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 96
+trigger1 = numexplod(8130) = 0
+anim = 8130
+id = 8130
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 64
+id = 8130
+
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 64
+trigger1 = numexplod(8131) = 0
+anim = 8131
+id = 8131
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 32
+id = 8131
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 32
+trigger1 = numexplod(8132) = 0
+anim = 8132
+id = 8132
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 0
+id = 8132
+
+
+
+[state a]
+type = bindtoroot
+trigger1 = time = 0
+time = -1
+facing = 0
+pos = 0,0
+
+
+[state a]
+type = destroyself
+trigger1 = root,var(8) <= 0
+
+
+
+
+;↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;ＭＡＸ発動２
+;↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+; 本体２
+[Statedef 8101]
+type    = S
+movetype= I
+physics = N
+juggle  = 1
+poweradd= 0
+velset = 0,0
+anim = 8101
+ctrl = 0
+sprpriority = 5
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 737
+trigger1 = numexplod(8110) = 0
+anim = 8110
+id = 8110
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 704
+id = 8110
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 704
+trigger1 = numexplod(8111) = 0
+anim = 8111
+id = 8111
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 672
+id = 8111
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 672
+trigger1 = numexplod(8112) = 0
+anim = 8112
+id = 8112
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 640
+id = 8112
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 640
+trigger1 = numexplod(8113) = 0
+anim = 8113
+id = 8113
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 608
+id = 8113
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 608
+trigger1 = numexplod(8114) = 0
+anim = 8114
+id = 8114
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 576
+id = 8114
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 576
+trigger1 = numexplod(8115) = 0
+anim = 8115
+id = 8115
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 544
+id = 8115
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 544
+trigger1 = numexplod(8116) = 0
+anim = 8116
+id = 8116
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 512
+id = 8116
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 512
+trigger1 = numexplod(8117) = 0
+anim = 8117
+id = 8117
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 480
+id = 8117
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 480
+trigger1 = numexplod(8118) = 0
+anim = 8118
+id = 8118
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 448
+id = 8118
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 448
+trigger1 = numexplod(8119) = 0
+anim = 8119
+id = 8119
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 416
+id = 8119
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 416
+trigger1 = numexplod(8120) = 0
+anim = 8120
+id = 8120
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 384
+id = 8120
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 384
+trigger1 = numexplod(8121) = 0
+anim = 8121
+id = 8121
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 352
+id = 8121
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 352
+trigger1 = numexplod(8122) = 0
+anim = 8122
+id = 8122
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 320
+id = 8122
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 320
+trigger1 = numexplod(8123) = 0
+anim = 8123
+id = 8123
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 288
+id = 8123
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 288
+trigger1 = numexplod(8124) = 0
+anim = 8124
+id = 8124
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 256
+id = 8124
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 256
+trigger1 = numexplod(8125) = 0
+anim = 8125
+id = 8125
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 224
+id = 8125
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 224
+trigger1 = numexplod(8126) = 0
+anim = 8126
+id = 8126
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 192
+id = 8126
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 192
+trigger1 = numexplod(8127) = 0
+anim = 8127
+id = 8127
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 160
+id = 8127
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 160
+trigger1 = numexplod(8128) = 0
+anim = 8128
+id = 8128
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 128
+id = 8128
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 128
+trigger1 = numexplod(8129) = 0
+anim = 8129
+id = 8129
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 96
+id = 8129
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 96
+trigger1 = numexplod(8130) = 0
+anim = 8130
+id = 8130
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 64
+id = 8130
+
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 64
+trigger1 = numexplod(8131) = 0
+anim = 8131
+id = 8131
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 32
+id = 8131
+
+[State 1000, 5];エフェクト
+type = Explod
+trigger1 = root,var(8) <= 32
+trigger1 = numexplod(8132) = 0
+anim = 8132
+id = 8132
+sprpriority = 6
+postype = p1
+pos = 0 , 0
+bindtime = -1
+supermove = 1
+under = 0
+[state a]
+type = removeexplod
+trigger1 = root,var(8) <= 0
+id = 8132
+
+
+
+[state a]
+type = bindtoroot
+trigger1 = time = 0
+time = -1
+facing = 0
+pos = 0,0
+
+
+[state a]
+type = destroyself
+trigger1 = root,var(8) <= 0
+
+
+
+
+;↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;---------------------------------------------------------------------------
+; 出血その１
+[Statedef 7060]
+type    = A
+movetype= A
+physics = N
+velset = 0,0
+anim = 7060
+juggle = 7
+ctrl = 0
+
+[State 1000, 5];0血エフェクト1
+type = Explod
+trigger1 = time = 1
+anim = 7050
+sprpriority = 99
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = -6,0
+accel = 0,2
+pos = -12,-17
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+
+[State 1000, 5];0血エフェクト2
+type = Explod
+trigger1 = time = 1
+anim = 7050
+sprpriority = 99
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = -8,-3
+accel = 0,1
+pos = -18,-24
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+
+[State 1000, 5];1血エフェクト1
+type = Explod
+trigger1 = time = 1
+anim = 7051
+sprpriority = 96
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = -4,-6
+pos = -12,-37
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+[State 1000, 5];2血エフェクト0
+type = Explod
+trigger1 = time = 2
+anim = 7051
+sprpriority = 96
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = 4,-6
+accel = 0,0.1
+pos = -8,-37
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+
+[state a]
+type = destroyself
+trigger1 = time = 20
+
+
+;---------------------------------------------------------------------------
+; 出血その２
+[Statedef 7061]
+type    = A
+movetype= A
+physics = N
+velset = 0,0
+anim = 7060
+juggle = 7
+ctrl = 0
+
+[state a]
+type = turn
+trigger1 = time = 0
+
+
+[State 1000, 5];0血エフェクト1
+type = Explod
+trigger1 = time = 1
+anim = 7050
+sprpriority = 99
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = -6,-2
+accel = 0,1
+pos = -12,-17
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+[State 1000, 5];0血エフェクト2
+type = Explod
+trigger1 = time = 1
+anim = 7050
+sprpriority = 99
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = -6,-3
+accel = 0,1
+pos = -23,-22
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+[State 1000, 5];0血エフェクト3
+type = Explod
+trigger1 = time = 1
+anim = 7050
+sprpriority = 99
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = -6,-3
+accel = 0,1
+pos = -18,-48
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+[State 1000, 5];2血エフェクト1
+type = Explod
+trigger1 = time = 1
+anim = 7052
+sprpriority = 99
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = -3,-2.5
+accel = 0.04,0.15
+pos = -3,-15
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+[State 1000, 5];3血エフェクト1
+type = Explod
+trigger1 = time = 1
+anim = 7053
+sprpriority = 99
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = 3,-1.5
+accel = -0.1,0.05
+pos = 8,-11
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+
+[State 1000, 5];0血エフェクト4
+type = Explod
+trigger1 = time = 5
+anim = 7050
+sprpriority = 99
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = -6,-6
+accel = 0,0.8
+pos = 0,-9
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+
+[State 1000, 5];0血エフェクト5
+type = Explod
+trigger1 = time = 8
+anim = 7050
+sprpriority = 99
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = 7,-3
+accel = 0,0.1
+pos = 9,12
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+
+[State 1000, 5];0血エフェクト6
+type = Explod
+trigger1 = time = 11
+anim = 7050
+sprpriority = 99
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = -4,-2
+accel = 0,1
+pos = 0,-6
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+
+[state a]
+type = destroyself
+trigger1 = time = 20
+
+
+;---------------------------------------------------------------------------
+; 出血その３
+[Statedef 7062]
+type    = A
+movetype= A
+physics = N
+velset = 0,0
+anim = 7060
+juggle = 7
+ctrl = 0
+
+[State 1000, 5];0血エフェクト1
+type = Explod
+trigger1 = time = 1
+anim = 7050
+sprpriority = 99
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = -6,0
+accel = 0,2
+pos = -12,-17
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+
+[State 1000, 5];0血エフェクト2
+type = Explod
+trigger1 = time = 1
+anim = 7050
+sprpriority = 99
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = -8,-3
+accel = 0,1
+pos = -18,-24
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+
+[State 1000, 5];1血エフェクト1
+type = Explod
+trigger1 = time = 1
+anim = 7051
+sprpriority = 96
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = -4,-6
+pos = -12,-37
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+
+[State 1000, 5];0血エフェクト1
+type = Explod
+trigger1 = time = 1
+anim = 7050
+sprpriority = 99
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = -6,-2
+accel = 0,1
+pos = -12,-17
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+[State 1000, 5];0血エフェクト2
+type = Explod
+trigger1 = time = 1
+anim = 7050
+sprpriority = 99
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = -6,-3
+accel = 0,1
+pos = -23,-22
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+[State 1000, 5];0血エフェクト3
+type = Explod
+trigger1 = time = 1
+anim = 7050
+sprpriority = 99
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = -6,-3
+accel = 0,1
+pos = -18,-48
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+[State 1000, 5];2血エフェクト1
+type = Explod
+trigger1 = time = 0
+anim = 7052
+sprpriority = 99
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = -3,-2.5
+accel = 0.04,0.15
+pos = -3,-15
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+[State 1000, 5];3血エフェクト1
+type = Explod
+trigger1 = time = 2
+anim = 7053
+sprpriority = 99
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = 3,-1.5
+accel = -0.1,0.05
+pos = 8,-11
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+
+[State 1000, 5];0血エフェクト4
+type = Explod
+trigger1 = time = 5
+anim = 7050
+sprpriority = 99
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = -6,-6
+accel = 0,0.8
+pos = 0,-9
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+
+[State 1000, 5];0血エフェクト5
+type = Explod
+trigger1 = time = 6
+anim = 7050
+sprpriority = 99
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = 7,-3
+accel = 0,0.1
+pos = 9,12
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+
+[State 1000, 5];0血エフェクト6
+type = Explod
+trigger1 = time = 11
+anim = 7050
+sprpriority = 99
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = -4,-2
+accel = 0,1
+pos = 0,-6
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+[State 1000, 5];2血エフェクト0
+type = Explod
+trigger1 = time = 2
+anim = 7051
+sprpriority = 96
+persistent = 0
+ignorehitpause = 1
+postype = p1
+vel = 4,-6
+accel = 0,0.1
+pos = -8,-37
+bindtime = 1
+supermove = 1
+under = 0
+ownpal = 1
+id = 221
+
+
+[state a]
+type = destroyself
+trigger1 = time = 20

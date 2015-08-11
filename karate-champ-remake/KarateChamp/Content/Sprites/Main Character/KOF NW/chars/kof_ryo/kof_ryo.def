@@ -1,0 +1,40 @@
+;====================================================
+; Definition file for Ryo Sakazaki
+;====================================================
+
+; Player information
+[Info]
+name = "Ryo Sakazaki"
+displayname = "RYO"
+versiondate = 04,14,2001
+mugenversion = 04,14,2001
+author = "Mouser"
+pal.defaults=1,2,3,4,5
+
+; Files for the player
+[Files]
+cmd      = ryo.cmd
+cns      = ryo.cns
+st       = ryo.cns
+st1      = common.cns
+stcommon = common1.cns
+sprite   = ryo.sff
+anim     = ryo.air
+sound    = ryo.snd
+pal1     = ryo_01.act
+pal2     = ryo_02.act
+pal3     = ryo_03.act
+pal4     = ryo_04.act
+pal5     = ryo_05.act
+pal6     = ryo_06.act
+pal7     = ryo_07.act
+pal8     = ryo_08.act
+pal9     = ryo_09.act
+pal10    = ryo_10.act
+pal11    = ryo_11.act
+pal12    = ryo_12.act
+
+; Arcade mode
+[Arcade]
+intro.storyboard =
+ending.storyboard =

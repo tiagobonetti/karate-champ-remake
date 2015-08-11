@@ -1,0 +1,13 @@
+@charset "iso-8859-1";
+
+body {
+ margin : 6px;
+ color: #444488;
+ font-size : 10px;
+ font-family : verdana;
+ font-weight : normal; 
+}
+a:link       { color: #B83008 }
+a:active     { color: #B83008 }
+a:visited    { color: #B83008 }
+

@@ -1,0 +1,578 @@
+;---------------------------------------------------------------------------
+;ｱ箴弡ﾎ ﾀﾌｰ蠡ｻｶｧ
+[Statedef 5600]
+ctrl = 0
+
+[State 5600, 1]
+type     = AssertSpecial
+trigger1 = Time = [0,33]
+flag     = nofg
+flag1    = nokoslow
+flag2        = noFg
+persistent = 0
+time = 2
+
+[state 5600, 2]
+type = BGPalFx
+trigger1 = time = 0
+add = 255,255,255
+sinadd = -255,-255,-255,50
+time  = 33
+ignorehitpause = 1
+persistent = 0
+
+[state 5600, 3]
+type  = EnvColor 
+trigger1 = Time= 0
+time = 3
+value = 0,0,0
+under = 1
+ignorehitpause = 1
+persistent = 0
+
+[state 5600, 4]
+type  = EnvColor 
+trigger1 = Time = 3
+time = 3
+value = 255,0,0
+under = 1
+ignorehitpause = 1
+persistent = 0
+
+[state 5600, 5]
+type  = EnvColor 
+trigger1 = Time = 6
+time = 3
+value = 255,255,255
+under = 1
+ignorehitpause = 1
+persistent = 0
+
+[state 5600, 6]
+type  = EnvColor 
+trigger1 = Time = 9
+time = 3
+value = 255,0,0
+under = 1
+ignorehitpause = 1
+persistent = 0
+
+[state 5600, 7]
+type  = EnvColor 
+trigger1 = Time = 12
+time = 3
+value = 255,255,255
+under = 1
+ignorehitpause = 1
+persistent = 0
+
+[state 5600, 8]
+type  = EnvColor 
+trigger1 = Time = 15
+time = 3
+value = 255,0,0
+under = 1
+ignorehitpause = 1
+persistent = 0
+
+[state 5600, 9]
+type  = EnvColor 
+trigger1 = Time = 18
+time = 3
+value = 255,255,255
+under = 1
+ignorehitpause = 1
+persistent = 0
+
+[state 5600, 10]
+type  = EnvColor 
+trigger1 = Time = 21
+time = 3
+value = 255,0,0
+under = 1
+ignorehitpause = 1
+persistent = 0
+
+[state 5600, 11]
+type  = EnvColor 
+trigger1 = Time = 24
+time = 3
+value = 255,255,255
+under = 1
+ignorehitpause = 1
+persistent = 0
+
+[state 5600, 12]
+type  = EnvColor 
+trigger1 = Time = 27
+time = 3
+value = 255,0,0
+under = 1
+ignorehitpause = 1
+persistent = 0
+
+[state 5600, 13]
+type  = EnvColor 
+trigger1 = Time= 30
+time = 1
+value = 0,0,0
+under = 1
+ignorehitpause = 1
+persistent = 0
+
+[state 5600, 14]
+type  = EnvColor 
+trigger1 = Time = 31
+time = 1
+value = 255,0,0
+under = 1
+ignorehitpause = 1
+persistent = 0
+
+[state 5600, 15]
+type  = EnvColor 
+trigger1 = Time = 32
+time = 1
+value = 255,255,255
+under = 1
+ignorehitpause = 1
+persistent = 0
+
+[State 5600, 16]
+type = DestroySelf
+trigger1 = RoundState = 0
+
+;ｱ篌ｻｱ箙ﾎ ﾀﾌｰ蠡ｻｶｧ
+[Statedef 5650]
+ctrl = 0
+
+[State 5650, 1]
+type     = AssertSpecial
+trigger1 = Time = [0,14]
+flag     = nofg
+glag2        = nobg
+time = 2
+persistent = 0
+
+[state 5650, 2]
+type = BGPalFx
+trigger1 = time = 10
+add = 255,255,255
+sinadd = -255,-255,-255,50
+time  = 4
+ignorehitpause = 1
+persistent = 0
+
+[state 5650, 3]
+type  = EnvColor 
+trigger1 = Time= 10
+time = 2
+value = 0,0,0
+under = 1
+ignorehitpause = 1
+persistent = 0
+
+[state 5650, 4]
+type  = EnvColor 
+trigger1 = Time = 12
+time = 2
+value = 255,255,255
+under = 1
+ignorehitpause = 1
+persistent = 0
+
+[State 5650, 5]
+type = DestroySelf
+trigger1 = RoundState = 0
+
+;----------------------------------------------------------------------
+;---------------------------------------------------------------------------
+;ｽﾂｸｮｴ�ｻ鄙ﾍ ﾀﾏｷｯｽｺﾆｮ
+[Statedef 5610]
+ctrl = 0
+
+;---------------------------------------------------------------------------
+;ｽﾂｸｮｴ�ｻ邁�ｷﾃ
+[State 5610, 0]
+type = VarSet
+trigger1 =  P2Name = "Terry Bogard" || P4Name = "Terry Bogard"
+trigger2 =  P2Name = "Terry" || P4Name = "Terry"
+trigger3 =  P2Name = "terry-classic" || P4Name = "terry-classic"
+trigger4 =  P2Name = "Terry03" || P4Name = "Terry03"
+var(48) = 1
+
+[State 5610, 0]
+type = VarSet
+trigger1 =  P2Name = "Mai" || P4Name = "Mai"
+trigger2 =  P2Name = "Shiranui Mai" || P4Name = "Shiranui Mai"
+trigger3 =  P2Name = "Mai 2K2" || P4Name = "Mai 2K2"
+var(48) = 2
+
+;[State 5610, 0]
+;type = VarSet
+;trigger1 =  P2Name = "k9999" || P4Name = "k9999"
+;var(48) = 3
+
+[State 5610, 8]
+type = AssertSpecial
+trigger1 = time >= 30
+flag = NoBarDisplay
+flag2 = noFG
+
+[State 5610, PlaySnd]
+type = PlaySnd
+trigger1 = time = 74
+value = 7700,1
+
+;セリフ
+[State 5610, 0]
+type = Explod
+trigger1 = Time = 74
+anim = 7700
+pos = 0,0
+postype = left
+sprpriority = 16
+ownpal = 1
+removetime = -1
+bindtime = -1
+
+;セリフ
+[State 5610, 0]
+type = Explod
+trigger1 = Time = 74
+anim = 7701
+pos = 0,0
+postype = left
+sprpriority = 16
+ownpal = 1
+removetime = -1
+bindtime = -1
+
+;セリフ
+[State 5610, 0]
+type = Explod
+trigger1 = Time = 30
+anim = 7702
+pos = 0,0
+postype = left
+sprpriority = 99
+ownpal = 1
+removetime = 66
+bindtime = -1
+
+;セリフ
+[State 5610, 0]
+type = Explod
+trigger1 = Time = 96
+anim = 7703
+pos = 0,33
+postype = left
+sprpriority = 18
+ownpal = 1
+removetime = -1
+bindtime = -1
+
+;セリフ
+[State 5610, 0]
+type = Explod
+trigger1 = Time = 100
+anim = 7704
+pos = 0,72
+postype = left
+sprpriority = 18
+ownpal = 1
+removetime = -1
+bindtime = -1
+
+[State 5610, 1]
+type = VarRandom
+trigger1 = Time = 0
+v = 49
+range = 0,100
+
+[State 5610, 1]
+type = VarRandom
+trigger1 = Time = 0
+v = 51
+range = 0,100
+
+[State 184, 0]
+type = Explod
+triggerall = (var(49) = [0,50])
+trigger1 = Time = 74 
+anim = 7900
+pos = 220,172
+postype = left
+sprpriority = 18
+ownpal = 0
+removetime = -1
+bindtime = -1
+
+[State 184, 0]
+type = Explod
+triggerall = (var(49) = [51,100])
+trigger1 = Time = 74 
+anim = 7901
+pos = 220,172
+postype = left
+sprpriority = 18
+ownpal = 0
+removetime = -1
+bindtime = -1
+
+[State 5610, 0]
+type = Explod
+triggerall = var(48) = 0
+triggerall = var(51) = [0,33]
+trigger1 = Time = 74
+anim = 7910	;ifelse(parent,var(17) = 1,7910,7918)
+pos = 30,183
+postype = left
+sprpriority = 18
+ownpal = 0
+removetime = -1
+bindtime = -1
+
+[State 5610, 0]
+type = Explod
+triggerall = var(48) = 0
+triggerall = var(51) = [0,33]
+trigger1 = Time = 74
+anim = 7911	;ifelse(parent,var(17) = 1,7911,7919)
+pos = 30,226
+postype = left
+sprpriority = 18
+ownpal = 0
+removetime = -1
+bindtime = -1
+
+[State 5610, 0]
+type = Explod
+triggerall = var(48) = 0
+triggerall = var(51) = [34,66]
+trigger1 = Time = 74
+anim = 7920	;ifelse(parent,var(17) = 1,7920,7924)
+pos = 30,183
+postype = left
+sprpriority = 18
+ownpal = 0
+removetime = -1
+bindtime = -1
+
+[State 5610, 0]
+type = Explod
+triggerall = var(48) = 0
+triggerall = var(51) = [34,66]
+trigger1 = Time = 74
+anim = 7921	;ifelse(parent,var(17) = 1,7921,7925)
+pos = 30,226
+postype = left
+sprpriority = 18
+ownpal = 0
+removetime = -1
+bindtime = -1
+
+[State 5610, 0]
+type = Explod
+triggerall = var(48) = 0
+triggerall = var(51) = [67,100]
+trigger1 = Time = 74
+anim = 7922	;ifelse(parent,var(17) = 1,7922,7926)
+pos = 30,183
+postype = left
+sprpriority = 18
+ownpal = 0
+removetime = -1
+bindtime = -1
+
+[State 5610, 0]
+type = Explod
+triggerall = var(48) = 0
+triggerall = var(51) = [67,100]
+trigger1 = Time = 74
+anim = 7923	;ifelse(parent,var(17) = 1,7923,7927)
+pos = 30,226
+postype = left
+sprpriority = 18
+ownpal = 0
+removetime = -1
+bindtime = -1
+
+[State 5610, 0]
+type = Explod
+triggerall = var(48) = 1
+trigger1 = Time = 74
+anim = 7912
+pos = 30,183
+postype = left
+sprpriority = 18
+ownpal = 0
+removetime = -1
+bindtime = -1
+
+[State 5610, 0]
+type = Explod
+triggerall = var(48) = 1
+trigger1 = Time = 74
+anim = 7913
+pos = 30,226
+postype = left
+sprpriority = 18
+ownpal = 0
+removetime = -1
+bindtime = -1
+
+[State 5610, 0]
+type = Explod
+triggerall = var(48) = 2
+trigger1 = Time = 74
+anim = 7914
+pos = 30,183
+postype = left
+sprpriority = 18
+ownpal = 0
+removetime = -1
+bindtime = -1
+
+[State 5610, 0]
+type = Explod
+triggerall = var(48) = 2
+trigger1 = Time = 74
+anim = 7915
+pos = 30,226
+postype = left
+sprpriority = 18
+ownpal = 0
+removetime = -1
+bindtime = -1
+
+[State 5610, 0]
+type = Explod
+triggerall = var(48) = 3
+trigger1 = Time = 74
+anim = 7916
+pos = 30,183
+postype = left
+sprpriority = 18
+ownpal = 0
+removetime = -1
+bindtime = -1
+
+[State 5610, 0]
+type = Explod
+triggerall = var(48) = 3
+trigger1 = Time = 74
+anim = 7917
+pos = 30,226
+postype = left
+sprpriority = 18
+ownpal = 0
+removetime = -1
+bindtime = -1
+
+[State 5610, 0]
+type = Explod
+triggerall = var(48) = 4
+trigger1 = Time = 74
+anim = 7918
+pos = 30,183
+postype = left
+sprpriority = 18
+ownpal = 0
+removetime = -1
+bindtime = -1
+
+[State 5610, 0]
+type = Explod
+triggerall = var(48) = 4
+trigger1 = Time = 74
+anim = 7919
+pos = 30,226
+postype = left
+sprpriority = 18
+ownpal = 0
+removetime = -1
+bindtime = -1
+
+[State 5610, 5]
+type = DestroySelf
+trigger1 = RoundState = 0
+
+;-----------------------------------------------------------------------------------------
+;aiｼｳﾁ､
+
+[Statedef -2]
+
+[State -2, 0]
+type = Helper
+trigger1 = NumHelper(999) = 0
+trigger1 = RoundState = 2
+name = "AI Trigger"
+id = 999
+pos = 1000,1000
+stateno = 1234
+keyctrl = 1
+
+; AI helper
+[Statedef 1234]
+anim = 1234
+ctrl = 0
+
+[State 111, 1]
+type = Turn
+trigger1 = facing != parent, facing
+
+[State 112, 2]
+type = ParentVarSet
+triggerall = parent, RoundState = 2
+triggerall = time > 0 && parent,var(11) = 0
+triggerall = parent, movetype != H
+trigger1 = parent, command = "x"
+trigger2 = parent, command = "y"
+trigger3 = parent, command = "z"
+trigger4 = parent, command = "a"
+trigger5 = parent, command = "b"
+trigger6 = parent, command = "c"
+trigger7 = parent, command = "start"
+trigger8 = parent, command = "holdfwd"
+trigger9 = parent, command = "holdback"
+trigger10 = parent, command = "holdup"
+trigger11 = parent, command = "holddown"
+var(10) = 1
+
+[State 113, 3]
+type = ParentVarSet
+triggerall = parent, RoundState = 2
+triggerall = parent,var(11) = 0
+trigger1 = (command = "x" && parent, command = "x")
+trigger2 = (command = "y" && parent, command = "y")
+trigger3 = (command = "z" && parent, command = "z")
+trigger4 = (command = "a" && parent, command = "a")
+trigger5 = (command = "b" && parent, command = "b")
+trigger6 = (command = "c" && parent, command = "c")
+trigger7 = (command = "start" && parent, command = "start")
+trigger8 = (command = "holdfwd" && parent, command = "holdfwd")
+trigger9 = (command = "holdback" && parent, command = "holdback")
+trigger10 = (command = "holdup" && parent, command = "holdup")
+trigger11 = (command = "holddown" && parent, command = "holddown")
+var(10) = 0
+
+[State 112, 2]
+type = ParentVarSet
+triggerall = parent, RoundState = 2
+triggerall = time > 0
+trigger1 = parent, command = "x"
+trigger2 = parent, command = "y"
+trigger3 = parent, command = "z"
+trigger4 = parent, command = "a"
+trigger5 = parent, command = "b"
+trigger6 = parent, command = "c"
+trigger7 = parent, command = "start"
+trigger8 = parent, command = "holdfwd"
+trigger9 = parent, command = "holdback"
+trigger10 = parent, command = "holdup"
+trigger11 = parent, command = "holddown"
+var(11) = 1
+
+;-------------------------------------------------------------------------------------------------------
+

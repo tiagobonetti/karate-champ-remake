@@ -1,0 +1,29 @@
+;LAST UP DATA- 2006.10.07	Version=I-2
+[Info]
+Name="Andy Bogard"
+DisplayName="ANDY"
+VersionDate=04,14,2001
+MugenVersion=04,14,2001
+Author="zzzasd"
+Pal.Defaults=1,2,3,4,5,6,7,8,9,10,11,12
+
+[Files]
+cmd=Andy.cmd
+cns=Andy.cns
+st=Andy.cns
+stcommon=Andya.cns
+sprite=Andy.sff
+anim=Andy.air
+sound=Andy.snd
+pal1=Andy02-B.act
+pal2=Andy02-D.act
+pal3=Andy01-B.act
+pal4=Andy02-A.act
+pal5=Andy02-C.act
+pal6=Andy01-B.act
+st1=Andyb.cns
+st2=Andyc.cns
+
+[Arcade]
+intro.storyboard=
+ending.storyboard=

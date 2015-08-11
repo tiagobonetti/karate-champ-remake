@@ -1,0 +1,37 @@
+
+[Info]
+name    ="Blue Mary"
+displayname ="MARY"
+versiondate =01,23,2004
+mugenversion =04,14,2001
+author ="ActJapan"
+pal.defaults=1,2,3,4,5
+
+; Files for the Player
+[Files]
+cmd     =MaryAct3rd.cmd
+cns     =MaryAct3rd_Public.cns
+st      =MaryAct3rd_Public.cns    
+stcommon =common1.cns
+sprite  =MaryAct3rd.sff
+anim    =MaryAct3rd.air
+sound   =MaryAct3rd.snd
+pal1=MaryAct3rd01.act
+pal2=MaryAct3rd02.act
+pal3=MaryAct3rd03.act
+pal4=MaryAct3rd04.act
+pal5=MaryAct3rd05.act
+pal6=MaryAct3rd06.act
+pal7=MaryAct3rd01.act
+pal8=MaryAct3rd02.act
+pal9=MaryAct3rd03.act
+pal10=MaryAct3rd04.act
+pal11=MaryAct3rd05.act
+pal12=MaryAct3rd06.act
+st1=MaryAct3rd_N.cns
+st2=MaryAct3rd_S.cns
+st3=MaryAct3rd_H.cns
+st4=MaryAct3rd_AI.cns
+[Arcade]
+intro.storyboard=
+ending.storyboard=

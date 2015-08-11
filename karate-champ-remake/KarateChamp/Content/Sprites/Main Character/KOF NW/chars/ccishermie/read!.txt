@@ -1,0 +1,189 @@
+SHERMIE ~ the raging Lighting
+King of fighters 2002
+By CCIRocky aka Ironmugen aka David D.
+http://deltapark.i-xcell.com
+
+
+Beta release 1 - 29/11/2006
+
+WARNING: This char may have bugs. Thanks for reporting any bugs you find.
+
+
+What's done?
+-----------
+
+* Time over lose pose
+* Basics + requireds
+* Taunt
+* 1 Intro
+* 1 Intro VS guys
+* 1 Intro VS Yashiro/Shermie
+* 3 Win poses
+* 1 Win pose VS guys
+* 1 Win pose VS Yashiro or Chris (different voice)
+* All basic attacks
+* 2 Command moves
+* 2 Throws
+* Axle Spin Kick
+* Diamond Bust
+* Shermie Whip
+* Shermie Spiral
+* F-Captured
+* Shermie Cute
+* Shermie Clutch
+* Shermie Flash
+* Shermie Carnival DM and SDM
+* Inazuma Leg Lariat
+* Ankoku Raikou Ken
+* Cheese KO
+* Sexy KO
+
+
+What's left?
+-----------
+
+
+
+NOTE:
+----
+
+
+In the SFF you can choose between 3 big portraits: KOF Neowave, KOF 2002 (intro) and NGBC.
+The defaut one is from Neowave.
+
+
+
+Special moves
+-------------
+
+
+-O + X
+
+-O + A
+
+
+Roll = A+X (hold back to roll backward)
+Charge power = A+Y
+Knockdown attack = Y+B
+Throws = at close distance, hold back or forward and press Y or B
+
+
+
+Axle Spin Kick:
+
+|  / O- + A/B
+O O
+
+
+Shermie Bust:
+
+O- / | \ -O + A/B
+  O  O  O
+
+
+Shermie Whip:
+
+|  / O- + X/Y
+O O
+
+
+Shermie Spiral:
+
+O- / | \ -O + X/Y
+  O  O  O
+
+
+F-Captured:
+
+-O \  |  / O- -O + X/Y
+    O O O
+
+
+Shermie Cute:
+
+| \  -O + A/B (after Shermie Whip, Shermie Spiral or Shermie Clutch)
+O  O
+
+
+Shermie Clutch:
+
+-O | \  + A/B
+   O  O
+
+
+Shermie Flash (requires 1 power bar):
+
+-O \  |  / O- -O \  |  / O- + X/Y
+    O O O         O O O
+
+
+Shermie Carnival (requires 1 power bar):
+
+O- / | \ -O O- / | \ -O + X/Y
+  O  O  O     O  O  O
+
+
+Shermie Carnival (requires 2 power bars):
+
+O- / | \ -O O- / | \ -O + X+Y
+  O  O  O     O  O  O
+
+
+Inazuma Leg Lariat (requires 2 power bars):
+
+| \  -O | \  -O + A+B
+O  O    O  O
+
+
+Ankoku Raikou Ken (requires 3 power bars):
+
+| \  -O | \  -O + X+Y
+O  O    O  O
+
+
+Profile of Shermie:
+-----------------
+
+(Taken from www.kof10th.com)
+
+Fighting style: Throw Attacks Mainly (good at "Bridge").
+Birthday: 13 of February.
+Height: 173cm
+Weight: 68kg
+Blood type: B
+Birthplace: France.
+Hobby: Band, French Films, Breeding Hamster.
+Personal Tresures: Personal Computer, Hamster.
+Fav food: Fish, Natto-Maki, Morning Special at Gyudon Restaurant.
+Hates: Celery, High School Baseball .
+
+
+Special Thanks:
+--------------
+
+Bug repport: -
+Thanks to Misamu for the Elizabeth sprites (I used for the Cheese Ko).
+All palettes (except the default one) made by BaoJJ.
+NGBC and Brazil palettes made by Maria Azul.
+
+Dark Saviour for his usefull progs.
+Neogouki (his Joe made me like MUGEN)
+Sander for the Counter system coding + Benimaru 's electric palfx.
+Orochi KOf97 for helping out on timings years ago.
+Rumiko for the Andy review which was helpfull.
+Big Eli King, Dreamslayer, @ndroide for hostings.
+Chloe and Smogon for unknown reasons.
+Shin Dio, Walter, UltraJP/Kami.
+O Experto, Ice, DeeJack.
+
+Sion for installing my new UG forum.
+
+
+SNK for creating the KOF saga and that HOT Orochi girl. RIP.
+Elecbyte for Mugen.
+
+Special Fucks:
+-------------
+
+Pacific Angra.
+AznMystik.
