@@ -8,13 +8,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace KarateChamp {
 
-    using Orientantion = GameObject.Orientation;
+    using Orientation = GameObject.Orientation;
 
     public class KeyboardInput : IPlayerInput {
         public Vector2 DebugPosition { get; set; }
         public KeyboardInput() {
             this.DebugPosition = Vector2.Zero;
         }
+
         static List<Keys> wasd = new List<Keys>() {
             Keys.W,
             Keys.A,
@@ -27,7 +28,7 @@ namespace KarateChamp {
             Keys.Down,
             Keys.Right
         };
-         static List<Keys> menu_list = new List<Keys>() {
+        static List<Keys> menu_list = new List<Keys>() {
             Keys.W,
             Keys.S,
             Keys.Up,
@@ -35,63 +36,118 @@ namespace KarateChamp {
             Keys.Enter,
             Keys.Escape
         };
-       
-        public CharacterState GetMove(Modifier modifier, Orientantion orientation) {
+
+
+        Keys left = Keys.None;
+        Keys right = Keys.None;
+        Orientation lastOrientation = Orientation.Right;
+        Direction direction = Direction.None;
+        bool start = false;
+        bool cancel = false;
+
+        HadoukenInput hadouken = new HadoukenInput();
+        TatsumakiInput tatsumaki = new TatsumakiInput();
+
+        public void ManagerUpdate(GameTime gameTime) {
+            KeyboardState state = Keyboard.GetState();
+            var pressed = state.GetPressedKeys().ToList();
+            var pressed_wasd = pressed.Intersect(wasd);
+            var pressed_arrows = pressed.Intersect(arrows);
+
+            left = (pressed_wasd.Count() > 0) ? pressed_wasd.First() : Keys.None;
+            right = (pressed_arrows.Count() > 0) ? pressed_arrows.First() : Keys.None;
+
+            bool W = state.IsKeyDown(Keys.W);
+            bool A = state.IsKeyDown(Keys.A);
+            bool S = state.IsKeyDown(Keys.S);
+            bool D = state.IsKeyDown(Keys.D);
+
+            if (W && !S) { direction = Direction.Up; }
+            else if (S && !W) { direction = Direction.Down; }
+            else if (A && !D) { direction = Direction.Left; }
+            else if (D && !A) { direction = Direction.Right; }
+            else { direction = Direction.None; }
+
+            start = state.IsKeyDown(Keys.Enter);
+            cancel = state.IsKeyDown(Keys.Escape);
+
+        }
+
+
+        public bool GetStart() {
+            return start;
+        }
+
+        public bool GetCancel() {
+            return cancel;
+        }
+
+        public Direction GetDirection() {
+            return direction;
+        }
+
+        CharacterState lastMove = CharacterState.Idle;
+        public CharacterState GetMove() {
+            return lastMove;
+        }
+
+        Timer singleStickTimer = new Timer();
+        bool delayed = false;
+
+        public void PlayerUpdate(GameTime gameTime, Modifier modifier, Orientation orientation) {
+            InputStick leftStick = left.ToInputStick(orientation);
+            InputStick rightStick = right.ToInputStick(orientation);
+ 
+            hadouken.Update(leftStick, rightStick);
+            if (hadouken.Inputed()) {
+                lastMove = CharacterState.Hadouken;
+                return;
+            }
+
+            tatsumaki.Update(leftStick, rightStick);
+            if (tatsumaki.Inputed()) {
+                lastMove = CharacterState.Tatsumaki;
+                return;
+            }
+
+
+            if ((lastMove == CharacterState.Idle) && !delayed &&
+                (( leftStick != InputStick.None && rightStick == InputStick.None) || 
+                ( rightStick != InputStick.None && leftStick == InputStick.None)))
+            {
+                if (!delayed) {
+                    singleStickTimer.TimerCounter(gameTime, InputManager.InputDelay, out delayed);
+                } else {
+                    lastMove = InputDictionary.GetMove(leftStick, rightStick, modifier);
+                }
+            } else {
+                delayed = false;
+                lastMove = InputDictionary.GetMove(leftStick, rightStick, modifier);
+            }
+        }
+
+
+        public void DrawDebug(SpriteBatch sb, Orientation orientation) {
             KeyboardState state = Keyboard.GetState();
             var pressed = Keyboard.GetState().GetPressedKeys().ToList();
             var pressed_wasd = pressed.Intersect(wasd);
             var pressed_arrows = pressed.Intersect(arrows);
 
-            Keys left = (pressed_wasd.Count() == 1) ? pressed_wasd.First() : Keys.None;
-            Keys right = (pressed_arrows.Count() == 1) ? pressed_arrows.First() : Keys.None;
+            InputStick left = ((pressed_wasd.Count() == 1) ? pressed_wasd.First() : Keys.None).ToInputStick(orientation);
+            InputStick right = ((pressed_arrows.Count() == 1) ? pressed_arrows.First() : Keys.None).ToInputStick(orientation);
 
-            return InputDictionary.GetMove(left.ToInput(orientation), right.ToInput(orientation), modifier);
-        }
-
-        public MenuInput GetMenuInput() {
-            KeyboardState state = Keyboard.GetState();
-            var pressed = Keyboard.GetState().GetPressedKeys().ToList();
-            var pressed_menu = pressed.Intersect(menu_list);
-
-            Keys menu = (pressed_menu.Count() > 0) ? pressed_menu.First() : Keys.None;
-            return menu.ToMenuInput();
-        }
- 
-        public void DrawDebug(SpriteBatch sb, Orientantion orientation) {
-            Vector2 pos = DebugPosition;
-            string msg;
-
-            KeyboardState state = Keyboard.GetState();
-            var pressed = Keyboard.GetState().GetPressedKeys().ToList();
-            var pressed_wasd = pressed.Intersect(wasd);
-            var pressed_arrows = pressed.Intersect(arrows);
-            var pressed_menu = pressed.Intersect(menu_list);
- 
-            InputState left  = ((pressed_wasd.Count() == 1) ? pressed_wasd.First() : Keys.None).ToInput(orientation);
-            InputState right = ((pressed_arrows.Count() == 1) ? pressed_arrows.First() : Keys.None).ToInput(orientation);
-            MenuInput menu = ((pressed_menu.Count() > 0) ? pressed_menu.First() : Keys.None).ToMenuInput();
-
-            Debug.DrawText(sb, pos, "keyboard");
-            pos.Y += 30.0f;
-            msg = "WASD: ";
-            foreach (Keys key in pressed_wasd) {
-                msg += key.ToString() + " ";
-            }
-            Debug.DrawText(sb, pos, msg);
-            pos.Y += 25.0f;
-            msg = "Arrows: ";
-            foreach (Keys key in pressed_arrows) {
-                msg += key.ToString() + " ";
-            }
-            Debug.DrawText(sb, pos, msg);
-            pos.Y += 30.0f;
-            Debug.DrawText(sb, pos, "L: " + left.ToString());
-            pos.Y += 25.0f;
-            Debug.DrawText(sb, pos, "R: " + right.ToString());
-            pos.Y += 30.0f;
-            Debug.DrawText(sb, pos, "Move: " + InputDictionary.GetMove(left, right, Modifier.None).ToString());
-            pos.Y += 30.0f;
-            Debug.DrawText(sb, pos, "Menu: " + menu);
+            string msg = "Keyboard";
+            msg += "\nWASD: ";
+            foreach (Keys key in pressed_wasd) { msg += key.ToString() + " "; }
+            msg += "\nArrows: ";
+            foreach (Keys key in pressed_arrows) { msg += key.ToString() + " "; }
+            msg += "\nL: " + left.ToString();
+            msg += "\nR: " + right.ToString();
+            msg += "\nMove: " + lastMove.ToString();
+            msg += "\nDirection: " + direction;
+            msg += "\nStart: " + start;
+            msg += "\nCancel: " + cancel;
+            Debug.DrawText(sb, DebugPosition, msg);
         }
     }
 }

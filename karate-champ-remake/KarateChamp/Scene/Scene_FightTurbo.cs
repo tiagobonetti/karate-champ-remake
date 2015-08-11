@@ -289,12 +289,12 @@ namespace KarateChamp {
             switch (game.sceneControl.mainMenu.InputOption) {
                 default:
                 case Scene_MainMenu.InputOptions.Keyboard:
-                    whiteCharacter.PlayerInput = InputDictionary.Keyboard;
-                    redCharacter.PlayerInput = InputDictionary.GamePadOne;
+                    whiteCharacter.PlayerInput = InputManager.Keyboard;
+                    redCharacter.PlayerInput = InputManager.GamePadOne;
                     break;
                 case Scene_MainMenu.InputOptions.GamePad:
-                    whiteCharacter.PlayerInput = InputDictionary.GamePadOne;
-                    redCharacter.PlayerInput = InputDictionary.GamePadTwo;
+                    whiteCharacter.PlayerInput = InputManager.GamePadOne;
+                    redCharacter.PlayerInput = InputManager.GamePadTwo;
                     break;
             }
 

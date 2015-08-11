@@ -34,5 +34,9 @@ namespace KarateChamp {
         public float GetTimeDecreasing() {
             return length - elapsedTime;
         }
+
+        public void Clear() {
+            elapsedTime = 0.0f;
+        }
     }
 }

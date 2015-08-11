@@ -9,7 +9,7 @@ namespace KarateChamp {
 
     using Orientation = GameObject.Orientation;
 
-    public enum InputState {
+    public enum InputStick {
         None,
         Up,
         Down,
@@ -17,16 +17,14 @@ namespace KarateChamp {
         Front,
     }
 
-    public enum MenuInput {
+    public enum Direction {
         None,
         Up,
         Down,
-        Rigth,
+        Right,
         Left,
-        Ok,
-        Cancel
     }
- 
+
     public enum Modifier {
         None,
         IncomingUpperAttack,
@@ -34,10 +32,18 @@ namespace KarateChamp {
         CloseToOpponent
     }
 
+
+
     public interface IPlayerInput {
         Vector2 DebugPosition { get; set; }
-        CharacterState GetMove(Modifier modifier, Orientation orientation);
-        MenuInput GetMenuInput();
+        CharacterState GetMove();
+        Direction GetDirection();
+        bool GetStart();
+        bool GetCancel();
+
+        void PlayerUpdate(GameTime gameTime, Modifier modifier, Orientation orientation);
+        void ManagerUpdate(GameTime gameTime);
+
         void DrawDebug(SpriteBatch sb, Orientation orientation);
     }
 }

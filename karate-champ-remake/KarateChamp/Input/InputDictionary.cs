@@ -6,56 +6,49 @@ using Microsoft.Xna.Framework;
 
 namespace KarateChamp {
 
-    public class InputDictionary : Dictionary<Tuple<InputState, InputState>, CharacterState> {
-        public void Add(InputState left, InputState right, CharacterState move) {
-            Add(new Tuple<InputState, InputState>(left, right), move);
+    public class InputDictionary : Dictionary<Tuple<InputStick, InputStick>, CharacterState> {
+        public void Add(InputStick left, InputStick right, CharacterState move) {
+            Add(new Tuple<InputStick, InputStick>(left, right), move);
         }
         static InputDictionary dictionary;
-        static public IPlayerInput Keyboard { get; private set; }
-        static public IPlayerInput GamePadOne { get; private set; }
-        static public IPlayerInput GamePadTwo { get; private set; }
 
         static InputDictionary() {
             InputDictionary.dictionary = new InputDictionary {
-               {InputState.None,  InputState.Back,  CharacterState.BackKick           },
-               {InputState.None,  InputState.Front, CharacterState.FrontKick          },
-             {InputState.None,  InputState.Up,    CharacterState.RoundKick          },
-             {InputState.None,  InputState.Down,  CharacterState.LowKick            },
-    //           {InputState.None,  InputState.Up,    CharacterState.Hadouken           }, // TEMPORARY
-      //         {InputState.None,  InputState.Down,  CharacterState.CheckCheckTchugen  }, // TEMPORARY
+               {InputStick.None,  InputStick.Back,  CharacterState.BackKick           },
+               {InputStick.None,  InputStick.Front, CharacterState.FrontKick          },
+               {InputStick.None,  InputStick.Up,    CharacterState.RoundKick          },
+               {InputStick.None,  InputStick.Down,  CharacterState.LowKick            },
+                // {InputStick.None,  InputStick.Up,    CharacterState.Hadouken           }, // TEMPORARY
+                // {InputStick.None,  InputStick.Down,  CharacterState.CheckCheckTchugen  }, // TEMPORARY
+               {InputStick.Back,  InputStick.None,  CharacterState.Withdraw           },
+               {InputStick.Back,  InputStick.Back,  CharacterState.BackKick           },
+               {InputStick.Back,  InputStick.Front, CharacterState.BackRoundKick      },
+               {InputStick.Back,  InputStick.Up,    CharacterState.UpperPunch         },
+               {InputStick.Back,  InputStick.Down,  CharacterState.LowKick            },
 
-               {InputState.Back,  InputState.None,  CharacterState.Withdraw           },
-               {InputState.Back,  InputState.Back,  CharacterState.BackKick           },
-               {InputState.Back,  InputState.Front, CharacterState.BackRoundKick      },
-               {InputState.Back,  InputState.Up,    CharacterState.UpperPunch         },
-               {InputState.Back,  InputState.Down,  CharacterState.LowKick            },
+               {InputStick.Front, InputStick.None,  CharacterState.Forward            },
+               {InputStick.Front, InputStick.Back,  CharacterState.ChangeDirection    },
+               {InputStick.Front, InputStick.Front, CharacterState.MiddleLungePunch   },
+               {InputStick.Front, InputStick.Up,    CharacterState.UpperLungePunch    },
+               {InputStick.Front, InputStick.Down,  CharacterState.LowKick            },
 
-               {InputState.Front, InputState.None,  CharacterState.Forward            },
-               {InputState.Front, InputState.Back,  CharacterState.ChangeDirection    },
-               {InputState.Front, InputState.Front, CharacterState.MiddleLungePunch   },
-               {InputState.Front, InputState.Up,    CharacterState.UpperLungePunch    },
-               {InputState.Front, InputState.Down,  CharacterState.LowKick            },
+               {InputStick.Up,    InputStick.None,  CharacterState.Jump               },
+               {InputStick.Up,    InputStick.Back,  CharacterState.JumpingBackKick    },
+               {InputStick.Up,    InputStick.Front, CharacterState.JumpingSideKick    },
+               {InputStick.Up,    InputStick.Up,    CharacterState.BackwardSomersault },
+               {InputStick.Up,    InputStick.Down,  CharacterState.ForwardSomersault  },
 
-               {InputState.Up,    InputState.None,  CharacterState.Jump               },
-               {InputState.Up,    InputState.Back,  CharacterState.JumpingBackKick    },
-               {InputState.Up,    InputState.Front, CharacterState.JumpingSideKick    },
-               {InputState.Up,    InputState.Up,    CharacterState.BackwardSomersault },
-               {InputState.Up,    InputState.Down,  CharacterState.ForwardSomersault  },
-
-               {InputState.Down,  InputState.None,  CharacterState.Squat              },
-               {InputState.Down,  InputState.Back,  CharacterState.BackFootSweep      },
-               {InputState.Down,  InputState.Front, CharacterState.FrontFootSweep     },
-               {InputState.Down,  InputState.Up,    CharacterState.DuckingReversePunch},
-               {InputState.Down,  InputState.Down,  CharacterState.FrontFootSweep     }
+               {InputStick.Down,  InputStick.None,  CharacterState.Squat              },
+               {InputStick.Down,  InputStick.Back,  CharacterState.BackFootSweep      },
+               {InputStick.Down,  InputStick.Front, CharacterState.FrontFootSweep     },
+               {InputStick.Down,  InputStick.Up,    CharacterState.DuckingReversePunch},
+               {InputStick.Down,  InputStick.Down,  CharacterState.FrontFootSweep     }
             };
-            Keyboard = new KeyboardInput();
-            GamePadOne = new GamePadInput(PlayerIndex.One);
-            GamePadTwo = new GamePadInput(PlayerIndex.Two);
 
         }
-        public static CharacterState GetMove(InputState left, InputState rigth, Modifier modifier) {
+        public static CharacterState GetMove(InputStick left, InputStick rigth, Modifier modifier) {
             CharacterState move;
-            InputDictionary.dictionary.TryGetValue(new Tuple<InputState, InputState>(left, rigth), out move);
+            InputDictionary.dictionary.TryGetValue(new Tuple<InputStick, InputStick>(left, rigth), out move);
             // apply modifier
             switch (modifier) {
                 default:

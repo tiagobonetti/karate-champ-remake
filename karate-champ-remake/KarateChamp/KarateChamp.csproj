@@ -46,6 +46,8 @@
     <Compile Include="Character\Fireball.cs" />
     <Compile Include="Debug.cs" />
     <Compile Include="HitboxCalculator.cs" />
+    <Compile Include="Input\HadoukenInput.cs" />
+    <Compile Include="Input\InputManager.cs" />
     <Compile Include="Input\IPlayerInput.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Animation\Animator.cs" />
@@ -57,6 +59,7 @@
     <Compile Include="Input\InputDictionary.cs" />
     <Compile Include="Input\KeyboardInput.cs" />
     <Compile Include="Input\Extensions.cs" />
+    <Compile Include="Input\TatsumakiInput.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="Character\PlayerCharacter.cs" />
     <Compile Include="Program.cs" />

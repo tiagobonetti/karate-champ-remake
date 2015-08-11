@@ -24,7 +24,8 @@ namespace KarateChamp {
                 input = CharacterState.Idle;
             }
             else {
-                input = PlayerInput.GetMove(CheckBlockModifier(Opponent.state), orientation);
+                PlayerInput.PlayerUpdate(gameTime, CheckBlockModifier(Opponent.state), orientation);
+                input = PlayerInput.GetMove();
             }
 
             BaseUpdate(gameTime, input);
@@ -32,7 +33,7 @@ namespace KarateChamp {
 
         public void Draw(SpriteBatch spriteBatch) {
 
-            if (state == CharacterState.Hadouken || state == CharacterState.CheckCheckTchugen)
+            if (state == CharacterState.Hadouken || state == CharacterState.Tatsumaki)
                 spriteSheet = game.Content.Load<Texture2D>("Sprites/Main Character/SuperMoves");
             else
                 spriteSheet = game.Content.Load<Texture2D>("Sprites/Main Character/CharacterSpritesheet");

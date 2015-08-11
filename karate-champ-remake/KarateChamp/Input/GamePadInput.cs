@@ -15,76 +15,120 @@ namespace KarateChamp {
         public Vector2 DebugPosition { get; set; }
         const float threshold = 0.75f;
         PlayerIndex player;
+        GamePadState state;
 
         public GamePadInput(PlayerIndex player = PlayerIndex.One) {
             this.DebugPosition = Vector2.Zero;
             this.player = player;
+            state = GamePad.GetState(player, GamePadDeadZone.IndependentAxes);
         }
-        public CharacterState GetMove(Modifier modifier, Orientation flipped) {
-            GamePadState state = GamePad.GetState(player, GamePadDeadZone.IndependentAxes);
-            InputState left = GetStick(state.ThumbSticks.Left, flipped);
-            InputState right = GetStick(state.ThumbSticks.Right, flipped);
-            return InputDictionary.GetMove(left, right, modifier);
+
+        Direction direction = Direction.None;
+        bool start = false;
+        bool cancel = false;
+        HadoukenInput hadouken = new HadoukenInput();
+        TatsumakiInput tatsumaki = new TatsumakiInput();
+
+        public void ManagerUpdate(GameTime gameTime) {
+            state = GamePad.GetState(player, GamePadDeadZone.IndependentAxes);
+
+            float Y = state.ThumbSticks.Left.Y;
+            float X = state.ThumbSticks.Left.X;
+            GamePadDPad dPad = state.DPad;
+
+            if (Y > threshold || dPad.Up == ButtonState.Pressed) { direction = Direction.Up; }
+            else if (Y < -threshold || dPad.Down == ButtonState.Pressed) { direction = Direction.Down; }
+            else if (X < -threshold || dPad.Left == ButtonState.Pressed) { direction = Direction.Left; }
+            else if (X > threshold || dPad.Right == ButtonState.Pressed) { direction = Direction.Right; }
+            else { direction = Direction.None; }
+
+            start = (state.Buttons.A == ButtonState.Pressed);
+            cancel = (state.Buttons.B == ButtonState.Pressed);
         }
-        public MenuInput GetMenuInput() {
-            GamePadState state = GamePad.GetState(player, GamePadDeadZone.IndependentAxes);
-            if (state.ThumbSticks.Left.Y > threshold || state.DPad.Up == ButtonState.Pressed) {
-                return MenuInput.Up;
+
+        public bool GetStart() {
+            return start;
+        }
+
+        public bool GetCancel() {
+            return cancel;
+        }
+
+        public Direction GetDirection() {
+            return direction;
+        }
+
+        CharacterState lastMove = CharacterState.Idle;
+        Timer singleStickTimer = new Timer();
+        bool delayed = false;
+
+        public void PlayerUpdate(GameTime gameTime, Modifier modifier, Orientation orientation) {
+            InputStick leftStick = GetStick(state.ThumbSticks.Left, orientation);
+            InputStick rightStick = GetStick(state.ThumbSticks.Right, orientation);
+
+            hadouken.Update(leftStick, rightStick);
+            if (hadouken.Inputed()) {
+                lastMove = CharacterState.Hadouken;
+                return;
             }
-            else if ( state.ThumbSticks.Left.Y < -threshold || state.DPad.Down == ButtonState.Pressed) {
-                return MenuInput.Down;
+
+            tatsumaki.Update(leftStick, rightStick);
+            if (tatsumaki.Inputed()) {
+                lastMove = CharacterState.Tatsumaki;
+                return;
             }
-            else if ( state.Buttons.A == ButtonState.Pressed ) {
-                return MenuInput.Ok;
-            }
-            else if ( state.Buttons.B == ButtonState.Pressed ) {
-                return MenuInput.Cancel;
+
+            if ((lastMove == CharacterState.Idle) && !delayed &&
+                ((leftStick != InputStick.None && rightStick == InputStick.None) ||
+                (rightStick != InputStick.None && leftStick == InputStick.None))) {
+                if (!delayed) {
+                    singleStickTimer.TimerCounter(gameTime, InputManager.InputDelay, out delayed);
+                }
+                else {
+                    lastMove = InputDictionary.GetMove(leftStick, rightStick, modifier);
+                }
             }
             else {
-                return MenuInput.None;
+                delayed = false;
+                lastMove = InputDictionary.GetMove(leftStick, rightStick, modifier);
             }
         }
-        public InputState GetStick(Vector2 ThumbStick, Orientation flipped) {
+        public CharacterState GetMove() {
+            return lastMove;
+        }
+
+        public InputStick GetStick(Vector2 ThumbStick, Orientation flipped) {
             if (ThumbStick.X > threshold) {
-                return (flipped == Orientation.Right) ? InputState.Front : InputState.Back;
+                return (flipped == Orientation.Right) ? InputStick.Front : InputStick.Back;
             }
             else if (ThumbStick.X < -threshold) {
-                return (flipped == Orientation.Left) ? InputState.Front : InputState.Back;
+                return (flipped == Orientation.Left) ? InputStick.Front : InputStick.Back;
             }
             else if (ThumbStick.Y > threshold) {
-                return InputState.Up;
+                return InputStick.Up;
             }
             else if (ThumbStick.Y < -threshold) {
-                return InputState.Down;
+                return InputStick.Down;
             }
             else {
-                return InputState.None;
+                return InputStick.None;
             }
         }
         public void DrawDebug(SpriteBatch sb, Orientation orientation) {
             GamePadState state = GamePad.GetState(player, GamePadDeadZone.IndependentAxes);
-            Vector2 pos = DebugPosition;
-            InputState left = GetStick(state.ThumbSticks.Left, orientation);
-            InputState right = GetStick(state.ThumbSticks.Right, orientation);
-            MenuInput menu = GetMenuInput();
+            InputStick left = GetStick(state.ThumbSticks.Left, orientation);
+            InputStick right = GetStick(state.ThumbSticks.Right, orientation);
 
-            Debug.DrawText(sb, pos, "P " + player.ToString() + " : " + state.IsConnected.ToString());
-            pos.Y += 30.0f;
-            Debug.DrawText(sb, pos, "Lx: " + state.ThumbSticks.Left.X.ToString());
-            pos.Y += 25.0f;
-            Debug.DrawText(sb, pos, "Ly: " + state.ThumbSticks.Left.Y.ToString());
-            pos.Y += 25.0f;
-            Debug.DrawText(sb, pos, "Rx: " + state.ThumbSticks.Right.X.ToString());
-            pos.Y += 25.0f;
-            Debug.DrawText(sb, pos, "Ry: " + state.ThumbSticks.Right.Y.ToString());
-            pos.Y += 30.0f;
-            Debug.DrawText(sb, pos, "L: " + left.ToString());
-            pos.Y += 25.0f;
-            Debug.DrawText(sb, pos, "R: " + right.ToString());
-            pos.Y += 30.0f;
-            Debug.DrawText(sb, pos, "Move: " + InputDictionary.GetMove(left, right, Modifier.None).ToString());
-            pos.Y += 30.0f;
-            Debug.DrawText(sb, pos, "Menu: " + menu);
+            string msg = "Gamepad " + player.ToString() + " : " + state.IsConnected.ToString();
+            msg += "\nLx: " + state.ThumbSticks.Left.X.ToString("N2");
+            msg += "\nLy: " + state.ThumbSticks.Left.Y.ToString("N2");
+            msg += "\nRx: " + state.ThumbSticks.Right.X.ToString("N2");
+            msg += "\nRy: " + state.ThumbSticks.Right.Y.ToString("N2");
+            msg += "\nMove: " + lastMove.ToString();
+            msg += "\nDirection: " + direction;
+            msg += "\nStart: " + start;
+            msg += "\nCancel: " + cancel;
+            Debug.DrawText(sb, DebugPosition, msg);
         }
     }
 }

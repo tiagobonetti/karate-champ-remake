@@ -45,7 +45,7 @@ namespace KarateChamp {
 
             if (state == CharacterState.JumpingSideKick ||
                 state == CharacterState.Hadouken ||
-                state == CharacterState.CheckCheckTchugen) {
+                state == CharacterState.Tatsumaki) {
                 lockFrame = 2;
                 holdable = false;
             }
@@ -53,7 +53,7 @@ namespace KarateChamp {
                 lockFrame = hitFrame;
             }
             Texture2D colisionSheet = Owner.game.Content.Load<Texture2D>("Sprites/Main Character/AttackCollision");
-            if (state == CharacterState.Hadouken || state == CharacterState.CheckCheckTchugen)
+            if (state == CharacterState.Hadouken || state == CharacterState.Tatsumaki)
                 colisionSheet = Owner.game.Content.Load<Texture2D>("Sprites/Main Character/SuperMovesAttackCollision");
 
             CalcHitbox(colisionSheet, hitFrame);

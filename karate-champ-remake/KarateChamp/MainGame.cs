@@ -56,7 +56,7 @@ namespace KarateChamp {
         protected override void Update(GameTime gameTime) {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Back))
                 Exit();
-
+            InputManager.Update(gameTime);
             sceneControl.Update(gameTime);
             base.Update(gameTime);
             previousKeyboardState = Keyboard.GetState();

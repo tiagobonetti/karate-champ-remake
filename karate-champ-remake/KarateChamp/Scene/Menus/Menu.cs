@@ -10,32 +10,6 @@ namespace KarateChamp {
 
     public delegate string MenuEntryAction();
     public class Menu {
-        // Menu Input Handling
-        static List<IPlayerInput> inputs = new List<IPlayerInput>() { InputDictionary.Keyboard,
-                                                                      InputDictionary.GamePadOne,
-                                                                      InputDictionary.GamePadTwo };
-        static MenuInput last_input = MenuInput.None;
-        static MenuInput GetMenuInput() {
-
-
-            MenuInput inputed = MenuInput.None;
-            foreach (IPlayerInput input in inputs) {
-                inputed = input.GetMenuInput();
-                if (inputed != MenuInput.None) {
-                    break;
-                }
-            }
-
-            if (last_input == MenuInput.None) {
-                last_input = inputed;
-                return inputed;
-            }
-
-            last_input = inputed;
-            return MenuInput.None;
-
-        }
-
         public Vector2 Position { get; set; }
         float spacing = 5.0f;
         float end = 0.0f;
@@ -52,30 +26,27 @@ namespace KarateChamp {
         }
 
         public void Update(GameTime gameTime) {
-            MenuInput input = GetMenuInput();
-            switch (input) {
-                case MenuInput.Up:
+            if (InputManager.GetStart()) {
+                entries[Selected].Update(gameTime);
+            }
+            switch (InputManager.GetDirection()) {
+                case Direction.Up:
                     Selected -= 1;
                     if (Selected < 0) {
                         Selected += entries.Count;
                     }
                     break;
-                case MenuInput.Down:
+                case Direction.Down:
                     Selected += 1;
                     if (Selected == entries.Count) {
                         Selected = 0;
                     }
                     break;
-                case MenuInput.Ok:
-                    entries[Selected].Update(gameTime);
-                    break;
-                case MenuInput.Cancel:
-                    // ?
-                    break;
                 default:
                     break;
             }
-        }
+
+       }
 
         public SpriteFont font { get; set; }
         public void Draw(SpriteBatch sprite_batch) {

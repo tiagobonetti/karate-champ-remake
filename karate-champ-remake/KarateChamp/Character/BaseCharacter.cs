@@ -35,7 +35,7 @@ namespace KarateChamp {
         RoundKick,           // LJ: None   RJ: Up 
         BackKick,            // LJ: None   RJ: Left 
         Hadouken,
-        CheckCheckTchugen
+        Tatsumaki
     }
 
     public class BaseCharacter : GameObject {
@@ -150,7 +150,7 @@ namespace KarateChamp {
                 case CharacterState.BackKick:
                 case CharacterState.JumpingSideKick:
                 case CharacterState.Hadouken:
-                case CharacterState.CheckCheckTchugen:
+                case CharacterState.Tatsumaki:
                     if (!currentAttack.Locked) {
                         ChangeState(input, gameTime);
                     }
@@ -356,7 +356,7 @@ namespace KarateChamp {
                     currentAttack.Start(gameTime);
                     break;
 
-                case CharacterState.CheckCheckTchugen:
+                case CharacterState.Tatsumaki:
                     velocity = Vector2.Zero;
                     currentAttack = CreateAttack(state, 2, 12, 3, 0.08f, Location.Upper);
                     currentAttack.Start(gameTime);
@@ -452,7 +452,7 @@ namespace KarateChamp {
                 case CharacterState.Hadouken:
                     currentAttack.Execute(input, gameTime);
                     break;
-                case CharacterState.CheckCheckTchugen:
+                case CharacterState.Tatsumaki:
                     if (currentAttack.animator.FrameIndex == 4) {
                         if (orientation == Orientation.Right)
                             velocity = new Vector2(255, 0);
@@ -563,7 +563,7 @@ namespace KarateChamp {
                 
                 case CharacterState.JumpingBackKick:
                 case CharacterState.FrontKick:
-                case CharacterState.CheckCheckTchugen:
+                case CharacterState.Tatsumaki:
                 case CharacterState.MiddleLungePunch:
                 case CharacterState.Hadouken:
                 case CharacterState.FrontFootSweep:
@@ -600,7 +600,7 @@ namespace KarateChamp {
                     case CharacterState.MiddleReversePunch:
                     case CharacterState.BackKick:
                     case CharacterState.Hadouken:
-                    case CharacterState.CheckCheckTchugen:
+                    case CharacterState.Tatsumaki:
                         return Modifier.IncomingMiddleAttack;
 
                     case CharacterState.FrontFootSweep:
