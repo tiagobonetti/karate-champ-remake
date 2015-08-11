@@ -47,7 +47,7 @@ namespace KarateChamp {
             StoreSuperMovesBodyHitbox();
             StoreSuperMovesAttackHitbox();
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            sceneControl.EnterScene(SceneType.Fight, SceneTransition.Type.FadeIn, 1.5f);
+            sceneControl.EnterScene(SceneType.FightTurbo, SceneTransition.Type.FadeIn, 1.5f);
         }
 
         protected override void UnloadContent() {

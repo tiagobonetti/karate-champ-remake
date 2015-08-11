@@ -55,6 +55,7 @@ namespace KarateChamp {
         public Vector2 velocity = Vector2.Zero;
         public IList<Fireball> fireballList = new List<Fireball>();
         public IList<Fireball> fireballKillList = new List<Fireball>();
+        CharacterState hitByAttack;
         CharacterState previousState;
         CharacterState stateOverride;
 
@@ -88,11 +89,11 @@ namespace KarateChamp {
             backwardSomersault = new Animation(new Point(uvRect.Width, uvRect.Height * 11), 0, 11, 0.10f);
             squat = new Animation(new Point(uvRect.Width, uvRect.Height * 18), 0, 3, 0.10f);
 
-            fallSide = new Animation(new Point(uvRect.Width, uvRect.Height * 18), 4, 6, 0.10f);
-            fallDown = new Animation(new Point(uvRect.Width, uvRect.Height * 18), 8, 11, 0.10f);
-            fallForward = new Animation(new Point(uvRect.Width, uvRect.Height * 19), 4, 7, 0.10f);
-            fallForward2 = new Animation(new Point(uvRect.Width, uvRect.Height * 19), 8, 11, 0.10f);
-            fallBack = new Animation(new Point(uvRect.Width, uvRect.Height * 19), 0, 3, 0.10f);
+            fallSide = new Animation(new Point(uvRect.Width, uvRect.Height * 18), 4, 6, 0.14f);
+            fallDown = new Animation(new Point(uvRect.Width, uvRect.Height * 18), 8, 11, 0.14f);
+            fallForward = new Animation(new Point(uvRect.Width, uvRect.Height * 19), 4, 7, 0.14f);
+            fallForward2 = new Animation(new Point(uvRect.Width, uvRect.Height * 19), 8, 11, 0.14f);
+            fallBack = new Animation(new Point(uvRect.Width, uvRect.Height * 19), 0, 3, 0.14f);
 
             velocity = Vector2.Zero;
             uvRect.Location = new Point(uvRect.Width * 5, uvRect.Height * 0);
@@ -199,8 +200,8 @@ namespace KarateChamp {
 
                 case CharacterState.Fall:
                     velocity = Vector2.Zero;
-                    animator.Play(GetFallingAnimation(CharacterState.UpperLungePunch), this, gameTime);
-                    System.Diagnostics.Debug.WriteLine("CharacterState.Fall");
+                    System.Diagnostics.Debug.WriteLine("Fall " + hitByAttack);
+                    animator.Play(GetFallingAnimation(hitByAttack), this, gameTime);
                     break;
 
                 case CharacterState.Forward:
@@ -521,16 +522,28 @@ namespace KarateChamp {
             fireballList.Add(fireball);
         }
 
-        public bool TakeHit(Location attackLocation, BaseCharacter hitter, CharacterState state, GameTime gameTime) {
-            System.Diagnostics.Debug.WriteLine("Take Hit!");
+        public bool TakeHit(Location attackLocation, BaseCharacter hitter, CharacterState attackState, GameTime gameTime) {
+            System.Diagnostics.Debug.WriteLine("Take Hit! " + state);
             if (currentBlock == null) {
+                hitByAttack = attackState;
                 ChangeState(CharacterState.Fall, gameTime);
-                hitter.game.sceneControl.fight.ScoreThisRound(gameTime, hitter.name, state);
+                if (game.sceneControl.currentScene == SceneType.Fight) {
+                    hitter.game.sceneControl.fight.ScoreThisRound(gameTime, hitter.name, attackState);
+                }
+                else {
+                    hitter.game.sceneControl.fightTurbo.ScoreThisRound(gameTime, hitter.name, attackState);
+                }
                 return true;
             }
             else if (currentBlock.HitLocation != attackLocation) {
+                hitByAttack = attackState;
                 ChangeState(CharacterState.Fall, gameTime);
-                hitter.game.sceneControl.fight.ScoreThisRound(gameTime, hitter.name, state);
+                if (game.sceneControl.currentScene == SceneType.Fight) {
+                    hitter.game.sceneControl.fight.ScoreThisRound(gameTime, hitter.name, attackState);
+                }
+                else {
+                    hitter.game.sceneControl.fightTurbo.ScoreThisRound(gameTime, hitter.name, attackState);
+                }
                 return true;
             }
             else {
@@ -539,22 +552,30 @@ namespace KarateChamp {
         }
 
         Animation GetFallingAnimation(CharacterState attackState) {
-
             switch (attackState) {
                 default:
                 case CharacterState.UpperLungePunch:
-                case CharacterState.MiddleLungePunch:
                 case CharacterState.UpperPunch:
+                case CharacterState.JumpingSideKick:
                 case CharacterState.RoundKick:
-                case CharacterState.BackKick:
-                case CharacterState.BackRoundKick:
-                case CharacterState.FrontKick:
+                    return fallBack;
+
+                
                 case CharacterState.JumpingBackKick:
+                case CharacterState.FrontKick:
+                case CharacterState.CheckCheckTchugen:
+                case CharacterState.MiddleLungePunch:
+                case CharacterState.Hadouken:
+                case CharacterState.FrontFootSweep:
+                case CharacterState.BackFootSweep:
+                    return fallDown;
+
                 case CharacterState.DuckingReversePunch:
                 case CharacterState.MiddleReversePunch:
                 case CharacterState.LowKick:
-                case CharacterState.FrontFootSweep:
-                    return fallDown;
+                case CharacterState.BackRoundKick:
+                case CharacterState.BackKick:
+                    return fallForward;
             }
         }
 
@@ -578,6 +599,8 @@ namespace KarateChamp {
                     case CharacterState.FrontKick:
                     case CharacterState.MiddleReversePunch:
                     case CharacterState.BackKick:
+                    case CharacterState.Hadouken:
+                    case CharacterState.CheckCheckTchugen:
                         return Modifier.IncomingMiddleAttack;
 
                     case CharacterState.FrontFootSweep:

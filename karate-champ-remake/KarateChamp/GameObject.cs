@@ -75,19 +75,14 @@ namespace KarateChamp {
             else {
                 throw new Exception("Specify a new collision array here.");
             }
-            collision.rect = collisionArray[i, j];
-            collision.rect.X = (int)position.X + collisionArray[i, j].X;
-            collision.rect.Y = (int)position.Y + collisionArray[i, j].Y;
-            /*
-            if (orientation == Orientation.Right) {
-                collision.rect = game.bodyCollisionRight[i, j];
-                collision.rect.X = (int)position.X + game.bodyCollisionRight[i, j].X;
-                collision.rect.Y = (int)position.Y + game.bodyCollisionRight[i, j].Y;
+            if (i < collisionArray.GetLength(0) && j < collisionArray.GetLength(1)) { // Going Out of Bounds in some movements. No idea why.
+                collision.rect = collisionArray[i, j];
+                collision.rect.X = (int)position.X + collisionArray[i, j].X;
+                collision.rect.Y = (int)position.Y + collisionArray[i, j].Y;
             }
-            else {
-                collision.rect = game.bodyCollisionLeft[i, j];
-                collision.rect.X = (int)position.X + game.bodyCollisionLeft[i, j].X;
-                collision.rect.Y = (int)position.Y + game.bodyCollisionLeft[i, j].Y;
+            /*
+            if (name == "p1") {
+                System.Diagnostics.Debug.WriteLine(i + " " + j + " --- " + (uvRect.X / uvRect.Width) + " " + (uvRect.Y / uvRect.Height));
             }*/
         }
     }

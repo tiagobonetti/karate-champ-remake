@@ -160,7 +160,7 @@ namespace KarateChamp {
             // Now thats a workaround
             if (State == CharacterState.JumpingSideKick) {
                 hitbox_size = BaseCharacter.ScaleAdjust(new Vector2(7.0f, 5.0f));
-                hitbox_offset_right = BaseCharacter.ScaleAdjust(new Vector2(135.0f, 5f));
+                hitbox_offset_right = BaseCharacter.ScaleAdjust(new Vector2(134.0f, 5f));
                 hitbox_offset_left = BaseCharacter.ScaleAdjust(new Vector2(Owner.uvRect.Width / 2 - 75f, 5f));
             }
             // This is the normal hitbox calc

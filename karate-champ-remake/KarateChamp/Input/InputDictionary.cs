@@ -19,10 +19,10 @@ namespace KarateChamp {
             InputDictionary.dictionary = new InputDictionary {
                {InputState.None,  InputState.Back,  CharacterState.BackKick           },
                {InputState.None,  InputState.Front, CharacterState.FrontKick          },
-    //         {InputState.None,  InputState.Up,    CharacterState.RoundKick          },
-    //         {InputState.None,  InputState.Down,  CharacterState.LowKick            },
-               {InputState.None,  InputState.Up,    CharacterState.Hadouken           }, // TEMPORARY
-               {InputState.None,  InputState.Down,  CharacterState.CheckCheckTchugen  }, // TEMPORARY
+             {InputState.None,  InputState.Up,    CharacterState.RoundKick          },
+             {InputState.None,  InputState.Down,  CharacterState.LowKick            },
+    //           {InputState.None,  InputState.Up,    CharacterState.Hadouken           }, // TEMPORARY
+      //         {InputState.None,  InputState.Down,  CharacterState.CheckCheckTchugen  }, // TEMPORARY
 
                {InputState.Back,  InputState.None,  CharacterState.Withdraw           },
                {InputState.Back,  InputState.Back,  CharacterState.BackKick           },
