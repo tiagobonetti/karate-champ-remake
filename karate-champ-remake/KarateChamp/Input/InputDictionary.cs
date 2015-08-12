@@ -18,8 +18,8 @@ namespace KarateChamp {
                {InputStick.None,  InputStick.Front, CharacterState.FrontKick          },
                {InputStick.None,  InputStick.Up,    CharacterState.RoundKick          },
                {InputStick.None,  InputStick.Down,  CharacterState.LowKick            },
-                // {InputStick.None,  InputStick.Up,    CharacterState.Hadouken           }, // TEMPORARY
-                // {InputStick.None,  InputStick.Down,  CharacterState.CheckCheckTchugen  }, // TEMPORARY
+          //     {InputStick.None,  InputStick.Up,    CharacterState.Hadouken           }, // TEMPORARY
+            //   {InputStick.None,  InputStick.Down,  CharacterState.Tatsumaki          }, // TEMPORARY
                {InputStick.Back,  InputStick.None,  CharacterState.Withdraw           },
                {InputStick.Back,  InputStick.Back,  CharacterState.BackKick           },
                {InputStick.Back,  InputStick.Front, CharacterState.BackRoundKick      },

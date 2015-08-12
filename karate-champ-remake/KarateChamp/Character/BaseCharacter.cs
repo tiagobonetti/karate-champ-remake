@@ -111,6 +111,7 @@ namespace KarateChamp {
                     case CharacterState.ForwardSomersault:
                     case CharacterState.BackwardSomersault:
                     case CharacterState.JumpingSideKick:
+                    case CharacterState.Tatsumaki:
                         break;
                     // All other states will end here if input doesn't change
                     default:
@@ -384,6 +385,7 @@ namespace KarateChamp {
                         velocity.X = AdjustedSpeed(animator);
                     else
                         velocity.X = -AdjustedSpeed(animator);
+
                     animator.Update();
                     break;
 
@@ -392,6 +394,7 @@ namespace KarateChamp {
                         velocity.X = -AdjustedSpeed(animator);
                     else
                         velocity.X = AdjustedSpeed(animator);
+
                     animator.Update();
                     break;
 
@@ -474,7 +477,7 @@ namespace KarateChamp {
 
         protected void BaseUpdate(GameTime gameTime, CharacterState input) {
             StayInsideScreen();
-            
+
             if (stateOverride != CharacterState.Idle) {
                 StateMachine(gameTime, stateOverride);
             }
@@ -495,7 +498,7 @@ namespace KarateChamp {
             }
 
             if (fireballList.Count > 0) {
-                foreach(Fireball fb in fireballList){
+                foreach (Fireball fb in fireballList) {
                     fb.Update(gameTime);
                 }
             }
@@ -552,19 +555,27 @@ namespace KarateChamp {
         }
 
         Animation GetFallingAnimation(CharacterState attackState) {
+            if (position.X > Opponent.position.X) {
+                if (orientation == GameObject.Orientation.Right) {
+                    return fallForward;
+                }
+            }
+            else {
+                if (orientation == GameObject.Orientation.Left)
+                    return fallForward;
+            }
             switch (attackState) {
                 default:
                 case CharacterState.UpperLungePunch:
                 case CharacterState.UpperPunch:
                 case CharacterState.JumpingSideKick:
                 case CharacterState.RoundKick:
-                    return fallBack;
-                
                 case CharacterState.JumpingBackKick:
+                    return fallBack;
+
                 case CharacterState.FrontKick:
                 case CharacterState.Tatsumaki:
                 case CharacterState.MiddleLungePunch:
-                case CharacterState.Hadouken:
                 case CharacterState.FrontFootSweep:
                 case CharacterState.BackFootSweep:
                     return fallDown;
@@ -574,6 +585,7 @@ namespace KarateChamp {
                 case CharacterState.LowKick:
                 case CharacterState.BackRoundKick:
                 case CharacterState.BackKick:
+                case CharacterState.Hadouken:
                     return fallForward;
             }
         }
@@ -640,6 +652,28 @@ namespace KarateChamp {
                 velocity.Y += gravityPull;
             }
             position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            /*
+            Vector2 newPosition = position + (velocity * (float)gameTime.ElapsedGameTime.TotalSeconds);
+            CollisionBox newCol = new CollisionBox(this, new Vector2(collision.rect.X, collision.rect.Y), new Vector2(collision.rect.Width, collision.rect.Height));
+            newCol.rect.X = (int)position.X + (int)newPosition.X;
+            if (!newCol.OnCollision(Opponent.collision)) {
+                position = newPosition;
+            }
+            else {
+                if (!IsGrounded()) {
+                    velocity.X += newPosition.X;
+                }
+                else {
+                    velocity = Vector2.Zero;
+                }
+            }*/
+            /*
+            if (!collision.OnCollision(Opponent.collision)) {
+                position = newPosition;// += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+            else {
+                velocity = Vector2.Zero;
+            }*/
         }
 
         Attack CreateAttack(CharacterState state, int offset_Y, int size, int hitFrame, float speed, Location location) {

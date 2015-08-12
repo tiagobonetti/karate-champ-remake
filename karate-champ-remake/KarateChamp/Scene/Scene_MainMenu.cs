@@ -11,6 +11,7 @@ namespace KarateChamp {
     public class Scene_MainMenu : Scene {
         public Texture2D coverImage;
         Menu main_menu;
+        bool canControl = true;
 
         public Scene_MainMenu(MainGame game) {
             this.game = game;
@@ -20,12 +21,14 @@ namespace KarateChamp {
         string StartGame() {
             game.sceneControl.fight = new Scene_Fight(game);
             game.sceneControl.EnterScene(SceneType.Fight, SceneTransition.Type.FadeOutIn, 0.5f);
+            canControl = false;
             return "";
         }
 
         string StartTurbo() {
             game.sceneControl.charSelect = new Scene_CharacterSelect(game);
             game.sceneControl.EnterScene(SceneType.CharacterSelect, SceneTransition.Type.FadeOutIn, 0.5f);
+            canControl = false;
             return "";
         }
 
@@ -78,7 +81,8 @@ namespace KarateChamp {
         }
 
         public void Update(GameTime gameTime) {
-            main_menu.Update(gameTime);
+            if (canControl)
+                main_menu.Update(gameTime);
         }
 
         public void Draw() {
@@ -100,7 +104,6 @@ namespace KarateChamp {
             game.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
             main_menu.Draw(game.spriteBatch);
             game.spriteBatch.End();
-
         }
     }
 }

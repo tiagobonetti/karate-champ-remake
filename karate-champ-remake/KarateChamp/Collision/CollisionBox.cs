@@ -18,9 +18,8 @@ namespace KarateChamp {
         }
 
         public bool OnCollision(out GameObject objHit) {
-
             foreach (GameObject obj in owner.game.sceneControl.GetScene().gameObjectList) {
-                if (obj.name != owner.name) {
+                if (obj != owner) {
                     if (rect.Intersects(obj.collision.rect)) {
                         objHit = obj;
                         return true;
@@ -29,6 +28,15 @@ namespace KarateChamp {
             }
             objHit = null;
             return false;
+        }
+
+        public bool OnCollision(CollisionBox collision) {
+            if (rect.Intersects(collision.rect)) {
+                return true;
+            }
+            else {
+                return false;
+            }
         }
     }
 }

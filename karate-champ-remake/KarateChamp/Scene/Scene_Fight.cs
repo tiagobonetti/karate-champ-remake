@@ -230,7 +230,6 @@ namespace KarateChamp {
         void DecideWinner(GameTime gameTime) {
             Random rd = new Random();
             int val = rd.Next(1, 3);
-            System.Diagnostics.Debug.WriteLine(val);
             if (val == 1) {
                 roundWinner = whiteCharacter;
                 ScoreThisRound(gameTime, "p1", CharacterState.Idle);
@@ -303,7 +302,6 @@ namespace KarateChamp {
                 position = new Vector2(game.graphics.PreferredBackBufferWidth * 0.6f, game.graphics.PreferredBackBufferHeight * 0.2f);
                 winner = redText;
             }
-            System.Diagnostics.Debug.WriteLine(winner.Name);
             game.spriteBatch.Draw(winner, position, null, null, new Vector2(winner.Width * 0.5f, winner.Height * 0.5f), 0f, Vector2.One, Color.White, SpriteEffects.None, 0f);
             game.spriteBatch.End();
         }
