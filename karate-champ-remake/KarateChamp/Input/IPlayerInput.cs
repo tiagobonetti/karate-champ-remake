@@ -32,10 +32,9 @@ namespace KarateChamp {
         CloseToOpponent
     }
 
-
-
     public interface IPlayerInput {
         Vector2 DebugPosition { get; set; }
+        void Reset();
         CharacterState GetMove();
         Direction GetDirection();
         bool GetStart();

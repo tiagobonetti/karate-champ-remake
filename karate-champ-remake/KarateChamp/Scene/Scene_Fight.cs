@@ -252,6 +252,7 @@ namespace KarateChamp {
         void Restart() {
             game.sceneControl.fight = new Scene_Fight(game, roundNumber + 1, scoreboard);
             game.sceneControl.EnterScene(SceneType.Fight, SceneTransition.Type.FadeIn, 1.2f);
+            InputManager.ClearInputs();
         }
 
         void DrawBackground() {

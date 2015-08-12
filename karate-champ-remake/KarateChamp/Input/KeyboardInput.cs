@@ -14,6 +14,20 @@ namespace KarateChamp {
         public Vector2 DebugPosition { get; set; }
         public KeyboardInput() {
             this.DebugPosition = Vector2.Zero;
+            Reset();
+        }
+
+        public void Reset() {
+            hadouken = new HadoukenInput();
+            tatsumaki = new TatsumakiInput();
+            left = Keys.None;
+            right = Keys.None;
+            direction = Direction.None;
+            start = false;
+            cancel = false;
+            lastMove = CharacterState.Idle;
+            singleStickTimer = new Timer();
+            delayed = false;
         }
 
         static List<Keys> wasd = new List<Keys>() {
@@ -38,15 +52,14 @@ namespace KarateChamp {
         };
 
 
-        Keys left = Keys.None;
-        Keys right = Keys.None;
-        Orientation lastOrientation = Orientation.Right;
-        Direction direction = Direction.None;
-        bool start = false;
-        bool cancel = false;
+        Keys left;
+        Keys right;
+        Direction direction;
+        bool start;
+        bool cancel;
 
-        HadoukenInput hadouken = new HadoukenInput();
-        TatsumakiInput tatsumaki = new TatsumakiInput();
+        HadoukenInput hadouken;
+        TatsumakiInput tatsumaki;
 
         public void ManagerUpdate(GameTime gameTime) {
             KeyboardState state = Keyboard.GetState();
@@ -86,18 +99,19 @@ namespace KarateChamp {
             return direction;
         }
 
-        CharacterState lastMove = CharacterState.Idle;
+
         public CharacterState GetMove() {
             return lastMove;
         }
 
-        Timer singleStickTimer = new Timer();
-        bool delayed = false;
+        CharacterState lastMove;
+        Timer singleStickTimer;
+        bool delayed;
 
         public void PlayerUpdate(GameTime gameTime, Modifier modifier, Orientation orientation) {
             InputStick leftStick = left.ToInputStick(orientation);
             InputStick rightStick = right.ToInputStick(orientation);
- 
+
             hadouken.Update(leftStick, rightStick);
             if (hadouken.Inputed()) {
                 lastMove = CharacterState.Hadouken;
@@ -112,15 +126,16 @@ namespace KarateChamp {
 
 
             if ((lastMove == CharacterState.Idle) && !delayed &&
-                (( leftStick != InputStick.None && rightStick == InputStick.None) || 
-                ( rightStick != InputStick.None && leftStick == InputStick.None)))
-            {
+                ((leftStick != InputStick.None && rightStick == InputStick.None) ||
+                (rightStick != InputStick.None && leftStick == InputStick.None))) {
                 if (!delayed) {
                     singleStickTimer.TimerCounter(gameTime, InputManager.InputDelay, out delayed);
-                } else {
+                }
+                else {
                     lastMove = InputDictionary.GetMove(leftStick, rightStick, modifier);
                 }
-            } else {
+            }
+            else {
                 delayed = false;
                 lastMove = InputDictionary.GetMove(leftStick, rightStick, modifier);
             }

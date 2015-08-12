@@ -559,7 +559,6 @@ namespace KarateChamp {
                 case CharacterState.JumpingSideKick:
                 case CharacterState.RoundKick:
                     return fallBack;
-
                 
                 case CharacterState.JumpingBackKick:
                 case CharacterState.FrontKick:
@@ -580,7 +579,7 @@ namespace KarateChamp {
         }
 
         protected Modifier CheckBlockModifier(CharacterState state) {
-            if (CanBlock() && Vector2.Distance(position, Opponent.position) < 70) {
+            if (CanBlock()) {
                 //    System.Diagnostics.Debug.WriteLine("Distance: " + Vector2.Distance(position, Opponent.position));
                 switch (state) {
                     default:

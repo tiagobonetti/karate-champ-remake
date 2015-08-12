@@ -18,7 +18,14 @@ namespace KarateChamp {
         }
 
         string StartGame() {
+            game.sceneControl.fight = new Scene_Fight(game);
             game.sceneControl.EnterScene(SceneType.Fight, SceneTransition.Type.FadeOutIn, 0.5f);
+            return "";
+        }
+
+        string StartTurbo() {
+            game.sceneControl.charSelect = new Scene_CharacterSelect(game);
+            game.sceneControl.EnterScene(SceneType.CharacterSelect, SceneTransition.Type.FadeOutIn, 0.5f);
             return "";
         }
 
@@ -62,6 +69,7 @@ namespace KarateChamp {
             main_menu.Position = new Vector2(game.graphics.PreferredBackBufferWidth * 0.5f, game.graphics.PreferredBackBufferHeight * 0.5f + 150f);
 
             main_menu.Add("Start Classic", StartGame);
+            main_menu.Add("Start Turbo", StartTurbo);
             main_menu.Add(OptionString(InputOption), Option);
             main_menu.Add("Credits", null);
             main_menu.Add("Exit", GameExit);

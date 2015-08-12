@@ -232,6 +232,7 @@ namespace KarateChamp {
         void Restart() {
             game.sceneControl.fightTurbo = new Scene_FightTurbo(game, roundNumber + 1, scoreboard);
             game.sceneControl.EnterScene(SceneType.FightTurbo, SceneTransition.Type.FadeIn, 1.2f);
+            InputManager.ClearInputs();
         }
 
         void DrawBackground() {

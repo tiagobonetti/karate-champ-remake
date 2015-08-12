@@ -21,13 +21,25 @@ namespace KarateChamp {
             this.DebugPosition = Vector2.Zero;
             this.player = player;
             state = GamePad.GetState(player, GamePadDeadZone.IndependentAxes);
+                    Reset();
         }
 
-        Direction direction = Direction.None;
-        bool start = false;
-        bool cancel = false;
-        HadoukenInput hadouken = new HadoukenInput();
-        TatsumakiInput tatsumaki = new TatsumakiInput();
+        public void Reset() {
+            hadouken = new HadoukenInput();
+            tatsumaki = new TatsumakiInput();
+            direction = Direction.None;
+            start = false;
+            cancel = false;
+            lastMove = CharacterState.Idle;
+            singleStickTimer = new Timer();
+            delayed = false;
+        }
+
+        Direction direction;
+        bool start;
+        bool cancel;
+        HadoukenInput hadouken;
+        TatsumakiInput tatsumaki;
 
         public void ManagerUpdate(GameTime gameTime) {
             state = GamePad.GetState(player, GamePadDeadZone.IndependentAxes);
@@ -58,9 +70,9 @@ namespace KarateChamp {
             return direction;
         }
 
-        CharacterState lastMove = CharacterState.Idle;
-        Timer singleStickTimer = new Timer();
-        bool delayed = false;
+        CharacterState lastMove;
+        Timer singleStickTimer;
+        bool delayed;
 
         public void PlayerUpdate(GameTime gameTime, Modifier modifier, Orientation orientation) {
             InputStick leftStick = GetStick(state.ThumbSticks.Left, orientation);

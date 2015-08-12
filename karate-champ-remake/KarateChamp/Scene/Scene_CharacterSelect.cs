@@ -87,6 +87,7 @@ namespace KarateChamp {
                     UpdateCursor();
                     if (changeScreen == false) {
                         changeScreen = true;
+                        game.sceneControl.fightTurbo = new Scene_FightTurbo(game);
                         game.sceneControl.EnterScene(SceneType.FightTurbo, SceneTransition.Type.FadeOutIn, 1f);
                     }
                     break;
@@ -96,6 +97,7 @@ namespace KarateChamp {
         public void Draw() {
             game.graphics.GraphicsDevice.Clear(Color.Black);
             DrawBackground();
+            DrawDebug();
             switch (state) {
                 case State.BuildGameObjects:
                     break;
@@ -114,40 +116,81 @@ namespace KarateChamp {
             }
         }
 
+        void DrawDebug()  {
+            if (whiteCharacter != null && redCharacter != null) {
+                Debug.enabled = true;
+                game.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
+                whiteCharacter.PlayerInput.DrawDebug(game.spriteBatch, GameObject.Orientation.Right);
+                redCharacter.PlayerInput.DrawDebug(game.spriteBatch, GameObject.Orientation.Right);
+                string msg = state.ToString();
+                Debug.DrawText(game.spriteBatch, new Vector2(0.0f, 600.0f), msg);
+                game.spriteBatch.End();
+            }
+        }
+
+        Direction lastDirectionP1 = Direction.None;
+        bool lastStartP1 = false;
+        bool lastCancelP1 = false;
+
+        Direction lastDirectionP2 = Direction.None;
+        bool lastStartP2 = false;
+        bool lastCancelP2 = false;
+
         void Control() {
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Z) && previousButtonState != Keyboard.GetState()) {
+            //p1
+            if (p1Selection == CharacterGrid.None) {
+                Direction direction1 = whiteCharacter.PlayerInput.GetDirection();
+                if (direction1 == Direction.Right && lastDirectionP1 == Direction.None) {
+                    blueCursor = MathHelper.Clamp(blueCursor + 1, 0, 1);
+                }
+                else if (direction1 == Direction.Left && lastDirectionP1 == Direction.None) {
+                    blueCursor = MathHelper.Clamp(blueCursor - 1, 0, 1);
+                }
+                lastDirectionP1 = direction1;
+            }
+
+            bool startP1 = whiteCharacter.PlayerInput.GetStart();
+            if (startP1 && !lastStartP1) {
                 if (p1Selection == CharacterGrid.None) {
                     p1Selection = characterList[blueCursor];
                     System.Diagnostics.Debug.WriteLine("p1 selection " + p1Selection);
                 }
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.D) && previousButtonState != Keyboard.GetState()) {
-                blueCursor = MathHelper.Clamp(blueCursor + 1, 0, 1);
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.A) && previousButtonState != Keyboard.GetState()) {
-                blueCursor = MathHelper.Clamp(blueCursor - 1, 0, 1);
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.F5) && previousButtonState != Keyboard.GetState()) {
+            };
+            lastStartP1 = startP1;
+ 
+            bool cancelP1 = whiteCharacter.PlayerInput.GetCancel();
+            if (cancelP1 && !lastCancelP1) {
                 p1Selection = CharacterGrid.None;
+            };
+            lastCancelP1 = cancelP1;
+ 
+            //p2
+            if (p2Selection == CharacterGrid.None) {
+                Direction direction1 = redCharacter.PlayerInput.GetDirection();
+                if (direction1 == Direction.Right && lastDirectionP2 == Direction.None) {
+                    redCursor = MathHelper.Clamp(redCursor + 1, 0, 1);
+                }
+                else if (direction1 == Direction.Left && lastDirectionP2 == Direction.None) {
+                    redCursor = MathHelper.Clamp(redCursor - 1, 0, 1);
+                }
+                lastDirectionP2 = direction1;
             }
 
-
-            if (Keyboard.GetState().IsKeyDown(Keys.C) && previousButtonState != Keyboard.GetState()) {
+            bool startP2 = redCharacter.PlayerInput.GetStart();
+            if (startP2 && !lastStartP2) {
                 if (p2Selection == CharacterGrid.None) {
                     p2Selection = characterList[redCursor];
                     System.Diagnostics.Debug.WriteLine("p2 selection " + p2Selection);
                 }
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Right) && previousButtonState != Keyboard.GetState()) {
-                redCursor = MathHelper.Clamp(redCursor + 1, 0, 1);
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Left) && previousButtonState != Keyboard.GetState()) {
-                redCursor = MathHelper.Clamp(redCursor - 1, 0, 1);
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.F6) && previousButtonState != Keyboard.GetState()) {
+            };
+            lastStartP2 = startP2;
+ 
+            bool cancelP2 = redCharacter.PlayerInput.GetCancel();
+            if (cancelP2 && !lastCancelP2) {
                 p2Selection = CharacterGrid.None;
-            }
+            };
+            lastCancelP2 = cancelP2;
 
 
             if (p1Selection != CharacterGrid.None && p2Selection != CharacterGrid.None) {
@@ -268,7 +311,6 @@ namespace KarateChamp {
 
             whiteCharacter = new PlayerCharacter(characterSpritesheet, MainGame.Tag.PlayerOne, whiteStartingPosition, BaseCharacter.Orientation.Right, "p1", game);
             redCharacter = new PlayerCharacter(characterSpritesheet, MainGame.Tag.PlayerOne, redStartingPosition, BaseCharacter.Orientation.Left, "p2", game);
-            Debug.enabled = false;
 
             switch (game.sceneControl.mainMenu.InputOption) {
                 default:
@@ -282,6 +324,7 @@ namespace KarateChamp {
                     break;
             }
 
+            redCharacter.PlayerInput.DebugPosition = new Vector2(game.graphics.PreferredBackBufferWidth / 2.0f, 0.0f);
             whiteCharacter.velocity = Vector2.Zero;
             redCharacter.velocity = Vector2.Zero;
             whiteCharacter.Opponent = redCharacter;

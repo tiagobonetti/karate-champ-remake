@@ -22,6 +22,12 @@ namespace KarateChamp {
             inputs = new List<IPlayerInput>() { Keyboard, GamePadOne, GamePadTwo };
         }
 
+        public static void ClearInputs() {
+            foreach (IPlayerInput input in inputs) {
+                input.Reset();
+            }
+        }
+
         static Direction lastDirection = Direction.None;
         static bool lastStart = false;
         static bool lastCancel = false;
