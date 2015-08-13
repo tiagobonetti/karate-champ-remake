@@ -11,6 +11,7 @@ namespace KarateChamp {
         public Point spriteRectPosition;
         public int startIndex;
         public int size;
+        public bool playedSfx;
 
         public Animation(Point spriteRectPosition, int startIndex, int size, float length) {
 

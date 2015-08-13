@@ -349,6 +349,7 @@ namespace KarateChamp {
         }
 
         public virtual void Init() {
+            game.CurrentBgm = null;
             spritesheet = game.Content.Load<Texture2D>("Sprites/Main Character/CharacterSpritesheet");
             bg = game.Content.Load<Texture2D>("Sprites/Background/Bg");
             fightText = game.Content.Load<Texture2D>("GUI/BEGIN");

@@ -49,6 +49,7 @@ namespace KarateChamp {
                         break;
                     case State.Stop:
                         elapsedTime = 9999999;
+                        currentAnimation.playedSfx = false;
                         break;
                     case State.RollBack:
                         elapsedTime = 9999999;

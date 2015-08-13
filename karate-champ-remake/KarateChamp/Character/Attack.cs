@@ -91,6 +91,7 @@ namespace KarateChamp {
                     }
                     // If we are on the hit frame for the first time aplly hit detection
                     if (!hitChecked && animator.FrameIndex > HitFrame) {
+                        Owner.game.sfxControl.PlaySfx(State);
                         if (State == CharacterState.Hadouken) {
                             Owner.ThrowFireball();
                         }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -404,6 +405,10 @@ namespace KarateChamp {
 
                 case CharacterState.Jump:
                     if (animator.FrameIndex == 3) {
+                        if (!animator.currentAnimation.playedSfx) {
+                            animator.currentAnimation.playedSfx = true;
+                            game.sfxControl.PlaySfx(state);
+                        }
                         velocity = new Vector2(0, -speedJump);
                     }
                     animator.Update();
@@ -411,6 +416,10 @@ namespace KarateChamp {
 
                 case CharacterState.BackwardSomersault:
                     if (animator.FrameIndex == 3) {
+                        if (!animator.currentAnimation.playedSfx) {
+                            animator.currentAnimation.playedSfx = true;
+                            game.sfxControl.PlaySfx(state);
+                        }
                         if (orientation == Orientation.Right)
                             velocity = new Vector2(-speedRun, -speedSomersault);
                         else
@@ -421,11 +430,16 @@ namespace KarateChamp {
 
 
                 case CharacterState.ForwardSomersault:
-                    if (animator.FrameIndex == 3)
+                    if (animator.FrameIndex == 3) {
+                        if (!animator.currentAnimation.playedSfx) {
+                            animator.currentAnimation.playedSfx = true;
+                            game.sfxControl.PlaySfx(state);
+                        }
                         if (orientation == Orientation.Right)
                             velocity = new Vector2(speedRun, -speedSomersault);
                         else
                             velocity = new Vector2(-speedRun, -speedSomersault);
+                    }
                     animator.Update();
                     break;
 
@@ -457,6 +471,10 @@ namespace KarateChamp {
                     break;
                 case CharacterState.Tatsumaki:
                     if (currentAttack.animator.FrameIndex == 4) {
+                        if (!currentAttack.Animation.playedSfx) {
+                            currentAttack.Animation.playedSfx = true;
+                            game.sfxControl.sfxTatsumaki.Play();
+                        }
                         if (orientation == Orientation.Right)
                             velocity = new Vector2(255, 0);
                         else
@@ -536,6 +554,7 @@ namespace KarateChamp {
                 else {
                     hitter.game.sceneControl.fightTurbo.ScoreThisRound(gameTime, hitter.name, attackState);
                 }
+                game.sfxControl.sfxTakeHitHigh.Play();
                 return true;
             }
             else if (currentBlock.HitLocation != attackLocation) {
@@ -547,9 +566,11 @@ namespace KarateChamp {
                 else {
                     hitter.game.sceneControl.fightTurbo.ScoreThisRound(gameTime, hitter.name, attackState);
                 }
+                game.sfxControl.sfxTakeHitHigh.Play();
                 return true;
             }
             else {
+                game.sfxControl.PlaySfx(state);
                 return false;
             }
         }
@@ -565,7 +586,6 @@ namespace KarateChamp {
                     return fallForward;
             }
             switch (attackState) {
-                default:
                 case CharacterState.UpperLungePunch:
                 case CharacterState.UpperPunch:
                 case CharacterState.JumpingSideKick:
@@ -587,12 +607,13 @@ namespace KarateChamp {
                 case CharacterState.BackKick:
                 case CharacterState.Hadouken:
                     return fallForward;
+                default:
+                    return fallForward;
             }
         }
 
         protected Modifier CheckBlockModifier(CharacterState state) {
             if (CanBlock()) {
-                //    System.Diagnostics.Debug.WriteLine("Distance: " + Vector2.Distance(position, Opponent.position));
                 switch (state) {
                     default:
                         return Modifier.None;

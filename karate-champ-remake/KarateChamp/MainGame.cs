@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
 
 namespace KarateChamp {
@@ -11,6 +12,7 @@ namespace KarateChamp {
         public GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
         public SceneControl sceneControl;
+        public SfxControl sfxControl;
         public Rectangle[,] bodyCollisionRight = new Rectangle[12, 21];
         public Rectangle[,] bodyCollisionLeft = new Rectangle[12, 21];
         public Rectangle[,] SuperMovesBodyCollisionRight = new Rectangle[12, 5];
@@ -20,6 +22,29 @@ namespace KarateChamp {
         public Texture2D bodyCollision;
         public Texture2D SuperMovesBodyCollision;
         public Texture2D SuperMovesAttackCollision;
+        Song currentBgm;
+
+        public Song CurrentBgm{
+            get {
+                return currentBgm;
+            }
+            set {
+                if (value == null) {
+                    MediaPlayer.Stop();
+                    currentBgm = value;
+                }
+                else if(value == currentBgm){
+
+                }
+                else {
+                    currentBgm = value;
+                    MediaPlayer.Play(currentBgm);
+                    MediaPlayer.Volume = 0.2f;
+                    MediaPlayer.IsRepeating = true;
+                }
+            }
+        }
+
         HitboxCalculator hitboxCalc;
 
         public MainGame() {
@@ -32,7 +57,6 @@ namespace KarateChamp {
         }
 
         protected override void Initialize() {
-
             sceneControl = new SceneControl(this);
             base.Initialize();
         }
@@ -47,14 +71,15 @@ namespace KarateChamp {
             StoreSuperMovesBodyHitbox();
             StoreSuperMovesAttackHitbox();
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            //sceneControl.EnterScene(SceneType.FightTurbo, SceneTransition.Type.FadeIn, 1.5f);
-            sceneControl.EnterScene(SceneType.MainMenu, SceneTransition.Type.FadeIn, 1.5f);
+            sceneControl.EnterScene(SceneType.FBI, SceneTransition.Type.FadeIn, 1.5f);
+            sfxControl = new SfxControl(this);
         }
 
         protected override void UnloadContent() {
         }
 
         protected override void Update(GameTime gameTime) {
+            System.Diagnostics.Debug.WriteLine(MediaPlayer.Volume);
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Back))
                 Exit();
             InputManager.Update(gameTime);

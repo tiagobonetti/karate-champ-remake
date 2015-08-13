@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +21,8 @@ namespace KarateChamp {
         Timer timer = new Timer();
         State state;
         bool drawKO;
+        bool fightPlayed;
+        bool koPlayed;
 
         PlayerCharacter whiteCharacter;
         PlayerCharacter redCharacter;
@@ -35,6 +39,9 @@ namespace KarateChamp {
         float koSize = 6f;
         float fightSize = 6f;
         BgAnimator bgAnimator;
+
+        SoundEffect sfxFight;
+        SoundEffect sfxKO;
 
         public Scene_FightTurbo(MainGame game) {
             this.game = game;
@@ -75,6 +82,10 @@ namespace KarateChamp {
                     break;
                 case State.JudgeStart:
                     ShowFightText(gameTime);
+                    if (fightPlayed == false) {
+                        sfxFight.Play();
+                        fightPlayed = true;
+                    }
                     whiteCharacter.canControl = false;
                     redCharacter.canControl = false;
                     whiteCharacter.Update(gameTime);
@@ -89,6 +100,10 @@ namespace KarateChamp {
                 case State.KO:
                     whiteCharacter.canControl = false;
                     redCharacter.canControl = false;
+                    if (koPlayed == false) {
+                        sfxKO.Play();
+                        koPlayed = true;
+                    }
                     WaitKO(gameTime);
                     break;
                 case State.Winner:
@@ -189,7 +204,7 @@ namespace KarateChamp {
             if (timerEnded) {
                 if (GameEnded()) {
                     game.sceneControl.fight = new Scene_Fight(game);
-                    game.sceneControl.EnterScene(SceneType.MainMenu);
+                    game.sceneControl.EnterScene(SceneType.CharacterSelect);
                 }
                 else
                     Restart();
@@ -307,10 +322,14 @@ namespace KarateChamp {
 
             whiteCharacter.Opponent = redCharacter;
             redCharacter.Opponent = whiteCharacter;
+            game.CurrentBgm = game.Content.Load<Song>("Audio/Bgm/16.-london-march-arranged-");
             state = State.PreFight;
         }
 
         public virtual void Init() {
+            sfxFight = game.Content.Load<SoundEffect>("Audio/Sfx/Fight");
+            sfxKO = game.Content.Load<SoundEffect>("Audio/Sfx/KO");
+            
             spritesheet = game.Content.Load<Texture2D>("Sprites/Main Character/CharacterSpritesheet");
             bg = game.Content.Load<Texture2D>("Sprites/Background/Market1");
             fightText = game.Content.Load<Texture2D>("GUI/Fight");

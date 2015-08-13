@@ -20,6 +20,7 @@ namespace KarateChamp {
 
         void Init() {
             image = game.Content.Load<Texture2D>("GUI/winners");
+            game.CurrentBgm = null;
             timer = new Timer();
         }
 

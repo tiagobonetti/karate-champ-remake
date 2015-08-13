@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,11 +38,22 @@ namespace KarateChamp {
         Texture2D randomLargePortrait;
         Texture2D largePortraitLeft;
         Texture2D largePortraitRight;
+        Texture2D grid;
         Texture2D cursorRed;
         Texture2D cursorBlue;
         Texture2D cursorBoth;
+        Texture2D cursorRedSelected;
+        Texture2D cursorBlueSelected;
+        Texture2D cursorBothSelected;
+        Texture2D blue;
+        Texture2D red;
         Texture2D bg;
         Texture2D[] bgSpriteList = new Texture2D[24];
+
+        SoundEffect sfxCursorMoving;
+        SoundEffect sfxCursorSelection;
+        SoundEffect sfxCursorCancel;
+        SoundEffect sfxFightYourRival;
 
         BgAnimator bgAnimator;
 
@@ -75,7 +88,6 @@ namespace KarateChamp {
                     redCharacter.Update(gameTime);
                     MoveScrollingText(gameTime);
                     bgAnimator.PlayLoopAnimation(out bg, gameTime);
-                    UpdateCursor();
                     break;
                 case State.End:
                     whiteCharacter.canControl = false;
@@ -84,7 +96,6 @@ namespace KarateChamp {
                     redCharacter.Update(gameTime);
                     MoveScrollingText(gameTime);
                     bgAnimator.PlayLoopAnimation(out bg, gameTime);
-                    UpdateCursor();
                     if (changeScreen == false) {
                         changeScreen = true;
                         game.sceneControl.fightTurbo = new Scene_FightTurbo(game);
@@ -102,12 +113,14 @@ namespace KarateChamp {
                 case State.BuildGameObjects:
                     break;
                 case State.CharacterSelection:
+                    DrawGrid();
                     DrawSmallPortraits();
                     DrawLargePortraits();
                     DrawScrollingText();
                     DrawCursors();
                     break;
                 case State.End:
+                    DrawGrid();
                     DrawSmallPortraits();
                     DrawLargePortraits();
                     DrawScrollingText();
@@ -116,7 +129,7 @@ namespace KarateChamp {
             }
         }
 
-        void DrawDebug()  {
+        void DrawDebug() {
             if (whiteCharacter != null && redCharacter != null) {
                 Debug.enabled = true;
                 game.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
@@ -142,10 +155,18 @@ namespace KarateChamp {
             if (p1Selection == CharacterGrid.None) {
                 Direction direction1 = whiteCharacter.PlayerInput.GetDirection();
                 if (direction1 == Direction.Right && lastDirectionP1 == Direction.None) {
-                    blueCursor = MathHelper.Clamp(blueCursor + 1, 0, 1);
+                    int newPos = MathHelper.Clamp(blueCursor + 1, 0, 1);
+                    if (newPos!= blueCursor) {
+                        sfxCursorMoving.Play();
+                        blueCursor = newPos;
+                    }
                 }
                 else if (direction1 == Direction.Left && lastDirectionP1 == Direction.None) {
-                    blueCursor = MathHelper.Clamp(blueCursor - 1, 0, 1);
+                    int newPos = MathHelper.Clamp(blueCursor - 1, 0, 1);
+                    if (newPos != blueCursor) {
+                        blueCursor = newPos;
+                        sfxCursorMoving.Play();
+                    }
                 }
                 lastDirectionP1 = direction1;
             }
@@ -154,25 +175,34 @@ namespace KarateChamp {
             if (startP1 && !lastStartP1) {
                 if (p1Selection == CharacterGrid.None) {
                     p1Selection = characterList[blueCursor];
-                    System.Diagnostics.Debug.WriteLine("p1 selection " + p1Selection);
+                    sfxCursorSelection.Play();
                 }
             };
             lastStartP1 = startP1;
- 
+
             bool cancelP1 = whiteCharacter.PlayerInput.GetCancel();
-            if (cancelP1 && !lastCancelP1) {
+            if (cancelP1 && !lastCancelP1 && p1Selection != CharacterGrid.None) {
                 p1Selection = CharacterGrid.None;
+                sfxCursorCancel.Play();
             };
             lastCancelP1 = cancelP1;
- 
+
             //p2
             if (p2Selection == CharacterGrid.None) {
                 Direction direction1 = redCharacter.PlayerInput.GetDirection();
                 if (direction1 == Direction.Right && lastDirectionP2 == Direction.None) {
-                    redCursor = MathHelper.Clamp(redCursor + 1, 0, 1);
+                    int newPos = MathHelper.Clamp(redCursor + 1, 0, 1);
+                    if (newPos != redCursor) {
+                        redCursor = newPos;
+                        sfxCursorMoving.Play();
+                    }
                 }
                 else if (direction1 == Direction.Left && lastDirectionP2 == Direction.None) {
-                    redCursor = MathHelper.Clamp(redCursor - 1, 0, 1);
+                    int newPos = MathHelper.Clamp(redCursor - 1, 0, 1);
+                    if (newPos != redCursor) {
+                        redCursor = newPos;
+                        sfxCursorMoving.Play();
+                    }
                 }
                 lastDirectionP2 = direction1;
             }
@@ -181,14 +211,15 @@ namespace KarateChamp {
             if (startP2 && !lastStartP2) {
                 if (p2Selection == CharacterGrid.None) {
                     p2Selection = characterList[redCursor];
-                    System.Diagnostics.Debug.WriteLine("p2 selection " + p2Selection);
+                    sfxCursorSelection.Play();
                 }
             };
             lastStartP2 = startP2;
- 
+
             bool cancelP2 = redCharacter.PlayerInput.GetCancel();
-            if (cancelP2 && !lastCancelP2) {
+            if (cancelP2 && !lastCancelP2 && p2Selection != CharacterGrid.None) {
                 p2Selection = CharacterGrid.None;
+                sfxCursorCancel.Play();
             };
             lastCancelP2 = cancelP2;
 
@@ -204,11 +235,6 @@ namespace KarateChamp {
             }
 
             previousButtonState = Keyboard.GetState();
-        }
-
-        void UpdateCursor() {
-            bluePositon = new Vector2((smallPortraitPosition.X - smallPortraits.Width * 0.25f) + blueCursor * smallPortraits.Width * 0.5f, smallPortraitPosition.Y - 2f);
-            redPositon = new Vector2((smallPortraitPosition.X - smallPortraits.Width * 0.25f) + redCursor * smallPortraits.Width * 0.5f, smallPortraitPosition.Y - 2f);
         }
 
         void SelectionTimer(GameTime gameTime) {
@@ -245,21 +271,104 @@ namespace KarateChamp {
             game.spriteBatch.End();
         }
 
+        void DrawGrid() {
+            Vector2 position = new Vector2(game.graphics.PreferredBackBufferWidth * 0.499f, game.graphics.PreferredBackBufferHeight * 0.8737f);
+            game.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
+            game.spriteBatch.Draw(grid, position, null, null, new Vector2(grid.Width * 0.5f, grid.Height * 0.5f), 0f, Vector2.One, Color.White, SpriteEffects.None, 0f);
+            game.spriteBatch.End();
+        }
+
         void DrawCursors() {
-            Texture2D blue;
-            Texture2D red;
+            blue = cursorBlue;
+            red = cursorRed;
+
             if (redCursor == blueCursor) {
-                blue = cursorBoth;
-                red = cursorBoth;
+                if (p1Selection != CharacterGrid.None && p2Selection != CharacterGrid.None) {
+                    blue = cursorBothSelected;
+                    red = cursorBothSelected;
+                }
+                else if (p1Selection == CharacterGrid.None && p2Selection == CharacterGrid.None){
+                    blue = cursorBoth;
+                    red = cursorBoth;
+                }
+                else {
+                    if (p1Selection != CharacterGrid.None) {
+                        blue = cursorBlueSelected;
+                    }
+                    if (p2Selection != CharacterGrid.None) {
+                        red = cursorBlueSelected;
+                    }
+                }
             }
             else {
-                blue = cursorBlue;
-                red = cursorRed;
+                if (p1Selection != CharacterGrid.None){
+                    blue = cursorBlueSelected;
+                }
+                else {
+                    blue = cursorBlue;
+                }
+                if (p2Selection != CharacterGrid.None){
+                    red = cursorRedSelected;
+                }
+                else {
+                    red = cursorRed;
+                }
             }
+            CursorPosition();
+
             game.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
             game.spriteBatch.Draw(blue, bluePositon, null, null, new Vector2(blue.Width * 0.5f, blue.Height * 0.5f), 0f, Vector2.One, Color.White, SpriteEffects.None, 0f);
             game.spriteBatch.Draw(red, redPositon, null, null, new Vector2(red.Width * 0.5f, red.Height * 0.5f), 0f, Vector2.One, Color.White, SpriteEffects.None, 0f);
             game.spriteBatch.End();
+        }
+
+        void CursorPosition() {
+            float offset = 3f;
+            float offsetBlue;
+            float offsetRed;
+            if (blue == cursorBlueSelected) {
+                if (blueCursor == 0) {
+                    offsetBlue = offset;
+                }
+                else {
+                    offsetBlue = -offset;
+                }
+
+            }
+            else if (blue == cursorBothSelected) {
+                if (blueCursor == 0) {
+                    offsetBlue = offset;
+                }
+                else {
+                    offsetBlue = -offset;
+                }
+            }
+            else {
+                offsetBlue = 0;
+            }
+            if (red == cursorRedSelected) {
+                if (redCursor == 0) {
+                    offsetRed = offset;
+                }
+                else {
+                    offsetRed = -offset;
+                }
+
+            }
+            else if (red == cursorBothSelected) {
+                if (redCursor == 0) {
+                    offsetRed = offset;
+                }
+                else {
+                    offsetRed = -offset;
+                }
+            }
+            else {
+                offsetRed = 0;
+            }
+
+            bluePositon = new Vector2((smallPortraitPosition.X - smallPortraits.Width * 0.25f) + blueCursor * smallPortraits.Width * 0.5f + offsetBlue, smallPortraitPosition.Y - 2f);
+            redPositon = new Vector2((smallPortraitPosition.X - smallPortraits.Width * 0.25f) + redCursor * smallPortraits.Width * 0.5f + offsetRed, smallPortraitPosition.Y - 2f);
         }
 
         void DrawLargePortraits() {
@@ -306,6 +415,8 @@ namespace KarateChamp {
 
         void BuildGameObjects() {
 
+            sfxFightYourRival.Play();
+
             Vector2 whiteStartingPosition = new Vector2(game.graphics.PreferredBackBufferWidth / 2 - 340, floor - 53);
             Vector2 redStartingPosition = new Vector2(game.graphics.PreferredBackBufferWidth / 2 - 0, floor - 53);
 
@@ -329,10 +440,16 @@ namespace KarateChamp {
             redCharacter.velocity = Vector2.Zero;
             whiteCharacter.Opponent = redCharacter;
             redCharacter.Opponent = whiteCharacter;
+            game.CurrentBgm = game.Content.Load<Song>("Audio/Bgm/Character Select");
             state = State.CharacterSelection;
         }
 
         public virtual void Init() {
+            sfxCursorMoving = game.Content.Load<SoundEffect>("Audio/Sfx/Cursor Movement");
+            sfxCursorSelection = game.Content.Load<SoundEffect>("Audio/Sfx/Cursor Selection");
+            sfxCursorCancel = game.Content.Load<SoundEffect>("Audio/Sfx/Cursor Cancel");
+            sfxFightYourRival = game.Content.Load<SoundEffect>("Audio/Sfx/Figh Your Rival");
+
             characterSpritesheet = game.Content.Load<Texture2D>("Sprites/Main Character/CharacterSpritesheet");
             scrollingTextBar = game.Content.Load<Texture2D>("Character Select/Bar");
             scrollingText = game.Content.Load<Texture2D>("Character Select/scrollingText");
@@ -341,9 +458,14 @@ namespace KarateChamp {
             randomLargePortrait = game.Content.Load<Texture2D>("Character Select/Random Big Portrait");
             largePortraitLeft = game.Content.Load<Texture2D>("Character Select/Bar");
             largePortraitRight = game.Content.Load<Texture2D>("Character Select/Bar");
+            grid = game.Content.Load<Texture2D>("Character Select/Grid");
             cursorRed = game.Content.Load<Texture2D>("Character Select/Cursor Red");
             cursorBlue = game.Content.Load<Texture2D>("Character Select/Cursor Blue");
             cursorBoth = game.Content.Load<Texture2D>("Character Select/Cursor Both");
+            cursorRedSelected = game.Content.Load<Texture2D>("Character Select/Cursor Red Selected");
+            cursorBlueSelected = game.Content.Load<Texture2D>("Character Select/Cursor Blue Selected");
+            cursorBothSelected = game.Content.Load<Texture2D>("Character Select/Cursor Both Selected");
+
             state = State.BuildGameObjects;
             for (int i = 0; i < bgSpriteList.Length; i++) {
                 bgSpriteList[i] = game.Content.Load<Texture2D>("Character Select/Bg Character Select/Bg Character Select " + (i + 1));
