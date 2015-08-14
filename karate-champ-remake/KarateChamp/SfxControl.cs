@@ -25,8 +25,23 @@ namespace KarateChamp {
         public SoundEffect sfxVoice5;
         public SoundEffect sfxVoice6;
 
+        public SoundEffect sfxClassicBegin;
+        public SoundEffect sfxClassicFall;
+        public SoundEffect sfxClassicFullPoint;
+        public SoundEffect sfxClassicHit;
+        public SoundEffect sfxClassicVoice1;
+        public SoundEffect sfxClassicVoice2;
+        public SoundEffect sfxClassicStop;
+        public SoundEffect sfxClassicJudge;
+
+        SoundEffect bgmCharacterSelect;
+        public SoundEffectInstance bgmCharSelect;
+        public SoundEffectInstance bgmLondonMarch;
+
+        MainGame game;
 
         public SfxControl(MainGame game) {
+            this.game = game;
             SoundEffect.MasterVolume = 1f;
 
             sfxTakeHitHigh = game.Content.Load<SoundEffect>("Audio/Sfx/Last Hit");
@@ -45,10 +60,41 @@ namespace KarateChamp {
             sfxVoice4 = game.Content.Load<SoundEffect>("Audio/Sfx/Voice4");
             sfxVoice5 = game.Content.Load<SoundEffect>("Audio/Sfx/Voice5");
             sfxVoice6 = game.Content.Load<SoundEffect>("Audio/Sfx/Voice6");
+
+            sfxClassicBegin = game.Content.Load<SoundEffect>("Audio/Sfx/Classic/Begin");
+            sfxClassicFall = game.Content.Load<SoundEffect>("Audio/Sfx/Classic/Fall");
+            sfxClassicFullPoint = game.Content.Load<SoundEffect>("Audio/Sfx/Classic/Full Point");
+            sfxClassicHit = game.Content.Load<SoundEffect>("Audio/Sfx/Classic/Hit");
+            sfxClassicVoice1 = game.Content.Load<SoundEffect>("Audio/Sfx/Classic/VoiceClassic1");
+            sfxClassicVoice2 = game.Content.Load<SoundEffect>("Audio/Sfx/Classic/VoiceClassic2");
+            sfxClassicStop = game.Content.Load<SoundEffect>("Audio/Sfx/Classic/Stop");
+            sfxClassicJudge = game.Content.Load<SoundEffect>("Audio/Sfx/Classic/Judge");
+
+            bgmCharacterSelect = game.Content.Load<SoundEffect>("Audio/Bgm/Character_Select");
+            bgmCharSelect = bgmCharacterSelect.CreateInstance();
         }
 
         public void PlaySfx(CharacterState state) {
-            switch (state){
+            if (game.sceneControl.currentScene == SceneType.FightTurbo ||
+                game.sceneControl.currentScene == SceneType.CharacterSelect) {
+                PlayTurboSfx(state);
+            }
+            else {
+                PlayClassicSfx(state);
+            }
+        }
+
+        public void PlayHitSfx(){
+            if (game.sceneControl.currentScene == SceneType.FightTurbo) {
+                sfxTakeHitHigh.Play();
+            }
+            else {
+                sfxClassicHit.Play();
+            }
+        }
+
+        void PlayTurboSfx(CharacterState state) {
+            switch (state) {
                 default:
                 case CharacterState.DuckingReversePunch:
                 case CharacterState.MiddleReversePunch:
@@ -83,7 +129,7 @@ namespace KarateChamp {
                     Random rd = new Random();
                     int val = rd.Next(2);
                     System.Diagnostics.Debug.WriteLine("rd " + val);
-                    if (val == 1){
+                    if (val == 1) {
                         sfxVoice2.Play();
                     }
                     else {
@@ -113,6 +159,52 @@ namespace KarateChamp {
                 case CharacterState.UpperBlock:
                 case CharacterState.MiddleBlock:
                     sfxGuard.Play();
+                    break;
+            }
+        }
+
+        void PlayClassicSfx(CharacterState state) {
+            switch (state) {
+                default:
+                case CharacterState.DuckingReversePunch:
+                case CharacterState.MiddleReversePunch:
+                case CharacterState.UpperLungePunch:
+                case CharacterState.UpperPunch:
+                case CharacterState.MiddleLungePunch:
+                case CharacterState.LowKick:
+                case CharacterState.FrontFootSweep:
+                case CharacterState.BackFootSweep:
+                case CharacterState.FrontKick:
+                case CharacterState.BackKick:
+                case CharacterState.RoundKick:
+                case CharacterState.JumpingSideKick:
+                case CharacterState.JumpingBackKick:
+                case CharacterState.BackRoundKick:
+                    Random rd = new Random();
+                    int val = rd.Next(2);
+                    System.Diagnostics.Debug.WriteLine("rd " + val);
+                    if (val == 1) {
+                        sfxClassicVoice1.Play();
+                    }
+                    else {
+                        sfxClassicVoice2.Play();
+                    }
+                    break;
+
+                case CharacterState.Fall:
+                    sfxClassicFall.Play();
+                    break;
+
+                case CharacterState.Idle:
+                case CharacterState.ChangeDirection:
+                case CharacterState.Forward:
+                case CharacterState.Withdraw:
+                case CharacterState.Squat:
+                case CharacterState.ForwardSomersault:
+                case CharacterState.BackwardSomersault:
+                case CharacterState.UpperBlock:
+                case CharacterState.MiddleBlock:
+                case CharacterState.Jump:
                     break;
             }
         }

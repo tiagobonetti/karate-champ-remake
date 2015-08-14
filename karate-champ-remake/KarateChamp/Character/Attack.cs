@@ -23,10 +23,10 @@ namespace KarateChamp {
         public BaseCharacter Owner { get; private set; }
         public bool Locked { get; private set; }
         public Location HitLocation { get; private set; }
+        public int HitFrame { get; private set; }
         public bool repeat = false;
 
         int lockFrame;
-        int HitFrame;
         bool hitChecked = false;
 
         bool onHold = false;

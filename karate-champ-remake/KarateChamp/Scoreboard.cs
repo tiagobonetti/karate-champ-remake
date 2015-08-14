@@ -41,6 +41,16 @@ namespace KarateChamp {
             p2ScorePosition[1] = new Vector2(game.graphics.PreferredBackBufferWidth * (0.075f + 0.135f), game.graphics.PreferredBackBufferHeight * 0.083f);
             p2ScorePosition[2] = new Vector2(game.graphics.PreferredBackBufferWidth * (0.075f + 0.033f + 0.135f), game.graphics.PreferredBackBufferHeight * 0.082f);
 
+            if (game.sceneControl.currentScene == SceneType.FightTurbo) {
+                p1ScorePosition[0].Y += 75f;
+                p1ScorePosition[1].Y += 75f;
+                p1ScorePosition[2].Y += 75f;
+                p2ScorePosition[0].Y += 75f;
+                p2ScorePosition[1].Y += 75f;
+                p2ScorePosition[2].Y += 75f;
+
+            }
+
             sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
             //p1
             currenttextures = GetTexture(Score[0]);

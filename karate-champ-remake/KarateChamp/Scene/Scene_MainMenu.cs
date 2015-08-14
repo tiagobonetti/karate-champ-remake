@@ -66,6 +66,7 @@ namespace KarateChamp {
         }
 
         void Init() {
+            MediaPlayer.Stop();
             coverImage = game.Content.Load<Texture2D>("GUI/Title");
             main_menu = new Menu();
 
@@ -77,7 +78,6 @@ namespace KarateChamp {
             main_menu.Add(OptionString(InputOption), Option);
             main_menu.Add("Credits", null);
             main_menu.Add("Exit", GameExit);
-            game.CurrentBgm = null;
         }
 
         public void Update(GameTime gameTime) {

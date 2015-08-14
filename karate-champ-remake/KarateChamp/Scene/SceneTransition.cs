@@ -97,7 +97,7 @@ namespace KarateChamp {
                 ended = false;
                 elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 alpha = ((elapsedTime * 100) / length) / 100;
-                System.Diagnostics.Debug.WriteLine("FadeOut - Alpha: " + alpha + " Elapsed Time " + elapsedTime);
+                //System.Diagnostics.Debug.WriteLine("FadeOut - Alpha: " + alpha + " Elapsed Time " + elapsedTime);
             }
             else {
                 ended = true;

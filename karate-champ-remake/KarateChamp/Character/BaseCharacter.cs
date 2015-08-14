@@ -36,7 +36,8 @@ namespace KarateChamp {
         RoundKick,           // LJ: None   RJ: Up 
         BackKick,            // LJ: None   RJ: Left 
         Hadouken,
-        Tatsumaki
+        Tatsumaki,
+        Winner
     }
 
     public class BaseCharacter : GameObject {
@@ -50,6 +51,7 @@ namespace KarateChamp {
         public const float speedJump = 200f * scaleAdjust;
         public const float gravityPull = 12f * scaleAdjust;
         public bool canControl = true;
+        public bool turboMode;
 
         public BaseCharacter Opponent { get; set; }
         public CharacterState state = CharacterState.Idle;
@@ -59,6 +61,7 @@ namespace KarateChamp {
         CharacterState hitByAttack;
         CharacterState previousState;
         CharacterState stateOverride;
+        int overrideResetFrame;
 
         Animator animator = new Animator();
 
@@ -69,6 +72,7 @@ namespace KarateChamp {
         Animation forwardSomersault;
         Animation backwardSomersault;
         Animation squat;
+        Animation winner;
         Animation fallSide;
         Animation fallDown;
         Animation fallForward;
@@ -89,6 +93,7 @@ namespace KarateChamp {
             forwardSomersault = new Animation(new Point(uvRect.Width, uvRect.Height * 10), 0, 9, 0.10f);
             backwardSomersault = new Animation(new Point(uvRect.Width, uvRect.Height * 11), 0, 11, 0.10f);
             squat = new Animation(new Point(uvRect.Width, uvRect.Height * 18), 0, 3, 0.10f);
+            winner = new Animation(new Point(uvRect.Width, uvRect.Height * 0), 7, 10, 0.3f);
 
             fallSide = new Animation(new Point(uvRect.Width, uvRect.Height * 18), 4, 6, 0.14f);
             fallDown = new Animation(new Point(uvRect.Width, uvRect.Height * 18), 8, 11, 0.14f);
@@ -129,6 +134,7 @@ namespace KarateChamp {
                     ChangeState(input, gameTime);
                     break;
                 case CharacterState.Squat:
+                case CharacterState.Winner:
                     ChangeState(input, gameTime);
                     break;
                 case CharacterState.Jump:
@@ -189,6 +195,7 @@ namespace KarateChamp {
                 case CharacterState.ForwardSomersault:
                 case CharacterState.BackwardSomersault:
                 case CharacterState.JumpingSideKick:
+                case CharacterState.Tatsumaki:
                     velocity = Vector2.Zero;
                     break;
             }
@@ -292,6 +299,10 @@ namespace KarateChamp {
                     currentAttack.Start(gameTime);
                     break;
 
+                case CharacterState.Winner:
+                    animator.Play(winner, this, gameTime);
+                    break;
+
                 case CharacterState.JumpingBackKick:
                     velocity = Vector2.Zero;
                     currentAttack = CreateAttack(state, 6, 10, 5, 0.10f, Location.Upper);
@@ -369,15 +380,13 @@ namespace KarateChamp {
 
         void StateMachine(GameTime gameTime, CharacterState input) {
             EvalInput(gameTime, input);
-            if (name == "p1") {
-                //System.Diagnostics.Debug.WriteLine("State: " + input.ToString());
-            }
             switch (state) {
                 case CharacterState.ChangeDirection:
                     break;
                 default:
                 case CharacterState.Idle:
                 case CharacterState.Squat:
+                case CharacterState.Winner:
                     animator.Update();
                     break;
 
@@ -554,7 +563,7 @@ namespace KarateChamp {
                 else {
                     hitter.game.sceneControl.fightTurbo.ScoreThisRound(gameTime, hitter.name, attackState);
                 }
-                game.sfxControl.sfxTakeHitHigh.Play();
+                game.sfxControl.PlayHitSfx();
                 return true;
             }
             else if (currentBlock.HitLocation != attackLocation) {
@@ -566,7 +575,7 @@ namespace KarateChamp {
                 else {
                     hitter.game.sceneControl.fightTurbo.ScoreThisRound(gameTime, hitter.name, attackState);
                 }
-                game.sfxControl.sfxTakeHitHigh.Play();
+                game.sfxControl.PlayHitSfx();
                 return true;
             }
             else {
@@ -673,28 +682,6 @@ namespace KarateChamp {
                 velocity.Y += gravityPull;
             }
             position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            /*
-            Vector2 newPosition = position + (velocity * (float)gameTime.ElapsedGameTime.TotalSeconds);
-            CollisionBox newCol = new CollisionBox(this, new Vector2(collision.rect.X, collision.rect.Y), new Vector2(collision.rect.Width, collision.rect.Height));
-            newCol.rect.X = (int)position.X + (int)newPosition.X;
-            if (!newCol.OnCollision(Opponent.collision)) {
-                position = newPosition;
-            }
-            else {
-                if (!IsGrounded()) {
-                    velocity.X += newPosition.X;
-                }
-                else {
-                    velocity = Vector2.Zero;
-                }
-            }*/
-            /*
-            if (!collision.OnCollision(Opponent.collision)) {
-                position = newPosition;// += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            }
-            else {
-                velocity = Vector2.Zero;
-            }*/
         }
 
         Attack CreateAttack(CharacterState state, int offset_Y, int size, int hitFrame, float speed, Location location) {
@@ -730,9 +717,9 @@ namespace KarateChamp {
             return value * scaleAdjust;
         }
 
-        public void OverrideState(CharacterState state) {
-            stateOverride = state;
-            this.state = stateOverride;
+        public void OverrideState(CharacterState newState, int frameReset) {
+            stateOverride = newState;
+            overrideResetFrame = frameReset;
         }
     }
 }

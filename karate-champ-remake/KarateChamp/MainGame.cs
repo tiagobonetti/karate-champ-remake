@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
@@ -22,27 +23,12 @@ namespace KarateChamp {
         public Texture2D bodyCollision;
         public Texture2D SuperMovesBodyCollision;
         public Texture2D SuperMovesAttackCollision;
-        Song currentBgm;
+        public int lastStageIndex = -1;
 
-        public Song CurrentBgm{
-            get {
-                return currentBgm;
-            }
-            set {
-                if (value == null) {
-                    MediaPlayer.Stop();
-                    currentBgm = value;
-                }
-                else if(value == currentBgm){
-
-                }
-                else {
-                    currentBgm = value;
-                    MediaPlayer.Play(currentBgm);
-                    MediaPlayer.Volume = 0.2f;
-                    MediaPlayer.IsRepeating = true;
-                }
-            }
+        public void PlayBgm(Song bgm) {
+            MediaPlayer.Play(bgm);
+            MediaPlayer.Volume = 0.4f;
+            MediaPlayer.IsRepeating = true;
         }
 
         HitboxCalculator hitboxCalc;
@@ -79,7 +65,6 @@ namespace KarateChamp {
         }
 
         protected override void Update(GameTime gameTime) {
-            System.Diagnostics.Debug.WriteLine(MediaPlayer.Volume);
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Back))
                 Exit();
             InputManager.Update(gameTime);
@@ -105,14 +90,14 @@ namespace KarateChamp {
             for (int i = 0; i < bodyCollisionRight.GetLength(0); i++) {
                 for (int j = 0; j < bodyCollisionRight.GetLength(1); j++) {
                     bodyCollisionRight[i, j] = hitboxCalc.CalcHitbox(bodyCollision, new Rectangle(i * 140, j * 53, 140, 53), Color.Blue);
-             //       System.Diagnostics.Debug.WriteLine("Collision Generator (Body): " + i + " " + j + " " + bodyCollisionRight[i, j]);
+                    //       System.Diagnostics.Debug.WriteLine("Collision Generator (Body): " + i + " " + j + " " + bodyCollisionRight[i, j]);
                 }
             }
 
             for (int i = 0; i < bodyCollisionLeft.GetLength(0); i++) {
                 for (int j = 0; j < bodyCollisionLeft.GetLength(1); j++) {
                     bodyCollisionLeft[i, j] = bodyCollisionRight[i, j];
-                    bodyCollisionLeft[i, j].X = (int)(BaseCharacter.ScaleAdjust(140) - (bodyCollisionLeft[i, j].X + bodyCollisionLeft[i, j].Width) - 5); 
+                    bodyCollisionLeft[i, j].X = (int)(BaseCharacter.ScaleAdjust(140) - (bodyCollisionLeft[i, j].X + bodyCollisionLeft[i, j].Width) - 5);
                 }
             }
         }

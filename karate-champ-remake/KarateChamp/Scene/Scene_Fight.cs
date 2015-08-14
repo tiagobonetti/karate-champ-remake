@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,10 @@ namespace KarateChamp {
         BaseCharacter roundWinner;
         Scoreboard scoreboard;
         int maxScore = 4;
+        bool koPlayed;
+        bool fightPlayed;
+        bool fullPointPlayed;
+        bool canControl = true;
         DEBUG_Collision debugCollision = new DEBUG_Collision();
         Timer timer = new Timer();
         Timer clockTimer = new Timer();
@@ -45,7 +50,6 @@ namespace KarateChamp {
             this.game = game;
             this.roundNumber = roundNumber;
             this.scoreboard = scoreBoard;
-            System.Diagnostics.Debug.WriteLine("-------------Round " + roundNumber + " Score p1: " + scoreboard.Score[0] + " p2: " + scoreboard.Score[1]);
             Init();
         }
 
@@ -58,9 +62,11 @@ namespace KarateChamp {
             ClockEnded,
             Winner,
             RoundOver,
+            GameOver
         }
 
         public void Update(GameTime gameTime) {
+            ExitButton();
             switch (state) {
                 case State.BuildGameObjects:
                     BuildGameObjects();
@@ -72,6 +78,10 @@ namespace KarateChamp {
                     break;
                 case State.JudgeStart:
                     ShowFightText(gameTime);
+                    if (fightPlayed == false) {
+                        game.sfxControl.sfxClassicBegin.Play();
+                        fightPlayed = true;
+                    }
                     whiteCharacter.canControl = false;
                     redCharacter.canControl = false;
                     break;
@@ -81,24 +91,41 @@ namespace KarateChamp {
                     redCharacter.canControl = true;
                     break;
                 case State.KO:
+                    if (koPlayed == false) {
+                        game.sfxControl.sfxClassicStop.Play();
+                        koPlayed = true;
+                    }
                     whiteCharacter.canControl = false;
                     redCharacter.canControl = false;
-                    EndRound(gameTime);
+                    WaitKo(gameTime);
                     break;
                 case State.ClockEnded:
+                    if (koPlayed == false) {
+                        game.sfxControl.sfxClassicStop.Play();
+                        koPlayed = true;
+                    }
                     whiteCharacter.canControl = false;
                     redCharacter.canControl = false;
                     WaitDecision(gameTime);
                     break;
                 case State.Winner:
+                    if (fullPointPlayed == false) {
+                        game.sfxControl.sfxClassicFullPoint.Play();
+                        fullPointPlayed = true;
+                    }
                     whiteCharacter.canControl = false;
                     redCharacter.canControl = false;
-                    state = State.RoundOver;
+                    WaitWinner(gameTime);
                     break;
                 case State.RoundOver:
                     whiteCharacter.canControl = false;
                     redCharacter.canControl = false;
                     EndRound(gameTime);
+                    break;
+                case State.GameOver:
+                    whiteCharacter.canControl = false;
+                    redCharacter.canControl = false;
+                    EndGame(gameTime);
                     break;
             }
             debugCollision.Update(gameTime);
@@ -138,10 +165,10 @@ namespace KarateChamp {
                 case State.KO:
                     DrawBackground();
                     DrawClock();
+                    DrawStop();
                     scoreboard.Draw(game.spriteBatch);
                     redCharacter.Draw(game.spriteBatch);
                     whiteCharacter.Draw(game.spriteBatch);
-                    DrawKOText();
                     break;
                 case State.ClockEnded:
                     DrawBackground();
@@ -167,8 +194,29 @@ namespace KarateChamp {
                     redCharacter.Draw(game.spriteBatch);
                     whiteCharacter.Draw(game.spriteBatch);
                     break;
+                case State.GameOver:
+                    DrawBackground();
+                    DrawClock();
+                    DrawWinner();
+                    scoreboard.Draw(game.spriteBatch);
+                    redCharacter.Draw(game.spriteBatch);
+                    whiteCharacter.Draw(game.spriteBatch);
+                    break;
             }
             debugCollision.Draw(game.spriteBatch);
+        }
+
+        void ExitButton() {
+            if (canControl) {
+                if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start) ||
+                    GamePad.GetState(PlayerIndex.Two).IsButtonDown(Buttons.Start) ||
+                    Keyboard.GetState().IsKeyDown(Keys.Escape)) {
+
+                    game.sceneControl.mainMenu = new Scene_MainMenu(game);
+                    game.sceneControl.EnterScene(SceneType.MainMenu, SceneTransition.Type.FadeOutIn, 1.5f);
+                    canControl = false;
+                }
+            }
         }
 
         void PreFight(GameTime gameTime) {
@@ -189,24 +237,50 @@ namespace KarateChamp {
         public void ScoreThisRound(GameTime gameTime, string name, CharacterState attackState) {
             scoreboard.AddScore(name, 1, attackState);
             if (name == "p1") {
-                koText = whiteText;
+                roundWinner = whiteCharacter;
             }
             else {
-                koText = redText;
+                roundWinner = redCharacter;
             }
             state = State.KO;
         }
 
-        void EndRound(GameTime gameTime) {
+        void WaitKo(GameTime gameTime) {
+            bool timerEnded;
+            timer.TimerCounter(gameTime, 2f, out timerEnded);
+            if (timerEnded) {
+                state = State.Winner;
+            }
+        }
+
+        void WaitWinner(GameTime gameTime) {
             bool timerEnded;
             timer.TimerCounter(gameTime, 2f, out timerEnded);
             if (timerEnded) {
                 if (GameEnded()) {
-                    game.sceneControl.fight = new Scene_Fight(game);
-                    game.sceneControl.EnterScene(SceneType.MainMenu);
+                    state = State.GameOver;
                 }
-                else
-                    Restart();
+                else {
+                    state = State.RoundOver;
+                }
+            }
+        }
+
+        void EndRound(GameTime gameTime) {
+            bool timerEnded;
+            timer.TimerCounter(gameTime, 1f, out timerEnded);
+            if (timerEnded) {
+                Restart();
+            }
+        }
+
+        void EndGame(GameTime gameTime) {
+            bool timerEnded;
+            timer.TimerCounter(gameTime, 2f, out timerEnded);
+            roundWinner.OverrideState(CharacterState.Winner, 0);
+            if (timerEnded) {
+                game.sceneControl.mainMenu = new Scene_MainMenu(game);
+                game.sceneControl.EnterScene(SceneType.MainMenu, SceneTransition.Type.FadeOutIn, 1.5f);
             }
         }
 
@@ -231,11 +305,9 @@ namespace KarateChamp {
             Random rd = new Random();
             int val = rd.Next(1, 3);
             if (val == 1) {
-                roundWinner = whiteCharacter;
                 ScoreThisRound(gameTime, "p1", CharacterState.Idle);
             }
             else {
-                roundWinner = redCharacter;
                 ScoreThisRound(gameTime, "p2", CharacterState.Idle);
             }
         }
@@ -349,7 +421,7 @@ namespace KarateChamp {
         }
 
         public virtual void Init() {
-            game.CurrentBgm = null;
+            MediaPlayer.Stop();
             spritesheet = game.Content.Load<Texture2D>("Sprites/Main Character/CharacterSpritesheet");
             bg = game.Content.Load<Texture2D>("Sprites/Background/Bg");
             fightText = game.Content.Load<Texture2D>("GUI/BEGIN");

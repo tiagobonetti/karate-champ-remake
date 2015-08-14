@@ -23,6 +23,7 @@ namespace KarateChamp {
         bool drawKO;
         bool fightPlayed;
         bool koPlayed;
+        bool canControl = true;
 
         PlayerCharacter whiteCharacter;
         PlayerCharacter redCharacter;
@@ -35,23 +36,30 @@ namespace KarateChamp {
         Texture2D koText;
         Texture2D whiteWins;
         Texture2D redWins;
+        Texture2D youWin;
         Texture2D[] bgSpriteList = new Texture2D[8];
         float koSize = 6f;
         float fightSize = 6f;
+        float youWinSize = 0f;
         BgAnimator bgAnimator;
 
         SoundEffect sfxFight;
         SoundEffect sfxKO;
+        Song song;
+        string stageName;
+        Vector2 stagePosition;
+        float stageScale;
 
         public Scene_FightTurbo(MainGame game) {
             this.game = game;
             Init();
         }
 
-        public Scene_FightTurbo(MainGame game, int roundNumber, Scoreboard scoreBoard) {
+        public Scene_FightTurbo(MainGame game, int roundNumber, string stageName, Scoreboard scoreBoard) {
             this.game = game;
             this.roundNumber = roundNumber;
             this.scoreboard = scoreBoard;
+            this.stageName = stageName;
             System.Diagnostics.Debug.WriteLine("-------------Round " + roundNumber + " Score " + scoreboard.Score[0]);
             Init();
         }
@@ -64,9 +72,11 @@ namespace KarateChamp {
             KO,
             Winner,
             RoundOver,
+            GameOver
         }
 
         public void Update(GameTime gameTime) {
+            ExitButton();
             switch (state) {
                 case State.BuildGameObjects:
                     BuildGameObjects();
@@ -120,6 +130,13 @@ namespace KarateChamp {
                     redCharacter.Update(gameTime);
                     EndRound(gameTime);
                     break;
+                case State.GameOver:
+                    whiteCharacter.canControl = false;
+                    redCharacter.canControl = false;
+                    whiteCharacter.Update(gameTime);
+                    redCharacter.Update(gameTime);
+                    EndGame(gameTime);
+                    break;
             }
             debugCollision.Update(gameTime);
             Debug.Update();
@@ -134,17 +151,20 @@ namespace KarateChamp {
                     break;
                 case State.PreFight:
                     DrawBackground();
+                    scoreboard.Draw(game.spriteBatch);
                     redCharacter.Draw(game.spriteBatch);
                     whiteCharacter.Draw(game.spriteBatch);
                     break;
                 case State.JudgeStart:
                     DrawBackground();
+                    scoreboard.Draw(game.spriteBatch);
                     redCharacter.Draw(game.spriteBatch);
                     whiteCharacter.Draw(game.spriteBatch);
                     DrawFightText();
                     break;
                 case State.Play:
                     DrawBackground();
+                    scoreboard.Draw(game.spriteBatch);
                     redCharacter.Draw(game.spriteBatch);
                     whiteCharacter.Draw(game.spriteBatch);
                     break;
@@ -157,19 +177,41 @@ namespace KarateChamp {
                     break;
                 case State.Winner:
                     DrawBackground();
-                    DrawWinner();
+                    scoreboard.Draw(game.spriteBatch);
                     scoreboard.Draw(game.spriteBatch);
                     redCharacter.Draw(game.spriteBatch);
                     whiteCharacter.Draw(game.spriteBatch);
+                    DrawWinner();
                     break;
                 case State.RoundOver:
                     DrawBackground();
-                    DrawWinner();
+                    scoreboard.Draw(game.spriteBatch);
                     redCharacter.Draw(game.spriteBatch);
                     whiteCharacter.Draw(game.spriteBatch);
+                    DrawWinner();
+                    break;
+                case State.GameOver:
+                    DrawBackground();
+                    scoreboard.Draw(game.spriteBatch);
+                    redCharacter.Draw(game.spriteBatch);
+                    whiteCharacter.Draw(game.spriteBatch);
+                    DrawYouWin();
                     break;
             }
             debugCollision.Draw(game.spriteBatch);
+        }
+
+        void ExitButton() {
+            if (canControl) {
+                if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start) ||
+                    GamePad.GetState(PlayerIndex.Two).IsButtonDown(Buttons.Start) ||
+                    Keyboard.GetState().IsKeyDown(Keys.Escape)) {
+
+                    game.sceneControl.mainMenu = new Scene_MainMenu(game);
+                    game.sceneControl.EnterScene(SceneType.MainMenu, SceneTransition.Type.FadeOutIn, 1.5f);
+                    canControl = false;
+                }
+            }
         }
 
         void PreFight(GameTime gameTime) {
@@ -198,19 +240,6 @@ namespace KarateChamp {
             state = State.KO;
         }
 
-        void EndRound(GameTime gameTime) {
-            bool timerEnded;
-            timer.TimerCounter(gameTime, 2f, out timerEnded);
-            if (timerEnded) {
-                if (GameEnded()) {
-                    game.sceneControl.fight = new Scene_Fight(game);
-                    game.sceneControl.EnterScene(SceneType.CharacterSelect);
-                }
-                else
-                    Restart();
-            }
-        }
-
         void WaitKO(GameTime gameTime) {
             drawKO = true;
             bool timerEnded;
@@ -233,7 +262,30 @@ namespace KarateChamp {
             bool timerEnded;
             timer.TimerCounter(gameTime, 2f, out timerEnded);
             if (timerEnded) {
-                state = State.RoundOver;
+                if (GameEnded()) {
+                    state = State.GameOver;
+                }
+                else {
+                    state = State.RoundOver;
+                }
+            }
+        }
+
+        void EndRound(GameTime gameTime) {
+            bool timerEnded;
+            timer.TimerCounter(gameTime, 2f, out timerEnded);
+            if (timerEnded) {
+                Restart();
+            }
+        }
+
+        void EndGame(GameTime gameTime) {
+            bool timerEnded;
+            timer.TimerCounter(gameTime, 3f, out timerEnded);
+            roundWinner.OverrideState(CharacterState.Winner, 0);
+            if (timerEnded) {
+                game.sceneControl.charSelect = new Scene_CharacterSelect(game);
+                game.sceneControl.EnterScene(SceneType.CharacterSelect, SceneTransition.Type.FadeOutIn, 1.5f);
             }
         }
 
@@ -245,16 +297,9 @@ namespace KarateChamp {
         }
 
         void Restart() {
-            game.sceneControl.fightTurbo = new Scene_FightTurbo(game, roundNumber + 1, scoreboard);
+            game.sceneControl.fightTurbo = new Scene_FightTurbo(game, roundNumber + 1, this.stageName, scoreboard);
             game.sceneControl.EnterScene(SceneType.FightTurbo, SceneTransition.Type.FadeIn, 1.2f);
             InputManager.ClearInputs();
-        }
-
-        void DrawBackground() {
-            Vector2 bgPos = new Vector2(game.graphics.PreferredBackBufferWidth * 0.5f, game.graphics.PreferredBackBufferHeight * 0.5f);
-            game.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
-            game.spriteBatch.Draw(bg, bgPos, null, null, new Vector2(bg.Width * 0.5f, bg.Height * 0.5f), 0f, Vector2.One * 2f, Color.White, SpriteEffects.None, 0f);
-            game.spriteBatch.End();
         }
 
         void DrawFightText() {
@@ -290,17 +335,40 @@ namespace KarateChamp {
             game.spriteBatch.End();
         }
 
+        void DrawYouWin() {
+            youWinSize = MathHelper.Lerp(youWinSize, 0.8f, 0.35f);
+            Vector2 position = new Vector2(game.graphics.PreferredBackBufferWidth * 0.5f, game.graphics.PreferredBackBufferHeight * 0.65f);
+            game.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
+            game.spriteBatch.Draw(youWin, position, null, null, new Vector2(youWin.Width * 0.5f, youWin.Height * 0.5f), 0f, Vector2.One * youWinSize, Color.White, SpriteEffects.None, 0f);
+            game.spriteBatch.End();
+        }
+        /*
+        void DrawBackground() {
+            Vector2 bgPos = new Vector2(game.graphics.PreferredBackBufferWidth * 0.5f, game.graphics.PreferredBackBufferHeight * 0.5f);
+            game.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
+            game.spriteBatch.Draw(bg, bgPos, null, null, new Vector2(bg.Width * 0.5f, bg.Height * 0.5f), 0f, Vector2.One * 2f, Color.White, SpriteEffects.None, 0f);
+            game.spriteBatch.End();
+        }*/
+
+        void DrawBackground() {
+            game.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
+            game.spriteBatch.Draw(bg, stagePosition, null, null, new Vector2(bg.Width * 0.5f, bg.Height * 0.5f), 0f, Vector2.One * stageScale, Color.White, SpriteEffects.None, 0f);
+            game.spriteBatch.End();
+        }
+
         void BuildGameObjects() {
+            game.sfxControl.bgmCharSelect.Stop();
             if (scoreboard == null) {
                 scoreboard = new Scoreboard(game);
             }
-            floor = 650f;
 
             whiteStartingPosition = new Vector2(game.graphics.PreferredBackBufferWidth / 2 - 280, floor - 53);
             redStartingPosition = new Vector2(game.graphics.PreferredBackBufferWidth / 2 - 70, floor - 53);
 
             whiteCharacter = new PlayerCharacter(spritesheet, MainGame.Tag.PlayerOne, whiteStartingPosition, BaseCharacter.Orientation.Right, "p1", game);
             redCharacter = new PlayerCharacter(spritesheet, MainGame.Tag.PlayerOne, redStartingPosition, BaseCharacter.Orientation.Left, "p2", game);
+            whiteCharacter.turboMode = true;
+            redCharacter.turboMode = true;
 
             switch (game.sceneControl.mainMenu.InputOption) {
                 default:
@@ -322,7 +390,10 @@ namespace KarateChamp {
 
             whiteCharacter.Opponent = redCharacter;
             redCharacter.Opponent = whiteCharacter;
-            game.CurrentBgm = game.Content.Load<Song>("Audio/Bgm/16.-london-march-arranged-");
+            if (roundNumber == 0) {
+                game.PlayBgm(song);
+                System.Diagnostics.Debug.WriteLine(song.Name);
+            }
             state = State.PreFight;
         }
 
@@ -335,12 +406,65 @@ namespace KarateChamp {
             fightText = game.Content.Load<Texture2D>("GUI/Fight");
             whiteWins = game.Content.Load<Texture2D>("GUI/WhiteWins");
             redWins = game.Content.Load<Texture2D>("GUI/RedWins");
+            youWin = game.Content.Load<Texture2D>("GUI/You Win 2");
             koText = game.Content.Load<Texture2D>("GUI/KO");
             state = State.BuildGameObjects;
+
+            if (stageName == null) {
+                LoadStage(RandomizeStage());
+            }
+            else {
+                LoadStage(stageName);
+            }
             for (int i = 0; i < bgSpriteList.Length; i++) {
-                bgSpriteList[i] = game.Content.Load<Texture2D>("Sprites/Background/Market" + (i + 1));
+                System.Diagnostics.Debug.WriteLine("Sprites/Background/" + stageName + "" + (i + 1));
+                bgSpriteList[i] = game.Content.Load<Texture2D>("Sprites/Background/" + stageName + "" + (i + 1));
             }
             bgAnimator = new BgAnimator(bgSpriteList, 0.15f);
+        }
+
+        string RandomizeStage() {
+            Random rd = new Random();
+            int val = rd.Next(4);
+            val = game.lastStageIndex;
+            game.lastStageIndex += 1;
+            if (game.lastStageIndex > 2) {
+                game.lastStageIndex = 1;
+            }
+            if (val == 1) {
+                return "Alley";
+            }
+            else if (val == 2) {
+                return "bridge";
+            }
+            else {
+                return "Market";
+            }
+        }
+
+        void LoadStage(string name) {
+            switch (name) {
+                default:
+                case "Market":
+                stagePosition = new Vector2(game.graphics.PreferredBackBufferWidth * 0.5f, game.graphics.PreferredBackBufferHeight * 0.5f);
+                stageScale = 2f;
+                floor = 650f;
+                song = game.Content.Load<Song>("Audio/Bgm/16.-london-march-arranged-");
+                    break;
+                case "bridge":
+                stagePosition = new Vector2(game.graphics.PreferredBackBufferWidth * 0.5f, game.graphics.PreferredBackBufferHeight * 0.5f);
+                stageScale = 2f;
+                floor = 585f;
+                song = game.Content.Load<Song>("Audio/Bgm/09.-kyokugen-shugyou-yamagomori-");
+                    break;
+                case "Alley":
+                stagePosition = new Vector2(game.graphics.PreferredBackBufferWidth * 0.5f, game.graphics.PreferredBackBufferHeight * 0.5f);
+                stageScale = 1f;
+                floor = 610f;
+                song = game.Content.Load<Song>("Audio/Bgm/08.-tame-a-bad-boy");
+                    break;
+            }
+            stageName = name;
         }
     }
 }

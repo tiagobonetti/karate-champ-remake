@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +20,8 @@ namespace KarateChamp {
         }
 
         void Init() {
+            MediaPlayer.Stop();
             image = game.Content.Load<Texture2D>("GUI/winners");
-            game.CurrentBgm = null;
             timer = new Timer();
         }
 
