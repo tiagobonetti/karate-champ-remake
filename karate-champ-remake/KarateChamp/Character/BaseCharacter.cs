@@ -50,8 +50,8 @@ namespace KarateChamp {
         public const float speedJumpSideKick = 210f * scaleAdjust;
         public const float speedJump = 200f * scaleAdjust;
         public const float gravityPull = 12f * scaleAdjust;
-        public const float animationSpeedNormal = 0.10f;
-        public const float animationSpeedTurbo = 0.50f;
+        public const float animationSpeedNormal = 0.09f;
+        public const float animationSpeedTurbo = 0.03f;
         public float animationSpeed;
         public bool canControl = true;
         public bool turboMode;
@@ -299,7 +299,7 @@ namespace KarateChamp {
                     break;
 
                 case CharacterState.JumpingSideKick:
-                    currentAttack = CreateAttack(state, 9, 10, 6, animationSpeed, Location.Upper);
+                    currentAttack = CreateAttack(state, 9, 10, 6, 0.10f, Location.Upper);
                     currentAttack.Start(gameTime);
                     break;
 
@@ -369,7 +369,7 @@ namespace KarateChamp {
 
                 case CharacterState.Hadouken:
                     velocity = Vector2.Zero;
-                    currentAttack = CreateAttack(state, 1, 9, 4, 0.12f, Location.Middle);
+                    currentAttack = CreateAttack(state, 1, 9, 4, 0.10f, Location.Middle);
                     currentAttack.Start(gameTime);
                     break;
 

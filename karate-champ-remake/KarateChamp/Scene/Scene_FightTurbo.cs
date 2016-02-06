@@ -369,6 +369,8 @@ namespace KarateChamp {
             redCharacter = new PlayerCharacter(spritesheet, MainGame.Tag.PlayerOne, redStartingPosition, BaseCharacter.Orientation.Left, "p2", game);
             whiteCharacter.turboMode = true;
             redCharacter.turboMode = true;
+            whiteCharacter.animationSpeed = BaseCharacter.animationSpeedTurbo;
+            redCharacter.animationSpeed = BaseCharacter.animationSpeedTurbo;
 
             switch (game.sceneControl.mainMenu.InputOption) {
                 default:
